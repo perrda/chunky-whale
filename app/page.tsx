@@ -33,7 +33,7 @@ export default function HomePage() {
               not printed.
             </h1>
             <p className="mt-6 max-w-xl font-serif text-lg text-paper/85">
-              Bitcoin merch house. Original Grok marks. Mid-price. Pay with card, Bitcoin + Lightning, USDC, or USDT.
+              Bitcoin merch house. ₿, charts, dry jokes. Adult XS–4XL plus women, youth, toddler, infant. Pay with card, Bitcoin + Lightning, USDC, or USDT.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link

@@ -24,7 +24,7 @@ export function Footer() {
               <Link href="/collection/tees">T-Shirts</Link>
             </li>
             <li>
-              <Link href="/collection/home">Home</Link>
+              <Link href="/collection/family">Family</Link>
             </li>
             <li>
               <Link href="/fulfillment">Who ships</Link>

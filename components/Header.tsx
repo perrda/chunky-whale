@@ -9,6 +9,7 @@ import { SearchBox } from "./SearchBox";
 const links = [
   { href: "/shop", label: "Shop" },
   { href: "/collection/tees", label: "Tees" },
+  { href: "/collection/family", label: "Family" },
   { href: "/collection/hoodies", label: "Hoodies" },
   { href: "/collection/hats", label: "Hats" },
   { href: "/collection/home", label: "Home" },

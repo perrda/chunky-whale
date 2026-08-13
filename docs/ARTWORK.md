@@ -1,20 +1,18 @@
-# Launch artwork (Drop 01)
+# Artwork
 
-Original Grok-style marks. Not FOMO21 slogans. Not the official Bitcoin logo.
+House prints: `public/prints/`
+Mockups: `public/products/`
 
-| File | Use |
-| --- | --- |
-| `public/hero-forge.png` | Home cinema still |
-| `public/products/genesis-tee.png` | Genesis Tee mockup |
-| `public/products/difficulty-hoodie.png` | Difficulty Hoodie |
-| `public/products/hash-cap.png` | Hash Cap |
-| `public/products/ember-dad-hat.png` | Ember Dad Hat |
-| `public/products/foundry-mug.png` | Foundry Mug |
-| `public/products/mena-tee.png` | MENA 2026 Capsule |
-| `public/products/forge-tote.png` | Forge Tote |
-| `public/products/sticker-pack.png` | Sticker pack |
-| `public/prints/print-genesis.png` | Print-ready Genesis mark |
-| `public/prints/print-difficulty.png` | Print-ready Difficulty lattice |
-| `public/prints/print-mena.png` | Print-ready bilingual atelier mark |
+Drop 01 atelier marks remain. **Drop 02 is Bitcoin-forward:** B logo, ₿, charts, dry copy.
 
-Upload the `prints/` files into Printful as embroidery/DTG assets when the Printful account exists. Re-photograph samples on-body before MENA.
+Key prints:
+
+- `print-btc-b.png` — classic Bitcoin B
+- `print-log-scale.png` — log chart
+- `print-dip-feature.png` — V recovery
+- `print-21m-joke.png` — 21 million. That's the joke.
+- `print-candles.png` — candlesticks
+- `print-difficulty-adjusts.png` — staircase (do not overwrite lattice `print-difficulty.png`)
+- Family: `print-youth-utxo.png`, `print-infant-node.png`, `print-orange-daily.png`
+
+Upload prints to Printful. Sample every colourway before live. Never copy FOMO21.

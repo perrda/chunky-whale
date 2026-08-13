@@ -12,7 +12,7 @@ export type Order = {
   country: string;
   postcode: string;
   method: PaymentMethod;
-  items: { slug: string; size?: string; qty: number; priceGbp: number }[];
+  items: { slug: string; size?: string; color?: string; qty: number; priceGbp: number }[];
   totalGbp: number;
   status: "pending" | "paid" | "failed";
   demo: boolean;

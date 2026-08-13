@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/collection/home",
     "/collection/bags",
     "/collection/accessories",
+    "/collection/family",
     "/collection/events",
   ];
   return paths.map((path) => ({

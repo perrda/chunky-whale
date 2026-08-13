@@ -1,18 +1,11 @@
 # ORANGEFORGE — notes
 
-Version 0.2.0. Catalog expanded 13 Aug 2026.
+Version 0.3.0. Bitcoin-forward catalog 13 Aug 2026.
 
-Mid-price core + home. 32 SKUs. Payments: card, BTC+Lightning, USDC, USDT.
+Humour: insider / dry. Visuals: Bitcoin B / ₿, log charts, candlesticks, dip-as-feature.
+Cuts: unisex XS–4XL, women, youth, toddler, infant. Colours: ink, bone, Bitcoin orange, navy, heather.
 
-Primary dropship: Printful. Backup: Gelato. Overflow: Printify / Gooten / SPOD.
+Skill: `.cursor/skills/orangeforge-design/`  Rule: `.cursor/rules/orangeforge.mdc`
+GitHub: perrda/orangeforge
 
-Never promise profits. Never commit `.env`.
-
-
-House: Bitcoin merch, Grok-forged originals, not a FOMO21 clone. Merchant likely DSP Capital Ventures Ltd (UK).
-
-Live target: Bitcoin MENA 7–8 Dec 2026, ADNEC Abu Dhabi.
-
-Site runs locally with `npm run dev`. Payments are demo until keys exist. Never commit `.env`.
-
-Do not promise profits. Do not weaken refunds or risk language.
+Never promise profits. Never commit `.env`. Never copy FOMO21.

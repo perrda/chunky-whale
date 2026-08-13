@@ -7,19 +7,20 @@ import { getProduct } from "./products";
 export type CartItem = {
   slug: string;
   size?: string;
+  color?: string;
   qty: number;
 };
 
 type CartState = {
   items: CartItem[];
   add: (item: CartItem) => void;
-  setQty: (slug: string, size: string | undefined, qty: number) => void;
-  remove: (slug: string, size?: string) => void;
+  setQty: (slug: string, size: string | undefined, color: string | undefined, qty: number) => void;
+  remove: (slug: string, size?: string, color?: string) => void;
   clear: () => void;
 };
 
-function keyOf(item: { slug: string; size?: string }) {
-  return `${item.slug}::${item.size ?? ""}`;
+function keyOf(item: { slug: string; size?: string; color?: string }) {
+  return `${item.slug}::${item.size ?? ""}::${item.color ?? ""}`;
 }
 
 export const useCart = create<CartState>()(
@@ -36,22 +37,22 @@ export const useCart = create<CartState>()(
         }
         set({ items });
       },
-      setQty: (slug, size, qty) => {
+      setQty: (slug, size, color, qty) => {
         if (qty <= 0) {
           set({
-            items: get().items.filter((x) => keyOf(x) !== keyOf({ slug, size })),
+            items: get().items.filter((x) => keyOf(x) !== keyOf({ slug, size, color })),
           });
           return;
         }
         set({
           items: get().items.map((x) =>
-            keyOf(x) === keyOf({ slug, size }) ? { ...x, qty } : x,
+            keyOf(x) === keyOf({ slug, size, color }) ? { ...x, qty } : x,
           ),
         });
       },
-      remove: (slug, size) =>
+      remove: (slug, size, color) =>
         set({
-          items: get().items.filter((x) => keyOf(x) !== keyOf({ slug, size })),
+          items: get().items.filter((x) => keyOf(x) !== keyOf({ slug, size, color })),
         }),
       clear: () => set({ items: [] }),
     }),

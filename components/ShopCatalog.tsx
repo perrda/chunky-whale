@@ -21,6 +21,7 @@ export function ShopCatalog({
   const list = useMemo(() => {
     let next = products;
     if (filter === "events") next = next.filter((p) => p.event);
+    else if (filter === "family") next = next.filter((p) => p.cut && p.cut !== "unisex");
     else if (filter !== "all") next = next.filter((p) => p.category === filter);
     const n = q.trim().toLowerCase();
     if (n) {

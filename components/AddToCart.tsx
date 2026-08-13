@@ -3,21 +3,54 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/lib/cart-store";
-import type { Product } from "@/lib/products";
+import { HOUSE_COLORS, type Product } from "@/lib/products";
 
 export function AddToCart({ product }: { product: Product }) {
   const add = useCart((s) => s.add);
   const router = useRouter();
+  const colors = product.colors ?? (product.sizes ? HOUSE_COLORS : undefined);
   const [size, setSize] = useState(product.sizes?.[0]?.id ?? "");
+  const [color, setColor] = useState(colors?.[0]?.id ?? "");
   const [added, setAdded] = useState(false);
 
   function onAdd() {
-    add({ slug: product.slug, size: product.sizes ? size : undefined, qty: 1 });
+    add({
+      slug: product.slug,
+      size: product.sizes ? size : undefined,
+      color: colors ? color : undefined,
+      qty: 1,
+    });
     setAdded(true);
   }
 
   return (
     <div className="space-y-4">
+      {colors ? (
+        <fieldset>
+          <legend className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Colour</legend>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {colors.map((c) => (
+              <label
+                key={c.id}
+                className={`flex cursor-pointer items-center gap-2 border px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] ${
+                  color === c.id ? "border-ember text-ember" : "border-paper/20 text-paper/80"
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="color"
+                  value={c.id}
+                  checked={color === c.id}
+                  onChange={() => setColor(c.id)}
+                  className="sr-only"
+                />
+                <span className="inline-block h-3 w-3 rounded-full border border-paper/30" style={{ background: c.hex }} />
+                {c.label}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      ) : null}
       {product.sizes ? (
         <fieldset>
           <legend className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Size</legend>

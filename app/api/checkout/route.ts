@@ -21,6 +21,7 @@ const bodySchema = z.object({
       z.object({
         slug: z.string(),
         size: z.string().optional(),
+        color: z.string().optional(),
         qty: z.number().int().min(1).max(20),
       }),
     )
@@ -37,7 +38,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const items: { slug: string; size?: string; qty: number; priceGbp: number }[] = [];
+  const items: { slug: string; size?: string; color?: string; qty: number; priceGbp: number }[] = [];
   for (const i of parsed.data.items) {
     const p = getProduct(i.slug);
     if (!p) {
@@ -46,6 +47,7 @@ export async function POST(req: Request) {
     items.push({
       slug: i.slug,
       size: i.size,
+      color: i.color,
       qty: i.qty,
       priceGbp: p.priceGbp,
     });

@@ -35,7 +35,7 @@ export default function CartPage() {
               const p = getProduct(item.slug);
               if (!p) return null;
               return (
-                <li key={`${item.slug}-${item.size}`} className="flex gap-4 py-6">
+                <li key={`${item.slug}-${item.size}-${item.color}`} className="flex gap-4 py-6">
                   <div className="relative h-24 w-32 shrink-0 bg-surface">
                     <Image src={p.image} alt="" fill className="object-cover" />
                   </div>
@@ -44,6 +44,7 @@ export default function CartPage() {
                     <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
                       {p.editionId}
                       {item.size ? ` · ${item.size}` : ""}
+                      {item.color ? ` · ${item.color}` : ""}
                     </p>
                     <p className="mt-1 font-mono text-sm text-gold">{formatGbp(p.priceGbp)}</p>
                     <div className="mt-3 flex items-center gap-3">
@@ -54,13 +55,13 @@ export default function CartPage() {
                           min={1}
                           max={20}
                           value={item.qty}
-                          onChange={(e) => setQty(item.slug, item.size, Number(e.target.value))}
+                          onChange={(e) => setQty(item.slug, item.size, item.color, Number(e.target.value))}
                           className="ml-2 w-16 border border-paper/20 bg-ink px-2 py-1 text-paper"
                         />
                       </label>
                       <button
                         type="button"
-                        onClick={() => remove(item.slug, item.size)}
+                        onClick={() => remove(item.slug, item.size, item.color)}
                         className="font-mono text-[10px] uppercase tracking-[0.16em] text-ember"
                       >
                         Remove

@@ -46,7 +46,7 @@ export default function CheckoutPage() {
         country: fd.get("country"),
         postcode: fd.get("postcode"),
         method,
-        items: items.map((i) => ({ slug: i.slug, size: i.size, qty: i.qty })),
+        items: items.map((i) => ({ slug: i.slug, size: i.size, color: i.color, qty: i.qty })),
       }),
     });
     const data = (await res.json()) as { error?: string; payUrl?: string; orderId?: string };
@@ -134,9 +134,10 @@ export default function CheckoutPage() {
             const p = getProduct(i.slug);
             if (!p) return null;
             return (
-              <li key={`${i.slug}-${i.size}`} className="flex justify-between gap-4 font-serif text-sm">
+              <li key={`${i.slug}-${i.size}-${i.color}`} className="flex justify-between gap-4 font-serif text-sm">
                 <span>
-                  {p.name} {i.size ? `(${i.size})` : ""} × {i.qty}
+                  {p.name} {i.color ? `${i.color} ` : ""}
+                  {i.size ? `(${i.size})` : ""} × {i.qty}
                 </span>
                 <span className="font-mono text-gold">{formatGbp(p.priceGbp * i.qty)}</span>
               </li>
