@@ -15,7 +15,7 @@ export function SearchBox() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="hidden lg:block">
+    <form onSubmit={onSubmit} className="hidden w-full justify-center md:flex">
       <label className="sr-only" htmlFor="nav-search">
         Search
       </label>
@@ -24,7 +24,7 @@ export function SearchBox() {
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Search"
-        className="w-36 border border-paper/15 bg-transparent px-2 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-paper placeholder:text-muted"
+        className="w-full max-w-md rounded-full border border-paper/20 bg-surface px-4 py-2 font-serif text-sm text-paper placeholder:text-muted md:w-80"
       />
     </form>
   );

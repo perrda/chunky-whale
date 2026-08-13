@@ -19,17 +19,17 @@ function apply(theme: Theme) {
 export const useTheme = create<ThemeState>()(
   persist(
     (set, get) => ({
-      theme: "dark",
+      theme: "light",
       setTheme: (theme) => {
         apply(theme);
         set({ theme });
       },
       toggle: () => {
-        const next = get().theme === "dark" ? "light" : "dark";
+        const next = get().theme === "light" ? "dark" : "light";
         apply(next);
         set({ theme: next });
       },
     }),
-    { name: "hm-theme", skipHydration: true },
+    { name: "sh-theme", skipHydration: true },
   ),
 );

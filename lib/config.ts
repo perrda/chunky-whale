@@ -1,7 +1,7 @@
 export const site = {
-  name: "HARD MONEY CO.",
-  tagline: "Hard money. Soft cotton.",
-  strap: "Wear the 21 million.",
+  name: "STACKHOUSE",
+  tagline: "Stack sats. Wear ₿.",
+  strap: "Original Bitcoin merch",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:3001",
   email: "hello@orangeforge.com",
   merchant: "DSP Capital Ventures Ltd",

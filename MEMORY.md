@@ -1,17 +1,14 @@
-# HARD MONEY CO. — notes
+# STACKHOUSE — notes
 
-Version 0.5.0. Lifestyle catalog. 13 Aug 2026.
+Version 0.6.0. Light merch house. 13 Aug 2026.
 
-Visible brand: **HARD MONEY CO.** Strapline: **Hard money. Soft cotton.** Secondary: **Wear the 21 million.**
+Visible brand: **STACKHOUSE** (orange ₿ badge + STACK**HOUSE**). Strapline: **Stack sats. Wear ₿.**
 
-Drop 05: hats, hoodies, drinkware, jewelry, posters, premium stitch. Colour swatches change the photo (imagesByColor). Old atelier SKUs retired from shop (still in git).
+Mega-nav matches a full Bitcoin apparel store: Trending, T-Shirts, Sweatshirts (crew/hoodie/pullover/zip), Women (crop/tank/v-neck), Hats (8 kinds), Kids, Drinkware, Blog, Collections.
 
-Nav like a serious merch house: T-Shirts, Sweatshirts, Women, Hats, Kids, Drinkware, Jewelry. Light/dark. Demo login. Basket → checkout.
+Guest checkout. Login optional. Colour swatches change photos. Old atelier SKUs still retired.
 
-Printful shipping windows on /shipping and product pages. Size charts US/UK/EU/Asia on /sizes.
-
-Never promise profits. Never commit `.env`. Never copy FOMO21.
+Vendor pack: `docs/VENDOR-ONBOARDING.md` + `docs/ARTWORK-SPEC.md`
 
 Preview: http://127.0.0.1:3001
-GitHub: perrda/orangeforge
-Master prompt: docs/MASTER-PROMPT.md
+Never promise profits. Never commit `.env`. Never copy FOMO21.

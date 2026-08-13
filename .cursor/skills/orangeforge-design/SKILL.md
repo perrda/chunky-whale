@@ -1,11 +1,11 @@
 ---
 name: orangeforge-design
-description: HARD MONEY CO. Bitcoin merch art direction, copy, colourways, and family size ranges. Use when adding products, generating Grok Imagine prints, writing slogans, building catalog/checkout variants, or continuing the orangeforge store.
+description: STACKHOUSE Bitcoin merch art direction, copy, colourways, and family size ranges. Use when adding products, generating Grok Imagine prints, writing slogans, building catalog/checkout variants, or continuing the orangeforge store.
 ---
 
-# HARD MONEY CO. design house
+# STACKHOUSE design house
 
-David Perry. Project `~/Projects/orangeforge`. Visible brand: **HARD MONEY CO.** Repo folder stays orangeforge. Merchant likely DSP Capital Ventures Ltd. Never promise profits. Never commit `.env`. Never copy FOMO21 slogans or artwork.
+David Perry. Project `~/Projects/orangeforge`. Visible brand: **STACKHOUSE**. Repo folder stays orangeforge. Merchant likely DSP Capital Ventures Ltd. Never promise profits. Never commit `.env`. Never copy FOMO21 slogans or artwork.
 
 ## Positioning
 

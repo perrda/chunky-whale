@@ -19,7 +19,7 @@ export async function createOpenNodeCharge(input: {
     body: JSON.stringify({
       amount: Math.round(input.amountGbp * 100),
       currency: "GBP",
-      description: `HARD MONEY CO. ${input.orderId}`,
+      description: `STACKHOUSE ${input.orderId}`,
       order_id: input.orderId,
       customer_email: input.email,
       callback_url: input.callbackUrl,

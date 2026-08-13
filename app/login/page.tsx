@@ -54,6 +54,9 @@ export default function LoginPage() {
         <button type="submit" className="bg-ember px-6 py-3 font-mono text-[11px] uppercase tracking-[0.2em] text-ink">
           Continue
         </button>
+        <p className="font-serif text-sm text-paper/70">
+          No account? <a href="/checkout" className="text-ember">Checkout as guest</a> — email on the order is enough.
+        </p>
       </form>
     </div>
   );

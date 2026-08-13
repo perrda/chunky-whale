@@ -16,7 +16,7 @@ export async function createCoinbaseCharge(input: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: `HARD MONEY CO. ${input.orderId}`,
+      name: `STACKHOUSE ${input.orderId}`,
       description: "Bitcoin merch — USDC or other supported assets",
       local_price: { amount: input.amountGbp.toFixed(2), currency: "GBP" },
       pricing_type: "fixed_price",

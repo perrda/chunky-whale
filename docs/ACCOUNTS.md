@@ -29,7 +29,7 @@ Printful does not have a UAE factory. For the MENA booth, place a **bulk order a
 
 Used as the invisible product/tax backend. The public site is our custom design, not a Shopify theme.
 
-1. Open https://www.shopify.com and start a store named HARD MONEY CO.
+1. Open https://www.shopify.com and start a store named STACKHOUSE
 2. Settings → Apps → Develop apps → Storefront API token.
 3. Paste `SHOPIFY_STORE_DOMAIN` (like `orangeforge.myshopify.com`) and `SHOPIFY_STOREFRONT_TOKEN`.
 4. Connect the Printful Shopify app when you are ready, **or** keep Printful API-only.

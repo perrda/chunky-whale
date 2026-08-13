@@ -1,10 +1,10 @@
-# HARD MONEY CO. — master build prompt
+# STACKHOUSE — master build prompt
 
 Use this as the north star for every session. Rival FOMO21 as a serious global Bitcoin merch retailer. Never copy FOMO21 slogans, art, or product titles. Never promise profits. Never commit `.env`.
 
 ## Brand
 
-- Visible name: **HARD MONEY CO.**
+- Visible name: **STACKHOUSE**
 - Repo/folder: `orangeforge` (GitHub `perrda/orangeforge`)
 - Strapline: **Hard money. Soft cotton.**
 - Secondary: **Wear the 21 million.**

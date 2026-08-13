@@ -30,20 +30,20 @@ const naskh = Noto_Naskh_Arabic({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "HARD MONEY CO. — Hard money. Soft cotton.",
-    template: "%s · HARD MONEY CO.",
+    default: "STACKHOUSE — Stack sats. Wear ₿.",
+    template: "%s · STACKHOUSE",
   },
   description:
     "Bitcoin merch Bitcoiners actually wear. HODL, 21 million, Satoshi, the ₿. Pay with card, Bitcoin + Lightning, USDC, or USDT.",
   openGraph: {
-    title: "HARD MONEY CO. — Hard money. Soft cotton.",
+    title: "STACKHOUSE — Stack sats. Wear ₿.",
     description: "Original Bitcoin merch. Card, sats, USDC, and USDT.",
     images: ["/products/hodl-tee.png"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "HARD MONEY CO.",
+    title: "STACKHOUSE",
     images: ["/products/hodl-tee.png"],
   },
 };
@@ -58,7 +58,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('hm-theme');if(t){var j=JSON.parse(t);document.documentElement.setAttribute('data-theme',j.state&&j.state.theme?j.state.theme:'dark');}}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('sh-theme');if(t){var j=JSON.parse(t);document.documentElement.setAttribute('data-theme',j.state&&j.state.theme?j.state.theme:'light');}else{document.documentElement.setAttribute('data-theme','light');}}catch(e){document.documentElement.setAttribute('data-theme','light');}})();`,
           }}
         />
       </head>

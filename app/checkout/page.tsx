@@ -78,6 +78,10 @@ export default function CheckoutPage() {
     <div className="mx-auto grid max-w-5xl gap-12 px-4 py-14 md:grid-cols-2 md:px-6">
       <form onSubmit={onSubmit} className="space-y-5">
         <h1 className="font-display text-4xl font-extrabold">Checkout</h1>
+        <p className="font-serif text-paper/75">
+          Guest checkout — no account required. Or <Link href="/login" className="text-ember">log in</Link> to save
+          details for next time.
+        </p>
         {cancelled ? (
           <p className="border border-ember/40 px-3 py-2 font-serif text-sm text-ember">
             Payment was cancelled. Nothing was charged. Choose a method and try again.

@@ -6,11 +6,11 @@ export function Footer() {
     <footer className="mt-24 border-t border-paper/10">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4 md:px-6">
         <div className="md:col-span-2">
-          <p className="font-display text-xl font-extrabold tracking-[0.16em]">
-            <span className="text-ember">₿</span> {site.name}
+          <p className="font-display text-xl font-extrabold tracking-[0.12em]">
+            STACK<span className="text-[#F7931A]">HOUSE</span>
           </p>
           <p className="mt-3 max-w-md font-serif text-paper/75">
-            Bitcoin merch. The memes, the ₿, the 21 million. Pay with card, Bitcoin + Lightning, USDC, or USDT.
+            {site.tagline} Guest checkout. Card, Bitcoin + Lightning, USDC, or USDT.
           </p>
           <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
             {site.merchant} · {site.merchantNote}
@@ -58,7 +58,7 @@ export function Footer() {
               <Link href="/sizes">Size charts</Link>
             </li>
             <li>
-              <Link href="/login">Login</Link>
+              <Link href="/blog">Blog</Link>
             </li>
             <li>
               <Link href="/shipping">Shipping &amp; returns</Link>

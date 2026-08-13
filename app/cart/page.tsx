@@ -76,12 +76,20 @@ export default function CartPage() {
             <p className="font-serif">Total</p>
             <p className="font-mono text-xl text-gold">{formatGbp(total)}</p>
           </div>
-          <Link
-            href="/checkout"
-            className="mt-8 inline-block bg-ember px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-ink"
-          >
-            Checkout
-          </Link>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/checkout"
+              className="inline-block bg-[#F7931A] px-6 py-3 text-center font-display text-sm font-bold text-black"
+            >
+              Checkout as guest
+            </Link>
+            <Link
+              href="/login"
+              className="inline-block border border-paper/30 px-6 py-3 text-center font-display text-sm font-bold"
+            >
+              Login then checkout
+            </Link>
+          </div>
         </>
       )}
     </div>

@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { ProductCard } from "./ProductCard";
-import { collections, type Product } from "@/lib/products";
+import { HOME_COLLECTIONS } from "@/lib/nav";
+import { type Product } from "@/lib/products";
 
 export function ShopCatalog({
   products,
@@ -45,7 +46,7 @@ export function ShopCatalog({
         {hideFilters ? null : (
           <div className="flex flex-wrap gap-2">
             <FilterChip active={filter === "all"} onClick={() => setFilter("all")} label="All" />
-            {collections.map((c) => (
+            {HOME_COLLECTIONS.map((c) => (
               <FilterChip key={c.slug} active={filter === c.slug} onClick={() => setFilter(c.slug)} label={c.label} />
             ))}
           </div>

@@ -1,4 +1,5 @@
 import { drop05 } from "./drop-05";
+import { drop06 } from "./drop-06";
 
 export type ProductCategory =
   | "tees"
@@ -33,6 +34,8 @@ export type Product = {
   sizes?: SizeOption[];
   colors?: ColorOption[];
   cut?: Cut;
+  kind?: string;
+  trending?: boolean;
   finish?: "print" | "embroidery";
   limited?: boolean;
   remaining?: number;
@@ -130,6 +133,7 @@ export const collections = [
 ] as const;
 
 export const products: Product[] = [
+  ...drop06,
   ...drop05,
   {
     slug: "hodl-tee",
@@ -1187,6 +1191,9 @@ export const RETIRED_SLUGS = new Set([
   "forge-pack",
   "sticker-pack",
   "pin-set",
+  "amsterdam-tee",
+  "prague-tee",
+  "nashville-tee",
 ]);
 
 export function liveProducts() {
@@ -1213,15 +1220,62 @@ export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);
 }
 
+export function productKind(p: Product) {
+  if (p.kind) return p.kind;
+  const s = p.slug;
+  if (s.includes("beanie")) return "beanie";
+  if (s.includes("bucket")) return "bucket";
+  if (s.includes("snapback")) return "snapback";
+  if (s.includes("trucker")) return "trucker";
+  if (s.includes("flexfit")) return "flexfit";
+  if (s.includes("distressed")) return "distressed";
+  if (s.includes("vintage")) return "vintage";
+  if (p.category === "hats") return "dad";
+  if (s.includes("zip")) return "zip";
+  if (s.includes("crew")) return "crew";
+  if (s.includes("pullover")) return "pullover";
+  if (p.category === "hoodies") return "hoodie";
+  if (s.includes("crop")) return "crop";
+  if (s.includes("tank") && p.cut === "women") return "tank";
+  if (s.includes("vneck")) return "vneck";
+  if (s.includes("tumbler")) return "tumbler";
+  if (s.includes("pint")) return "pint";
+  if (s.includes("coaster")) return "coaster";
+  if (p.category === "drinkware" || s.includes("mug")) return "mug";
+  return undefined;
+}
+
 export function productsIn(slug: string) {
   const list = liveProducts();
+  if (slug === "trending") return list.filter((p) => p.trending || p.featured);
   if (slug === "events") return list.filter((p) => p.event);
   if (slug === "family" || slug === "kids")
     return list.filter((p) => p.cut === "youth" || p.cut === "toddler" || p.cut === "infant");
+  if (slug === "youth") return list.filter((p) => p.cut === "youth");
+  if (slug === "toddler") return list.filter((p) => p.cut === "toddler");
+  if (slug === "infant") return list.filter((p) => p.cut === "infant");
   if (slug === "women") return list.filter((p) => p.cut === "women");
+  if (slug === "women-crop") return list.filter((p) => p.cut === "women" && productKind(p) === "crop");
+  if (slug === "women-tanks") return list.filter((p) => p.cut === "women" && productKind(p) === "tank");
+  if (slug === "women-vneck") return list.filter((p) => p.cut === "women" && productKind(p) === "vneck");
   if (slug === "memes") return list.filter((p) => p.tag === "Meme");
   if (slug === "premium") return list.filter((p) => p.finish === "embroidery" || p.tag === "Premium");
   if (slug === "home") return list.filter((p) => p.category === "home" || p.category === "drinkware" || p.category === "posters");
+  if (slug === "crewnecks") return list.filter((p) => productKind(p) === "crew");
+  if (slug === "pullovers") return list.filter((p) => productKind(p) === "pullover" || productKind(p) === "hoodie");
+  if (slug === "zip-ups") return list.filter((p) => productKind(p) === "zip");
+  if (slug === "dad-hats") return list.filter((p) => productKind(p) === "dad");
+  if (slug === "beanies") return list.filter((p) => productKind(p) === "beanie");
+  if (slug === "bucket-hats") return list.filter((p) => productKind(p) === "bucket");
+  if (slug === "distressed-hats") return list.filter((p) => productKind(p) === "distressed");
+  if (slug === "flexfit-hats") return list.filter((p) => productKind(p) === "flexfit");
+  if (slug === "snapback-hats") return list.filter((p) => productKind(p) === "snapback");
+  if (slug === "trucker-hats") return list.filter((p) => productKind(p) === "trucker");
+  if (slug === "vintage-hats") return list.filter((p) => productKind(p) === "vintage");
+  if (slug === "coffee-mugs") return list.filter((p) => productKind(p) === "mug");
+  if (slug === "tumblers") return list.filter((p) => productKind(p) === "tumbler");
+  if (slug === "pint-glasses") return list.filter((p) => productKind(p) === "pint");
+  if (slug === "coasters") return list.filter((p) => productKind(p) === "coaster");
   return list.filter((p) => p.category === slug);
 }
 

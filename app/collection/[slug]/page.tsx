@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ShopCatalog } from "@/components/ShopCatalog";
-import { collections, productsIn } from "@/lib/products";
+import { COLLECTION_META } from "@/lib/nav";
+import { productsIn } from "@/lib/products";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return collections.map((c) => ({ slug: c.slug }));
+  return COLLECTION_META.map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const c = collections.find((x) => x.slug === slug);
+  const c = COLLECTION_META.find((x) => x.slug === slug);
   return { title: c ? c.label : "Collection" };
 }
 
 export default async function CollectionPage({ params }: Props) {
   const { slug } = await params;
-  const c = collections.find((x) => x.slug === slug);
+  const c = COLLECTION_META.find((x) => x.slug === slug);
   if (!c) notFound();
   const list = productsIn(slug);
   return (

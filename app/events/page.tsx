@@ -5,7 +5,7 @@ import { events, menaMilestones } from "@/lib/events";
 
 export const metadata: Metadata = {
   title: "Events",
-  description: "HARD MONEY CO. Bitcoin event timetable. First booth: Bitcoin MENA, Abu Dhabi, 7–8 Dec 2026.",
+  description: "STACKHOUSE Bitcoin event timetable. First booth: Bitcoin MENA, Abu Dhabi, 7–8 Dec 2026.",
 };
 
 const statusLabel: Record<string, string> = {

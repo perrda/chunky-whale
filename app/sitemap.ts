@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/config";
-import { collections, liveProducts } from "@/lib/products";
+import { COLLECTION_META } from "@/lib/nav";
+import { liveProducts } from "@/lib/products";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
@@ -8,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/shop",
     "/login",
     "/sizes",
+    "/blog",
     "/forge",
     "/events",
     "/events/mena-2026",
@@ -20,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/legal/privacy",
     "/legal/refunds",
     ...liveProducts().map((p) => `/product/${p.slug}`),
-    ...collections.map((c) => `/collection/${c.slug}`),
+    ...COLLECTION_META.map((c) => `/collection/${c.slug}`),
   ];
   return paths.map((path) => ({
     url: `${site.url}${path}`,
