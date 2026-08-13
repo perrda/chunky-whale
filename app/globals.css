@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #0b0c0e;
+  --surface: #14161a;
+  --paper: #ede6d9;
+  --ember: #e85d04;
+  --gold: #c4a574;
+  --hash: #1a1d21;
+  --signal: #f2f0ea;
+  --muted: #8a8378;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-surface: var(--surface);
+  --color-paper: var(--paper);
+  --color-ember: var(--ember);
+  --color-gold: var(--gold);
+  --color-hash: var(--hash);
+  --color-signal: var(--signal);
+  --color-muted: var(--muted);
+  --font-display: var(--font-syne);
+  --font-serif: var(--font-source);
+  --font-mono: var(--font-geist-mono);
+  --font-arabic: var(--font-naskh);
+}
+
+html,
+body {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+body {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+::selection {
+  background: var(--ember);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 3px;
+}
+
+.ember-pulse {
+  animation: emberPulse 4.2s ease-in-out infinite;
+}
+
+@keyframes emberPulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+}
