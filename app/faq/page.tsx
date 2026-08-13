@@ -13,8 +13,16 @@ const faqs = [
     a: "No. This is a Bitcoin house. USDC and USDT are payment rails so event buyers can settle without waiting on a card or a volatile quote. They are not product themes.",
   },
   {
-    q: "Where do you ship from?",
-    a: "Print-on-demand: Printful first (UK, US, EU, Japan/Australia partners), Gelato as the local-print backup, Printify/Gooten/SPOD for overflow. See Who ships.",
+    q: "How long does shipping take?",
+    a: "Printful prints in 2–5 business days, then the carrier moves it. US about 5–9 business days door to door, UK 6–13, EU 5–12, Asia 7–19, rest of world including UAE 12–25. See Shipping.",
+  },
+  {
+    q: "Do colours on the product page change the photo?",
+    a: "Yes, where we have a photo for that colour. Click Navy, Ink, Orange, or Bone and the garment in the picture changes.",
+  },
+  {
+    q: "Is there a login?",
+    a: "Yes — Login in the header. Demo for now (email only). Real passwords come when payment keys are live.",
   },
   {
     q: "Returns?",

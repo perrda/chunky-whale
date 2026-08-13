@@ -5,7 +5,7 @@ As of 13 August 2026. Confirm dates on organiser sites before booking.
 ## Do first
 
 **Bitcoin MENA — 7–8 December 2026 — ADNEC, Abu Dhabi**  
-First ORANGEFORGE booth. Capsule tee, Lightning + card + USDC on the table.
+First HARD MONEY CO. booth. Capsule tee, Lightning + card + USDC on the table.
 
 | When | What |
 | --- | --- |

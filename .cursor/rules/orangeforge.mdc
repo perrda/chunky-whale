@@ -1,14 +1,14 @@
 ---
-description: ORANGEFORGE store — Bitcoin merch house conventions for every session
+description: HARD MONEY CO. store — Bitcoin merch conventions for every session
 alwaysApply: true
 ---
 
-# ORANGEFORGE
+# HARD MONEY CO.
 
-Bitcoin merch at `~/Projects/orangeforge`. David Perry. DSP Capital Ventures Ltd likely merchant. First booth: Bitcoin MENA 7–8 Dec 2026.
+Bitcoin merch at `~/Projects/orangeforge`. Visible name HARD MONEY CO. David Perry. DSP Capital Ventures Ltd likely merchant. First booth: Bitcoin MENA 7–8 Dec 2026.
 
 - Read `.cursor/skills/orangeforge-design/SKILL.md` before new SKUs or prints.
-- Designs: Bitcoin ₿ / B-logo, charts, dry insider humour. Cool and giftable. Full family cuts.
+- Designs: Bitcoin ₿ / B-logo on almost every piece. Memes, Satoshi, 21M, white paper, HODL. Ghost-mannequin tees on white. Cool and giftable. Full family cuts.
 - Never copy FOMO21 slogans or art. Never promise profits. Never commit `.env`.
 - Payments: card, BTC+Lightning, USDC, USDT. Printful-first dropship.
 - Mid-price. Update MEMORY.md after each catalog cycle.

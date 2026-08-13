@@ -97,7 +97,7 @@ export const events: BitcoinEvent[] = [
     end: "2026-12-08",
     venue: "ADNEC",
     status: "primary",
-    note: "First live ORANGEFORGE booth. Card + Lightning on the table. MENA capsule drop.",
+    note: "First live HARD MONEY CO. booth. Card + Lightning on the table. MENA capsule drop.",
   },
   {
     id: "planb-sv-2027",

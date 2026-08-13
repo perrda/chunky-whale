@@ -6,9 +6,9 @@ export function RelatedProducts({ slug }: { slug: string }) {
   const list = relatedProducts(slug);
   if (!list.length) return null;
   return (
-    <section className="mx-auto max-w-6xl px-4 pb-16 md:px-6">
+    <section className="mx-auto max-w-7xl px-4 pb-16 md:px-6">
       <div className="flex items-end justify-between">
-        <h2 className="font-display text-2xl font-extrabold">Also in the house</h2>
+        <h2 className="font-display text-2xl font-extrabold">Also in the drop</h2>
         <Link href="/shop" className="font-mono text-[10px] uppercase tracking-[0.18em] text-ember">
           Shop all
         </Link>

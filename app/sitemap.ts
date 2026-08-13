@@ -1,11 +1,13 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/config";
-import { products } from "@/lib/products";
+import { collections, liveProducts } from "@/lib/products";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "",
     "/shop",
+    "/login",
+    "/sizes",
     "/forge",
     "/events",
     "/events/mena-2026",
@@ -17,16 +19,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/legal/terms",
     "/legal/privacy",
     "/legal/refunds",
-    ...products.map((p) => `/product/${p.slug}`),
-    "/collection/tees",
-    "/collection/longsleeves",
-    "/collection/hoodies",
-    "/collection/hats",
-    "/collection/home",
-    "/collection/bags",
-    "/collection/accessories",
-    "/collection/family",
-    "/collection/events",
+    ...liveProducts().map((p) => `/product/${p.slug}`),
+    ...collections.map((c) => `/collection/${c.slug}`),
   ];
   return paths.map((path) => ({
     url: `${site.url}${path}`,

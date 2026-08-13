@@ -6,7 +6,7 @@ Sales are not guaranteed. A good shop can still sell nothing. Ads, events, and p
 
 ## Must do before first real order
 
-1. Buy domain (orangeforge.com or .store / .xyz).
+1. Buy domain (**hardmoneyco.com** / **hardmoney.co** / **thehardmoney.co** — or keep orangeforge.com if you prefer the repo name).
 2. Create **Printful**. Order one sample of every SKU to Bangkok. Reject anything that looks cheap.
 3. Create **Stripe** (cards), **OpenNode** (Bitcoin + Lightning), **Coinbase Commerce** (USDC), **NOWPayments** (USDT).
 4. Put keys in `.env.local` (copy `.env.example`). Never put keys on GitHub.

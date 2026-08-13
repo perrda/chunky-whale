@@ -21,7 +21,11 @@ export function ShopCatalog({
   const list = useMemo(() => {
     let next = products;
     if (filter === "events") next = next.filter((p) => p.event);
-    else if (filter === "family") next = next.filter((p) => p.cut && p.cut !== "unisex");
+    else if (filter === "family" || filter === "kids")
+      next = next.filter((p) => p.cut === "youth" || p.cut === "toddler" || p.cut === "infant");
+    else if (filter === "women") next = next.filter((p) => p.cut === "women");
+    else if (filter === "memes") next = next.filter((p) => p.tag === "Meme");
+    else if (filter === "premium") next = next.filter((p) => p.finish === "embroidery" || p.tag === "Premium");
     else if (filter !== "all") next = next.filter((p) => p.category === filter);
     const n = q.trim().toLowerCase();
     if (n) {
@@ -59,7 +63,7 @@ export function ShopCatalog({
       <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
         {list.length} piece{list.length === 1 ? "" : "s"}
       </p>
-      <div className="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4">
         {list.map((p) => (
           <ProductCard key={p.slug} product={p} />
         ))}

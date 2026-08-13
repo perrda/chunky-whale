@@ -19,7 +19,7 @@ const pack = [
   "Tablet + Lightning POS (OpenNode or Strike)",
   "Card reader backup (Stripe Tap to Pay on phone)",
   "Spare USBC battery, cable, EU/UK/UAE plug",
-  "Banner: ORANGEFORGE — Forged, not printed.",
+  "Banner: HARD MONEY CO. — Hard money. Soft cotton.",
   "Cashless only sign: Card · Sats · USDC",
 ];
 
@@ -44,7 +44,7 @@ export default function MenaKitPage() {
     <div className="mx-auto max-w-3xl px-4 py-14 md:px-6 print:max-w-none">
       <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-gold">Internal · print this page</p>
       <h1 className="mt-2 font-display text-4xl font-extrabold">Bitcoin MENA booth kit</h1>
-      <p className="mt-3 font-serif text-paper/80">ADNEC, Abu Dhabi · 7–8 December 2026 · First live ORANGEFORGE booth.</p>
+      <p className="mt-3 font-serif text-paper/80">ADNEC, Abu Dhabi · 7–8 December 2026 · First live HARD MONEY CO. booth.</p>
 
       <h2 className="mt-10 font-display text-2xl font-extrabold">Packing list</h2>
       <ul className="mt-4 list-disc space-y-2 pl-5 font-serif text-paper/80">

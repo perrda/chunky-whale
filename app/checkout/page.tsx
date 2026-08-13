@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { cartTotalGbp, useCart } from "@/lib/cart-store";
 import { formatGbp, getProduct } from "@/lib/products";
+import { regionForCountry } from "@/lib/shipping";
 
 const methods = [
   { id: "card" as const, label: "Card", note: "Visa, Mastercard via Stripe" },
@@ -18,6 +19,7 @@ export default function CheckoutPage() {
   const items = useCart((s) => s.items);
   const [ready, setReady] = useState(false);
   const [method, setMethod] = useState<(typeof methods)[number]["id"]>("bitcoin");
+  const [country, setCountry] = useState("GB");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [cancelled, setCancelled] = useState(false);
@@ -88,7 +90,17 @@ export default function CheckoutPage() {
           <Field name="city" label="City" autoComplete="address-level2" />
           <Field name="postcode" label="Postcode" autoComplete="postal-code" />
         </div>
-        <Field name="country" label="Country code" defaultValue="GB" autoComplete="country" />
+        <label className="block">
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-gold">Country code</span>
+          <input
+            name="country"
+            required
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            autoComplete="country"
+            className="mt-1 w-full border border-paper/20 bg-ink px-3 py-2 font-serif text-paper"
+          />
+        </label>
         <fieldset>
           <legend className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Pay with</legend>
           <div className="mt-3 space-y-2">
@@ -146,6 +158,10 @@ export default function CheckoutPage() {
         </ul>
         <p className="mt-6 flex justify-between border-t border-paper/15 pt-4 font-display text-lg">
           Total <span className="font-mono text-gold">{formatGbp(total)}</span>
+        </p>
+        <p className="mt-4 font-serif text-sm text-paper/70">
+          Printful estimate to {regionForCountry(country).label}: {regionForCountry(country).doorToDoor}. Shipping is
+          added at live checkout (not in this demo total). UK VAT 20% when we go live if you are in the UK.
         </p>
       </aside>
     </div>

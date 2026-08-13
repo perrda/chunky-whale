@@ -1,3 +1,5 @@
+import { drop05 } from "./drop-05";
+
 export type ProductCategory =
   | "tees"
   | "longsleeves"
@@ -5,7 +7,10 @@ export type ProductCategory =
   | "hats"
   | "home"
   | "bags"
-  | "accessories";
+  | "accessories"
+  | "drinkware"
+  | "posters"
+  | "jewelry";
 
 export type Cut = "unisex" | "women" | "youth" | "toddler" | "infant";
 
@@ -23,14 +28,17 @@ export type Product = {
   description: string;
   details: string[];
   image: string;
+  imagesByColor?: Record<string, string>;
   print?: string;
   sizes?: SizeOption[];
   colors?: ColorOption[];
   cut?: Cut;
+  finish?: "print" | "embroidery";
   limited?: boolean;
   remaining?: number;
   featured?: boolean;
   event?: boolean;
+  retired?: boolean;
   printful?: { variantId?: number; productId?: number };
   shopifyHandle?: string;
 };
@@ -41,6 +49,15 @@ export const HOUSE_COLORS: ColorOption[] = [
   { id: "btc", label: "Bitcoin orange", hex: "#F7931A" },
   { id: "navy", label: "Navy", hex: "#1B2430" },
   { id: "heather", label: "Heather", hex: "#6B6E73" },
+];
+
+export const TEE_COLORS: ColorOption[] = [
+  { id: "heather-light", label: "Light heather", hex: "#C8C9CB" },
+  { id: "charcoal", label: "Charcoal", hex: "#3A3D42" },
+  { id: "navy", label: "Navy", hex: "#1B2430" },
+  { id: "ink", label: "Ink", hex: "#0B0C0E" },
+  { id: "btc", label: "Bitcoin orange", hex: "#F7931A" },
+  { id: "bone", label: "Bone", hex: "#EDE6D9" },
 ];
 
 export const APPAREL_SIZES: SizeOption[] = [
@@ -86,27 +103,338 @@ export const INFANT_SIZES: SizeOption[] = [
 
 export const HAT_SIZES: SizeOption[] = [{ id: "os", label: "One size" }];
 
-const TEE = [
+export const TEE = [
   "180–220gsm cotton (mid-weight, event-ready)",
   "Printed on demand in UK / US / EU / Asia hubs",
   "Unisex cut unless noted",
 ];
-const HOOD = ["Mid-weight fleece", "Kangaroo pocket", "Printed on demand"];
-const HAT = ["Adjustable", "Embroidered or printed mark", "Ships from nearest hub"];
+export const HOOD = ["Mid-weight fleece", "Kangaroo pocket", "Printed on demand"];
+export const HAT = ["Adjustable", "Embroidered or printed mark", "Ships from nearest hub"];
+export const EMB = ["Raised embroidery (not a cheap DTG print)", "Printful stitch · 2–5 day fulfil", "Premium mid-price"];
 
 export const collections = [
-  { slug: "tees", label: "T-Shirts", blurb: "The daily uniform." },
+  { slug: "memes", label: "Memes", blurb: "The lines Bitcoiners already shout." },
+  { slug: "tees", label: "T-Shirts", blurb: "₿ on the chest. Wear it." },
+  { slug: "hoodies", label: "Sweatshirts", blurb: "Hoodies, crew, zip. Same jokes, heavier cloth." },
+  { slug: "women", label: "Women", blurb: "V-neck, tank, same ₿." },
+  { slug: "hats", label: "Hats", blurb: "Dad hats, buckets, beanies. Stitched ₿." },
+  { slug: "kids", label: "Kids", blurb: "Youth, toddler, infant." },
+  { slug: "drinkware", label: "Drinkware", blurb: "Mugs, tumblers, pints, coasters." },
+  { slug: "jewelry", label: "Jewelry", blurb: "Pendants, necklaces, bracelets." },
+  { slug: "posters", label: "Posters", blurb: "Charts, 21 million, the paper." },
+  { slug: "premium", label: "Premium", blurb: "Stitched logos. Caps, hoodies, tees." },
   { slug: "longsleeves", label: "Long sleeves", blurb: "Conference weather." },
-  { slug: "hoodies", label: "Hoodies & crew", blurb: "Heavier cloth." },
-  { slug: "hats", label: "Hats", blurb: "Dad hats, 5-panels, buckets." },
-  { slug: "home", label: "Home", blurb: "Mugs, candle, throw, print." },
   { slug: "bags", label: "Bags", blurb: "Totes and a pack." },
-  { slug: "accessories", label: "Marks", blurb: "Stickers and pins." },
-  { slug: "family", label: "Family", blurb: "Women, youth, toddler, infant — same ₿." },
-  { slug: "events", label: "Event capsules", blurb: "City drops." },
+  { slug: "accessories", label: "Stickers & pins", blurb: "Laptop and lapel." },
+  { slug: "events", label: "Events", blurb: "City drops." },
 ] as const;
 
 export const products: Product[] = [
+  ...drop05,
+  {
+    slug: "hodl-tee",
+    name: "I AM HODLING",
+    shortName: "HODL",
+    editionId: "HM-HODL-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: [
+      { id: "charcoal", label: "Charcoal", hex: "#3A3D42" },
+      { id: "navy", label: "Navy", hex: "#1B2430" },
+      { id: "ink", label: "Ink", hex: "#0B0C0E" },
+      { id: "btc", label: "Bitcoin orange", hex: "#F7931A" },
+      { id: "bone", label: "Bone", hex: "#EDE6D9" },
+    ],
+    imagesByColor: {
+      charcoal: "/products/hodl-tee.png",
+      navy: "/products/hodl-tee-navy.png",
+      ink: "/products/hodl-tee-ink.png",
+      btc: "/products/hodl-tee-btc.png",
+      bone: "/products/hodl-tee-bone.png",
+    },
+    description:
+      "December 2013. A drunk typo on BitcoinTalk. The whole personality since. Orange ₿ on the chest.",
+    details: TEE,
+    image: "/products/hodl-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "stack-sats-tee",
+    name: "STACK SATS",
+    shortName: "Stack Sats",
+    editionId: "HM-SAT-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "Small units. Long game. Orange ₿. The daily ritual, printed.",
+    details: TEE,
+    image: "/products/stack-sats-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "few-understand-tee",
+    name: "FEW UNDERSTAND",
+    shortName: "Few",
+    editionId: "HM-FEW-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "The in-joke. No explainer. If they ask, they are not the few.",
+    details: TEE,
+    image: "/products/few-understand-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "fixes-this-tee",
+    name: "BITCOIN FIXES THIS",
+    shortName: "Fixes This",
+    editionId: "HM-FIX-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "Reply-guy energy, wearable. Orange ₿. Apply to almost anything.",
+    details: TEE,
+    image: "/products/fixes-this-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "one-btc-tee",
+    name: "1 BTC = 1 BTC",
+    shortName: "1 BTC",
+    editionId: "HM-1BTC-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "The tautology that ends the thread. Unit of account, not a dollar chart.",
+    details: TEE,
+    image: "/products/one-btc-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "21-million-tee",
+    name: "21 MILLION",
+    shortName: "21M",
+    editionId: "HM-21M-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "The cap. The joke. The whole monetary policy on a tee. Orange ₿.",
+    details: TEE,
+    image: "/products/21-million-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "verify-meme-tee",
+    name: "DON'T TRUST. VERIFY.",
+    shortName: "Verify",
+    editionId: "HM-VFY-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "Cypherpunk rule one. Not a mood. Run the numbers yourself.",
+    details: TEE,
+    image: "/products/verify-meme-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "no-second-tee",
+    name: "THERE IS NO SECOND BEST",
+    shortName: "No Second",
+    editionId: "HM-NSB-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "Maxi, but make it merch. One network. One ₿. No altcoin cameo.",
+    details: TEE,
+    image: "/products/no-second-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "hard-money-tee",
+    name: "HARD MONEY",
+    shortName: "Hard Money",
+    editionId: "HM-HM-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "House mark. Big orange ₿, HARD MONEY across the chest. The name, worn.",
+    details: TEE,
+    image: "/products/hard-money-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "satoshi-tee",
+    name: "SATOSHI WAS HERE",
+    shortName: "Satoshi",
+    editionId: "HM-SATOSHI-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "The signature that never came. Orange ₿. A ghost in the protocol.",
+    details: TEE,
+    image: "/products/satoshi-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "whitepaper-tee",
+    name: "PEER-TO-PEER ELECTRONIC CASH",
+    shortName: "White Paper",
+    editionId: "HM-WP-001",
+    priceGbp: 30,
+    category: "tees",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "The title. 31 October 2008. Wear the paper, not a think-piece.",
+    details: TEE,
+    image: "/products/whitepaper-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "gradually-tee",
+    name: "GRADUALLY, THEN SUDDENLY",
+    shortName: "Gradually",
+    editionId: "HM-GTS-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "Hemingway, borrowed by Bitcoin. How the old money dies.",
+    details: TEE,
+    image: "/products/gradually-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "nyknyc-tee",
+    name: "NOT YOUR KEYS NOT YOUR COINS",
+    shortName: "NYKNYC",
+    editionId: "HM-NYK-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "Self-custody as a stacked headline. Gift it to the cousin still on an exchange.",
+    details: TEE,
+    image: "/products/nyknyc-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "finite-tee",
+    name: "INFINITE FIAT / FINITE BITCOIN",
+    shortName: "Finite",
+    editionId: "HM-FIN-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "Two lines. The whole argument. They can print theirs. We cannot print this.",
+    details: TEE,
+    image: "/products/finite-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "run-node-tee",
+    name: "RUN YOUR NODE",
+    shortName: "Run Node",
+    editionId: "HM-NODE-001",
+    priceGbp: 28,
+    category: "tees",
+    tag: "Meme",
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "Don't trust. Verify. Then actually run the software. Orange ₿.",
+    details: TEE,
+    image: "/products/run-node-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "ngu-tee",
+    name: "NUMBER GO UP",
+    shortName: "NGU",
+    editionId: "HM-NGU-001",
+    priceGbp: 30,
+    category: "tees",
+    tag: "Meme",
+    cut: "unisex",
+    colors: TEE_COLORS,
+    description: "A rising line ending in ₿. The chart as humour — not a broker screenshot.",
+    details: TEE,
+    image: "/products/ngu-tee.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "hodl-hoodie",
+    name: "HODL Hoodie",
+    shortName: "HODL Hoodie",
+    editionId: "HM-HODL-H",
+    priceGbp: 55,
+    category: "hoodies",
+    tag: "Meme",
+    featured: true,
+    cut: "unisex",
+    colors: [
+      { id: "ink", label: "Ink", hex: "#0B0C0E" },
+      { id: "navy", label: "Navy", hex: "#1B2430" },
+    ],
+    imagesByColor: {
+      ink: "/products/hodl-hoodie.png",
+      navy: "/products/hodl-hoodie-navy.png",
+    },
+    description: "Orange ₿, HODL underneath. Conference layer for people who do not sell.",
+    details: HOOD,
+    image: "/products/hodl-hoodie.png",
+    sizes: APPAREL_SIZES,
+  },
+  {
+    slug: "hard-money-hat",
+    name: "HARD MONEY Dad Hat",
+    shortName: "HM Hat",
+    editionId: "HM-HAT-001",
+    priceGbp: 24,
+    category: "hats",
+    tag: "₿",
+    featured: true,
+    colors: HOUSE_COLORS,
+    description: "Embroidered orange ₿. Navy first. The conference default.",
+    details: HAT,
+    image: "/products/hard-money-hat.png",
+    sizes: HAT_SIZES,
+  },
   {
     slug: "genesis-tee",
     name: "Genesis Tee",
@@ -115,7 +443,6 @@ export const products: Product[] = [
     priceGbp: 32,
     category: "tees",
     tag: "House",
-    featured: true,
     description: "Small ember seal at the chest, forged hash-geometry on the back. The first mark of the house.",
     details: TEE,
     image: "/products/genesis-tee.png",
@@ -130,7 +457,6 @@ export const products: Product[] = [
     priceGbp: 28,
     category: "tees",
     tag: "Core",
-    featured: true,
     description: "Stacked bone numerals — a height, not a slogan. Wear the clock that does not stop.",
     details: TEE,
     image: "/products/block-height-tee.png",
@@ -183,7 +509,6 @@ export const products: Product[] = [
     priceGbp: 30,
     category: "tees",
     tag: "House",
-    featured: true,
     description: "Macro wax-seal on the back. Almost nothing on the chest. The house stamp, large.",
     details: TEE,
     image: "/products/seal-tee.png",
@@ -283,7 +608,6 @@ export const products: Product[] = [
     priceGbp: 34,
     category: "longsleeves",
     tag: "Core",
-    featured: true,
     description: "Seal at the chest. Gold hash ticks down both sleeves. Built for halls that run cold.",
     details: ["Long sleeve jersey", "Sleeve ticks", "Printed on demand"],
     image: "/products/ember-longsleeve.png",
@@ -297,7 +621,6 @@ export const products: Product[] = [
     priceGbp: 55,
     category: "hoodies",
     tag: "House",
-    featured: true,
     description: "Hash lattice across the chest. The visual of work that does not get easier.",
     details: [...HOOD, "Hash-geometry chest print"],
     image: "/products/difficulty-hoodie.png",
@@ -351,7 +674,6 @@ export const products: Product[] = [
     priceGbp: 28,
     category: "hats",
     tag: "House",
-    featured: true,
     description: "Structured 5-panel. Gold incomplete-ring. Conference light.",
     details: HAT,
     image: "/products/hash-cap.png",
@@ -417,7 +739,6 @@ export const products: Product[] = [
     priceGbp: 16,
     category: "home",
     tag: "House",
-    featured: true,
     description: "Bone ceramic, hash ring, ember near the handle.",
     details: ["11oz ceramic", "Dishwasher safe", "Nearest print hub"],
     image: "/products/foundry-mug.png",
@@ -454,7 +775,6 @@ export const products: Product[] = [
     priceGbp: 55,
     category: "home",
     tag: "Core",
-    featured: true,
     description: "Charcoal throw, woven seal in the corner. The one home piece that earns the suitcase.",
     details: ["Woven throw", "Corner seal", "Ships folded"],
     image: "/products/hash-throw.png",
@@ -557,7 +877,6 @@ export const products: Product[] = [
     priceGbp: 30,
     category: "tees",
     tag: "Chart",
-    featured: true,
     cut: "unisex",
     colors: HOUSE_COLORS,
     description: "The punchline is the axis. Rising log curve, ₿ at the last print. No Bloomberg chrome.",
@@ -574,7 +893,6 @@ export const products: Product[] = [
     priceGbp: 30,
     category: "tees",
     tag: "Chart",
-    featured: true,
     cut: "unisex",
     colors: HOUSE_COLORS,
     description: "V-shaped recovery. Dry. The kind of joke that only lands if you've sat through one.",
@@ -591,7 +909,6 @@ export const products: Product[] = [
     priceGbp: 28,
     category: "tees",
     tag: "Copy",
-    featured: true,
     cut: "unisex",
     colors: HOUSE_COLORS,
     description: "The supply cap, set as a one-liner. Small Bitcoin B underneath.",
@@ -640,7 +957,6 @@ export const products: Product[] = [
     priceGbp: 55,
     category: "hoodies",
     tag: "Chart",
-    featured: true,
     cut: "unisex",
     colors: HOUSE_COLORS,
     description: "White and orange candles as a textile. You stayed for the chart. Now you wear it.",
@@ -801,7 +1117,6 @@ export const products: Product[] = [
     priceGbp: 18,
     category: "tees",
     tag: "Family",
-    featured: true,
     cut: "infant",
     colors: [
       { id: "ink", label: "Ink", hex: "#0B0C0E" },
@@ -821,7 +1136,6 @@ export const products: Product[] = [
     priceGbp: 24,
     category: "hats",
     tag: "₿",
-    featured: true,
     colors: HOUSE_COLORS,
     description: "Embroidered orange B. Navy, ink, or bone. The conference default.",
     details: HAT,
@@ -844,20 +1158,78 @@ export const products: Product[] = [
   },
 ];
 
+export const RETIRED_SLUGS = new Set([
+  "genesis-tee",
+  "block-height-tee",
+  "timechain-tee",
+  "fixed-supply-tee",
+  "mempool-tee",
+  "seal-tee",
+  "tailored-tee",
+  "hash-tank",
+  "ember-longsleeve",
+  "difficulty-hoodie",
+  "ember-hoodie",
+  "zip-hoodie",
+  "ring-crewneck",
+  "hash-cap",
+  "ember-dad-hat",
+  "desert-bucket",
+  "forge-beanie",
+  "trucker-cap",
+  "foundry-mug",
+  "ink-mug",
+  "foundry-candle",
+  "hash-throw",
+  "hash-poster",
+  "coaster-set",
+  "forge-tote",
+  "forge-pack",
+  "sticker-pack",
+  "pin-set",
+]);
+
+export function liveProducts() {
+  return products.filter((p) => !p.retired && !RETIRED_SLUGS.has(p.slug));
+}
+
+export function productImage(product: Product, color?: string) {
+  if (color && product.imagesByColor?.[color]) return product.imagesByColor[color];
+  return product.image;
+}
+
+export function colorsFor(product: Product): ColorOption[] | undefined {
+  if (product.imagesByColor) {
+    const palette = [...TEE_COLORS, ...HOUSE_COLORS, ...(product.colors ?? [])];
+    return Object.keys(product.imagesByColor).map((id) => {
+      const hit = palette.find((c) => c.id === id);
+      return hit ?? { id, label: id, hex: "#888888" };
+    });
+  }
+  return product.colors;
+}
+
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);
 }
 
 export function productsIn(slug: string) {
-  if (slug === "events") return products.filter((p) => p.event);
-  if (slug === "family") return products.filter((p) => p.cut && p.cut !== "unisex");
-  return products.filter((p) => p.category === slug);
+  const list = liveProducts();
+  if (slug === "events") return list.filter((p) => p.event);
+  if (slug === "family" || slug === "kids")
+    return list.filter((p) => p.cut === "youth" || p.cut === "toddler" || p.cut === "infant");
+  if (slug === "women") return list.filter((p) => p.cut === "women");
+  if (slug === "memes") return list.filter((p) => p.tag === "Meme");
+  if (slug === "premium") return list.filter((p) => p.finish === "embroidery" || p.tag === "Premium");
+  if (slug === "home") return list.filter((p) => p.category === "home" || p.category === "drinkware" || p.category === "posters");
+  return list.filter((p) => p.category === slug);
 }
 
 export function searchProducts(q: string) {
   const n = q.trim().toLowerCase();
-  if (!n) return products;
-  return products.filter(
+  const list = liveProducts();
+  if (!n) return list;
+  return list.filter(
     (p) =>
       p.name.toLowerCase().includes(n) ||
       p.tag.toLowerCase().includes(n) ||
@@ -868,9 +1240,14 @@ export function searchProducts(q: string) {
 }
 
 export function relatedProducts(slug: string, limit = 4) {
+  const list = liveProducts();
   const p = getProduct(slug);
-  if (!p) return products.slice(0, limit);
-  return products.filter((x) => x.slug !== slug && (x.category === p.category || x.event === p.event)).slice(0, limit);
+  if (!p) return list.filter((x) => x.featured).slice(0, limit);
+  const sameTag = list.filter((x) => x.slug !== slug && x.tag === p.tag);
+  if (sameTag.length >= limit) return sameTag.slice(0, limit);
+  return list
+    .filter((x) => x.slug !== slug && (x.category === p.category || x.tag === p.tag || x.featured))
+    .slice(0, limit);
 }
 
 export function formatGbp(amount: number) {

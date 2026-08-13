@@ -4,11 +4,13 @@ import { site } from "@/lib/config";
 export function Footer() {
   return (
     <footer className="mt-24 border-t border-paper/10">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-4 md:px-6">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4 md:px-6">
         <div className="md:col-span-2">
-          <p className="font-display text-xl font-extrabold tracking-[0.16em]">ORANGEFORGE</p>
+          <p className="font-display text-xl font-extrabold tracking-[0.16em]">
+            <span className="text-ember">₿</span> {site.name}
+          </p>
           <p className="mt-3 max-w-md font-serif text-paper/75">
-            Bitcoin merch, forged not printed. Original Grok designs. Pay with card, Bitcoin + Lightning, USDC, or USDT.
+            Bitcoin merch. The memes, the ₿, the 21 million. Pay with card, Bitcoin + Lightning, USDC, or USDT.
           </p>
           <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
             {site.merchant} · {site.merchantNote}
@@ -21,13 +23,28 @@ export function Footer() {
               <Link href="/shop">All drops</Link>
             </li>
             <li>
+              <Link href="/collection/memes">Memes</Link>
+            </li>
+            <li>
               <Link href="/collection/tees">T-Shirts</Link>
             </li>
             <li>
-              <Link href="/collection/family">Family</Link>
+              <Link href="/collection/hats">Hats</Link>
             </li>
             <li>
-              <Link href="/fulfillment">Who ships</Link>
+              <Link href="/collection/drinkware">Drinkware</Link>
+            </li>
+            <li>
+              <Link href="/collection/jewelry">Jewelry</Link>
+            </li>
+            <li>
+              <Link href="/collection/posters">Posters</Link>
+            </li>
+            <li>
+              <Link href="/collection/kids">Kids</Link>
+            </li>
+            <li>
+              <Link href="/shipping">Shipping times</Link>
             </li>
           </ul>
         </div>
@@ -38,7 +55,10 @@ export function Footer() {
               <Link href="/events">Events</Link>
             </li>
             <li>
-              <Link href="/faq">FAQ</Link>
+              <Link href="/sizes">Size charts</Link>
+            </li>
+            <li>
+              <Link href="/login">Login</Link>
             </li>
             <li>
               <Link href="/shipping">Shipping &amp; returns</Link>
@@ -59,7 +79,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-paper/10 py-4 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
-        Not financial advice. No profit claims. Wear the work.
+        {site.tagline} · {site.strap} · Not financial advice.
       </div>
     </footer>
   );

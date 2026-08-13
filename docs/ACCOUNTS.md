@@ -5,7 +5,7 @@ I cannot log into these for you. Do them in this order. After each one, put the 
 ## 1. Domain
 
 1. Go to a registrar (Namecheap, Cloudflare, or Google Domains).
-2. Search **orangeforge.com**. If taken, try **orangeforge.store** then **orangeforge.xyz**.
+2. Search **hardmoneyco.com**, **hardmoney.co**, **thehardmoney.co**. Fallbacks: orangeforge.com / .store / .xyz.
 3. Buy it. Later we point it at Vercel.
 
 ## 2. Vercel (puts the site on the internet)
@@ -29,7 +29,7 @@ Printful does not have a UAE factory. For the MENA booth, place a **bulk order a
 
 Used as the invisible product/tax backend. The public site is our custom design, not a Shopify theme.
 
-1. Open https://www.shopify.com and start a store named ORANGEFORGE.
+1. Open https://www.shopify.com and start a store named HARD MONEY CO.
 2. Settings → Apps → Develop apps → Storefront API token.
 3. Paste `SHOPIFY_STORE_DOMAIN` (like `orangeforge.myshopify.com`) and `SHOPIFY_STOREFRONT_TOKEN`.
 4. Connect the Printful Shopify app when you are ready, **or** keep Printful API-only.

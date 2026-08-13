@@ -1,8 +1,10 @@
-# ORANGEFORGE
+# HARD MONEY CO.
 
-Bitcoin merch house. **Forged, not printed.**
+Bitcoin merch. **Hard money. Soft cotton.**
 
-32 original pieces (tees, long sleeves, hoodies, hats, home, bags, marks). Pay with **card, Bitcoin + Lightning, USDC, or USDT** once keys are added. First live booth: **Bitcoin MENA, Abu Dhabi, 7–8 December 2026**.
+Repo folder is still `orangeforge`. Visible brand is **HARD MONEY CO.**
+
+Meme tees lead the catalog (HODL, 21 million, Satoshi, white paper, stack sats). Pay with **card, Bitcoin + Lightning, USDC, or USDT** once keys are added. First live booth: **Bitcoin MENA, Abu Dhabi, 7–8 December 2026**.
 
 Not financial advice. We never claim this will make money.
 

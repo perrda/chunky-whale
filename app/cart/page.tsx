@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cartTotalGbp, useCart } from "@/lib/cart-store";
-import { formatGbp, getProduct } from "@/lib/products";
+import { formatGbp, getProduct, productImage } from "@/lib/products";
 
 export default function CartPage() {
   const { items, setQty, remove } = useCart();
@@ -19,7 +19,7 @@ export default function CartPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-14 md:px-6">
-      <h1 className="font-display text-4xl font-extrabold">Cart</h1>
+      <h1 className="font-display text-4xl font-extrabold">Basket</h1>
       {items.length === 0 ? (
         <p className="mt-6 font-serif text-paper/75">
           Empty.{" "}
@@ -36,8 +36,8 @@ export default function CartPage() {
               if (!p) return null;
               return (
                 <li key={`${item.slug}-${item.size}-${item.color}`} className="flex gap-4 py-6">
-                  <div className="relative h-24 w-32 shrink-0 bg-surface">
-                    <Image src={p.image} alt="" fill className="object-cover" />
+                  <div className="relative h-24 w-24 shrink-0 bg-white">
+                    <Image src={productImage(p, item.color)} alt="" fill className="object-contain p-1" />
                   </div>
                   <div className="flex-1">
                     <p className="font-display font-bold">{p.name}</p>

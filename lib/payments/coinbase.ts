@@ -16,7 +16,7 @@ export async function createCoinbaseCharge(input: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: `ORANGEFORGE ${input.orderId}`,
+      name: `HARD MONEY CO. ${input.orderId}`,
       description: "Bitcoin merch — USDC or other supported assets",
       local_price: { amount: input.amountGbp.toFixed(2), currency: "GBP" },
       pricing_type: "fixed_price",

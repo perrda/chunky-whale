@@ -1,38 +1,48 @@
 ---
 name: orangeforge-design
-description: ORANGEFORGE Bitcoin merch art direction, copy, colourways, and family size ranges. Use when adding products, generating Grok Imagine prints, writing slogans, building catalog/checkout variants, or continuing the orangeforge store.
+description: HARD MONEY CO. Bitcoin merch art direction, copy, colourways, and family size ranges. Use when adding products, generating Grok Imagine prints, writing slogans, building catalog/checkout variants, or continuing the orangeforge store.
 ---
 
-# ORANGEFORGE design house
+# HARD MONEY CO. design house
 
-David Perry. Project `~/Projects/orangeforge`. Merchant likely DSP Capital Ventures Ltd. Never promise profits. Never commit `.env`. Never copy FOMO21 slogans or artwork.
+David Perry. Project `~/Projects/orangeforge`. Visible brand: **HARD MONEY CO.** Repo folder stays orangeforge. Merchant likely DSP Capital Ventures Ltd. Never promise profits. Never commit `.env`. Never copy FOMO21 slogans or artwork.
 
 ## Positioning
 
-- House line: **insider / dry** humour a Bitcoiner is proud to gift. Not expo-floor cringe.
-- Visuals **must** include Bitcoin language: ₿, the Bitcoin B (two vertical strikes), orange `#F7931A` as a mark, **charts and graphs** (log, candles, hashrate, difficulty stairs, V-shaped dip).
-- Ember `#E85D04` remains the site UI seal. Garment orange may be classic Bitcoin orange.
-- Cool and fun, still atelier — one joke per piece, one chart per piece. No wall of slogans.
+- Bitcoin merch Bitcoiners actually want. Fun, humorous, and serious. Ghost-mannequin tees on white, like a proper merch grid.
+- Visuals **must** include Bitcoin language: ₿ / Bitcoin B, orange `#F7931A`, 21 million, Satoshi, white paper, HODL, stack sats.
+- Ember `#E85D04` is the site UI seal. Garment orange is classic Bitcoin orange.
+- One joke or one mark per piece. ₿ appears on almost every SKU.
 
 ## Banned
 
-FOMO21 copy and clones, including: Going To Zero Since 2009, Make Money Great Again, Melt Your Face Off, Have Fun Staying Poor, Only The Paranoid Survive (as a Bitcoin tee). No US-flag dad-humour dump. No altcoin logos. No profit claims on garments (“guaranteed 100x”).
+FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovereign, All Your Models Are Destroyed, Vitamin B, Tick Tock Next Block, Fix The Money Fix The World, Fist Bitcoin, Get Rich Or Die Mining, Going To Zero Since 2009, Make Money Great Again, Melt Your Face Off, Have Fun Staying Poor, Only The Paranoid Survive (as a Bitcoin tee). No altcoin logos. No profit claims on garments.
 
 ## Approved copy (use these; invent more in the same voice)
 
+- I AM HODLING
+- STACK SATS
+- FEW UNDERSTAND
+- BITCOIN FIXES THIS
+- 1 BTC = 1 BTC
+- 21 MILLION
+- DON'T TRUST. VERIFY.
+- THERE IS NO SECOND BEST
+- HARD MONEY
+- SATOSHI WAS HERE
+- PEER-TO-PEER ELECTRONIC CASH
+- GRADUALLY, THEN SUDDENLY
+- NOT YOUR KEYS NOT YOUR COINS
+- INFINITE FIAT / FINITE BITCOIN
+- RUN YOUR NODE
+- NUMBER GO UP
+- Stay humble, stack sats
+- Low time preference
+- Can't print this
+- Genesis 03 Jan 2009
 - 21 million. That's the joke.
 - The dip is the feature.
-- Difficulty adjusts.
-- Ten minutes.
-- Fixed supply.
-- Verify.
-- Not your keys.
-- Proof of work.
-- Log scale.
-- Since block one.
-- I stayed for the chart.
-- The number does not change.
-- Orange. Daily. (family / pharmacy-label gag)
+- Orange. Daily. (family)
 - Node in training. (infant)
 - Future UTXO. (youth)
 
@@ -40,23 +50,23 @@ FOMO21 copy and clones, including: Going To Zero Since 2009, Make Money Great Ag
 
 - Cuts: unisex, women, youth, toddler, infant.
 - Adult sizes: XS–4XL. Youth S–L. Toddler 2T–5T. Infant 3–24 months.
-- Colourways: ink black, bone, Bitcoin orange, navy, heather.
-- Categories: tees, longsleeves, hoodies, hats, home, bags, accessories, events, family.
-- Payments (site, not prints): card, BTC+Lightning, USDC, USDT.
-- Dropship: Printful first; Gelato scale; Printify/Gooten/SPOD overflow.
+- Colourways: light heather, charcoal, navy, ink, Bitcoin orange, bone.
+- Mockups: ghost mannequin, white background, square crop. Product cards use a white well + colour swatches that **change the photo** (`imagesByColor`).
+- Premium = embroidery/stitch on hats, hoodies, some tees.
+- Categories: tees, sweatshirts, women, hats, kids, drinkware, jewelry, posters, stickers, bags, events, premium.
 
 ## How to add a design
 
-1. Write one dry line **or** one chart. Not both shouting.
-2. Generate a **print-ready 1:1** on black or bone, then a **4:3 mockup** on garment.
-3. Save print to `public/prints/`, mockup to `public/products/`.
-4. Add SKU in `lib/products.ts` with `colors`, `cut`, `sizes`.
-5. Family gifts: same mark, smaller placement, no sarcasm on infant.
+1. Write one Bitcoin line (meme, philosophy, or protocol). Original — not FOMO21.
+2. Generate a **ghost-mannequin mockup** on white (1:1), ₿ somewhere on the garment.
+3. Save mockup to `public/products/`. Optional print to `public/prints/`.
+4. Add SKU at the **top** of `lib/products.ts` with `tag: "Meme"` if it is a slogan tee, `colors`, `cut`, `sizes`, `featured` if it should lead the homepage.
+5. Family gifts: same ₿, smaller placement, no sarcasm on infant.
 
 ## Agents (run in this order, do not skip)
 
-1. **Copy** — one line, dry, giftable.
-2. **Chart** — if the piece is a graph, keep axes implied, not a Bloomberg screenshot.
-3. **Print** — Grok Imagine, high contrast, print-safe.
-4. **Colourway** — black first, then bone, then orange if the mark is dark.
+1. **Copy** — one Bitcoin line, giftable, not a FOMO21 clone.
+2. **Mark** — ₿ / Bitcoin B on the garment.
+3. **Mockup** — ghost mannequin, white background.
+4. **Colourway** — heather and navy first, then ink, then orange if the mark is dark.
 5. **Cut** — unisex default; duplicate SKU for women/youth/infant where it gifts well.

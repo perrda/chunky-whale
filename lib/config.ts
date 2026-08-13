@@ -1,7 +1,8 @@
 export const site = {
-  name: "ORANGEFORGE",
-  tagline: "Forged, not printed.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:3000",
+  name: "HARD MONEY CO.",
+  tagline: "Hard money. Soft cotton.",
+  strap: "Wear the 21 million.",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:3001",
   email: "hello@orangeforge.com",
   merchant: "DSP Capital Ventures Ltd",
   merchantNote:

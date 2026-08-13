@@ -30,21 +30,21 @@ const naskh = Noto_Naskh_Arabic({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "ORANGEFORGE — Bitcoin merch, forged not printed",
-    template: "%s · ORANGEFORGE",
+    default: "HARD MONEY CO. — Hard money. Soft cotton.",
+    template: "%s · HARD MONEY CO.",
   },
   description:
-    "Bitcoin merch house. Tees, hoodies, hats, home. Pay with card, Bitcoin + Lightning, USDC, or USDT.",
+    "Bitcoin merch Bitcoiners actually wear. HODL, 21 million, Satoshi, the ₿. Pay with card, Bitcoin + Lightning, USDC, or USDT.",
   openGraph: {
-    title: "ORANGEFORGE — Forged, not printed.",
+    title: "HARD MONEY CO. — Hard money. Soft cotton.",
     description: "Original Bitcoin merch. Card, sats, USDC, and USDT.",
-    images: ["/hero-forge.png"],
+    images: ["/products/hodl-tee.png"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ORANGEFORGE",
-    images: ["/hero-forge.png"],
+    title: "HARD MONEY CO.",
+    images: ["/products/hodl-tee.png"],
   },
 };
 
@@ -54,7 +54,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('hm-theme');if(t){var j=JSON.parse(t);document.documentElement.setAttribute('data-theme',j.state&&j.state.theme?j.state.theme:'dark');}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body
         className={`${syne.variable} ${source.variable} ${geistMono.variable} ${naskh.variable} bg-ink text-paper antialiased`}
       >
