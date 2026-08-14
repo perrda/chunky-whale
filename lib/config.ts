@@ -1,12 +1,12 @@
 export const site = {
-  name: "ORANGEFORGE",
+  name: "STACKHOUSE",
   tagline: "Forged, not printed.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:3000",
-  email: "hello@orangeforge.com",
+  email: "STACKHOUSE inbox coming", // TODO: Set up contact email
   merchant: "DSP Capital Ventures Ltd",
   merchantNote:
     "UK company (CH 17065288). Merchant of record unless you later appoint another entity.",
-  twitter: "https://x.com/orangeforge",
+  twitter: "https://x.com/stackhouse", // TODO: Update social handles
 };
 
 export function paymentsReady() {

@@ -56,7 +56,7 @@ export const useCart = create<CartState>()(
         }),
       clear: () => set({ items: [] }),
     }),
-    { name: "orangeforge-cart", skipHydration: true },
+    { name: "stackhouse-cart", skipHydration: true },
   ),
 );
 

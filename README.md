@@ -1,4 +1,4 @@
-# ORANGEFORGE
+# STACKHOUSE
 
 Bitcoin merch house. **Forged, not printed.**
 
@@ -9,7 +9,7 @@ Not financial advice. We never claim this will make money.
 ## Run it
 
 ```bash
-cd ~/Projects/orangeforge
+cd ~/Projects/stackhouse
 npm install
 npm run dev -- --port 3001
 ```

@@ -4,7 +4,7 @@ import { partners, regionPlan } from "@/lib/fulfillment";
 
 export const metadata: Metadata = {
   title: "Dropshipping partners",
-  description: "Who prints and ships ORANGEFORGE in the UK, US, Europe, and Asia.",
+  description: "Who prints and ships STACKHOUSE in the UK, US, Europe, and Asia.",
 };
 
 export default function FulfillmentPage() {

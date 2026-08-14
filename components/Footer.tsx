@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="mt-24 border-t border-paper/10">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-4 md:px-6">
         <div className="md:col-span-2">
-          <p className="font-display text-xl font-extrabold tracking-[0.16em]">ORANGEFORGE</p>
+          <p className="font-display text-xl font-extrabold tracking-[0.16em]">STACKHOUSE</p>
           <p className="mt-3 max-w-md font-serif text-paper/75">
             Bitcoin merch, forged not printed. Original Grok designs. Pay with card, Bitcoin + Lightning, USDC, or USDT.
           </p>
