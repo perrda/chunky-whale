@@ -41,7 +41,7 @@ export function Header() {
       </a>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
         <Link href="/" className="font-display text-lg font-extrabold tracking-[0.18em] text-paper">
-          ORANGEFORGE
+          STACKHOUSE
         </Link>
         <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
           {links.map((l) => (

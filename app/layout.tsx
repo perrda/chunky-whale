@@ -30,20 +30,20 @@ const naskh = Noto_Naskh_Arabic({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "ORANGEFORGE — Bitcoin merch, forged not printed",
-    template: "%s · ORANGEFORGE",
+    default: "STACKHOUSE — Bitcoin merch, forged not printed",
+    template: "%s · STACKHOUSE",
   },
   description:
     "Bitcoin merch house. Tees, hoodies, hats, home. Pay with card, Bitcoin + Lightning, USDC, or USDT.",
   openGraph: {
-    title: "ORANGEFORGE — Forged, not printed.",
+    title: "STACKHOUSE — Forged, not printed.",
     description: "Original Bitcoin merch. Card, sats, USDC, and USDT.",
     images: ["/hero-forge.png"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ORANGEFORGE",
+    title: "STACKHOUSE",
     images: ["/hero-forge.png"],
   },
 };

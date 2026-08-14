@@ -9,7 +9,7 @@ export default function AboutPage() {
       <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-gold">House</p>
       <h1 className="mt-2 font-display text-5xl font-extrabold">Forged, not printed.</h1>
       <p className="mt-6 font-serif text-lg text-paper/85">
-        ORANGEFORGE is a Bitcoin merch house. We make a short line of original garments and objects — Grok-forged marks, heavy cloth, ember as a seal rather than a shout.
+        STACKHOUSE is a Bitcoin merch house. We make a short line of original garments and objects — Grok-forged marks, heavy cloth, ember as a seal rather than a shout.
       </p>
       <p className="mt-4 font-serif text-paper/80">
         We are not a slogan catalog. We do not copy other houses. We sell tees, hoodies, hats, mugs, totes, and marks you can put on a laptop or a booth table.

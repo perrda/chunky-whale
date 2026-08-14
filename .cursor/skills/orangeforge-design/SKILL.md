@@ -1,11 +1,11 @@
 ---
-name: orangeforge-design
-description: ORANGEFORGE Bitcoin merch art direction, copy, colourways, and family size ranges. Use when adding products, generating Grok Imagine prints, writing slogans, building catalog/checkout variants, or continuing the orangeforge store.
+name: stackhouse-design
+description: STACKHOUSE Bitcoin merch art direction, copy, colourways, and family size ranges. Use when adding products, generating Grok Imagine prints, writing slogans, building catalog/checkout variants, or continuing the stackhouse store.
 ---
 
-# ORANGEFORGE design house
+# STACKHOUSE design house
 
-David Perry. Project `~/Projects/orangeforge`. Merchant likely DSP Capital Ventures Ltd. Never promise profits. Never commit `.env`. Never copy FOMO21 slogans or artwork.
+David Perry. Project `~/Projects/stackhouse`. Merchant likely DSP Capital Ventures Ltd. Never promise profits. Never commit `.env`. Never copy FOMO21 slogans or artwork.
 
 ## Positioning
 

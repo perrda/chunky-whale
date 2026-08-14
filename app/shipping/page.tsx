@@ -15,7 +15,7 @@ export default function ShippingPage() {
       </p>
       <h2 className="mt-8 font-display text-xl font-bold">Returns</h2>
       <p className="mt-3 font-serif text-paper/80">
-        30 days from delivery. Item unused, tags on, original pack. Email hello@orangeforge.com with your order ID. We will send a return label if we accept the return.
+        30 days from delivery. Item unused, tags on, original pack. Contact us with your order ID. We will send a return label if we accept the return.
       </p>
       <p className="mt-3 font-serif text-paper/80">
         Personalised Forge designs (phase 2) and event-numbered capsules marked final sale cannot be returned unless faulty.

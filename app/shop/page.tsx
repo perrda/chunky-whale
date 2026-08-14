@@ -4,7 +4,7 @@ import { products } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Shop Bitcoin merch",
-  description: "ORANGEFORGE Bitcoin merch: tees, hoodies, hats, mugs, home. Pay with card, BTC, USDC, or USDT.",
+  description: "STACKHOUSE Bitcoin merch: tees, hoodies, hats, mugs, home. Pay with card, BTC, USDC, or USDT.",
 };
 
 type Props = { searchParams: Promise<{ q?: string; cat?: string }> };

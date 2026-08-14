@@ -44,7 +44,7 @@ export default function FaqPage() {
       </dl>
       <p className="mt-10 font-serif text-sm">
         Fulfilment map: <Link href="/fulfillment" className="text-ember">Who ships</Link>
-        . Email <Link href="mailto:hello@orangeforge.com" className="text-ember">hello@orangeforge.com</Link>
+        . Email: STACKHOUSE inbox coming
       </p>
     </div>
   );
