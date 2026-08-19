@@ -4,6 +4,7 @@
 import { mkdirSync } from "fs";
 import path from "path";
 import sharp from "sharp";
+import { officialMarkPng } from "./lib/official-bitcoin-mark.mjs";
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, "public/products");
@@ -58,52 +59,6 @@ export const SHOTS = [
   { file: "the-joke-shot.png", lines: ["THAT'S", "THE JOKE"] },
 ];
 
-function rgbToHsl(r, g, b) {
-  r /= 255;
-  g /= 255;
-  b /= 255;
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-  const l = (max + min) / 2;
-  if (max === min) return [0, 0, l];
-  const d = max - min;
-  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-  let h = 0;
-  if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
-  else if (max === g) h = (b - r) / d + 2;
-  else h = (r - g) / d + 4;
-  return [h / 6, s, l];
-}
-
-async function extractMark() {
-  const { data, info } = await sharp(PINT).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-  const w = info.width;
-  const left = 360;
-  const top = 200;
-  const right = 660;
-  const bottom = 500;
-  const cw = right - left;
-  const ch = bottom - top;
-  const out = Buffer.alloc(cw * ch * 4);
-  for (let y = 0; y < ch; y++) {
-    for (let x = 0; x < cw; x++) {
-      const si = ((top + y) * w + (left + x)) * 4;
-      const di = (y * cw + x) * 4;
-      const r = data[si];
-      const g = data[si + 1];
-      const b = data[si + 2];
-      const [hh, s, l] = rgbToHsl(r, g, b);
-      const deg = hh * 360;
-      const orange = deg >= 14 && deg <= 52 && s > 0.35 && l > 0.22 && l < 0.82;
-      out[di] = r;
-      out[di + 1] = g;
-      out[di + 2] = b;
-      out[di + 3] = orange ? 255 : 0;
-    }
-  }
-  return sharp(out, { raw: { width: cw, height: ch, channels: 4 } }).png().toBuffer();
-}
-
 function escapeXml(s) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/'/g, "&apos;");
 }
@@ -147,7 +102,7 @@ const only = process.argv.slice(2);
 
 async function main() {
   mkdirSync(OUT, { recursive: true });
-  const markPng = await extractMark();
+  const markPng = await officialMarkPng("b", 280);
   const jobs = [
     ...WHISKEYS.map((s) => ({ spec: s, kind: "whiskey" })),
     ...SHOTS.map((s) => ({ spec: s, kind: "shot" })),
