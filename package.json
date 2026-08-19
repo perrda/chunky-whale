@@ -1,6 +1,6 @@
 {
   "name": "stackhouse",
-  "version": "0.7.10",
+  "version": "0.7.11",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -16,6 +16,7 @@
     "next": "15.5.23",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "sharp": "^0.34.5",
     "stripe": "^22.5.0",
     "zod": "^4.4.3",
     "zustand": "^5.0.15"

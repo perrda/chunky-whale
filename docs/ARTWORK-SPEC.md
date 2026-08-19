@@ -4,7 +4,7 @@ Give this to Printful / Gelato / Printify designers or upload yourself.
 
 ## Files
 
-- Mockups (site photos): `public/products/*.png` — 1:1, white background, ghost mannequin or clean product shot.
+- Mockups (site photos): `public/products/*.png` — 1:1, **pure white** background, ghost mannequin or clean product shot. No lifestyle scenes.
 - Print files (what gets printed): `public/prints/*.png` — high contrast, ₿ orange `#F7931A` on transparent or black.
 
 ## Print rules
