@@ -10,7 +10,7 @@ If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelie
 
 Version **0.7.0** (19 Aug 2026 catalog). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional.
 
-Drop 07: topical Bitcoin lines (We are so back / It’s so over / Strategic reserve / No laser eyes / Proof of work not proof of tweet / Quantum can wait / Fiat is the experiment / Orange pill / Not a forecast / Four year tide). Apparel has **12 colours** including royal blue, crimson, forest, olive, burgundy — photo is the hero colour; swatches pick the rest. Aim: 20+ live options in tees, sweatshirts, hats, women, kids, drinkware.
+Drop 07: topical Bitcoin lines (We are so back / It’s so over / Strategic reserve / No laser eyes / Proof of work not proof of tweet / Quantum can wait / Fiat is the experiment / Orange pill / Not a forecast / Four year tide). Apparel has **12 colours** including royal blue, crimson, forest, olive, burgundy. The garment photo recolours when the buyer picks a swatch. Aim: 20+ live options in tees, sweatshirts, hats, women, kids, drinkware.
 
 ## Remind David: sync both Macs
 

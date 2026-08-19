@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { GarmentImage } from "@/components/GarmentImage";
 import { cartTotalGbp, useCart } from "@/lib/cart-store";
-import { formatGbp, getProduct, productImage } from "@/lib/products";
+import { colorsFor, formatGbp, getProduct, productImage } from "@/lib/products";
 
 export default function CartPage() {
   const { items, setQty, remove } = useCart();
@@ -36,8 +36,13 @@ export default function CartPage() {
               if (!p) return null;
               return (
                 <li key={`${item.slug}-${item.size}-${item.color}`} className="flex gap-4 py-6">
-                  <div className="relative h-24 w-24 shrink-0 bg-white">
-                    <Image src={productImage(p, item.color)} alt="" fill className="object-contain p-1" />
+                  <div className="relative h-24 w-24 shrink-0 overflow-hidden bg-white">
+                    <GarmentImage
+                      src={productImage(p, item.color)}
+                      hex={colorsFor(p)?.find((c) => c.id === item.color)?.hex}
+                      recolor={!p.imagesByColor?.[item.color ?? ""]}
+                      alt={p.name}
+                    />
                   </div>
                   <div className="flex-1">
                     <p className="font-display font-bold">{p.name}</p>
