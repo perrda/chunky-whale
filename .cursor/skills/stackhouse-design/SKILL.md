@@ -53,14 +53,14 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 - Cuts: unisex, women, youth, toddler, infant.
 - Adult sizes: XS–4XL. Youth S–L. Toddler 2T–5T. Infant 3–24 months.
 - Colourways: ink, charcoal, heather, bone, navy, royal blue, sky, forest, olive, crimson, burgundy, Bitcoin orange. Picking a swatch recolours the garment or bag in the photo. Same 12 colours on tees, sweatshirts, hats, bags, socks, and phone cases. Jewelry: gold / silver / rose gold / ink / orange. Not on glassware, mugs, prints, stickers, or pins.
-- Mockups: ghost mannequin, white background, square crop. Product cards use a white well + colour swatches that **change the photo** (`imagesByColor`).
+- Mockups: ghost mannequin **or clean object shot**, **pure white background**, **square 1:1 crop**. No lifestyle walls, concrete floors, books, plants, gym props, or dark textured backdrops. Product cards use a white well + colour swatches that **change the photo** (`imagesByColor`).
 - Premium = embroidery/stitch on hats, hoodies, some tees.
 - Categories: tees, sweatshirts, women, hats, kids, swimwear (shorts, bikinis, one-pieces, rash guards, swim caps), drinkware, jewelry, posters, stickers, bags, premium. Do not advertise booths or an event plan on the public site. Same 12 colours on swimwear. Swim subsections belong under Swimwear only, not under Collections.
 
 ## How to add a design
 
 1. Write one Bitcoin line (meme, philosophy, or protocol). Original — not FOMO21.
-2. Generate a **ghost-mannequin mockup** on white (1:1), ₿ somewhere on the garment. The writing on the photo **must match the product title**.
+2. Generate a **ghost-mannequin mockup** on **pure white** (1:1). Same lighting and crop as the rest of the grid. ₿ somewhere on the garment. The writing on the photo **must match the product title**. Never drop in a lifestyle / atmospheric photo.
 3. Save mockup to `public/products/` as `{mark}-{kind}.png` (example: `so-back-mug.png`). Optional print to `public/prints/`.
 4. Add SKU at the **top** of `lib/products.ts` with `tag: "Meme"` if it is a slogan tee, `colors`, `cut`, `sizes`, `featured` if it should lead the homepage.
 5. Family gifts: same ₿, smaller placement, no sarcasm on infant.
@@ -71,7 +71,8 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 - **Never** reuse another SKU’s photo for a different slogan. Drop 07 once put STRATEGIC RESERVE on every mug. That is a fireable catalog error.
 - Same design on a different object (tee vs mug vs tote) needs its **own** photo of that object with the **same** line.
 - If you do not have a unique matching photo, **do not list the SKU**. Set `retired: true` or omit it. Never borrow a neighbour’s image.
-- `npm run qa:catalog` (also runs before `next build`) fails the build if two live designs share a photo or a mug/tote/pint uses the wrong object.
+- If the only photo is a lifestyle shot (dark wall, props, wooden table), **do not list it** until a white studio mockup exists. The candlestick hoodie once sat on charcoal stone while every neighbour was a ghost mannequin — that is a catalog error.
+- `npm run qa:catalog` (also runs before `next build`) fails the build if two live designs share a photo, a mug/tote/pint uses the wrong object, or a live photo is not a white studio mockup.
 
 ## Agents (run in this order, do not skip)
 
