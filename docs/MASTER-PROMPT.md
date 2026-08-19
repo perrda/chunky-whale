@@ -5,7 +5,7 @@ Use this as the north star for every session. Rival FOMO21 as a serious global B
 ## Brand
 
 - Visible name: **STACKHOUSE**
-- Repo/folder: `orangeforge` (GitHub `perrda/orangeforge`)
+- Repo/folder: `stackhouse` (GitHub `perrda/stackhouse`)
 - Strapline: **Hard money. Soft cotton.**
 - Secondary: **Wear the 21 million.**
 - Merchant: DSP Capital Ventures Ltd (CH 17065288) unless accountant changes it

@@ -14,7 +14,7 @@ const pack = [
   "Foundry mugs — 8 (fragile; extra wrap)",
   "Forge totes — 30 (giveaway + paid)",
   "Sticker packs — 100",
-  "QR cards to orangeforge.com/shop (scan for sizes you do not hold)",
+  "QR cards to stackhouse.com/shop (scan for sizes you do not hold)",
   "Size chart A3 print",
   "Tablet + Lightning POS (OpenNode or Strike)",
   "Card reader backup (Stripe Tap to Pay on phone)",

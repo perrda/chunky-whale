@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { site } from "@/lib/config";
 
 export const metadata: Metadata = { title: "FAQ" };
 
@@ -52,7 +53,7 @@ export default function FaqPage() {
       </dl>
       <p className="mt-10 font-serif text-sm">
         Fulfilment map: <Link href="/fulfillment" className="text-ember">Who ships</Link>
-        . Email <Link href="mailto:hello@orangeforge.com" className="text-ember">hello@orangeforge.com</Link>
+        . Email <Link href={`mailto:${site.email}`} className="text-ember">{site.email}</Link>
       </p>
     </div>
   );

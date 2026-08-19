@@ -5,13 +5,13 @@ I cannot log into these for you. Do them in this order. After each one, put the 
 ## 1. Domain
 
 1. Go to a registrar (Namecheap, Cloudflare, or Google Domains).
-2. Search **hardmoneyco.com**, **hardmoney.co**, **thehardmoney.co**. Fallbacks: orangeforge.com / .store / .xyz.
+2. Search **stackhouse.com**. If taken, try **stackhouse.store** then **stackhouse.xyz**.
 3. Buy it. Later we point it at Vercel.
 
 ## 2. Vercel (puts the site on the internet)
 
 1. Open https://vercel.com and sign in with GitHub.
-2. Import the `orangeforge` repo after you push it.
+2. Import the `stackhouse` repo after you push it.
 3. Add the same keys from `.env.example` in Vercel → Settings → Environment Variables.
 
 ## 3. Printful (prints and ships)
@@ -31,7 +31,7 @@ Used as the invisible product/tax backend. The public site is our custom design,
 
 1. Open https://www.shopify.com and start a store named STACKHOUSE
 2. Settings → Apps → Develop apps → Storefront API token.
-3. Paste `SHOPIFY_STORE_DOMAIN` (like `orangeforge.myshopify.com`) and `SHOPIFY_STOREFRONT_TOKEN`.
+3. Paste `SHOPIFY_STORE_DOMAIN` (like `stackhouse.myshopify.com`) and `SHOPIFY_STOREFRONT_TOKEN`.
 4. Connect the Printful Shopify app when you are ready, **or** keep Printful API-only.
 
 Until this exists, the site uses the built-in eight-product catalog.
@@ -80,7 +80,7 @@ If OpenNode onboarding is slow, BTCPay Server remains a fallback (self-host). Do
 ## 9. Bitcoin MENA exhibitor
 
 1. Open the official Bitcoin MENA / ADNEC exhibitor page when sales are open.
-2. Apply as ORANGEFORGE / DSP Capital Ventures Ltd.
+2. Apply as STACKHOUSE / DSP Capital Ventures Ltd.
 3. I will not guess the fee. Pay only the organiser’s invoice.
 4. Ask them about power, Wi-Fi, and parcel receiving.
 

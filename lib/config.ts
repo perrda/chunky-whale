@@ -3,11 +3,11 @@ export const site = {
   tagline: "Stack sats. Wear ₿.",
   strap: "Original Bitcoin merch",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:3001",
-  email: "hello@orangeforge.com",
+  email: "hello@stackhouse.com",
   merchant: "DSP Capital Ventures Ltd",
   merchantNote:
     "UK company (CH 17065288). Merchant of record unless you later appoint another entity.",
-  twitter: "https://x.com/orangeforge",
+  twitter: "https://x.com/stackhouse",
 };
 
 export function paymentsReady() {

@@ -55,7 +55,7 @@ Fulfil 2–5 business days, then transit: US 5–9, UK 6–13, EU 5–12, Asia 7
 
 - Brand: STACKHOUSE
 - Legal: DSP Capital Ventures Ltd, UK CH 17065288
-- Email: hello@orangeforge.com (change when domain is live)
+- Email: hello@stackhouse.com (change when domain is live)
 - Owner: David Perry
 - First event freight: Bitcoin MENA, ADNEC, Abu Dhabi, 7–8 Dec 2026
 

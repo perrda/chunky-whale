@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Noto_Naskh_Arabic, Source_Serif_4, Syne } from "next/font/google";
 import "./globals.css";
 import { SiteShell } from "@/components/SiteShell";
@@ -26,6 +26,12 @@ const naskh = Noto_Naskh_Arabic({
   subsets: ["arabic"],
   weight: ["400", "600", "700"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

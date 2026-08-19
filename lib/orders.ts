@@ -60,5 +60,5 @@ export async function markPaid(id: string, providerRef?: string) {
 
 export function newOrderId() {
   const n = Math.random().toString(36).slice(2, 8).toUpperCase();
-  return `OF-${Date.now().toString(36).toUpperCase()}-${n}`;
+  return `SH-${Date.now().toString(36).toUpperCase()}-${n}`;
 }

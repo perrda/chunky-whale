@@ -79,6 +79,12 @@ export function Header() {
       </div>
       {open ? (
         <nav id="mobile-nav" className="border-t border-paper/10 px-4 py-4 lg:hidden" aria-label="Mobile">
+          <Link
+            href={authReady && account ? "/account" : "/login"}
+            className="mb-4 inline-block font-display text-sm font-bold sm:hidden"
+          >
+            {authReady && account ? "Account" : "Login"}
+          </Link>
           <MegaNav mobile />
         </nav>
       ) : null}

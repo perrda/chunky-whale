@@ -13,7 +13,7 @@ export default function ForgePage() {
       <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-gold">Studio · Phase 2</p>
       <h1 className="mt-2 font-display text-5xl font-extrabold">The Forge</h1>
       <p className="mt-4 font-serif text-xl text-paper/85">
-        After the MENA booth, anyone will be able to generate a mark, preview it on a garment, and buy it with a unique OF- ID.
+        After the MENA booth, anyone will be able to generate a mark, preview it on a garment, and buy it with a unique SH- ID.
       </p>
       <div className="relative my-10 aspect-square max-w-md">
         <Image src="/prints/print-difficulty.png" alt="Difficulty hash lattice print" fill className="object-cover" />
