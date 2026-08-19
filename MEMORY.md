@@ -8,7 +8,9 @@ Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + coin ₿ mark 
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.9** (19 Aug 2026 light/dark hero). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+Version **0.7.10** (19 Aug 2026 no promo bar). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+
+No thin top bar listing payment rails or print regions. How you pay is only at checkout. Print hubs stay on the shipping page, not in the header.
 
 The homepage left copy block and the thin top bar were painted black (`#111` / white type), so they stayed “dark mode” when the rest of the shop was light. They now use the same theme colours as the header (`ink` / `paper` / `surface`). Light mode: pale background, dark type. Dark mode: dark background, cream type. Product photos stay on a white well in both modes.
 
@@ -53,7 +55,7 @@ Before new work, and after any GitHub change, run the sync block on **Mac Mini a
 ## House rules
 
 - Public site does **not** advertise booths or an event plan. `/events` redirects home. Internal MENA notes stay in docs only.
-- Mega-nav: Trending, T-Shirts, Sweatshirts, Women, Hats, Kids, Swimwear, Drinkware, Collections (Collections includes one Swimwear link plus Mummy & Daddy). No Blog. Colour swatches on every garment. Hero photos where we have them.
+- Mega-nav: Trending, T-Shirts, Sweatshirts, Women, Hats, Kids, Swimwear, Drinkware, Collections (Collections includes one Swimwear link plus Mummy & Daddy). No Blog. No payment/print-region promo strip above the header. Colour swatches on every garment. Hero photos where we have them.
 - Homepage hero shows **six** products, shuffled on each visit, drawn from featured / trending, and later from `soldCount` when sales exist. No empty white panel.
 - Sync both Macs: `docs/SYNC.md`. Live card/BTC/USDC/USDT still need David’s keys — demo until then.
 - Vendor pack: `docs/VENDOR-ONBOARDING.md` + `docs/ARTWORK-SPEC.md`

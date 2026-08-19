@@ -3,9 +3,7 @@ import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { HeroShowcase } from "@/components/HeroShowcase";
 import { NewsletterForm } from "@/components/NewsletterForm";
-import { PaymentBadges } from "@/components/PaymentBadges";
 import { ProductCard } from "@/components/ProductCard";
-import { TrustBar } from "@/components/TrustBar";
 import { site } from "@/lib/config";
 import { HOME_COLLECTIONS } from "@/lib/nav";
 import { heroPool, liveProducts, productsIn } from "@/lib/products";
@@ -53,8 +51,6 @@ export default function HomePage() {
         <HeroShowcase items={heroItems} />
       </section>
 
-      <TrustBar />
-
       <section className="mx-auto max-w-7xl px-4 py-14 md:px-6">
         <div className="flex items-end justify-between gap-4">
           <h2 className="font-display text-3xl font-extrabold">Trending</h2>
@@ -92,16 +88,6 @@ export default function HomePage() {
               </Link>
             );
           })}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-14 md:px-6">
-        <h2 className="font-display text-3xl font-extrabold">Card · Sats · USDC · USDT</h2>
-        <p className="mt-3 max-w-2xl font-serif text-paper/75">
-          Guest checkout. No account required. Demo until your payment keys are in.
-        </p>
-        <div className="mt-8">
-          <PaymentBadges />
         </div>
       </section>
 
