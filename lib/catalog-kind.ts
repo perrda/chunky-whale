@@ -23,7 +23,8 @@ export function filenamePhotoKind(base: string): string | null {
   if (b.includes("coaster")) return "coaster";
   if (b.includes("tote")) return "tote";
   if (b.includes("-pack") || /(?:^|-)pack$/.test(b)) return "pack";
-  if (b.includes("pendant") || b.includes("necklace") || b.includes("bracelet")) return "jewelry";
+  if (b.includes("pendant") || b.includes("necklace")) return "pendant";
+  if (b.includes("bracelet")) return "bracelet";
   if (b.includes("onesie")) return "onesie";
   if (/(poster|print)$/.test(b) && !b.includes("cant-print")) return "poster";
   if (/(?:^|-)tee$/.test(b) || b.includes("-tee-")) return "tee";
@@ -48,6 +49,8 @@ export function expectedPhotoKind(product: Product): string {
   if (s.includes("tote") || (product.category === "bags" && !s.includes("pack"))) return "tote";
   if (s.includes("pack") && product.category === "bags") return "pack";
   if (product.category === "posters" || s.includes("poster") || /-(ps)$/.test(s)) return "poster";
+  if (s.includes("pendant") || s.includes("necklace") || k === "pendant") return "pendant";
+  if (s.includes("bracelet") || k === "bracelet") return "bracelet";
   if (product.category === "jewelry") return "jewelry";
   if (product.cut === "infant" || s.includes("onesie")) return "onesie";
   if (product.category === "tees") return "tee";
@@ -71,7 +74,9 @@ const KIND_OK: Record<string, string[]> = {
   tote: ["tote"],
   pack: ["pack"],
   poster: ["poster"],
-  jewelry: ["jewelry"],
+  jewelry: ["jewelry", "pendant", "bracelet"],
+  pendant: ["pendant", "jewelry"],
+  bracelet: ["bracelet", "jewelry"],
 };
 
 /** True when the listing is a hat/hoodie/etc but the photo file is clearly another object (usually a tee). */
