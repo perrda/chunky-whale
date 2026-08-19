@@ -23,27 +23,27 @@ export default function HomePage() {
   return (
     <div>
       <section className="grid md:grid-cols-2">
-        <div className="flex flex-col justify-center bg-[#111] px-8 py-16 text-white md:min-h-[32rem] md:px-14">
+        <div className="flex flex-col justify-center bg-ink px-8 py-16 text-paper md:min-h-[32rem] md:px-14">
           <FadeIn>
-            <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-[#F7931A]">{site.strap}</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ember">{site.strap}</p>
             <h1 className="mt-4 max-w-lg font-display text-4xl font-extrabold leading-[1.05] sm:text-6xl">
               Bitcoin tees.
               <br />
               Don&apos;t miss the stack.
             </h1>
-            <p className="mt-5 max-w-md font-serif text-lg text-white/75">
+            <p className="mt-5 max-w-md font-serif text-lg text-paper/75">
               {site.tagline} Original designs. No altcoins.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/collection/trending"
-                className="inline-flex items-center gap-2 bg-[#F7931A] px-7 py-3 font-display text-sm font-bold text-black"
+                className="inline-flex items-center gap-2 bg-ember px-7 py-3 font-display text-sm font-bold text-ink"
               >
                 Shop now
               </Link>
               <Link
                 href="/shop"
-                className="inline-flex items-center gap-2 border border-white/25 px-7 py-3 font-display text-sm font-bold text-white"
+                className="inline-flex items-center gap-2 border border-paper/25 px-7 py-3 font-display text-sm font-bold text-paper"
               >
                 All {catalog.length} pieces
               </Link>

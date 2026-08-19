@@ -27,7 +27,7 @@ export function ProductCard({ product }: { product: Product }) {
             </span>
           ) : null}
           {product.featured && !product.limited ? (
-            <span className="absolute left-3 top-3 bg-ink/90 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-paper">
+            <span className="absolute left-3 top-3 bg-paper/90 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-ink">
               Featured
             </span>
           ) : null}

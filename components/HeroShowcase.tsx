@@ -29,7 +29,7 @@ export function HeroShowcase({ items }: { items: HeroItem[] }) {
   }, [items]);
 
   return (
-    <div className="grid h-full min-h-[22rem] grid-cols-2 grid-rows-3 gap-2 bg-[#ececec] p-3 sm:grid-cols-3 sm:grid-rows-2 md:min-h-[32rem] md:p-4">
+    <div className="grid h-full min-h-[22rem] grid-cols-2 grid-rows-3 gap-2 bg-surface p-3 sm:grid-cols-3 sm:grid-rows-2 md:min-h-[32rem] md:p-4">
       {six.map((p) => (
         <Link
           key={p.slug}
