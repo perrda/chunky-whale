@@ -15,6 +15,7 @@ export function ProductView({ product }: { product: Product }) {
   const [color, setColor] = useState(colors?.[0]?.id ?? "");
   const [size, setSize] = useState(product.sizes?.[0]?.id ?? "");
   const [added, setAdded] = useState(false);
+  const soldOut = Boolean(product.limited && (product.remaining ?? 0) <= 0);
   const img = productImage(product, color || undefined);
   const chartKind =
     product.category === "hoodies"
@@ -61,7 +62,8 @@ export function ProductView({ product }: { product: Product }) {
                 className={`relative h-16 w-16 shrink-0 overflow-hidden border bg-white ${
                   color === c.id ? "border-ember" : "border-paper/20"
                 }`}
-                aria-label={c.label}
+                aria-label={`Colour: ${c.label}`}
+                aria-pressed={color === c.id}
               >
                 <GarmentImage
                   src={productImage(product, c.id)}
@@ -101,6 +103,7 @@ export function ProductView({ product }: { product: Product }) {
                     key={c.id}
                     type="button"
                     onClick={() => setColor(c.id)}
+                    aria-pressed={color === c.id}
                     className={`flex items-center gap-2 border px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] ${
                       color === c.id ? "border-ember text-ember" : "border-paper/20 text-paper/80"
                     }`}
@@ -121,6 +124,7 @@ export function ProductView({ product }: { product: Product }) {
                     key={s.id}
                     type="button"
                     onClick={() => setSize(s.id)}
+                    aria-pressed={size === s.id}
                     className={`border px-3 py-2 font-mono text-xs uppercase tracking-[0.16em] ${
                       size === s.id ? "border-ember text-ember" : "border-paper/20 text-paper/80"
                     }`}
@@ -135,9 +139,10 @@ export function ProductView({ product }: { product: Product }) {
             <button
               type="button"
               onClick={onAdd}
-              className="bg-ember px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-ink"
+              disabled={soldOut}
+              className="bg-ember px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-ink disabled:opacity-50"
             >
-              {added ? "Added to basket" : "Add to basket"}
+              {soldOut ? "Sold out" : added ? "Added to basket" : "Add to basket"}
             </button>
             {added ? (
               <button

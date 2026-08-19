@@ -89,6 +89,7 @@ function FilterChip({
     <button
       type="button"
       onClick={onClick}
+      aria-pressed={active}
       className={`font-mono text-[10px] uppercase tracking-[0.16em] border px-3 py-2 ${
         active ? "border-ember text-ember" : "border-paper/20 text-paper/70 hover:text-paper"
       }`}

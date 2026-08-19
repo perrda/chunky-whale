@@ -2,21 +2,17 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "@/lib/auth-store";
 import { useCart } from "@/lib/cart-store";
+import { usePersistReady } from "@/lib/use-persist-ready";
 
 export default function AccountPage() {
   const account = useAuth((s) => s.account);
   const signOut = useAuth((s) => s.signOut);
   const items = useCart((s) => s.items);
   const router = useRouter();
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    void useAuth.persist.rehydrate();
-    setReady(true);
-  }, []);
+  const ready = usePersistReady(useAuth.persist);
 
   useEffect(() => {
     if (ready && !account) router.replace("/login");

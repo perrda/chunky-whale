@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     q: "Do colours on the product page change the photo?",
-    a: "Yes, where we have a photo for that colour. Click Navy, Ink, Orange, or Bone and the garment in the picture changes.",
+    a: "Yes. If we have a studio shot for that colour, you see the real photo. If not, the garment in the picture is recoloured on the page so you can still judge the shirt colour. The print stays as designed.",
   },
   {
     q: "Is there a login?",

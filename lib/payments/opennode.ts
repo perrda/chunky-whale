@@ -1,5 +1,7 @@
-const OPENNODE =
-  process.env.OPENNODE_API_URL ?? "https://api.opennode.com";
+import { hmacHex, safeEqualHex } from "@/lib/hmac";
+import { fiatMajorAmount } from "@/lib/payments/amount";
+
+const OPENNODE = process.env.OPENNODE_API_URL ?? "https://api.opennode.com";
 
 export async function createOpenNodeCharge(input: {
   orderId: string;
@@ -17,7 +19,8 @@ export async function createOpenNodeCharge(input: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      amount: Math.round(input.amountGbp * 100),
+      // OpenNode treats `amount` as the fiat major unit when `currency` is set (e.g. 28 = £28).
+      amount: fiatMajorAmount(input.amountGbp),
       currency: "GBP",
       description: `STACKHOUSE ${input.orderId}`,
       order_id: input.orderId,
@@ -37,8 +40,31 @@ export async function createOpenNodeCharge(input: {
   return { id: json.data.id, url: json.data.hosted_checkout_url };
 }
 
-export function verifyOpenNodeSignature(raw: string, header: string | null) {
-  const secret = process.env.OPENNODE_WEBHOOK_SECRET;
-  if (!secret || !header) return false;
-  return header === secret || raw.includes(secret);
+/** OpenNode hashed_order = HMAC-SHA256(charge id, API key). */
+export function verifyOpenNodeHashedOrder(chargeId: string, hashed: string | undefined) {
+  const key = process.env.OPENNODE_API_KEY;
+  if (!key || !hashed || !chargeId) return false;
+  return safeEqualHex(hashed, hmacHex("sha256", key, chargeId));
+}
+
+export function parseOpenNodeBody(raw: string, contentType: string | null) {
+  if (contentType?.includes("application/x-www-form-urlencoded")) {
+    const p = new URLSearchParams(raw);
+    return {
+      id: p.get("id") ?? undefined,
+      status: p.get("status") ?? undefined,
+      order_id: p.get("order_id") ?? undefined,
+      hashed_order: p.get("hashed_order") ?? undefined,
+    };
+  }
+  try {
+    return JSON.parse(raw) as {
+      id?: string;
+      status?: string;
+      order_id?: string;
+      hashed_order?: string;
+    };
+  } catch {
+    return null;
+  }
 }

@@ -15,6 +15,7 @@ export function SizeChart({ kind }: { kind?: "tees" | "hoodies" }) {
             key={r.id}
             type="button"
             onClick={() => setRegion(r.id)}
+            aria-pressed={region === r.id}
             className={`font-mono text-[10px] uppercase tracking-[0.16em] border px-3 py-1.5 ${
               region === r.id ? "border-ember text-ember" : "border-paper/20 text-paper/70"
             }`}
@@ -28,9 +29,11 @@ export function SizeChart({ kind }: { kind?: "tees" | "hoodies" }) {
           <caption className="sr-only">Size chart</caption>
           <thead>
             <tr className="font-mono text-[10px] uppercase tracking-[0.18em] text-gold">
-              <th className="py-2">Size</th>
-              <th>Chest</th>
-              <th>Length (cm)</th>
+              <th scope="col" className="py-2">
+                Size
+              </th>
+              <th scope="col">Chest</th>
+              <th scope="col">Length (cm)</th>
             </tr>
           </thead>
           <tbody>

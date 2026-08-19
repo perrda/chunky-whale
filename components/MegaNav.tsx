@@ -38,24 +38,44 @@ export function MegaNav({ mobile = false }: { mobile?: boolean }) {
     <ul className="hidden items-center gap-1 lg:flex" aria-label="Primary">
       {MEGA_NAV.map((item) => {
         const active = pathname === item.href || item.children?.some((c) => c.href === pathname);
+        const expanded = open === item.label;
         return (
           <li
             key={item.href}
             className="relative"
-            onMouseEnter={() => setOpen(item.label)}
+            onMouseEnter={() => item.children && setOpen(item.label)}
             onMouseLeave={() => setOpen(null)}
+            onFocus={() => item.children && setOpen(item.label)}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpen(null);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") setOpen(null);
+            }}
           >
-            <Link
-              href={item.href}
-              className={`inline-flex items-center gap-1 px-2.5 py-2 font-display text-[13px] font-bold ${
-                active ? "text-ember" : "text-paper/80 hover:text-paper"
-              }`}
-              aria-expanded={item.children ? open === item.label : undefined}
-            >
-              {item.label}
-              {item.children ? <span className="text-[10px] opacity-60">▾</span> : null}
-            </Link>
-            {item.children && open === item.label ? (
+            <div className="inline-flex items-center">
+              <Link
+                href={item.href}
+                className={`inline-flex items-center gap-1 px-2.5 py-2 font-display text-[13px] font-bold ${
+                  active ? "text-ember" : "text-paper/80 hover:text-paper"
+                }`}
+              >
+                {item.label}
+              </Link>
+              {item.children ? (
+                <button
+                  type="button"
+                  className="px-1 py-2 text-[10px] opacity-60"
+                  aria-expanded={expanded}
+                  aria-haspopup="true"
+                  aria-label={`${item.label} menu`}
+                  onClick={() => setOpen(expanded ? null : item.label)}
+                >
+                  ▾
+                </button>
+              ) : null}
+            </div>
+            {item.children && expanded ? (
               <div className="absolute left-0 top-full z-50 min-w-48 border border-paper/10 bg-ink py-2 shadow-sm">
                 {item.children.map((c) => (
                   <Link

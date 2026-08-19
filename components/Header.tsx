@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth-store";
 import { cartCount, useCart } from "@/lib/cart-store";
+import { usePersistReady } from "@/lib/use-persist-ready";
 import { Logo } from "./Logo";
 import { MegaNav } from "./MegaNav";
 import { SearchBox } from "./SearchBox";
@@ -14,18 +15,10 @@ export function Header() {
   const pathname = usePathname();
   const items = useCart((s) => s.items);
   const account = useAuth((s) => s.account);
-  const [count, setCount] = useState(0);
+  const cartReady = usePersistReady(useCart.persist);
+  const authReady = usePersistReady(useAuth.persist);
   const [open, setOpen] = useState(false);
-  const [authReady, setAuthReady] = useState(false);
-
-  useEffect(() => {
-    setCount(cartCount(items));
-  }, [items]);
-
-  useEffect(() => {
-    void useAuth.persist.rehydrate();
-    setAuthReady(true);
-  }, []);
+  const count = cartReady ? cartCount(items) : 0;
 
   useEffect(() => {
     setOpen(false);
@@ -57,13 +50,15 @@ export function Header() {
           <Link
             href="/cart"
             className="font-display text-sm font-bold text-paper/80 hover:text-ember"
-            aria-label={`Basket, ${count} items`}
+            aria-label={cartReady ? `Basket, ${count} items` : "Basket"}
           >
-            Basket{count > 0 ? <span className="ml-1 text-ember">{count}</span> : null}
+            Basket
+            {cartReady && count > 0 ? <span className="ml-1 text-ember">{count}</span> : null}
           </Link>
           <button
             type="button"
             className="font-display text-sm font-bold lg:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
@@ -79,6 +74,11 @@ export function Header() {
       </div>
       {open ? (
         <nav id="mobile-nav" className="border-t border-paper/10 px-4 py-4 lg:hidden" aria-label="Mobile">
+          <div className="mb-4">
+            <Suspense fallback={null}>
+              <SearchBox variant="mobile" />
+            </Suspense>
+          </div>
           <Link
             href={authReady && account ? "/account" : "/login"}
             className="mb-4 inline-block font-display text-sm font-bold sm:hidden"

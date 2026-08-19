@@ -45,7 +45,12 @@ export type Product = {
   featured?: boolean;
   event?: boolean;
   retired?: boolean;
-  printful?: { variantId?: number; productId?: number };
+  printful?: {
+    variantId?: number;
+    productId?: number;
+    /** Size:colour → Printful variant. Example key: `m:navy`. */
+    variants?: Record<string, number>;
+  };
   shopifyHandle?: string;
 };
 
@@ -1232,6 +1237,19 @@ export function colorsFor(product: Product): ColorOption[] | undefined {
 
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);
+}
+
+export function isLiveProduct(slug: string) {
+  const p = getProduct(slug);
+  return Boolean(p && !p.retired && !RETIRED_SLUGS.has(slug));
+}
+
+/** Looks up size × colour first; falls back to a single mapped variant. 0 = not mapped yet. */
+export function printfulVariantId(slug: string, size?: string, color?: string) {
+  const p = getProduct(slug);
+  if (!p?.printful) return 0;
+  const key = `${size ?? ""}:${color ?? ""}`;
+  return p.printful.variants?.[key] ?? p.printful.variantId ?? 0;
 }
 
 export function productKind(p: Product) {
