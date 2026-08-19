@@ -1213,6 +1213,7 @@ export const RETIRED_SLUGS = new Set([
   "amsterdam-tee",
   "prague-tee",
   "nashville-tee",
+  "mena-2026-tee",
   "stayed-chart-tee",
   "ten-minutes-tee",
   "verify-tee",

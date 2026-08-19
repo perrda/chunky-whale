@@ -1,6 +1,7 @@
 import { existsSync } from "fs";
 import path from "path";
 import { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catalog-kind";
+import { isStudioWhiteBackground } from "./catalog-studio";
 import { products as allProducts, RETIRED_SLUGS, type Product } from "./products";
 
 export { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catalog-kind";
@@ -115,17 +116,17 @@ const OBJECT_OK: Record<string, string[]> = {
 
 export type CatalogImageIssue = {
   severity: "error" | "warning";
-  code: "missing-file" | "slogan-collision" | "kind-mismatch";
+  code: "missing-file" | "slogan-collision" | "kind-mismatch" | "studio-background";
   slug: string;
   name: string;
   image: string;
   detail: string;
 };
 
-export function auditCatalogImages(
+export async function auditCatalogImages(
   products: Product[] = allProducts.filter((p) => !p.retired && !RETIRED_SLUGS.has(p.slug)),
   publicDir = path.join(process.cwd(), "public"),
-): CatalogImageIssue[] {
+): Promise<CatalogImageIssue[]> {
   const issues: CatalogImageIssue[] = [];
   const byImage = new Map<string, Product[]>();
 
@@ -141,6 +142,18 @@ export function auditCatalogImages(
         image: p.image,
         detail: "Image file is missing from public/",
       });
+    } else {
+      const studio = await isStudioWhiteBackground(abs);
+      if (!studio.ok) {
+        issues.push({
+          severity: "error",
+          code: "studio-background",
+          slug: p.slug,
+          name: p.name,
+          image: p.image,
+          detail: `Photo is not a white studio mockup (white border ${(studio.whiteBorder * 100).toFixed(0)}%, dark border ${(studio.darkBorder * 100).toFixed(0)}%). Ghost mannequin on white only — no lifestyle walls or props.`,
+        });
+      }
     }
 
     const list = byImage.get(p.image) ?? [];
