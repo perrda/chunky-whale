@@ -8,7 +8,9 @@ Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + orange ₿ bad
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.1** (19 Aug 2026 QA). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional.
+Version **0.7.2** (19 Aug 2026 catalog photos). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional.
+
+**Catalog photo rule (do not break again):** every live SKU needs its own photo whose writing matches the title. Drop 07 had cloned STRATEGIC RESERVE onto every mug, HARD MONEY onto extra totes, and other slogans onto family/jewelry clones. Fixed: unique mug/tumbler/pint/coaster/tote shots; clones without a real photo are retired. Guard: `npm run qa:catalog` (also runs before production build). If the audit fails, do not ship.
 
 QA pass on `cursor/qa-bugfix-pass-1342`: checkout no longer pretends a missing payment rail is live; OpenNode charges pounds not 100×; NOWPayments and Coinbase webhooks verify correctly; Printful will not submit a fake or zero variant; success page only clears the basket after a demo order or a paid order; cart/checkout wait for saved basket; nav works with keyboard. Still blocked for live money: Printful variant IDs, durable order store, and David’s payment keys.
 
