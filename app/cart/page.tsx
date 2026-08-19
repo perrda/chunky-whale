@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GarmentImage } from "@/components/GarmentImage";
 import { cartTotalGbp, useCart } from "@/lib/cart-store";
 import { colorsFor, formatGbp, getProduct, isLiveProduct, productImage } from "@/lib/products";
@@ -116,6 +116,9 @@ export default function CartPage() {
 
 function CartQty({ qty, onCommit }: { qty: number; onCommit: (n: number) => void }) {
   const [draft, setDraft] = useState(String(qty));
+  useEffect(() => {
+    setDraft(String(qty));
+  }, [qty]);
   return (
     <label className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
       Qty

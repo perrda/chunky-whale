@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { getProduct } from "./products";
+import { getProduct, isLiveProduct } from "./products";
 
 export type CartItem = {
   slug: string;
@@ -69,6 +69,7 @@ export function cartCount(items: CartItem[]) {
 export function cartTotalGbp(items: CartItem[]) {
   return items.reduce((n, i) => {
     const p = getProduct(i.slug);
-    return n + (p ? p.priceGbp * i.qty : 0);
+    if (!p || !isLiveProduct(i.slug)) return n;
+    return n + p.priceGbp * i.qty;
   }, 0);
 }

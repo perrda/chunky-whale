@@ -80,7 +80,10 @@ export async function claimFulfillment(id: string) {
   return withLock(async () => {
     const orders = await load();
     const i = orders.findIndex((o) => o.id === id);
-    if (i < 0 || orders[i].status !== "paid" || orders[i].fulfilled) return null;
+    if (i < 0 || orders[i].status !== "paid") return null;
+    if (orders[i].fulfilled && orders[i].printfulId && orders[i].printfulId !== "pending") {
+      return null;
+    }
     orders[i] = { ...orders[i], fulfilled: true, printfulId: "pending" };
     await save(orders);
     return orders[i];

@@ -40,21 +40,31 @@ export default function CheckoutPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [cancelled, setCancelled] = useState(false);
-  const [rails, setRails] = useState<PayStatus>({ demo: true });
+  const [rails, setRails] = useState<PayStatus | null>(null);
+  const [railsError, setRailsError] = useState(false);
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
     setCancelled(q.get("cancelled") === "1");
     fetch("/api/status")
-      .then((r) => r.json())
-      .then((s: PayStatus) => setRails(s))
-      .catch(() => setRails({ demo: true }));
+      .then((r) => {
+        if (!r.ok) throw new Error("status");
+        return r.json();
+      })
+      .then((s: PayStatus) => {
+        setRails(s);
+        setRailsError(false);
+      })
+      .catch(() => {
+        setRails(null);
+        setRailsError(true);
+      });
   }, []);
 
-  const anyLive = Boolean(rails.stripe || rails.opennode || rails.coinbase || rails.nowpayments);
+  const anyLive = Boolean(rails?.stripe || rails?.opennode || rails?.coinbase || rails?.nowpayments);
   const liveById = useMemo(() => {
     const map = {} as Record<(typeof methods)[number]["id"], boolean>;
-    for (const m of methods) map[m.id] = Boolean(rails[m.rail]);
+    for (const m of methods) map[m.id] = Boolean(rails?.[m.rail]);
     return map;
   }, [rails]);
   const methodLive = (id: (typeof methods)[number]["id"]) => liveById[id];
@@ -214,11 +224,13 @@ export default function CheckoutPage() {
                   <span>
                     <span className="block font-display font-bold">{m.label}</span>
                     <span className="font-serif text-sm text-paper/70">
-                      {allowed
-                        ? anyLive
-                          ? `${m.note} — live`
-                          : `${m.note} — demo until keys are live`
-                        : `${m.note} — not connected yet`}
+                      {railsError
+                        ? `${m.note} — checking payment status failed`
+                        : allowed
+                          ? anyLive
+                            ? `${m.note} — live`
+                            : `${m.note} — demo until keys are live`
+                          : `${m.note} — not connected yet`}
                     </span>
                   </span>
                 </label>
@@ -226,20 +238,27 @@ export default function CheckoutPage() {
             })}
           </div>
         </fieldset>
+        {railsError ? (
+          <p className="font-serif text-sm text-ember">
+            Could not check which payment methods are live. Refresh the page before you pay.
+          </p>
+        ) : null}
         {error ? <p className="font-serif text-sm text-ember">{error}</p> : null}
         <button
           type="submit"
-          disabled={busy || stale || !methodAllowed(method)}
+          disabled={busy || stale || !rails || railsError || !methodAllowed(method)}
           className="bg-ember px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-ink disabled:opacity-60"
         >
           {busy ? "Starting payment…" : `Pay ${formatGbp(total)}`}
         </button>
         <p className="font-serif text-sm text-muted">
-          {!anyLive
-            ? "Demo mode — no real money is taken until payment keys are live. Card, Bitcoin + Lightning, USDC, and USDT are equal once keys exist."
-            : methodLive(method)
-              ? "This method is live. You will be sent to the payment provider to finish. Crypto is final once confirmed."
-              : "That method is not connected yet. Pick a live rail, or add its keys."}
+          {!rails
+            ? "Checking which payment methods are connected…"
+            : !anyLive
+              ? "Demo mode — no real money is taken until payment keys are live. Card, Bitcoin + Lightning, USDC, and USDT are equal once keys exist."
+              : methodLive(method)
+                ? "This method is live. You will be sent to the payment provider to finish. Crypto is final once confirmed."
+                : "That method is not connected yet. Pick a live rail, or add its keys."}
         </p>
         <p className="font-serif text-sm text-paper/70">
           <Link href="/shipping" className="text-ember">
