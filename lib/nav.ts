@@ -69,12 +69,12 @@ export const MEGA_NAV: NavItem[] = [
     href: "/collection/drinkware",
     label: "Drinkware",
     children: [
-      { href: "/collection/coffee-mugs", label: "Coffee mugs" },
-      { href: "/collection/coasters", label: "Coasters" },
-      { href: "/collection/pint-glasses", label: "Pint glasses" },
-      { href: "/collection/shot-glasses", label: "Shot glasses" },
-      { href: "/collection/tumblers", label: "Tumblers" },
       { href: "/collection/whiskey-glasses", label: "Whiskey glasses" },
+      { href: "/collection/shot-glasses", label: "Shot glasses" },
+      { href: "/collection/coffee-mugs", label: "Coffee mugs" },
+      { href: "/collection/pint-glasses", label: "Pint glasses" },
+      { href: "/collection/tumblers", label: "Tumblers" },
+      { href: "/collection/coasters", label: "Coasters" },
     ],
   },
   {
@@ -123,11 +123,29 @@ export const HOME_COLLECTIONS = [
   { slug: "women", label: "Women", blurb: "V-neck, tank, crop." },
   { slug: "kids", label: "Kids", blurb: "Youth to infant." },
   { slug: "swimwear", label: "Swimwear", blurb: "Shorts, bikinis, caps." },
-  { slug: "drinkware", label: "Drinkware", blurb: "Mugs, whiskey, shots, tumblers, pints." },
+  { slug: "drinkware", label: "Drinkware", blurb: "Whiskey, shots, mugs, tumblers, pints." },
   { slug: "jewelry", label: "Jewelry", blurb: "Pendants and chains." },
   { slug: "posters", label: "Posters", blurb: "Charts and 21 million." },
   { slug: "mummy-daddy", label: "Mummy & Daddy", blurb: "Bitcoin Mummy. Bitcoin Daddy." },
 ];
+
+/** Subsection links for a parent collection, or sibling links when already on a child. */
+export function collectionNavFor(slug: string): {
+  parentLabel: string;
+  parentHref: string;
+  children: NavChild[];
+} | null {
+  const href = `/collection/${slug}`;
+  const parent = MEGA_NAV.find((n) => n.href === href && n.children?.length);
+  if (parent?.children) {
+    return { parentLabel: parent.label, parentHref: parent.href, children: parent.children };
+  }
+  const owner = MEGA_NAV.find((n) => n.children?.some((c) => c.href === href));
+  if (owner?.children) {
+    return { parentLabel: owner.label, parentHref: owner.href, children: owner.children };
+  }
+  return null;
+}
 
 export const COLLECTION_META: { slug: string; label: string; blurb: string }[] = [
   { slug: "trending", label: "Trending", blurb: "What Bitcoiners are grabbing." },

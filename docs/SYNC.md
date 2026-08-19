@@ -2,13 +2,14 @@
 
 Do this on the **Mac Mini and the MacBook Pro** whenever you start work, and after anything is merged on GitHub.
 
-Press **Control + C** first if the site is already running.
+Press **Control + C** first if the site is already running. An old Terminal window will keep showing yesterday’s shop even after GitHub updates — stop it, then run this block.
 
 ```bash
 cd ~/Projects/stackhouse
 git fetch origin
 git checkout main
 git reset --hard origin/main
+rm -rf .next
 npm install
 npm run dev -- --port 3001
 ```
@@ -16,6 +17,8 @@ npm run dev -- --port 3001
 Then open **http://127.0.0.1:3001**
 
 You should see **“Bitcoin tees. Don’t miss the stack.”** on both machines.
+
+If Drinkware still looks like only mugs and tumblers, the old process is still running. Control+C, then the block again. Direct pages: [Whiskey glasses](http://127.0.0.1:3001/collection/whiskey-glasses) and [Shot glasses](http://127.0.0.1:3001/collection/shot-glasses).
 
 That `reset --hard` makes this Mac match GitHub `main` exactly. Do not run it if you have unpaid work on this Mac that was never uploaded — say so first and we will save a backup branch.
 
