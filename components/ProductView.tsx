@@ -179,7 +179,7 @@ export function ProductView({ product }: { product: Product }) {
           </ul>
         </div>
         <p className="mt-8 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
-          Pay with card, Bitcoin + Lightning, USDC, or USDT. UK VAT at checkout when live. Not financial advice.
+          Not financial advice.
         </p>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { liveProducts } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Shop Bitcoin merch",
-  description: "STACKHOUSE Bitcoin merch: tees, hats, hoodies, drinkware. Guest checkout. Card, BTC, USDC, USDT.",
+  description: "STACKHOUSE Bitcoin merch: tees, hats, hoodies, drinkware.",
 };
 
 type Props = { searchParams: Promise<{ q?: string; cat?: string }> };
@@ -16,7 +16,7 @@ export default async function ShopPage({ searchParams }: Props) {
       <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-gold">Catalog</p>
       <h1 className="mt-2 font-display text-4xl font-extrabold">Bitcoin merch</h1>
       <p className="mt-3 max-w-2xl font-serif text-paper/75">
-        The memes, the ₿, the 21 million. Tees, hoodies, hats, drinkware, jewelry, posters. Mid-price. Printed near the buyer.
+        The memes, the ₿, the 21 million. Tees, hoodies, hats, drinkware, jewelry, posters. Mid-price.
       </p>
       <div className="mt-10">
         <ShopCatalog products={liveProducts()} initialFilter={cat ?? "all"} initialQ={q ?? ""} />

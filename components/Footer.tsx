@@ -11,7 +11,7 @@ export function Footer() {
             <span className="font-semibold text-[#F7931A]">House</span>
           </p>
           <p className="mt-3 max-w-md font-serif text-paper/75">
-            {site.tagline} Guest checkout. Card, Bitcoin + Lightning, USDC, or USDT.
+            {site.tagline}
           </p>
           <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
             {site.merchant} · {site.merchantNote}
