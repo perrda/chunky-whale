@@ -983,7 +983,7 @@ export const products: Product[] = [
     colors: HOUSE_COLORS,
     description: "White and orange candles as a textile. You stayed for the chart. Now you wear it.",
     details: HOOD,
-    image: "/products/candles-hoodie.png",
+    image: "/products/candles-hoodie-sq.png",
     print: "/prints/print-candles.png",
     sizes: APPAREL_SIZES,
   },

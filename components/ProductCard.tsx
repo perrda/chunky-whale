@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { colorsFor, formatGbp, productImage, type Product } from "@/lib/products";
+import { ColorSwatches } from "./ColorSwatches";
 import { GarmentImage } from "./GarmentImage";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -42,24 +43,7 @@ export function ProductCard({ product }: { product: Product }) {
           <p className="mt-1 font-mono text-sm text-gold">{formatGbp(product.priceGbp)}</p>
         </div>
       </Link>
-      {swatches ? (
-        <div className="mt-2 flex flex-wrap gap-1.5" aria-label="Preview colours">
-          {swatches.slice(0, 12).map((c) => (
-            <button
-              key={c.id}
-              type="button"
-              title={c.label}
-              aria-label={`Preview ${c.label}`}
-              aria-pressed={color === c.id}
-              onClick={() => setColor(c.id)}
-              className={`h-6 w-6 rounded-full border ${
-                color === c.id ? "border-ember ring-1 ring-ember" : "border-paper/25"
-              }`}
-              style={{ background: c.hex }}
-            />
-          ))}
-        </div>
-      ) : null}
+      {swatches ? <ColorSwatches colors={swatches} value={color} onChange={setColor} /> : null}
     </div>
   );
 }

@@ -53,7 +53,7 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 - Cuts: unisex, women, youth, toddler, infant.
 - Adult sizes: XS–4XL. Youth S–L. Toddler 2T–5T. Infant 3–24 months.
 - Colourways: ink, charcoal, heather, bone, navy, royal blue, sky, forest, olive, crimson, burgundy, Bitcoin orange. Picking a swatch recolours the garment or bag in the photo. Same 12 colours on tees, sweatshirts, hats, bags, socks, and phone cases. Jewelry: gold / silver / rose gold / ink / orange. Not on glassware, mugs, prints, stickers, or pins.
-- Mockups: ghost mannequin **or clean object shot**, **pure white background**, **square 1:1 crop**. No lifestyle walls, concrete floors, books, plants, gym props, or dark textured backdrops. Product cards use a white well + colour swatches that **change the photo** (`imagesByColor`).
+- Mockups: ghost mannequin **or clean object shot**, **pure white background**, **square 1:1 crop** (not 3:2). No lifestyle walls, concrete floors, books, plants, gym props, or dark textured backdrops. Product cards use a white well + colour swatches that **change the photo** (`imagesByColor`). Twelve garment colours show as **two centred rows of six**.
 - Premium = embroidery/stitch on hats, hoodies, some tees.
 - Categories: tees, sweatshirts, women, hats, kids, swimwear (shorts, bikinis, one-pieces, rash guards, swim caps), drinkware, jewelry, posters, stickers, bags, premium. Do not advertise booths or an event plan on the public site. Same 12 colours on swimwear. Swim subsections belong under Swimwear only, not under Collections.
 

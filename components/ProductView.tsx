@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { useCart } from "@/lib/cart-store";
 import { colorsFor, productImage, type Product } from "@/lib/products";
 import { SHIP_REGIONS } from "@/lib/shipping";
+import { ColorChoiceGrid } from "./ColorSwatches";
 import { GarmentImage } from "./GarmentImage";
 import { SizeChart } from "./SizeChart";
 
@@ -53,13 +54,13 @@ export function ProductView({ product }: { product: Product }) {
           </p>
         ) : null}
         {colors && colors.length > 1 ? (
-          <div className="flex gap-2 overflow-x-auto">
+          <div className="grid grid-cols-6 justify-items-center gap-2">
             {colors.map((c) => (
               <button
                 key={c.id}
                 type="button"
                 onClick={() => setColor(c.id)}
-                className={`relative h-16 w-16 shrink-0 overflow-hidden border bg-white ${
+                className={`relative aspect-square w-full max-w-16 overflow-hidden border bg-white ${
                   color === c.id ? "border-ember" : "border-paper/20"
                 }`}
                 aria-label={`Colour: ${c.label}`}
@@ -97,22 +98,7 @@ export function ProductView({ product }: { product: Product }) {
           {colors ? (
             <fieldset>
               <legend className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Colour</legend>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {colors.map((c) => (
-                  <button
-                    key={c.id}
-                    type="button"
-                    onClick={() => setColor(c.id)}
-                    aria-pressed={color === c.id}
-                    className={`flex items-center gap-2 border px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] ${
-                      color === c.id ? "border-ember text-ember" : "border-paper/20 text-paper/80"
-                    }`}
-                  >
-                    <span className="inline-block h-3 w-3 rounded-full border border-paper/30" style={{ background: c.hex }} />
-                    {c.label}
-                  </button>
-                ))}
-              </div>
+              <ColorChoiceGrid colors={colors} value={color} onChange={setColor} name="pdp-color" />
             </fieldset>
           ) : null}
           {product.sizes ? (

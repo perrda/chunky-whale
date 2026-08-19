@@ -5,7 +5,12 @@ export async function isStudioWhiteBackground(absPath: string): Promise<{
   ok: boolean;
   whiteBorder: number;
   darkBorder: number;
+  square: boolean;
 }> {
+  const meta = await sharp(absPath).metadata();
+  const mw = meta.width ?? 1;
+  const mh = meta.height ?? 1;
+  const square = Math.abs(mw / mh - 1) <= 0.08;
   const { data, info } = await sharp(absPath)
     .resize(256, 256, { fit: "inside" })
     .removeAlpha()
@@ -42,8 +47,9 @@ export async function isStudioWhiteBackground(absPath: string): Promise<{
   const whiteBorder = n ? white / n : 0;
   const darkBorder = n ? dark / n : 0;
   return {
-    ok: whiteBorder >= 0.55 && darkBorder <= 0.2,
+    ok: square && whiteBorder >= 0.55 && darkBorder <= 0.2,
     whiteBorder,
     darkBorder,
+    square,
   };
 }
