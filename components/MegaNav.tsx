@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { MEGA_NAV } from "@/lib/nav";
+import { MEGA_NAV, type NavItem } from "@/lib/nav";
 
 export function MegaNav({ mobile = false }: { mobile?: boolean }) {
   const pathname = usePathname();
@@ -11,24 +11,9 @@ export function MegaNav({ mobile = false }: { mobile?: boolean }) {
 
   if (mobile) {
     return (
-      <ul className="flex flex-col gap-3">
+      <ul className="flex flex-col gap-1">
         {MEGA_NAV.map((item) => (
-          <li key={item.href}>
-            <Link href={item.href} className="font-display text-sm font-bold uppercase tracking-wide">
-              {item.label}
-            </Link>
-            {item.children ? (
-              <ul className="mt-2 ml-3 space-y-1">
-                {item.children.map((c) => (
-                  <li key={c.href}>
-                    <Link href={c.href} className="font-serif text-sm text-paper/70">
-                      {c.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </li>
+          <MobileItem key={item.href} item={item} />
         ))}
       </ul>
     );
@@ -92,5 +77,39 @@ export function MegaNav({ mobile = false }: { mobile?: boolean }) {
         );
       })}
     </ul>
+  );
+}
+
+function MobileItem({ item }: { item: NavItem }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <li className="border-b border-paper/10 py-2 last:border-0">
+      <div className="flex items-center justify-between gap-3">
+        <Link href={item.href} className="font-display text-base font-bold uppercase tracking-wide">
+          {item.label}
+        </Link>
+        {item.children ? (
+          <button
+            type="button"
+            className="shrink-0 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-paper/70"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? "Hide" : "Show"}
+          </button>
+        ) : null}
+      </div>
+      {item.children && open ? (
+        <ul className="mt-2 ml-1 space-y-1 pb-2">
+          {item.children.map((c) => (
+            <li key={c.href}>
+              <Link href={c.href} className="block py-1.5 font-serif text-sm text-paper/70">
+                {c.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </li>
   );
 }

@@ -93,6 +93,27 @@ export const MEGA_NAV: NavItem[] = [
   },
 ];
 
+/** Shop page chips — keep the first row short. The rest sit under More. */
+export const SHOP_FILTERS = [
+  { slug: "tees", label: "T-Shirts" },
+  { slug: "sweatshirts", label: "Sweatshirts" },
+  { slug: "hats", label: "Hats" },
+  { slug: "women", label: "Women" },
+  { slug: "kids", label: "Kids" },
+  { slug: "swimwear", label: "Swimwear" },
+  { slug: "drinkware", label: "Drinkware" },
+] as const;
+
+export const SHOP_MORE_FILTERS = [
+  { slug: "jewelry", label: "Jewelry" },
+  { slug: "posters", label: "Posters" },
+  { slug: "mummy-daddy", label: "Mummy & Daddy" },
+  { slug: "bags", label: "Bags" },
+  { slug: "longsleeves", label: "Long sleeves" },
+  { slug: "memes", label: "Memes" },
+  { slug: "premium", label: "Stitched" },
+] as const;
+
 export const HOME_COLLECTIONS = [
   { slug: "tees", label: "T-Shirts", blurb: "₿ on the chest." },
   { slug: "sweatshirts", label: "Sweatshirts", blurb: "Hoodies, pullovers, crew, zip." },

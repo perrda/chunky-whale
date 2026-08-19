@@ -4,7 +4,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { GarmentImage } from "@/components/GarmentImage";
 import { cartTotalGbp, useCart } from "@/lib/cart-store";
-import { colorsFor, formatGbp, getProduct, isLiveProduct, productImage } from "@/lib/products";
+import {
+  colorLabel,
+  colorsFor,
+  formatGbp,
+  getProduct,
+  isLiveProduct,
+  productImage,
+  sizeLabel,
+} from "@/lib/products";
+import { estimateShippingGbp } from "@/lib/shipping";
 import { usePersistReady } from "@/lib/use-persist-ready";
 
 export default function CartPage() {
@@ -17,18 +26,25 @@ export default function CartPage() {
 
   const total = cartTotalGbp(items);
   const stale = items.some((item) => !isLiveProduct(item.slug));
+  const shipLines = items.flatMap((item) => {
+    const p = getProduct(item.slug);
+    return p && isLiveProduct(item.slug) ? [{ category: p.category, qty: item.qty }] : [];
+  });
+  const ship = estimateShippingGbp(shipLines, "GB");
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-14 md:px-6">
       <h1 className="font-display text-4xl font-extrabold">Basket</h1>
       {items.length === 0 ? (
-        <p className="mt-6 font-serif text-paper/75">
-          Empty.{" "}
-          <Link href="/shop" className="text-ember">
-            Shop the drop
+        <div className="mt-8">
+          <p className="font-serif text-lg text-paper/75">Nothing in here yet.</p>
+          <Link
+            href="/shop"
+            className="mt-6 inline-block bg-ember px-6 py-3 font-display text-sm font-bold text-ink"
+          >
+            Shop Bitcoin merch
           </Link>
-          .
-        </p>
+        </div>
       ) : (
         <>
           {stale ? (
@@ -40,6 +56,8 @@ export default function CartPage() {
             {items.map((item) => {
               const p = getProduct(item.slug);
               const live = isLiveProduct(item.slug);
+              const colour = p ? colorLabel(p, item.color) : item.color;
+              const size = p ? sizeLabel(p, item.size) : item.size;
               return (
                 <li key={`${item.slug}-${item.size}-${item.color}`} className="flex gap-4 py-6">
                   <div className="relative h-24 w-24 shrink-0 overflow-hidden bg-white">
@@ -54,10 +72,8 @@ export default function CartPage() {
                   </div>
                   <div className="flex-1">
                     <p className="font-display font-bold">{p?.name ?? item.slug}</p>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
-                      {p?.editionId ?? "Retired"}
-                      {item.size ? ` · ${item.size}` : ""}
-                      {item.color ? ` · ${item.color}` : ""}
+                    <p className="font-serif text-sm text-paper/70">
+                      {[size, colour].filter(Boolean).join(" · ") || p?.editionId}
                     </p>
                     {!live ? (
                       <p className="mt-1 font-serif text-sm text-ember">No longer for sale</p>
@@ -84,9 +100,22 @@ export default function CartPage() {
               );
             })}
           </ul>
-          <div className="mt-8 flex items-center justify-between border-t border-paper/15 pt-6">
-            <p className="font-serif">Total</p>
-            <p className="font-mono text-xl text-gold">{formatGbp(total)}</p>
+          <div className="mt-8 space-y-2 border-t border-paper/15 pt-6">
+            <div className="flex items-center justify-between font-serif">
+              <p>Items</p>
+              <p className="font-mono text-gold">{formatGbp(total)}</p>
+            </div>
+            <div className="flex items-center justify-between font-serif text-sm text-paper/75">
+              <p>Shipping estimate (UK)</p>
+              <p className="font-mono">{formatGbp(ship)}</p>
+            </div>
+            <div className="flex items-center justify-between pt-2 font-display text-lg">
+              <p>Estimated total</p>
+              <p className="font-mono text-gold">{formatGbp(total + ship)}</p>
+            </div>
+            <p className="font-serif text-sm text-paper/60">
+              Shipping is an estimate. The live checkout total may differ by country.
+            </p>
           </div>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             {stale ? (

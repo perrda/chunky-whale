@@ -12,6 +12,7 @@ const bodySchema = z.object({
   email: z.string().email(),
   name: z.string().min(2),
   address1: z.string().min(3),
+  address2: z.string().optional(),
   city: z.string().min(2),
   country: z.string().min(2),
   postcode: z.string().min(2),
@@ -160,7 +161,9 @@ export async function POST(req: Request) {
     id,
     email: parsed.data.email,
     name: parsed.data.name,
-    address1: parsed.data.address1,
+    address1: parsed.data.address2
+      ? `${parsed.data.address1}, ${parsed.data.address2}`
+      : parsed.data.address1,
     city: parsed.data.city,
     country: parsed.data.country,
     postcode: parsed.data.postcode,

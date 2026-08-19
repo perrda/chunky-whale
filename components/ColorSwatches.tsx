@@ -15,7 +15,7 @@ export function ColorSwatches({
   const shown = colors.slice(0, 12);
   return (
     <div className="mt-2 flex justify-center" aria-label="Preview colours">
-      <div className="flex w-[10.875rem] flex-wrap justify-center gap-1.5">
+      <div className="flex w-[8.25rem] flex-wrap justify-center gap-1 sm:w-[10.875rem] sm:gap-1.5">
         {shown.map((c) => (
           <button
             key={c.id}
@@ -24,7 +24,7 @@ export function ColorSwatches({
             aria-label={`Preview ${c.label}`}
             aria-pressed={value === c.id}
             onClick={() => onChange(c.id)}
-            className={`h-6 w-6 rounded-full border ${
+            className={`h-4 w-4 rounded-full border sm:h-6 sm:w-6 ${
               value === c.id ? "border-ember ring-1 ring-ember" : "border-paper/25"
             }`}
             style={{ background: c.hex }}

@@ -1404,15 +1404,98 @@ export function searchProducts(q: string) {
   );
 }
 
+const KIND_LABELS: Record<string, string> = {
+  hoodie: "Hoodie",
+  pullover: "Pullover",
+  crew: "Crewneck",
+  zip: "Zip-up",
+  beanie: "Beanie",
+  bucket: "Bucket hat",
+  snapback: "Snapback",
+  trucker: "Trucker",
+  flexfit: "Flexfit",
+  distressed: "Distressed hat",
+  vintage: "Vintage hat",
+  dad: "Dad hat",
+  crop: "Crop",
+  tank: "Tank",
+  vneck: "V-neck",
+  tumbler: "Tumbler",
+  pint: "Pint",
+  coaster: "Coaster",
+  mug: "Mug",
+  bikini: "Bikini",
+  onepiece: "One-piece",
+  rash: "Rash guard",
+  cap: "Swim cap",
+  shorts: "Swim shorts",
+};
+
+export function productKindLabel(p: Product) {
+  const k = productKind(p);
+  if (k && KIND_LABELS[k]) return KIND_LABELS[k];
+  if (p.cut === "youth") return "Youth";
+  if (p.cut === "toddler") return "Toddler";
+  if (p.cut === "infant") return "Infant";
+  if (p.category === "tees") return "T-shirt";
+  if (p.category === "longsleeves") return "Long sleeve";
+  if (p.category === "hats") return "Hat";
+  if (p.category === "posters") return "Poster";
+  if (p.category === "bags") return "Bag";
+  if (p.category === "jewelry") return "Jewelry";
+  if (p.category === "accessories") return "Sticker";
+  return p.tag;
+}
+
+export function collectionFor(p: Product): { href: string; label: string } {
+  const k = productKind(p);
+  if (k === "hoodie") return { href: "/collection/hoodies", label: "Hoodies" };
+  if (k === "pullover") return { href: "/collection/pullovers", label: "Pullovers" };
+  if (k === "crew") return { href: "/collection/crewnecks", label: "Crewnecks" };
+  if (k === "zip") return { href: "/collection/zip-ups", label: "Zip-ups" };
+  if (p.category === "swimwear") return { href: "/collection/swimwear", label: "Swimwear" };
+  if (p.cut === "youth" || p.cut === "toddler" || p.cut === "infant")
+    return { href: "/collection/kids", label: "Kids" };
+  if (p.cut === "women") return { href: "/collection/women", label: "Women" };
+  if (p.category === "tees") return { href: "/collection/tees", label: "T-Shirts" };
+  if (p.category === "longsleeves") return { href: "/collection/longsleeves", label: "Long sleeves" };
+  if (p.category === "hats") return { href: "/collection/hats", label: "Hats" };
+  if (p.category === "drinkware" || p.category === "home")
+    return { href: "/collection/drinkware", label: "Drinkware" };
+  if (p.category === "jewelry") return { href: "/collection/jewelry", label: "Jewelry" };
+  if (p.category === "posters") return { href: "/collection/posters", label: "Posters" };
+  if (p.category === "bags") return { href: "/collection/bags", label: "Bags" };
+  return { href: "/shop", label: "Shop" };
+}
+
+export function colorLabel(p: Product, colorId?: string) {
+  if (!colorId) return "";
+  return colorsFor(p)?.find((c) => c.id === colorId)?.label ?? colorId;
+}
+
+export function sizeLabel(p: Product, sizeId?: string) {
+  if (!sizeId) return "";
+  return p.sizes?.find((s) => s.id === sizeId)?.label ?? sizeId;
+}
+
+/** Same joke / mark on a different object (hoodie vs tee vs mug). */
+export function markKey(p: Product) {
+  return p.slug.toLowerCase().replace(
+    /-(tee|hoodie|crew|zip|pullover|mug|tumbler|pint|coasters|tote|pack|hat|cap|beanie|poster|print|sticker|pin|pendant|bracelet|longsleeve|vneck|tank|crop|youth|toddler|infant|dad-hat|trucker-hat|bucket-hat|flexfit-hat|vintage-hat|distressed-hat|swim-shorts|board-shorts|bikini|one-piece|rash-guard|swim-cap|youth-swim|toddler-swim)$/i,
+    "",
+  );
+}
+
 export function relatedProducts(slug: string, limit = 4) {
   const list = liveProducts();
   const p = getProduct(slug);
   if (!p) return list.filter((x) => x.featured).slice(0, limit);
-  const sameTag = list.filter((x) => x.slug !== slug && x.tag === p.tag);
-  if (sameTag.length >= limit) return sameTag.slice(0, limit);
-  return list
-    .filter((x) => x.slug !== slug && (x.category === p.category || x.tag === p.tag || x.featured))
-    .slice(0, limit);
+  const mark = markKey(p);
+  const sameMark = list.filter((x) => x.slug !== slug && markKey(x) === mark);
+  const rest = list.filter(
+    (x) => x.slug !== slug && markKey(x) !== mark && (x.tag === p.tag || x.category === p.category || x.featured),
+  );
+  return [...sameMark, ...rest].slice(0, limit);
 }
 
 export function formatGbp(amount: number) {
