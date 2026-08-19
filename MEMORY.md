@@ -8,15 +8,17 @@ Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + coin ₿ mark 
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.5** (19 Aug 2026). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+Version **0.7.6** (19 Aug 2026 Drop 08 swimwear). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
 
-Bags, socks, phone cases, and jewelry now have colour swatches the same way tees do. Pick a colour and the photo updates. Glassware, mugs, prints, stickers, and pins stay as photographed.
+Bags, socks, phone cases, jewelry, and swimwear have colour swatches the same way tees do. Pick a colour and the photo updates. Glassware, mugs, prints, stickers, and pins stay as photographed.
 
 **Catalog photo rule (do not break again):** every live SKU needs its own photo whose writing matches the title. Drop 07 had cloned STRATEGIC RESERVE onto every mug, HARD MONEY onto extra totes, and other slogans onto family/jewelry clones. Fixed: unique mug/tumbler/pint/coaster/tote shots; clones without a real photo are retired. Guard: `npm run qa:catalog` (also runs before production build). If the audit fails, do not ship.
 
 QA pass on `cursor/qa-bugfix-pass-1342`: checkout no longer pretends a missing payment rail is live; OpenNode charges pounds not 100×; NOWPayments and Coinbase webhooks verify correctly; Printful will not submit a fake or zero variant; success page only clears the basket after a demo order or a paid order; cart/checkout wait for saved basket; nav works with keyboard. Still blocked for live money: Printful variant IDs, durable order store, and David’s payment keys.
 
-Drop 07: topical Bitcoin lines (We are so back / It’s so over / Strategic reserve / No laser eyes / Proof of work not proof of tweet / Quantum can wait / Fiat is the experiment / Orange pill / Not a forecast / Four year tide). Apparel **and bags** have **12 colours** including royal blue, crimson, forest, olive, burgundy. The photo recolours when the buyer picks a swatch. Aim: 20+ live options in tees, sweatshirts, hats, women, kids, drinkware, bags.
+Drop 08: **Swimwear** — men (board shorts, rash guard, cap), women (bikinis, one-pieces, rash guard, cap), kids (youth shorts / one-piece / rash / cap, toddler swim). Unique photo per SKU. Find it under **Collections → Swimwear** and the Swimwear menu. Sub-links: Men / Women / Kids / Bikinis / Shorts / One-pieces / Rash guards / Caps.
+
+Drop 07: topical Bitcoin lines (We are so back / It’s so over / Strategic reserve / No laser eyes / Proof of work not proof of tweet / Quantum can wait / Fiat is the experiment / Orange pill / Not a forecast / Four year tide). Apparel **and bags** have **12 colours** including royal blue, crimson, forest, olive, burgundy. The photo recolours when the buyer picks a swatch. Aim: 20+ live options in tees, sweatshirts, hats, women, kids, drinkware, bags, swimwear.
 
 ## Remind David: sync both Macs
 
@@ -45,7 +47,7 @@ Before new work, and after any GitHub change, run the sync block on **Mac Mini a
 ## House rules
 
 - Public site does **not** advertise booths or an event plan. `/events` redirects home. Internal MENA notes stay in docs only.
-- Mega-nav: Trending, T-Shirts, Sweatshirts, Women, Hats, Kids, Drinkware, Collections. No Blog. Colour swatches on every garment. Hero photos where we have them.
+- Mega-nav: Trending, T-Shirts, Sweatshirts, Women, Hats, Kids, Drinkware, Swimwear, Collections (Collections includes Swimwear). No Blog. Colour swatches on every garment. Hero photos where we have them.
 - Homepage hero shows **six** products, shuffled on each visit, drawn from featured / trending, and later from `soldCount` when sales exist. No empty white panel.
 - Sync both Macs: `docs/SYNC.md`. Live card/BTC/USDC/USDT still need David’s keys — demo until then.
 - Vendor pack: `docs/VENDOR-ONBOARDING.md` + `docs/ARTWORK-SPEC.md`

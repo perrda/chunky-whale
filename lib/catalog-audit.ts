@@ -45,6 +45,10 @@ const MARK_PREFIXES = [
   "21-million",
   "hard-money",
   "infant-node",
+  "few-understand",
+  "orange-daily",
+  "future-utxo",
+  "node-toddler",
   "verify",
   "hodl",
   "keys",
@@ -52,7 +56,7 @@ const MARK_PREFIXES = [
 
 export function designFamily(product: Product): string {
   const slug = product.slug.toLowerCase().replace(
-    /-(tee|hoodie|crew|zip|pullover|mug|tumbler|pint|coasters|tote|pack|hat|cap|beanie|poster|print|sticker|pin|pendant|bracelet|longsleeve|vneck|tank|crop|youth|toddler|infant|dad-hat|trucker-hat|bucket-hat|flexfit-hat|vintage-hat|distressed-hat)$/i,
+    /-(tee|hoodie|crew|zip|pullover|mug|tumbler|pint|coasters|tote|pack|hat|cap|beanie|poster|print|sticker|pin|pendant|bracelet|longsleeve|vneck|tank|crop|youth|toddler|infant|dad-hat|trucker-hat|bucket-hat|flexfit-hat|vintage-hat|distressed-hat|swim-shorts|board-shorts|bikini|one-piece|rash-guard|swim-cap|youth-swim|toddler-swim)$/i,
     "",
   );
   for (const mark of MARK_PREFIXES) {
