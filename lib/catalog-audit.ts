@@ -151,7 +151,9 @@ export async function auditCatalogImages(
           slug: p.slug,
           name: p.name,
           image: p.image,
-          detail: `Photo is not a white studio mockup (white border ${(studio.whiteBorder * 100).toFixed(0)}%, dark border ${(studio.darkBorder * 100).toFixed(0)}%). Ghost mannequin on white only — no lifestyle walls or props.`,
+          detail: studio.square
+            ? `Photo is not a white studio mockup (white border ${(studio.whiteBorder * 100).toFixed(0)}%, dark border ${(studio.darkBorder * 100).toFixed(0)}%). Ghost mannequin on white only — no lifestyle walls or props.`
+            : "Photo must be square (1:1). A 3:2 landscape shot sits as a dark band in the product grid.",
         });
       }
     }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/lib/cart-store";
 import { HOUSE_COLORS, type Product } from "@/lib/products";
+import { ColorChoiceGrid } from "./ColorSwatches";
 
 export function AddToCart({ product }: { product: Product }) {
   const add = useCart((s) => s.add);
@@ -28,27 +29,7 @@ export function AddToCart({ product }: { product: Product }) {
       {colors ? (
         <fieldset>
           <legend className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Colour</legend>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {colors.map((c) => (
-              <label
-                key={c.id}
-                className={`flex cursor-pointer items-center gap-2 border px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] ${
-                  color === c.id ? "border-ember text-ember" : "border-paper/20 text-paper/80"
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="color"
-                  value={c.id}
-                  checked={color === c.id}
-                  onChange={() => setColor(c.id)}
-                  className="sr-only"
-                />
-                <span className="inline-block h-3 w-3 rounded-full border border-paper/30" style={{ background: c.hex }} />
-                {c.label}
-              </label>
-            ))}
-          </div>
+          <ColorChoiceGrid colors={colors} value={color} onChange={setColor} />
         </fieldset>
       ) : null}
       {product.sizes ? (
