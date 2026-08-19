@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { colorsFor, formatGbp, HOUSE_COLORS, productImage, type Product } from "@/lib/products";
+import { colorsFor, formatGbp, productImage, type Product } from "@/lib/products";
 import { GarmentImage } from "./GarmentImage";
 
 export function ProductCard({ product }: { product: Product }) {
-  const swatches = colorsFor(product) ?? (product.sizes ? HOUSE_COLORS : undefined);
+  const swatches = colorsFor(product);
   const [color, setColor] = useState(swatches?.[0]?.id ?? "");
   const selected = swatches?.find((c) => c.id === color);
   const img = productImage(product, color || undefined);

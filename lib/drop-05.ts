@@ -22,7 +22,11 @@ const TEE = ["180–220gsm cotton", "Print-on-demand UK / US / EU / Asia", "Unis
 const HOOD = ["Mid-weight fleece", "Kangaroo pocket", "Print-on-demand"];
 const EMB = ["Raised embroidery — not a cheap print", "Printful stitch, 2–5 day fulfil"];
 const DRINK = ["Printful / Gelato drinkware", "Dishwasher-safe ceramic unless noted"];
-const JEWEL = ["Gift box", "Printify / specialty jewelry partner", "Not a FOMO21 clone"];
+const JEWEL = [
+  "Gift box",
+  "Printify / specialty jewelry partner",
+  "Gold, silver, rose gold, ink, or orange ₿",
+];
 
 const ink = { id: "ink", label: "Ink", hex: "#0B0C0E" };
 const navy = { id: "navy", label: "Navy", hex: "#1B2430" };
@@ -508,7 +512,7 @@ export const drop05: Product[] = [
     colors: [ink],
     imagesByColor: { ink: "/products/b-socks.png" },
     description: "Repeating ₿. The only socks that belong at a meetup.",
-    details: ["Crew socks", "Printful"],
+    details: ["Crew socks", "Printful", "12 colours — the photo updates when you pick a colour"],
     image: "/products/b-socks.png",
     sizes: SOCK,
   },
@@ -545,7 +549,7 @@ export const drop05: Product[] = [
     category: "bags",
     tag: "Meme",
     description: "Canvas. Orange ₿. Booth bag and grocery bag.",
-    details: ["12oz canvas", "Reinforced handles"],
+    details: ["12oz canvas", "Reinforced handles", "12 colours — the photo updates when you pick a colour"],
     image: "/products/stack-sats-tote.png",
   },
   {
@@ -557,7 +561,7 @@ export const drop05: Product[] = [
     category: "accessories",
     tag: "₿",
     description: "Orange ₿, 21 MILLION. The lock screen can wait.",
-    details: ["Tough case", "Printful"],
+    details: ["Tough case", "Printful", "12 colours — the photo updates when you pick a colour"],
     image: "/products/b-phone.png",
   },
 ];
