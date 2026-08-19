@@ -69,7 +69,6 @@ export const MEGA_NAV: NavItem[] = [
       { href: "/collection/accessories", label: "Stickers & pins" },
       { href: "/collection/bags", label: "Bags" },
       { href: "/collection/longsleeves", label: "Long sleeves" },
-      { href: "/collection/events", label: "Events" },
     ],
   },
 ];
@@ -114,6 +113,5 @@ export const COLLECTION_META: { slug: string; label: string; blurb: string }[] =
   { slug: "accessories", label: "Stickers & pins", blurb: "Laptop and lapel." },
   { slug: "bags", label: "Bags", blurb: "Totes." },
   { slug: "longsleeves", label: "Long sleeves", blurb: "Conference weather." },
-  { slug: "events", label: "Events", blurb: "City drops." },
 ];
 

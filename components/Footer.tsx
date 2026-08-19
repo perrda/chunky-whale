@@ -6,8 +6,9 @@ export function Footer() {
     <footer className="mt-24 border-t border-paper/10">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4 md:px-6">
         <div className="md:col-span-2">
-          <p className="font-display text-xl font-extrabold tracking-[0.12em]">
-            STACK<span className="text-[#F7931A]">HOUSE</span>
+          <p className="font-mark text-2xl uppercase tracking-[0.08em]">
+            <span className="font-semibold">Stack</span>
+            <span className="font-semibold text-[#F7931A]">House</span>
           </p>
           <p className="mt-3 max-w-md font-serif text-paper/75">
             {site.tagline} Guest checkout. Card, Bitcoin + Lightning, USDC, or USDT.
@@ -52,7 +53,10 @@ export function Footer() {
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-gold">House</p>
           <ul className="mt-3 space-y-2 font-serif text-sm text-paper/80">
             <li>
-              <Link href="/events">Events</Link>
+              <Link href="/about">About</Link>
+            </li>
+            <li>
+              <Link href="/faq">FAQ</Link>
             </li>
             <li>
               <Link href="/sizes">Size charts</Link>

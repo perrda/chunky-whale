@@ -135,7 +135,7 @@ export function ProductView({ product }: { product: Product }) {
               </div>
             </fieldset>
           ) : null}
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="sticky bottom-0 z-20 -mx-4 mt-6 flex flex-col gap-3 border-t border-paper/10 bg-ink/95 px-4 py-3 backdrop-blur-md sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:flex-row">
             <button
               type="button"
               onClick={onAdd}

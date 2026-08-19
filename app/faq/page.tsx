@@ -35,7 +35,7 @@ const faqs = [
   },
   {
     q: "Will The Forge let me generate my own design?",
-    a: "Phase 2, after the MENA booth. Today you buy the curated catalog.",
+    a: "Phase 2. Today you buy the curated catalog.",
   },
 ];
 

@@ -14,7 +14,7 @@ export default function ForgePage() {
       <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-gold">Studio · Phase 2</p>
       <h1 className="mt-2 font-display text-5xl font-extrabold">The Forge</h1>
       <p className="mt-4 font-serif text-xl text-paper/85">
-        After the MENA booth, anyone will be able to generate a mark, preview it on a garment, and buy it with a unique SH- ID.
+        Later, anyone will be able to generate a mark, preview it on a garment, and buy it with a unique SH- ID.
       </p>
       <div className="relative my-10 aspect-square max-w-md">
         <Image src="/prints/print-difficulty.png" alt="Difficulty hash lattice print" fill className="object-cover" />
@@ -34,8 +34,8 @@ export default function ForgePage() {
         </li>
       </ol>
       <p className="mt-8 font-serif text-paper/70">
-        Phase 1 (now) is the curated catalog — {liveProducts().length} live pieces — so the brand can exist at events
-        without waiting on a public generator. The xAI key goes in when you are ready — see docs/ACCOUNTS.md.
+        Phase 1 (now) is the curated catalog — {liveProducts().length} live pieces — without waiting on a public
+        generator. The xAI key goes in when you are ready — see docs/ACCOUNTS.md.
       </p>
       <Link href="/shop" className="mt-8 inline-block bg-ember px-5 py-3 font-mono text-[11px] uppercase tracking-[0.2em] text-ink">
         Shop curated drops

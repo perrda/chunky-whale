@@ -11,8 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/sizes",
     "/blog",
     "/forge",
-    "/events",
-    "/events/mena-2026",
     "/about",
     "/faq",
     "/shipping",

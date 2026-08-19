@@ -53,7 +53,7 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 - Colourways: ink, charcoal, heather, bone, navy, royal blue, sky, forest, olive, crimson, burgundy, Bitcoin orange. Picking a swatch recolours the garment in the photo.
 - Mockups: ghost mannequin, white background, square crop. Product cards use a white well + colour swatches that **change the photo** (`imagesByColor`).
 - Premium = embroidery/stitch on hats, hoodies, some tees.
-- Categories: tees, sweatshirts, women, hats, kids, drinkware, jewelry, posters, stickers, bags, events, premium.
+- Categories: tees, sweatshirts, women, hats, kids, drinkware, jewelry, posters, stickers, bags, premium. Do not advertise booths or an event plan on the public site.
 
 ## How to add a design
 

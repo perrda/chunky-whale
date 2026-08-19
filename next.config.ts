@@ -8,6 +8,13 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+  async redirects() {
+    return [
+      { source: "/events", destination: "/", permanent: true },
+      { source: "/events/:path*", destination: "/", permanent: true },
+      { source: "/collection/events", destination: "/shop", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;
