@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getProduct } from "@/lib/products";
+import { colorsFor, getProduct, liveProducts } from "@/lib/products";
 import { createOrder, newOrderId } from "@/lib/orders";
 import { paymentsReady, site } from "@/lib/config";
 import { createStripeCheckout } from "@/lib/payments/stripe";
@@ -32,17 +32,22 @@ export async function POST(req: Request) {
   const json = await req.json().catch(() => null);
   const parsed = bodySchema.safeParse(json);
   if (!parsed.success) {
-    return NextResponse.json(
-      { error: "Check the form — something is missing." },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "Check the form — something is missing." }, { status: 400 });
   }
 
+  const live = new Set(liveProducts().map((p) => p.slug));
   const items: { slug: string; size?: string; color?: string; qty: number; priceGbp: number }[] = [];
   for (const i of parsed.data.items) {
     const p = getProduct(i.slug);
-    if (!p) {
-      return NextResponse.json({ error: "Unknown product in cart." }, { status: 400 });
+    if (!p || !live.has(i.slug)) {
+      return NextResponse.json({ error: "A product in the basket is no longer for sale." }, { status: 400 });
+    }
+    if (p.sizes?.length && !p.sizes.some((s) => s.id === i.size)) {
+      return NextResponse.json({ error: `Pick a size for ${p.name}.` }, { status: 400 });
+    }
+    const colours = colorsFor(p);
+    if (colours?.length && !colours.some((c) => c.id === i.color)) {
+      return NextResponse.json({ error: `Pick a colour for ${p.name}.` }, { status: 400 });
     }
     items.push({
       slug: i.slug,
@@ -58,10 +63,24 @@ export async function POST(req: Request) {
   const ready = paymentsReady();
   const origin = site.url;
   const success = `${origin}/checkout/success?order=${id}`;
+  const methodLive = {
+    card: ready.stripe,
+    bitcoin: ready.opennode,
+    usdc: ready.coinbase,
+    usdt: ready.nowpayments,
+  }[parsed.data.method];
+  const anyLive = ready.stripe || ready.opennode || ready.coinbase || ready.nowpayments;
+
+  if (!methodLive && anyLive) {
+    return NextResponse.json(
+      { error: "That payment method is not connected yet. Choose a live method, or add its keys." },
+      { status: 400 },
+    );
+  }
 
   let payUrl: string | undefined;
   let providerRef: string | undefined;
-  let demo = true;
+  let demo = !methodLive;
 
   try {
     if (parsed.data.method === "card" && ready.stripe) {
@@ -127,8 +146,12 @@ export async function POST(req: Request) {
     }
   } catch (err) {
     console.error(err);
+    return NextResponse.json({ error: "Payment provider failed. Try another method." }, { status: 502 });
+  }
+
+  if (methodLive && !payUrl) {
     return NextResponse.json(
-      { error: "Payment provider failed. Try another method." },
+      { error: "That payment method did not start. Try another, or try again." },
       { status: 502 },
     );
   }
@@ -144,7 +167,7 @@ export async function POST(req: Request) {
     method: parsed.data.method,
     items,
     totalGbp,
-    status: demo ? "pending" : "pending",
+    status: "pending",
     demo,
     createdAt: new Date().toISOString(),
     providerRef,

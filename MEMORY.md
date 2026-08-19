@@ -8,7 +8,9 @@ Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + orange ₿ bad
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.0** (19 Aug 2026 catalog). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional.
+Version **0.7.1** (19 Aug 2026 QA). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional.
+
+QA pass on `cursor/qa-bugfix-pass-1342`: checkout no longer pretends a missing payment rail is live; OpenNode charges pounds not 100×; NOWPayments and Coinbase webhooks verify correctly; Printful will not submit a fake or zero variant; success page only clears the basket after a demo order or a paid order; cart/checkout wait for saved basket; nav works with keyboard. Still blocked for live money: Printful variant IDs, durable order store, and David’s payment keys.
 
 Drop 07: topical Bitcoin lines (We are so back / It’s so over / Strategic reserve / No laser eyes / Proof of work not proof of tweet / Quantum can wait / Fiat is the experiment / Orange pill / Not a forecast / Four year tide). Apparel has **12 colours** including royal blue, crimson, forest, olive, burgundy. The garment photo recolours when the buyer picks a swatch. Aim: 20+ live options in tees, sweatshirts, hats, women, kids, drinkware.
 

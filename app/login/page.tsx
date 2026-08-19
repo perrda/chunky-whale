@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/lib/auth-store";
@@ -55,7 +56,11 @@ export default function LoginPage() {
           Continue
         </button>
         <p className="font-serif text-sm text-paper/70">
-          No account? <a href="/checkout" className="text-ember">Checkout as guest</a> — email on the order is enough.
+          No account?{" "}
+          <Link href="/checkout" className="text-ember">
+            Checkout as guest
+          </Link>{" "}
+          — email on the order is enough.
         </p>
       </form>
     </div>

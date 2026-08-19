@@ -32,15 +32,23 @@ export type PrintfulRecipient = {
   email: string;
 };
 
+export type PrintfulCreateResult =
+  | { ok: true; id: string }
+  | { error: "missing_variant_ids" | "printful_not_configured" | "printful_failed" };
+
 export async function createPrintfulOrder(input: {
   externalId: string;
   recipient: PrintfulRecipient;
   items: { variantId: number; quantity: number; name: string }[];
-}) {
-  if (!printfulConfigured()) {
-    return { demo: true, id: `pf-demo-${input.externalId}` };
+}): Promise<PrintfulCreateResult> {
+  if (input.items.some((i) => !i.variantId || i.variantId <= 0)) {
+    console.error("Printful blocked: missing variant IDs", input.externalId);
+    return { error: "missing_variant_ids" };
   }
-  const data = await printfulFetch("/orders", {
+  if (!printfulConfigured()) {
+    return { error: "printful_not_configured" };
+  }
+  const data = (await printfulFetch("/orders", {
     method: "POST",
     body: JSON.stringify({
       external_id: input.externalId,
@@ -51,6 +59,11 @@ export async function createPrintfulOrder(input: {
         name: i.name,
       })),
     }),
-  });
-  return data ?? { error: "printful_failed" };
+  })) as { result?: { id?: number | string } } | null;
+
+  const id = data?.result?.id;
+  if (id === undefined || id === null || id === "") {
+    return { error: "printful_failed" };
+  }
+  return { ok: true, id: String(id) };
 }

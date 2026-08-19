@@ -1,12 +1,13 @@
 {
   "name": "stackhouse",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "qa:payments": "node scripts/qa-payments.mjs"
   },
   "dependencies": {
     "framer-motion": "^13.1.0",

@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 
-export function SearchBox() {
+export function SearchBox({ variant = "nav" }: { variant?: "nav" | "mobile" }) {
   const router = useRouter();
   const params = useSearchParams();
   const [q, setQ] = useState(params.get("q") ?? "");
@@ -15,7 +15,10 @@ export function SearchBox() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="hidden w-full justify-center md:flex">
+    <form
+      onSubmit={onSubmit}
+      className={variant === "mobile" ? "flex w-full" : "hidden w-full justify-center md:flex"}
+    >
       <label className="sr-only" htmlFor="nav-search">
         Search
       </label>

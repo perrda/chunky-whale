@@ -11,6 +11,24 @@ type AuthState = {
   signOut: () => void;
 };
 
+const KEY = "stackhouse-account";
+const LEGACY_KEY = "hm-account";
+
+function migrateLegacyAccount() {
+  if (typeof window === "undefined") return;
+  try {
+    if (!localStorage.getItem(KEY)) {
+      const legacy = localStorage.getItem(LEGACY_KEY);
+      if (legacy) {
+        localStorage.setItem(KEY, legacy);
+        localStorage.removeItem(LEGACY_KEY);
+      }
+    }
+  } catch {
+    /* ignore */
+  }
+}
+
 export const useAuth = create<AuthState>()(
   persist(
     (set) => ({
@@ -21,6 +39,11 @@ export const useAuth = create<AuthState>()(
         }),
       signOut: () => set({ account: null }),
     }),
-    { name: "hm-account", skipHydration: true },
+    { name: KEY, skipHydration: true },
   ),
 );
+
+export function rehydrateAuth() {
+  migrateLegacyAccount();
+  return useAuth.persist.rehydrate();
+}

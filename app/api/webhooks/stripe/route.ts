@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { getOrder, markPaid } from "@/lib/orders";
-import { createPrintfulOrder } from "@/lib/printful";
-import { getProduct } from "@/lib/products";
+import { fulfillPaidOrder } from "@/lib/fulfill";
+import { markPaid } from "@/lib/orders";
 import { getStripe } from "@/lib/payments/stripe";
 
 export async function POST(req: Request) {
@@ -9,8 +8,12 @@ export async function POST(req: Request) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
   const raw = await req.text();
 
-  if (!stripe || !secret) {
+  if (!stripe) {
     return NextResponse.json({ ok: true, ignored: true });
+  }
+  if (!secret) {
+    console.error("STRIPE_WEBHOOK_SECRET missing — card payments will not confirm");
+    return NextResponse.json({ error: "webhook not configured" }, { status: 503 });
   }
 
   const sig = req.headers.get("stripe-signature");
@@ -28,32 +31,9 @@ export async function POST(req: Request) {
     const orderId = session.metadata?.orderId;
     if (orderId) {
       const order = await markPaid(orderId, session.id);
-      if (order) {
-        await fulfill(order.id);
-      }
+      if (order && !order.fulfilled) await fulfillPaidOrder(order.id);
     }
   }
 
   return NextResponse.json({ received: true });
-}
-
-async function fulfill(orderId: string) {
-  const order = await getOrder(orderId);
-  if (!order) return;
-  await createPrintfulOrder({
-    externalId: order.id,
-    recipient: {
-      name: order.name,
-      address1: order.address1,
-      city: order.city,
-      country_code: order.country,
-      zip: order.postcode,
-      email: order.email,
-    },
-    items: order.items.map((i) => ({
-      variantId: getProduct(i.slug)?.printful?.variantId ?? 0,
-      quantity: i.qty,
-      name: getProduct(i.slug)?.name ?? i.slug,
-    })),
-  });
 }

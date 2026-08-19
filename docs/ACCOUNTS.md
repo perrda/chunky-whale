@@ -22,6 +22,7 @@ I cannot log into these for you. Do them in this order. After each one, put the 
 4. Settings → API → create a token.
 5. Paste into `PRINTFUL_API_KEY`.
 6. Order **one sample of each SKU to your Bangkok address** before you sell.
+7. In Printful, copy each garment’s **variant ID** (size × colour) into the catalog (`printful.variants` on the product). Without those numbers the shop will take payment but will not place the print job.
 
 Printful does not have a UAE factory. For the MENA booth, place a **bulk order around 16 October 2026** and ship to your Abu Dhabi hotel or a freight forwarder. Confirm the hotel accepts parcels.
 
@@ -34,7 +35,7 @@ Used as the invisible product/tax backend. The public site is our custom design,
 3. Paste `SHOPIFY_STORE_DOMAIN` (like `stackhouse.myshopify.com`) and `SHOPIFY_STOREFRONT_TOKEN`.
 4. Connect the Printful Shopify app when you are ready, **or** keep Printful API-only.
 
-Until this exists, the site uses the built-in eight-product catalog.
+Until this exists, the site uses the built-in catalog (hundreds of SKUs). Printful still needs a **variant ID for each size × colour** or paid orders cannot be sent to print.
 
 ## 5. Stripe (cards)
 
@@ -61,7 +62,7 @@ If OpenNode onboarding is slow, BTCPay Server remains a fallback (self-host). Do
 1. Open https://commerce.coinbase.com
 2. Create a merchant account.
 3. Settings → API keys → `COINBASE_COMMERCE_API_KEY`.
-4. Webhook → `https://YOURDOMAIN/api/webhooks/coinbase` for `charge:confirmed`.
+4. Webhook → `https://YOURDOMAIN/api/webhooks/coinbase` for `charge:confirmed` → shared secret goes in `COINBASE_COMMERCE_WEBHOOK_SECRET`.
 
 ## 7b. NOWPayments (USDT)
 

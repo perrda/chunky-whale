@@ -1,39 +1,26 @@
 import { NextResponse } from "next/server";
+import { fulfillPaidOrder } from "@/lib/fulfill";
 import { markPaid } from "@/lib/orders";
-import { createPrintfulOrder } from "@/lib/printful";
-import { getProduct } from "@/lib/products";
+import { verifyCoinbaseSignature } from "@/lib/payments/webhooks";
 
 export async function POST(req: Request) {
-  const json = (await req.json().catch(() => null)) as
-    | {
-        event?: { type?: string; data?: { metadata?: { orderId?: string }; id?: string } };
-      }
-    | null;
-  if (!json) return NextResponse.json({ error: "bad body" }, { status: 400 });
-
+  const raw = await req.text();
+  if (!verifyCoinbaseSignature(raw, req.headers.get("x-cc-webhook-signature"))) {
+    return NextResponse.json({ error: "bad signature" }, { status: 401 });
+  }
+  let json: {
+    event?: { type?: string; data?: { metadata?: { orderId?: string }; id?: string } };
+  };
+  try {
+    json = JSON.parse(raw) as typeof json;
+  } catch {
+    return NextResponse.json({ error: "bad body" }, { status: 400 });
+  }
   const type = json.event?.type;
   const orderId = json.event?.data?.metadata?.orderId;
   if ((type === "charge:confirmed" || type === "charge:resolved") && orderId) {
     const order = await markPaid(orderId, json.event?.data?.id);
-    if (order) {
-      await createPrintfulOrder({
-        externalId: order.id,
-        recipient: {
-          name: order.name,
-          address1: order.address1,
-          city: order.city,
-          country_code: order.country,
-          zip: order.postcode,
-          email: order.email,
-        },
-        items: order.items.map((i) => ({
-          variantId: getProduct(i.slug)?.printful?.variantId ?? 0,
-          quantity: i.qty,
-          name: getProduct(i.slug)?.name ?? i.slug,
-        })),
-      });
-    }
+    if (order && !order.fulfilled) await fulfillPaidOrder(order.id);
   }
-
   return NextResponse.json({ received: true });
 }

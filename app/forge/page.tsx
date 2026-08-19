@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { liveProducts } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "The Forge",
@@ -29,11 +30,12 @@ export default function ForgePage() {
           <strong className="font-display text-paper">3. Live mockup</strong> — see it on cloth before you pay.
         </li>
         <li>
-          <strong className="font-display text-paper">4. Checkout</strong> — card, Bitcoin + Lightning, or USDC. Printful prints.
+          <strong className="font-display text-paper">4. Checkout</strong> — card, Bitcoin + Lightning, USDC, or USDT. Printful prints.
         </li>
       </ol>
       <p className="mt-8 font-serif text-paper/70">
-        Phase 1 (now) is the eight curated pieces so the brand can exist at events without waiting on a public generator. The xAI key goes in when you are ready — see docs/ACCOUNTS.md.
+        Phase 1 (now) is the curated catalog — {liveProducts().length} live pieces — so the brand can exist at events
+        without waiting on a public generator. The xAI key goes in when you are ready — see docs/ACCOUNTS.md.
       </p>
       <Link href="/shop" className="mt-8 inline-block bg-ember px-5 py-3 font-mono text-[11px] uppercase tracking-[0.2em] text-ink">
         Shop curated drops

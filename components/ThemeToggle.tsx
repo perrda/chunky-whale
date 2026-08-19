@@ -1,21 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTheme } from "@/lib/theme-store";
+import { usePersistReady } from "@/lib/use-persist-ready";
 
 export function ThemeToggle() {
   const theme = useTheme((s) => s.theme);
   const toggle = useTheme((s) => s.toggle);
-  const [ready, setReady] = useState(false);
+  const ready = usePersistReady(useTheme.persist);
 
   useEffect(() => {
-    void useTheme.persist.rehydrate();
-    const stored = useTheme.getState().theme;
-    document.documentElement.setAttribute("data-theme", stored);
-    setReady(true);
-  }, []);
+    if (!ready) return;
+    document.documentElement.setAttribute("data-theme", useTheme.getState().theme);
+  }, [ready, theme]);
 
-  if (!ready) return null;
+  if (!ready) {
+    return (
+      <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-transparent" aria-hidden>
+        Dark
+      </span>
+    );
+  }
 
   return (
     <button

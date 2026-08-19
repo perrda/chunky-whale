@@ -7,20 +7,20 @@ export const metadata: Metadata = {
 };
 
 const pack = [
-  "MENA capsule tees — mixed sizes, numbered hang-tags",
-  "Genesis tees — 2 of each size as fallback",
-  "Difficulty hoodie — M/L/XL samples to wear and sell",
-  "Hash Cap + Ember Dad Hat — 12 of each",
-  "Foundry mugs — 8 (fragile; extra wrap)",
-  "Forge totes — 30 (giveaway + paid)",
+  "HODL + STACK SATS tees — mixed sizes, numbered hang-tags",
+  "WE ARE SO BACK / IT’S SO OVER pair — floor conversation pieces",
+  "HODL hoodie — M/L/XL samples to wear and sell",
+  "Dad hats + snapbacks — 12 of each hero colour",
+  "Tumblers / mugs — 8 (fragile; extra wrap)",
+  "Totes — 30 (giveaway + paid)",
   "Sticker packs — 100",
   "QR cards to stackhouse.com/shop (scan for sizes you do not hold)",
   "Size chart A3 print",
   "Tablet + Lightning POS (OpenNode or Strike)",
   "Card reader backup (Stripe Tap to Pay on phone)",
   "Spare USBC battery, cable, EU/UK/UAE plug",
-  "Banner: STACKHOUSE — Hard money. Soft cotton.",
-  "Cashless only sign: Card · Sats · USDC",
+  "Banner: STACKHOUSE — Stack sats. Wear ₿.",
+  "Cashless only sign: Card · Sats · USDC · USDT",
 ];
 
 const pos = [

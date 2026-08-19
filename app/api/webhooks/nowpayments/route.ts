@@ -1,35 +1,26 @@
 import { NextResponse } from "next/server";
+import { fulfillPaidOrder } from "@/lib/fulfill";
 import { markPaid } from "@/lib/orders";
-import { createPrintfulOrder } from "@/lib/printful";
-import { getProduct } from "@/lib/products";
+import { verifyNowPaymentsSignature } from "@/lib/payments/webhooks";
 
 export async function POST(req: Request) {
-  const json = (await req.json().catch(() => null)) as
-    | { payment_status?: string; order_id?: string; payment_id?: string }
-    | null;
-  if (!json) return NextResponse.json({ error: "bad body" }, { status: 400 });
-
+  const raw = await req.text();
+  if (!verifyNowPaymentsSignature(raw, req.headers.get("x-nowpayments-sig"))) {
+    return NextResponse.json({ error: "bad signature" }, { status: 401 });
+  }
+  let json: {
+    payment_status?: string;
+    order_id?: string;
+    payment_id?: string;
+  };
+  try {
+    json = JSON.parse(raw) as typeof json;
+  } catch {
+    return NextResponse.json({ error: "bad body" }, { status: 400 });
+  }
   if (json.payment_status === "finished" && json.order_id) {
     const order = await markPaid(json.order_id, json.payment_id);
-    if (order) {
-      await createPrintfulOrder({
-        externalId: order.id,
-        recipient: {
-          name: order.name,
-          address1: order.address1,
-          city: order.city,
-          country_code: order.country,
-          zip: order.postcode,
-          email: order.email,
-        },
-        items: order.items.map((i) => ({
-          variantId: getProduct(i.slug)?.printful?.variantId ?? 0,
-          quantity: i.qty,
-          name: getProduct(i.slug)?.name ?? i.slug,
-        })),
-      });
-    }
+    if (order && !order.fulfilled) await fulfillPaidOrder(order.id);
   }
-
   return NextResponse.json({ received: true });
 }

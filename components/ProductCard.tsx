@@ -41,8 +41,10 @@ export function ProductCard({ product }: { product: Product }) {
               key={c.id}
               type="button"
               title={c.label}
+              aria-label={`Preview ${c.label}`}
+              aria-pressed={color === c.id}
               onClick={() => setColor(c.id)}
-              className={`h-3.5 w-3.5 rounded-full border ${
+              className={`h-6 w-6 rounded-full border ${
                 color === c.id ? "border-ember ring-1 ring-ember" : "border-paper/25"
               }`}
               style={{ background: c.hex }}

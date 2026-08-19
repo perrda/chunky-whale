@@ -63,6 +63,12 @@ body {
   animation: emberPulse 4.2s ease-in-out infinite;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .ember-pulse {
+    animation: none;
+  }
+}
+
 @keyframes emberPulse {
   0%,
   100% {
