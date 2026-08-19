@@ -1,9 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useCart } from "@/lib/cart-store";
-import { colorsFor, productImage, type Product } from "@/lib/products";
+import {
+  collectionFor,
+  colorsFor,
+  productImage,
+  productKindLabel,
+  type Product,
+} from "@/lib/products";
 import { SHIP_REGIONS } from "@/lib/shipping";
 import { ColorChoiceGrid } from "./ColorSwatches";
 import { GarmentImage } from "./GarmentImage";
@@ -15,9 +22,12 @@ export function ProductView({ product }: { product: Product }) {
   const colors = useMemo(() => colorsFor(product), [product]);
   const [color, setColor] = useState(colors?.[0]?.id ?? "");
   const [size, setSize] = useState(product.sizes?.[0]?.id ?? "");
+  const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
+  const [zoom, setZoom] = useState(false);
   const soldOut = Boolean(product.limited && (product.remaining ?? 0) <= 0);
   const img = productImage(product, color || undefined);
+  const crumb = collectionFor(product);
   const chartKind =
     product.category === "hoodies"
       ? "hoodies"
@@ -25,12 +35,21 @@ export function ProductView({ product }: { product: Product }) {
         ? "tees"
         : undefined;
 
+  useEffect(() => {
+    if (!zoom) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setZoom(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [zoom]);
+
   function onAdd() {
     add({
       slug: product.slug,
       size: product.sizes ? size : undefined,
       color: colors ? color : undefined,
-      qty: 1,
+      qty,
     });
     setAdded(true);
   }
@@ -38,7 +57,23 @@ export function ProductView({ product }: { product: Product }) {
   return (
     <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-2 md:px-6">
       <div className="space-y-4">
-        <div className="relative aspect-square overflow-hidden bg-white">
+        <nav className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted" aria-label="Breadcrumb">
+          <Link href="/shop" className="hover:text-ember">
+            Shop
+          </Link>
+          <span className="px-2">/</span>
+          <Link href={crumb.href} className="hover:text-ember">
+            {crumb.label}
+          </Link>
+          <span className="px-2">/</span>
+          <span className="text-paper/70">{product.shortName}</span>
+        </nav>
+        <button
+          type="button"
+          onClick={() => setZoom(true)}
+          className="relative block aspect-square w-full overflow-hidden bg-white"
+          aria-label="Enlarge photo"
+        >
           <GarmentImage
             key={`${img}-${color}`}
             src={img}
@@ -46,40 +81,21 @@ export function ProductView({ product }: { product: Product }) {
             recolor={!product.imagesByColor?.[color]}
             alt={`${product.name}${color ? ` in ${colors?.find((c) => c.id === color)?.label ?? color}` : ""}`}
           />
-        </div>
+          <span className="absolute bottom-3 right-3 bg-ink/80 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-paper">
+            Tap to zoom
+          </span>
+        </button>
         {colors && color ? (
           <p className="font-serif text-sm text-paper/70">
             Showing <strong>{colors.find((c) => c.id === color)?.label}</strong>
             {product.imagesByColor?.[color] ? " (studio photo)." : "."}
           </p>
         ) : null}
-        {colors && colors.length > 1 ? (
-          <div className="grid grid-cols-6 justify-items-center gap-2">
-            {colors.map((c) => (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => setColor(c.id)}
-                className={`relative aspect-square w-full max-w-16 overflow-hidden border bg-white ${
-                  color === c.id ? "border-ember" : "border-paper/20"
-                }`}
-                aria-label={`Colour: ${c.label}`}
-                aria-pressed={color === c.id}
-              >
-                <GarmentImage
-                  src={productImage(product, c.id)}
-                  hex={c.hex}
-                  recolor={!product.imagesByColor?.[c.id]}
-                  alt=""
-                />
-              </button>
-            ))}
-          </div>
-        ) : null}
       </div>
       <div>
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-gold">
-          {product.editionId}
+          {productKindLabel(product)}
+          {product.editionId ? ` · ${product.editionId}` : ""}
           {product.finish === "embroidery" ? " · Stitched" : ""}
           {product.limited ? ` · ${product.remaining} remaining` : ""}
         </p>
@@ -121,6 +137,22 @@ export function ProductView({ product }: { product: Product }) {
               </div>
             </fieldset>
           ) : null}
+          <label className="block">
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Quantity</span>
+            <input
+              type="number"
+              min={1}
+              max={20}
+              inputMode="numeric"
+              value={qty}
+              onChange={(e) => {
+                const n = Number(e.target.value);
+                if (!Number.isFinite(n)) return;
+                setQty(Math.min(20, Math.max(1, Math.round(n))));
+              }}
+              className="mt-2 w-20 border border-paper/20 bg-ink px-3 py-2 font-mono text-sm text-paper"
+            />
+          </label>
           <div className="sticky bottom-0 z-20 -mx-4 mt-6 flex flex-col gap-3 border-t border-paper/10 bg-ink/95 px-4 py-3 backdrop-blur-md sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:flex-row">
             <button
               type="button"
@@ -131,13 +163,22 @@ export function ProductView({ product }: { product: Product }) {
               {soldOut ? "Sold out" : added ? "Added to basket" : "Add to basket"}
             </button>
             {added ? (
-              <button
-                type="button"
-                onClick={() => router.push("/checkout")}
-                className="border border-paper/30 px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-paper"
-              >
-                Go to checkout
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={() => router.push("/cart")}
+                  className="border border-paper/30 px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-paper"
+                >
+                  View basket
+                </button>
+                <button
+                  type="button"
+                  onClick={() => router.push("/checkout")}
+                  className="border border-paper/30 px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-paper"
+                >
+                  Checkout
+                </button>
+              </>
             ) : null}
           </div>
         </div>
@@ -168,6 +209,32 @@ export function ProductView({ product }: { product: Product }) {
           Not financial advice.
         </p>
       </div>
+
+      {zoom ? (
+        <div
+          className="fixed inset-0 z-[80] flex items-center justify-center bg-black/70 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Zoomed product photo"
+          onClick={() => setZoom(false)}
+        >
+          <div className="relative aspect-square w-full max-w-3xl bg-white p-4" onClick={(e) => e.stopPropagation()}>
+            <GarmentImage
+              src={img}
+              hex={colors?.find((c) => c.id === color)?.hex}
+              recolor={!product.imagesByColor?.[color]}
+              alt={product.name}
+            />
+            <button
+              type="button"
+              onClick={() => setZoom(false)}
+              className="absolute right-3 top-3 bg-ink px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-paper"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

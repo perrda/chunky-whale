@@ -71,13 +71,17 @@ export function Header() {
           </button>
         </div>
       </div>
-      <div className="border-t border-paper/10">
+      <div className="hidden border-t border-paper/10 lg:block">
         <div className="mx-auto flex max-w-7xl justify-center px-2">
           <MegaNav />
         </div>
       </div>
       {open ? (
-        <nav id="mobile-nav" className="border-t border-paper/10 px-4 py-4 lg:hidden" aria-label="Mobile">
+        <nav
+          id="mobile-nav"
+          className="max-h-[min(70vh,32rem)] overflow-y-auto border-t border-paper/10 px-4 py-4 lg:hidden"
+          aria-label="Mobile"
+        >
           <div className="mb-4">
             <Suspense fallback={null}>
               <SearchBox variant="mobile" />
@@ -85,7 +89,7 @@ export function Header() {
           </div>
           <Link
             href={authReady && account ? "/account" : "/login"}
-            className="mb-4 inline-block font-display text-sm font-bold sm:hidden"
+            className="mb-3 inline-block font-display text-sm font-bold sm:hidden"
           >
             {authReady && account ? "Account" : "Login"}
           </Link>

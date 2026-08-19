@@ -52,6 +52,25 @@ export const SHIP_REGIONS: ShipRegion[] = [
   },
 ];
 
+export function shipSkuKind(category: string): keyof ShipRegion["firstItemGbp"] {
+  if (category === "hoodies") return "hoodie";
+  if (category === "hats") return "hat";
+  if (category === "drinkware" || category === "home") return "mug";
+  return "tee";
+}
+
+/** Rough Printful first-item + £2 per extra unit. Estimate only — live checkout may differ. */
+export function estimateShippingGbp(
+  lines: { category: string; qty: number }[],
+  country: string,
+) {
+  const region = regionForCountry(country);
+  const units = lines.flatMap((l) => Array.from({ length: l.qty }, () => shipSkuKind(l.category)));
+  if (!units.length) return 0;
+  const first = Math.max(...units.map((k) => region.firstItemGbp[k]));
+  return first + Math.max(0, units.length - 1) * 2;
+}
+
 export function regionForCountry(country: string) {
   const c = country.trim().toUpperCase();
   if (c === "US" || c === "USA" || c === "UNITED STATES") return SHIP_REGIONS[0];

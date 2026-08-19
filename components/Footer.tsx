@@ -30,6 +30,9 @@ export function Footer() {
               <Link href="/collection/tees">T-Shirts</Link>
             </li>
             <li>
+              <Link href="/collection/sweatshirts">Sweatshirts</Link>
+            </li>
+            <li>
               <Link href="/collection/hats">Hats</Link>
             </li>
             <li>

@@ -3,9 +3,18 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { GarmentImage } from "@/components/GarmentImage";
 import { cartTotalGbp, useCart } from "@/lib/cart-store";
-import { formatGbp, getProduct, isLiveProduct } from "@/lib/products";
-import { regionForCountry } from "@/lib/shipping";
+import {
+  colorLabel,
+  colorsFor,
+  formatGbp,
+  getProduct,
+  isLiveProduct,
+  productImage,
+  sizeLabel,
+} from "@/lib/products";
+import { estimateShippingGbp, regionForCountry } from "@/lib/shipping";
 import { useAuth } from "@/lib/auth-store";
 import { usePersistReady } from "@/lib/use-persist-ready";
 
@@ -115,6 +124,7 @@ export default function CheckoutPage() {
         country: fd.get("country"),
         postcode: fd.get("postcode"),
         method,
+        address2: fd.get("address2") || undefined,
         items: items.map((i) => ({ slug: i.slug, size: i.size, color: i.color, qty: i.qty })),
       }),
     });
@@ -135,14 +145,22 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <p className="px-6 py-20 font-serif">
-        Basket is empty.{" "}
-        <Link href="/shop" className="text-ember">
-          Shop
+      <div className="mx-auto max-w-3xl px-4 py-20 md:px-6">
+        <h1 className="font-display text-4xl font-extrabold">Checkout</h1>
+        <p className="mt-4 font-serif text-lg text-paper/75">Basket is empty.</p>
+        <Link href="/shop" className="mt-6 inline-block bg-ember px-6 py-3 font-display text-sm font-bold text-ink">
+          Shop Bitcoin merch
         </Link>
-      </p>
+      </div>
     );
   }
+
+  const ship = estimateShippingGbp(
+    lines
+      .filter((l) => l.live && l.product)
+      .map((l) => ({ category: l.product!.category, qty: l.qty })),
+    country,
+  );
 
   return (
     <div className="mx-auto grid max-w-5xl gap-12 px-4 py-14 md:grid-cols-2 md:px-6">
@@ -172,6 +190,7 @@ export default function CheckoutPage() {
         <Field name="email" label="Email" type="email" autoComplete="email" defaultValue={account?.email} />
         <Field name="name" label="Full name" autoComplete="name" defaultValue={account?.name} />
         <Field name="address1" label="Address" autoComplete="address-line1" />
+        <Field name="address2" label="Address line 2 (optional)" autoComplete="address-line2" required={false} />
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <Field name="city" label="City" autoComplete="address-level2" />
           <Field name="postcode" label="Postcode" autoComplete="postal-code" />
@@ -249,7 +268,7 @@ export default function CheckoutPage() {
           disabled={busy || stale || !rails || railsError || !methodAllowed(method)}
           className="bg-ember px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-ink disabled:opacity-60"
         >
-          {busy ? "Starting payment…" : `Pay ${formatGbp(total)}`}
+          {busy ? "Starting payment…" : `Pay ${formatGbp(total + ship)}`}
         </button>
         <p className="font-serif text-sm text-muted">
           {!rails
@@ -276,27 +295,51 @@ export default function CheckoutPage() {
       </form>
       <aside>
         <h2 className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Order</h2>
-        <ul className="mt-4 space-y-3">
+        <ul className="mt-4 space-y-4">
           {lines.map((i) => {
             if (!i.product) return null;
+            const colour = colorLabel(i.product, i.color);
+            const size = sizeLabel(i.product, i.size);
             return (
-              <li key={`${i.slug}-${i.size}-${i.color}`} className="flex justify-between gap-4 font-serif text-sm">
-                <span>
-                  {i.product.name} {i.color ? `${i.color} ` : ""}
-                  {i.size ? `(${i.size})` : ""} × {i.qty}
-                  {!i.live ? " — no longer for sale" : ""}
+              <li key={`${i.slug}-${i.size}-${i.color}`} className="flex gap-3">
+                <div className="relative h-16 w-16 shrink-0 overflow-hidden bg-white">
+                  <GarmentImage
+                    src={productImage(i.product, i.color)}
+                    hex={colorsFor(i.product)?.find((c) => c.id === i.color)?.hex}
+                    recolor={!i.product.imagesByColor?.[i.color ?? ""]}
+                    alt={i.product.name}
+                  />
+                </div>
+                <div className="min-w-0 flex-1 font-serif text-sm">
+                  <p className="font-display font-bold">{i.product.name}</p>
+                  <p className="text-paper/70">
+                    {[size, colour].filter(Boolean).join(" · ")}
+                    {` × ${i.qty}`}
+                    {!i.live ? " — no longer for sale" : ""}
+                  </p>
+                </div>
+                <span className="shrink-0 font-mono text-sm text-gold">
+                  {formatGbp(i.product.priceGbp * i.qty)}
                 </span>
-                <span className="font-mono text-gold">{formatGbp(i.product.priceGbp * i.qty)}</span>
               </li>
             );
           })}
         </ul>
-        <p className="mt-6 flex justify-between border-t border-paper/15 pt-4 font-display text-lg">
-          Total <span className="font-mono text-gold">{formatGbp(total)}</span>
-        </p>
+        <div className="mt-6 space-y-2 border-t border-paper/15 pt-4">
+          <p className="flex justify-between font-serif text-sm">
+            Items <span className="font-mono text-gold">{formatGbp(total)}</span>
+          </p>
+          <p className="flex justify-between font-serif text-sm text-paper/75">
+            Shipping estimate ({regionForCountry(country).label}){" "}
+            <span className="font-mono">{formatGbp(ship)}</span>
+          </p>
+          <p className="flex justify-between font-display text-lg">
+            Estimated total <span className="font-mono text-gold">{formatGbp(total + ship)}</span>
+          </p>
+        </div>
         <p className="mt-4 font-serif text-sm text-paper/70">
-          Printful estimate to {regionForCountry(country).label}: {regionForCountry(country).doorToDoor}. Shipping is
-          added at live checkout (not in this demo total). UK VAT 20% when we go live if you are in the UK.
+          Printful door-to-door: {regionForCountry(country).doorToDoor}. Shipping here is an estimate — the live
+          charge may differ. UK VAT 20% when we go live if you are in the UK.
         </p>
       </aside>
     </div>
@@ -309,12 +352,14 @@ function Field({
   type = "text",
   defaultValue,
   autoComplete,
+  required = true,
 }: {
   name: string;
   label: string;
   type?: string;
   defaultValue?: string;
   autoComplete?: string;
+  required?: boolean;
 }) {
   return (
     <label className="block">
@@ -322,7 +367,7 @@ function Field({
       <input
         name={name}
         type={type}
-        required
+        required={required}
         defaultValue={defaultValue}
         autoComplete={autoComplete}
         className="mt-1 w-full border border-paper/20 bg-ink px-3 py-2 font-serif text-paper"
