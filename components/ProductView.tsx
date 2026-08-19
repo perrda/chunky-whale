@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useCart } from "@/lib/cart-store";
 import { colorsFor, productImage, type Product } from "@/lib/products";
 import { SHIP_REGIONS } from "@/lib/shipping";
+import { GarmentImage } from "./GarmentImage";
 import { SizeChart } from "./SizeChart";
 
 export function ProductView({ product }: { product: Product }) {
@@ -36,28 +36,19 @@ export function ProductView({ product }: { product: Product }) {
   return (
     <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-2 md:px-6">
       <div className="space-y-4">
-        <div className="relative aspect-square bg-white">
-          <div
-            className="pointer-events-none absolute inset-3 rounded-sm"
-            style={{
-              boxShadow: `inset 0 0 0 6px ${colors?.find((c) => c.id === color)?.hex ?? "transparent"}`,
-            }}
-            aria-hidden
-          />
-          <Image
-            key={img}
+        <div className="relative aspect-square overflow-hidden bg-white">
+          <GarmentImage
+            key={`${img}-${color}`}
             src={img}
+            hex={colors?.find((c) => c.id === color)?.hex}
+            recolor={!product.imagesByColor?.[color]}
             alt={`${product.name}${color ? ` in ${colors?.find((c) => c.id === color)?.label ?? color}` : ""}`}
-            fill
-            className="object-contain p-6"
-            priority
-            sizes="50vw"
           />
         </div>
         {colors && color ? (
           <p className="font-serif text-sm text-paper/70">
-            You selected <strong>{colors.find((c) => c.id === color)?.label}</strong>
-            {product.imagesByColor?.[color] ? "." : ". Photo shows the hero colour — we print the mark on your colour."}
+            Showing <strong>{colors.find((c) => c.id === color)?.label}</strong>
+            {product.imagesByColor?.[color] ? " (studio photo)." : "."}
           </p>
         ) : null}
         {colors && colors.length > 1 ? (
@@ -72,12 +63,11 @@ export function ProductView({ product }: { product: Product }) {
                 }`}
                 aria-label={c.label}
               >
-                <Image
+                <GarmentImage
                   src={productImage(product, c.id)}
+                  hex={c.hex}
+                  recolor={!product.imagesByColor?.[c.id]}
                   alt=""
-                  fill
-                  className="object-contain p-1"
-                  sizes="64px"
                 />
               </button>
             ))}

@@ -14,7 +14,7 @@ export default function TermsPage() {
           The site is operated by {site.merchant} unless another merchant is named at checkout. By ordering you agree to these terms.
         </p>
         <p>
-          Products are print-on-demand. We make them after payment clears. Descriptions are in good faith. Colours vary by screen, blank, and print run. The photo is often a hero colour; the garment you receive is the colour you picked.
+          Products are print-on-demand. We make them after payment clears. Descriptions are in good faith. Colours vary by screen, blank, and print run. The product photo updates to the colour you pick; the printed garment can still differ slightly from the screen.
         </p>
         <p>
           Prices are in GBP unless shown otherwise. UK VAT and destination tax/duty may be added at live checkout. Shipping estimates are on{" "}

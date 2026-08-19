@@ -49,7 +49,7 @@ export const CLOTHING_COLORS: ColorOption[] = [
 const TEE = [
   "180–220gsm cotton",
   "Print-on-demand UK / US / EU / Asia",
-  "12 garment colours — photo is the hero colour; you pick the rest at checkout",
+  "12 garment colours — the photo updates when you pick a colour",
 ];
 const HOOD = ["Mid-weight fleece", "Kangaroo pocket or zip as labelled", "12 garment colours"];
 const HATD = ["One size", "Embroidered or printed ₿", "Colours as listed"];
