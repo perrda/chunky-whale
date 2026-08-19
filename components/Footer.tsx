@@ -48,6 +48,9 @@ export function Footer() {
               <Link href="/collection/kids">Kids</Link>
             </li>
             <li>
+              <Link href="/collection/mummy-daddy">Mummy &amp; Daddy</Link>
+            </li>
+            <li>
               <Link href="/shipping">Shipping times</Link>
             </li>
           </ul>

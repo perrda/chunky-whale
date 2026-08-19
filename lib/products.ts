@@ -2,6 +2,7 @@ import { drop05 } from "./drop-05";
 import { drop06 } from "./drop-06";
 import { CLOTHING_COLORS, drop07 } from "./drop-07";
 import { drop08Swim } from "./drop-08-swim";
+import { drop09Parents } from "./drop-09-parents";
 
 export { CLOTHING_COLORS };
 
@@ -142,9 +143,11 @@ export const collections = [
   { slug: "bags", label: "Bags", blurb: "Totes and a pack." },
   { slug: "accessories", label: "Stickers & pins", blurb: "Laptop and lapel." },
   { slug: "swimwear", label: "Swimwear", blurb: "Shorts, bikinis, caps. Same ₿." },
+  { slug: "mummy-daddy", label: "Mummy & Daddy", blurb: "Bitcoin Mummy. Bitcoin Daddy." },
 ] as const;
 
 export const products: Product[] = [
+  ...drop09Parents,
   ...drop08Swim,
   ...drop07,
   ...drop06,
@@ -1370,6 +1373,10 @@ export function productsIn(slug: string) {
   if (slug === "one-pieces") return list.filter((p) => productKind(p) === "onepiece");
   if (slug === "rash-guards") return list.filter((p) => productKind(p) === "rash");
   if (slug === "swim-caps") return list.filter((p) => p.category === "swimwear" && productKind(p) === "cap");
+  if (slug === "mummy-daddy")
+    return list.filter((p) => p.slug.startsWith("bitcoin-mummy") || p.slug.startsWith("bitcoin-daddy"));
+  if (slug === "bitcoin-mummy") return list.filter((p) => p.slug.startsWith("bitcoin-mummy"));
+  if (slug === "bitcoin-daddy") return list.filter((p) => p.slug.startsWith("bitcoin-daddy"));
   return list.filter((p) => p.category === slug);
 }
 
