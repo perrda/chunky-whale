@@ -28,7 +28,7 @@ If the printer does not have the exact blank, nearest navy/black/heather. Tell u
 
 ## How a new design is born
 
-1. Write one Bitcoin line (see `.cursor/skills/orangeforge-design/copy.md`).
+1. Write one Bitcoin line (see `.cursor/skills/stackhouse-design/copy.md`).
 2. Generate print-ready 1:1.
 3. Generate ghost-mannequin mockup on white.
 4. Add SKU in `lib/drop-06.ts` (or products) with `imagesByColor` so the site photo changes with the swatch.
@@ -36,4 +36,4 @@ If the printer does not have the exact blank, nearest navy/black/heather. Tell u
 
 ## Naming
 
-Edition IDs: `SH-` prefix (STACKHOUSE). Old `HM-` / `OF-` IDs can stay on already-shot pieces.
+Edition IDs: `SH-` prefix (STACKHOUSE).

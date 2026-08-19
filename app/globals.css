@@ -42,6 +42,7 @@ html,
 body {
   background: var(--ink);
   color: var(--paper);
+  overflow-x: hidden;
 }
 
 body {

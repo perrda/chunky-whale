@@ -2,7 +2,7 @@
 
 Bitcoin merch. **Stack sats. Wear ₿.**
 
-Repo folder is still `orangeforge`. Visible brand is **STACKHOUSE**.
+Folder and GitHub repo: **`stackhouse`** (`perrda/stackhouse`).
 
 Pay with **card, Bitcoin + Lightning, USDC, or USDT** once keys are added. Guest checkout. First live booth: **Bitcoin MENA, Abu Dhabi, 7–8 December 2026**.
 
@@ -11,7 +11,7 @@ Not financial advice. We never claim this will make money.
 ## Run it
 
 ```bash
-cd ~/Projects/orangeforge
+cd ~/Projects/stackhouse
 npm install
 npm run dev -- --port 3001
 ```
