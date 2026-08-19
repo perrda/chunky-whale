@@ -22,6 +22,8 @@ export function filenamePhotoKind(base: string): string | null {
   if (b.includes("crop")) return "crop";
   if (/(mug)$/.test(b) || b.includes("-mug")) return "mug";
   if (b.includes("tumbler")) return "tumbler";
+  if (b.includes("whiskey") || b.includes("whisky")) return "whiskey";
+  if (b.includes("-shot") || /(shot)$/.test(b)) return "shot";
   if (b.includes("pint")) return "pint";
   if (b.includes("coaster")) return "coaster";
   if (b.includes("tote")) return "tote";
@@ -50,6 +52,8 @@ export function expectedPhotoKind(product: Product): string {
   if (k === "crop" || s.includes("crop")) return "crop";
   if (k === "mug" || s.includes("mug")) return "mug";
   if (k === "tumbler" || s.includes("tumbler")) return "tumbler";
+  if (k === "whiskey" || s.includes("whiskey") || s.includes("whisky")) return "whiskey";
+  if (k === "shot" || s.includes("shot")) return "shot";
   if (k === "pint" || s.includes("pint")) return "pint";
   if (k === "coaster" || s.includes("coaster")) return "coaster";
   if (s.includes("tote") || (product.category === "bags" && !s.includes("pack"))) return "tote";
@@ -78,6 +82,8 @@ const KIND_OK: Record<string, string[]> = {
   swim: ["swim"],
   mug: ["mug"],
   tumbler: ["tumbler"],
+  whiskey: ["whiskey"],
+  shot: ["shot"],
   pint: ["pint"],
   coaster: ["coaster"],
   tote: ["tote"],

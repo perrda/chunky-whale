@@ -8,7 +8,9 @@ Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + coin ₿ mark 
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.14** (19 Aug 2026 storefront UX pass). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+Version **0.7.15** (19 Aug 2026 whiskey + shot glasses). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+
+**Drinkware:** whiskey and shot glasses were never in this catalog (only mugs, tumblers, pints, coasters). Drop 11 adds **20 whiskey glasses** and **20 shot glasses**, each with its own square white studio photo and Bitcoin line. Under Drinkware: Coffee mugs, Coasters, Pint glasses, Shot glasses, Tumblers, Whiskey glasses. No colour swatches on glass.
 
 **UX pass:** phone menu no longer draws an empty second bar; sections stay closed until you tap Show. Header search suggests products as you type. Collections and the shop can sort (featured / price / name) and search the list. Product page: one colour picker, tap-to-zoom, quantity, breadcrumbs, View basket after add, related pieces from the same mark. Cards show the cut (Hoodie / Pullover / Tee). Basket and checkout show colour names, photos, and a shipping estimate in the total.
 
