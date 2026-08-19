@@ -12,7 +12,10 @@ export function filenamePhotoKind(base: string): string | null {
     /(?:^|-)cap$/.test(b)
   )
     return "hat";
-  if (/(hoodie|pullover|crew|zip)$/.test(b) || b.includes("-hoodie") || b.includes("-pullover")) return "hoodie";
+  if (b.includes("-pullover") || /(pullover)$/.test(b)) return "pullover";
+  if (b.includes("-zip") || /(zip)$/.test(b) || b.includes("zip-hoodie")) return "zip";
+  if (b.includes("crewneck") || b.endsWith("-crew") || b.includes("-crew-")) return "crew";
+  if (b.includes("-hoodie") || /(hoodie)$/.test(b)) return "hoodie";
   if (b.includes("longsleeve")) return "longsleeve";
   if (b.includes("vneck")) return "vneck";
   if (b.includes("tank")) return "tank";
@@ -37,7 +40,10 @@ export function expectedPhotoKind(product: Product): string {
   const k = (product.kind ?? "").toLowerCase();
   if (product.category === "swimwear") return "swim";
   if (product.category === "hats") return "hat";
-  if (product.category === "hoodies") return "hoodie";
+  if (k === "pullover" || s.includes("pullover")) return "pullover";
+  if (k === "crew" || s.includes("crew")) return "crew";
+  if (k === "zip" || s.includes("zip")) return "zip";
+  if (k === "hoodie" || product.category === "hoodies") return "hoodie";
   if (product.category === "longsleeves" || s.includes("longsleeve")) return "longsleeve";
   if (k === "vneck" || s.includes("vneck")) return "vneck";
   if (k === "tank" || (s.includes("tank") && product.cut === "women")) return "tank";
@@ -61,6 +67,9 @@ const KIND_OK: Record<string, string[]> = {
   tee: ["tee", "onesie"],
   onesie: ["onesie", "tee"],
   hoodie: ["hoodie"],
+  pullover: ["pullover"],
+  crew: ["crew", "pullover"],
+  zip: ["zip", "hoodie"],
   longsleeve: ["longsleeve"],
   vneck: ["vneck"],
   tank: ["tank"],

@@ -14,7 +14,6 @@ const APPAREL = [
   { id: "3xl", label: "3XL" },
   { id: "4xl", label: "4XL" },
 ];
-const HOOD = ["Mid-weight fleece", "Print-on-demand"];
 const EMB = ["Raised embroidery", "Printful stitch"];
 const ink = { id: "ink", label: "Ink", hex: "#0B0C0E" };
 const navy = { id: "navy", label: "Navy", hex: "#1B2430" };
@@ -140,7 +139,7 @@ export const drop06: Product[] = [
     colors: [navy],
     imagesByColor: { navy: "/products/21m-pullover.png" },
     description: "No zip, no hood. The cap on heavy cotton. Orange ₿.",
-    details: HOOD,
+    details: ["Heavy cotton fleece", "No hood, no zip, no pocket", "Printed on demand"],
     image: "/products/21m-pullover.png",
     sizes: APPAREL,
   },

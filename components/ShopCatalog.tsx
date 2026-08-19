@@ -27,6 +27,7 @@ export function ShopCatalog({
     else if (filter === "women") next = next.filter((p) => p.cut === "women");
     else if (filter === "memes") next = next.filter((p) => p.tag === "Meme");
     else if (filter === "premium") next = next.filter((p) => p.finish === "embroidery" || p.tag === "Premium");
+    else if (filter === "sweatshirts") next = next.filter((p) => p.category === "hoodies");
     else if (filter !== "all") next = next.filter((p) => p.category === filter);
     const n = q.trim().toLowerCase();
     if (n) {

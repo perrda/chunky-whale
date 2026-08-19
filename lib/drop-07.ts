@@ -52,6 +52,7 @@ const TEE = [
   "12 garment colours — the photo updates when you pick a colour",
 ];
 const HOOD = ["Mid-weight fleece", "Kangaroo pocket or zip as labelled", "12 garment colours"];
+const PULL = ["Heavy cotton fleece", "No hood, no zip, no pocket", "12 garment colours"];
 const HATD = ["One size", "Embroidered or printed ₿", "Colours as listed"];
 const DRINK = ["Printful / Gelato drinkware", "Dishwasher-safe ceramic unless noted"];
 
@@ -266,9 +267,8 @@ export const drop07: Product[] = [
     colors: CLOTHING_COLORS,
     description: "Same joke, heavier cloth. Orange ₿.",
     details: HOOD,
-    image: "/products/so-back-tee.png",
+    image: "/products/so-back-hoodie.png",
     sizes: APPAREL,
-    retired: true,
   },
   {
     slug: "so-over-hoodie",
@@ -283,9 +283,8 @@ export const drop07: Product[] = [
     colors: CLOTHING_COLORS,
     description: "Pair it with So Back. Honesty in fleece.",
     details: HOOD,
-    image: "/products/so-over-tee.png",
+    image: "/products/so-over-hoodie.png",
     sizes: APPAREL,
-    retired: true,
   },
   {
     slug: "reserve-crew",
@@ -367,10 +366,9 @@ export const drop07: Product[] = [
     cut: "unisex",
     colors: CLOTHING_COLORS,
     description: "No zip. No lasers. ₿.",
-    details: HOOD,
-    image: "/products/no-laser-tee.png",
+    details: PULL,
+    image: "/products/no-laser-pullover.png",
     sizes: APPAREL,
-    retired: true,
   },
   {
     slug: "orange-pill-pullover",
@@ -384,10 +382,9 @@ export const drop07: Product[] = [
     cut: "unisex",
     colors: CLOTHING_COLORS,
     description: "The colour, in fleece.",
-    details: HOOD,
-    image: "/products/orange-pill-tee.png",
+    details: PULL,
+    image: "/products/orange-pill-pullover.png",
     sizes: APPAREL,
-    retired: true,
   },
   {
     slug: "no-forecast-hoodie",
@@ -402,9 +399,8 @@ export const drop07: Product[] = [
     colors: CLOTHING_COLORS,
     description: "Still not advice. Warmer.",
     details: HOOD,
-    image: "/products/not-forecast-tee.png",
+    image: "/products/no-forecast-hoodie.png",
     sizes: APPAREL,
-    retired: true,
   },
 
   {
