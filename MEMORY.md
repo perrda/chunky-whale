@@ -8,7 +8,9 @@ Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + coin ₿ mark 
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.7** (19 Aug 2026 Drop 09 Mummy & Daddy). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+Version **0.7.8** (19 Aug 2026 catalog photo + nav). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+
+Drop 07 had cloned tee photos onto hats, hoodies, women’s cuts, long sleeves, and posters (e.g. Fiat Experiment Vintage hat showed a navy t-shirt). Those listings are **retired** until each has its own matching photo. Real hat/hoodie/poster shots stay live. Guard: `npm run qa:catalog` now fails if a live SKU’s photo filename is the wrong object.
 
 Drop 09: **Bitcoin Mummy** and **Bitcoin Daddy** — matching tee, hoodie, dad hat, mug, tote, and long sleeve. Unique photo per SKU. Collection: Mummy & Daddy (also under Women / Collections). Not on kids, jewelry, posters, or stickers.
 
@@ -18,7 +20,7 @@ Bags, socks, phone cases, jewelry, and swimwear have colour swatches the same wa
 
 QA pass on `cursor/qa-bugfix-pass-1342`: checkout no longer pretends a missing payment rail is live; OpenNode charges pounds not 100×; NOWPayments and Coinbase webhooks verify correctly; Printful will not submit a fake or zero variant; success page only clears the basket after a demo order or a paid order; cart/checkout wait for saved basket; nav works with keyboard. Still blocked for live money: Printful variant IDs, durable order store, and David’s payment keys.
 
-Drop 08: **Swimwear** — men (board shorts, rash guard, cap), women (bikinis, one-pieces, rash guard, cap), kids (youth shorts / one-piece / rash / cap, toddler swim). Unique photo per SKU. Find it under **Collections → Swimwear** and the Swimwear menu. Sub-links: Men / Women / Kids / Bikinis / Shorts / One-pieces / Rash guards / Caps.
+Drop 08: **Swimwear** — men (board shorts, rash guard, cap), women (bikinis, one-pieces, rash guard, cap), kids (youth shorts / one-piece / rash / cap, toddler swim). Unique photo per SKU. Top nav: **Swimwear** sits left of Drinkware. Swim subsections live only under Swimwear (Men / Women / Kids / Bikinis / Shorts / One-pieces / Rash guards / Caps). Collections keeps a single Swimwear link — no swim sub-links there.
 
 Drop 07: topical Bitcoin lines (We are so back / It’s so over / Strategic reserve / No laser eyes / Proof of work not proof of tweet / Quantum can wait / Fiat is the experiment / Orange pill / Not a forecast / Four year tide). Apparel **and bags** have **12 colours** including royal blue, crimson, forest, olive, burgundy. The photo recolours when the buyer picks a swatch. Aim: 20+ live options in tees, sweatshirts, hats, women, kids, drinkware, bags, swimwear.
 
@@ -49,7 +51,7 @@ Before new work, and after any GitHub change, run the sync block on **Mac Mini a
 ## House rules
 
 - Public site does **not** advertise booths or an event plan. `/events` redirects home. Internal MENA notes stay in docs only.
-- Mega-nav: Trending, T-Shirts, Sweatshirts, Women, Hats, Kids, Drinkware, Swimwear, Collections (Collections includes Swimwear and Mummy & Daddy). No Blog. Colour swatches on every garment. Hero photos where we have them.
+- Mega-nav: Trending, T-Shirts, Sweatshirts, Women, Hats, Kids, Swimwear, Drinkware, Collections (Collections includes one Swimwear link plus Mummy & Daddy). No Blog. Colour swatches on every garment. Hero photos where we have them.
 - Homepage hero shows **six** products, shuffled on each visit, drawn from featured / trending, and later from `soldCount` when sales exist. No empty white panel.
 - Sync both Macs: `docs/SYNC.md`. Live card/BTC/USDC/USDT still need David’s keys — demo until then.
 - Vendor pack: `docs/VENDOR-ONBOARDING.md` + `docs/ARTWORK-SPEC.md`

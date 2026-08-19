@@ -1,6 +1,9 @@
 import { existsSync } from "fs";
 import path from "path";
-import { liveProducts, type Product } from "./products";
+import { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catalog-kind";
+import { products as allProducts, RETIRED_SLUGS, type Product } from "./products";
+
+export { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catalog-kind";
 
 /** Canonical design family. Aliases collapse “humble-ps” and “stay-humble” to one mark. */
 const FAMILY_ALIASES: Record<string, string> = {
@@ -71,10 +74,7 @@ export function designFamily(product: Product): string {
 
 function imageKindHint(image: string): string | null {
   const base = path.basename(image, path.extname(image)).toLowerCase();
-  const m = base.match(
-    /(mug|tumbler|pint|coasters?|tote|pack|hoodie|pendant|bracelet|onesie)$/i,
-  );
-  return m ? m[1].replace(/s$/, "") : null;
+  return filenamePhotoKind(base);
 }
 
 function productObject(product: Product): string {
@@ -123,7 +123,7 @@ export type CatalogImageIssue = {
 };
 
 export function auditCatalogImages(
-  products: Product[] = liveProducts(),
+  products: Product[] = allProducts.filter((p) => !p.retired && !RETIRED_SLUGS.has(p.slug)),
   publicDir = path.join(process.cwd(), "public"),
 ): CatalogImageIssue[] {
   const issues: CatalogImageIssue[] = [];
@@ -161,6 +161,16 @@ export function auditCatalogImages(
           detail: `Title is a ${obj}, photo filename looks like a ${imgKind}`,
         });
       }
+    }
+    if (photoKindMismatch(p)) {
+      issues.push({
+        severity: "error",
+        code: "kind-mismatch",
+        slug: p.slug,
+        name: p.name,
+        image: p.image,
+        detail: `Listing is a ${expectedPhotoKind(p)}, photo filename looks like a ${filenamePhotoKind(path.basename(p.image, path.extname(p.image)))}`,
+      });
     }
   }
 

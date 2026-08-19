@@ -1,3 +1,4 @@
+import { photoKindMismatch } from "./catalog-kind";
 import { drop05 } from "./drop-05";
 import { drop06 } from "./drop-06";
 import { CLOTHING_COLORS, drop07 } from "./drop-07";
@@ -135,6 +136,7 @@ export const collections = [
   { slug: "women", label: "Women", blurb: "V-neck, tank, same ₿." },
   { slug: "hats", label: "Hats", blurb: "Dad hats, buckets, beanies. Stitched ₿." },
   { slug: "kids", label: "Kids", blurb: "Youth, toddler, infant." },
+  { slug: "swimwear", label: "Swimwear", blurb: "Shorts, bikinis, caps. Same ₿." },
   { slug: "drinkware", label: "Drinkware", blurb: "Mugs, tumblers, pints, coasters." },
   { slug: "jewelry", label: "Jewelry", blurb: "Pendants, necklaces, bracelets." },
   { slug: "posters", label: "Posters", blurb: "Charts, 21 million, the paper." },
@@ -142,7 +144,6 @@ export const collections = [
   { slug: "longsleeves", label: "Long sleeves", blurb: "Conference weather." },
   { slug: "bags", label: "Bags", blurb: "Totes and a pack." },
   { slug: "accessories", label: "Stickers & pins", blurb: "Laptop and lapel." },
-  { slug: "swimwear", label: "Swimwear", blurb: "Shorts, bikinis, caps. Same ₿." },
   { slug: "mummy-daddy", label: "Mummy & Daddy", blurb: "Bitcoin Mummy. Bitcoin Daddy." },
 ] as const;
 
@@ -1129,6 +1130,7 @@ export const products: Product[] = [
     image: "/products/youth-utxo-tee.png",
     print: "/prints/print-btc-b.png",
     sizes: TODDLER_SIZES,
+    retired: true,
   },
   {
     slug: "infant-node-onesie",
@@ -1220,7 +1222,7 @@ export const RETIRED_SLUGS = new Set([
 ]);
 
 export function liveProducts() {
-  return products.filter((p) => !p.retired && !RETIRED_SLUGS.has(p.slug));
+  return products.filter((p) => !p.retired && !RETIRED_SLUGS.has(p.slug) && !photoKindMismatch(p));
 }
 
 /** Ranked pool for the homepage hero. Live sales first, then featured / trending. */
@@ -1288,7 +1290,7 @@ export function getProduct(slug: string) {
 
 export function isLiveProduct(slug: string) {
   const p = getProduct(slug);
-  return Boolean(p && !p.retired && !RETIRED_SLUGS.has(slug));
+  return Boolean(p && !p.retired && !RETIRED_SLUGS.has(slug) && !photoKindMismatch(p));
 }
 
 /** Looks up size × colour first; falls back to a single mapped variant. 0 = not mapped yet. */

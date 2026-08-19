@@ -268,6 +268,7 @@ export const drop07: Product[] = [
     details: HOOD,
     image: "/products/so-back-tee.png",
     sizes: APPAREL,
+    retired: true,
   },
   {
     slug: "so-over-hoodie",
@@ -284,6 +285,7 @@ export const drop07: Product[] = [
     details: HOOD,
     image: "/products/so-over-tee.png",
     sizes: APPAREL,
+    retired: true,
   },
   {
     slug: "reserve-crew",
@@ -300,6 +302,7 @@ export const drop07: Product[] = [
     details: ["Crewneck fleece", "12 colours"],
     image: "/products/strategic-reserve-tee.png",
     sizes: APPAREL,
+    retired: true,
   },
   {
     slug: "quantum-crew",
@@ -316,6 +319,7 @@ export const drop07: Product[] = [
     details: ["Crewneck fleece", "12 colours"],
     image: "/products/quantum-tee.png",
     sizes: APPAREL,
+    retired: true,
   },
   {
     slug: "pow-zip",
@@ -332,6 +336,7 @@ export const drop07: Product[] = [
     details: ["Zip hoodie", "12 colours"],
     image: "/products/proof-tweet-tee.png",
     sizes: APPAREL,
+    retired: true,
   },
   {
     slug: "fiat-zip",
@@ -348,6 +353,7 @@ export const drop07: Product[] = [
     details: ["Zip hoodie", "12 colours"],
     image: "/products/fiat-experiment-tee.png",
     sizes: APPAREL,
+    retired: true,
   },
   {
     slug: "no-laser-pullover",
@@ -364,6 +370,7 @@ export const drop07: Product[] = [
     details: HOOD,
     image: "/products/no-laser-tee.png",
     sizes: APPAREL,
+    retired: true,
   },
   {
     slug: "orange-pill-pullover",
@@ -380,6 +387,7 @@ export const drop07: Product[] = [
     details: HOOD,
     image: "/products/orange-pill-tee.png",
     sizes: APPAREL,
+    retired: true,
   },
   {
     slug: "no-forecast-hoodie",
@@ -396,6 +404,7 @@ export const drop07: Product[] = [
     details: HOOD,
     image: "/products/not-forecast-tee.png",
     sizes: APPAREL,
+    retired: true,
   },
 
   {
@@ -466,6 +475,7 @@ export const drop07: Product[] = [
         details: HATD,
         image: m.image,
         sizes: HAT,
+        retired: true,
       };
     },
   ),
@@ -493,6 +503,7 @@ export const drop07: Product[] = [
         details: [...TEE, "Women’s cut XS–2XL"],
         image: m.image,
         sizes: WOMEN,
+        retired: true,
       }),
     );
   }),
@@ -540,7 +551,7 @@ export const drop07: Product[] = [
         details: [r.cut === "youth" ? "Youth S–L" : r.cut === "toddler" ? "2T–5T" : "0–24 months"],
         image: r.image,
         sizes: r.sizes,
-        retired: id !== "stack" || r.cut === "infant",
+        retired: id !== "stack" || r.cut !== "youth",
       }),
     );
   }),
@@ -708,6 +719,7 @@ export const drop07: Product[] = [
       details: TEE,
       image: MARKS.find((m) => m.id === id)!.image,
       sizes: APPAREL,
+      retired: true,
     }),
   ),
 
@@ -722,6 +734,7 @@ export const drop07: Product[] = [
     description: "A3. The mood, framed later.",
     details: ["A3 print", "Unframed"],
     image: "/products/so-back-tee.png",
+    retired: true,
   },
   {
     slug: "reserve-poster",
@@ -734,6 +747,7 @@ export const drop07: Product[] = [
     description: "A3. Quiet type. ₿.",
     details: ["A3 print", "Unframed"],
     image: "/products/strategic-reserve-tee.png",
+    retired: true,
   },
   ...MARKS.filter((m) => !["so-back", "reserve"].includes(m.id)).map(
     (m): Product => ({
@@ -747,6 +761,7 @@ export const drop07: Product[] = [
       description: `A3. ${m.short}. Unframed.`,
       details: ["A3 print", "Unframed"],
       image: m.image,
+      retired: true,
     }),
   ),
   ...MARKS.map(
@@ -764,6 +779,7 @@ export const drop07: Product[] = [
       details: TEE,
       image: m.image,
       sizes: APPAREL,
+      retired: true,
     }),
   ).filter((p) => !["so-back-longsleeve", "quantum-longsleeve", "no-forecast-longsleeve"].includes(p.slug)),
   ...MARKS.map(
@@ -864,6 +880,7 @@ export const drop07: Product[] = [
       details: TEE,
       image: m.image,
       sizes: APPAREL,
+      retired: m.id !== "verify-x",
     }),
   ),
   ...[
@@ -884,6 +901,7 @@ export const drop07: Product[] = [
       description: "A3. Unframed. ₿.",
       details: ["A3 print", "Unframed"],
       image: m.image,
+      retired: true,
     }),
   ),
   ...MARKS.map(
