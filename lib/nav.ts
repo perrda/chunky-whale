@@ -24,6 +24,7 @@ export const MEGA_NAV: NavItem[] = [
       { href: "/collection/women-vneck", label: "V-neck tees" },
       { href: "/collection/bikinis", label: "Bikinis" },
       { href: "/collection/one-pieces", label: "One-pieces" },
+      { href: "/collection/bitcoin-mummy", label: "Bitcoin Mummy" },
     ],
   },
   {
@@ -94,6 +95,8 @@ export const MEGA_NAV: NavItem[] = [
       { href: "/collection/one-pieces", label: "One-pieces" },
       { href: "/collection/rash-guards", label: "Rash guards" },
       { href: "/collection/swim-caps", label: "Swim caps" },
+      { href: "/collection/mummy-daddy", label: "Mummy & Daddy" },
+      { href: "/collection/bitcoin-daddy", label: "Bitcoin Daddy" },
     ],
   },
 ];
@@ -108,6 +111,7 @@ export const HOME_COLLECTIONS = [
   { slug: "swimwear", label: "Swimwear", blurb: "Shorts, bikinis, caps." },
   { slug: "jewelry", label: "Jewelry", blurb: "Pendants and chains." },
   { slug: "posters", label: "Posters", blurb: "Charts and 21 million." },
+  { slug: "mummy-daddy", label: "Mummy & Daddy", blurb: "Bitcoin Mummy. Bitcoin Daddy." },
 ];
 
 export const COLLECTION_META: { slug: string; label: string; blurb: string }[] = [
@@ -147,5 +151,7 @@ export const COLLECTION_META: { slug: string; label: string; blurb: string }[] =
   { slug: "one-pieces", label: "One-pieces", blurb: "Full coverage option." },
   { slug: "rash-guards", label: "Rash guards", blurb: "Long sleeve. UPF." },
   { slug: "swim-caps", label: "Swim caps", blurb: "Silicone. One joke." },
+  { slug: "bitcoin-mummy", label: "Bitcoin Mummy", blurb: "The other half of the pair." },
+  { slug: "bitcoin-daddy", label: "Bitcoin Daddy", blurb: "A dad hat that says it." },
 ];
 

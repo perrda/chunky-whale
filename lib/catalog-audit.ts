@@ -44,6 +44,8 @@ const MARK_PREFIXES = [
   "stack-sats",
   "21-million",
   "hard-money",
+  "bitcoin-mummy",
+  "bitcoin-daddy",
   "infant-node",
   "few-understand",
   "orange-daily",

@@ -45,6 +45,8 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 - Orange. Daily. (family)
 - Node in training. (infant)
 - Future UTXO. (youth)
+- Bitcoin Mummy. (parent)
+- Bitcoin Daddy. (parent)
 
 ## Product system
 
