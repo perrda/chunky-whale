@@ -8,9 +8,10 @@ If you see **“Forged, not printed.”** you are on the **wrong** shop. That co
 
 ## Devices (keep them the same)
 
-- **Mac Mini** (`DSP-Mac-Mini-M4-Pro`): real shop is `~/Projects/stackhouse`.
-- **MacBook Pro** (`DSP-MacBook`): rename the shop folder to `~/Projects/stackhouse` (it was `orangeforge`).
-- Mini leftover `~/Projects/orangeforge` is **not** the shop (no git). Rename to `orangeforge-leftover-do-not-use`. Do not delete until David says so.
+- **Both Macs confirmed 19 Aug 2026:** homepage **“Bitcoin tees. Don’t miss the stack.”**
+- **Mac Mini** (`DSP-Mac-Mini-M4-Pro`): shop folder `~/Projects/stackhouse`.
+- **MacBook Pro** (`DSP-MacBook`): shop folder `~/Projects/stackhouse` (renamed from `orangeforge`).
+- Mini leftover `orangeforge` / `orangeforge-leftover-do-not-use` is **not** the shop. Do not delete until David says so.
 - After every cycle: both Macs `git fetch` + `git reset --hard origin/main` (or pull) so they match.
 - iPhone / iPad: same Wi‑Fi as the Mac, open `http://YOUR-MAC-LAN-IP:3001` (the Network line in Terminal). Check portrait **and** landscape. Public URL comes after Vercel + domain.
 
