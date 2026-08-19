@@ -19,6 +19,12 @@ export default function SizesPage() {
       <div className="mt-4">
         <SizeChart kind="hoodies" />
       </div>
+      <h2 className="mt-10 font-display text-xl font-bold">Swimwear</h2>
+      <p className="mt-4 font-serif text-paper/80">
+        Men’s shorts and rash guards use the same S–2XL scale as tees. Women’s bikinis and one-pieces run XS–XL — if you
+        are between sizes, take the larger. Youth S–L and toddler 2T–5T. Swim caps are S / M / L (head, not chest).
+        Printful blanks vary; treat these as a start, not a tape-measure promise.
+      </p>
     </div>
   );
 }

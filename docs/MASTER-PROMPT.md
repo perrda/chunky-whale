@@ -18,7 +18,7 @@ A Shopify-class merch store (FOMO21’s *structure*, our *voice*):
 
 - Ghost-mannequin / white-well product photos
 - Colour swatches that **change the product photo**
-- Mega-nav: T-Shirts, Sweatshirts, Women, Hats, Kids, Drinkware, Jewelry, Posters, Stickers, Premium (stitched)
+- Mega-nav: T-Shirts, Sweatshirts, Women, Hats, Kids, Drinkware, Swimwear, Jewelry, Posters, Stickers, Premium (stitched)
 - Login + cart + checkout
 - Light and dark mode
 - Bitcoin-only merch: ₿ on almost every SKU. Memes, Satoshi, 21M, white paper, HODL, stack sats, charts

@@ -1,6 +1,7 @@
 import { drop05 } from "./drop-05";
 import { drop06 } from "./drop-06";
 import { CLOTHING_COLORS, drop07 } from "./drop-07";
+import { drop08Swim } from "./drop-08-swim";
 
 export { CLOTHING_COLORS };
 
@@ -14,7 +15,8 @@ export type ProductCategory =
   | "accessories"
   | "drinkware"
   | "posters"
-  | "jewelry";
+  | "jewelry"
+  | "swimwear";
 
 export type Cut = "unisex" | "women" | "youth" | "toddler" | "infant";
 
@@ -139,9 +141,11 @@ export const collections = [
   { slug: "longsleeves", label: "Long sleeves", blurb: "Conference weather." },
   { slug: "bags", label: "Bags", blurb: "Totes and a pack." },
   { slug: "accessories", label: "Stickers & pins", blurb: "Laptop and lapel." },
+  { slug: "swimwear", label: "Swimwear", blurb: "Shorts, bikinis, caps. Same ₿." },
 ] as const;
 
 export const products: Product[] = [
+  ...drop08Swim,
   ...drop07,
   ...drop06,
   ...drop05,
@@ -1252,7 +1256,7 @@ export function takesColourways(product: Product): "garment" | "jewelry" | false
   if (product.category === "drinkware" || product.category === "posters") return false;
   if (product.category === "jewelry") return "jewelry";
   if (product.category === "bags") return "garment";
-  if (["tees", "hoodies", "longsleeves", "hats"].includes(product.category)) return "garment";
+  if (["tees", "hoodies", "longsleeves", "hats", "swimwear"].includes(product.category)) return "garment";
   if (product.category === "accessories") {
     if (product.slug.includes("sticker") || product.slug.includes("pin")) return false;
     return "garment";
@@ -1314,6 +1318,11 @@ export function productKind(p: Product) {
   if (s.includes("pint")) return "pint";
   if (s.includes("coaster")) return "coaster";
   if (p.category === "drinkware" || s.includes("mug")) return "mug";
+  if (s.includes("bikini")) return "bikini";
+  if (s.includes("one-piece") || s.includes("onepiece") || p.kind === "onepiece") return "onepiece";
+  if (s.includes("rash")) return "rash";
+  if (p.category === "swimwear" && s.includes("cap")) return "cap";
+  if (p.category === "swimwear" && (s.includes("short") || s.includes("board"))) return "shorts";
   return undefined;
 }
 
@@ -1348,6 +1357,19 @@ export function productsIn(slug: string) {
   if (slug === "tumblers") return list.filter((p) => productKind(p) === "tumbler");
   if (slug === "pint-glasses") return list.filter((p) => productKind(p) === "pint");
   if (slug === "coasters") return list.filter((p) => productKind(p) === "coaster");
+  if (slug === "swimwear") return list.filter((p) => p.category === "swimwear");
+  if (slug === "swim-men")
+    return list.filter((p) => p.category === "swimwear" && p.cut === "unisex");
+  if (slug === "swim-women") return list.filter((p) => p.category === "swimwear" && p.cut === "women");
+  if (slug === "swim-kids")
+    return list.filter(
+      (p) => p.category === "swimwear" && (p.cut === "youth" || p.cut === "toddler" || p.cut === "infant"),
+    );
+  if (slug === "bikinis") return list.filter((p) => productKind(p) === "bikini");
+  if (slug === "swim-shorts") return list.filter((p) => p.category === "swimwear" && productKind(p) === "shorts");
+  if (slug === "one-pieces") return list.filter((p) => productKind(p) === "onepiece");
+  if (slug === "rash-guards") return list.filter((p) => productKind(p) === "rash");
+  if (slug === "swim-caps") return list.filter((p) => p.category === "swimwear" && productKind(p) === "cap");
   return list.filter((p) => p.category === slug);
 }
 

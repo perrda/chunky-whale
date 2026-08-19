@@ -22,6 +22,8 @@ export const MEGA_NAV: NavItem[] = [
       { href: "/collection/women-crop", label: "Crop tops" },
       { href: "/collection/women-tanks", label: "Tank tops" },
       { href: "/collection/women-vneck", label: "V-neck tees" },
+      { href: "/collection/bikinis", label: "Bikinis" },
+      { href: "/collection/one-pieces", label: "One-pieces" },
     ],
   },
   {
@@ -45,6 +47,7 @@ export const MEGA_NAV: NavItem[] = [
       { href: "/collection/youth", label: "Youth" },
       { href: "/collection/toddler", label: "Toddler" },
       { href: "/collection/infant", label: "Infant" },
+      { href: "/collection/swim-kids", label: "Kids’ swim" },
     ],
   },
   {
@@ -58,6 +61,20 @@ export const MEGA_NAV: NavItem[] = [
     ],
   },
   {
+    href: "/collection/swimwear",
+    label: "Swimwear",
+    children: [
+      { href: "/collection/swim-men", label: "Men" },
+      { href: "/collection/swim-women", label: "Women" },
+      { href: "/collection/swim-kids", label: "Kids" },
+      { href: "/collection/bikinis", label: "Bikinis" },
+      { href: "/collection/swim-shorts", label: "Swim shorts" },
+      { href: "/collection/one-pieces", label: "One-pieces" },
+      { href: "/collection/rash-guards", label: "Rash guards" },
+      { href: "/collection/swim-caps", label: "Swim caps" },
+    ],
+  },
+  {
     href: "/shop",
     label: "Collections",
     children: [
@@ -68,6 +85,15 @@ export const MEGA_NAV: NavItem[] = [
       { href: "/collection/accessories", label: "Stickers & pins" },
       { href: "/collection/bags", label: "Bags" },
       { href: "/collection/longsleeves", label: "Long sleeves" },
+      { href: "/collection/swimwear", label: "Swimwear" },
+      { href: "/collection/swim-men", label: "Men’s swim" },
+      { href: "/collection/swim-women", label: "Women’s swim" },
+      { href: "/collection/swim-kids", label: "Kids’ swim" },
+      { href: "/collection/bikinis", label: "Bikinis" },
+      { href: "/collection/swim-shorts", label: "Swim shorts" },
+      { href: "/collection/one-pieces", label: "One-pieces" },
+      { href: "/collection/rash-guards", label: "Rash guards" },
+      { href: "/collection/swim-caps", label: "Swim caps" },
     ],
   },
 ];
@@ -79,6 +105,7 @@ export const HOME_COLLECTIONS = [
   { slug: "women", label: "Women", blurb: "V-neck, tank, crop." },
   { slug: "kids", label: "Kids", blurb: "Youth to infant." },
   { slug: "drinkware", label: "Drinkware", blurb: "Mugs, tumblers, pints." },
+  { slug: "swimwear", label: "Swimwear", blurb: "Shorts, bikinis, caps." },
   { slug: "jewelry", label: "Jewelry", blurb: "Pendants and chains." },
   { slug: "posters", label: "Posters", blurb: "Charts and 21 million." },
 ];
@@ -112,5 +139,13 @@ export const COLLECTION_META: { slug: string; label: string; blurb: string }[] =
   { slug: "accessories", label: "Stickers & pins", blurb: "Laptop and lapel." },
   { slug: "bags", label: "Bags", blurb: "Totes." },
   { slug: "longsleeves", label: "Long sleeves", blurb: "Conference weather." },
+  { slug: "swim-men", label: "Men’s swim", blurb: "Shorts, rash guards, caps." },
+  { slug: "swim-women", label: "Women’s swim", blurb: "Bikinis, one-pieces, caps." },
+  { slug: "swim-kids", label: "Kids’ swim", blurb: "Youth and toddler." },
+  { slug: "bikinis", label: "Bikinis", blurb: "Two-piece. Same ₿." },
+  { slug: "swim-shorts", label: "Swim shorts", blurb: "Board shorts. ₿ on the leg." },
+  { slug: "one-pieces", label: "One-pieces", blurb: "Full coverage option." },
+  { slug: "rash-guards", label: "Rash guards", blurb: "Long sleeve. UPF." },
+  { slug: "swim-caps", label: "Swim caps", blurb: "Silicone. One joke." },
 ];
 
