@@ -1,5 +1,6 @@
 import { existsSync } from "fs";
 import path from "path";
+import { largestOrangeMarkTilt, officialMarkLooksLocked } from "./catalog-bitcoin-mark";
 import { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catalog-kind";
 import { isStudioWhiteBackground } from "./catalog-studio";
 import { products as allProducts, RETIRED_SLUGS, type Product } from "./products";
@@ -145,7 +146,7 @@ const OBJECT_OK: Record<string, string[]> = {
 
 export type CatalogImageIssue = {
   severity: "error" | "warning";
-  code: "missing-file" | "slogan-collision" | "kind-mismatch" | "studio-background";
+  code: "missing-file" | "slogan-collision" | "kind-mismatch" | "studio-background" | "bitcoin-mark";
   slug: string;
   name: string;
   image: string;
@@ -158,6 +159,17 @@ export async function auditCatalogImages(
 ): Promise<CatalogImageIssue[]> {
   const issues: CatalogImageIssue[] = [];
   const byImage = new Map<string, Product[]>();
+
+  if (!officialMarkLooksLocked()) {
+    issues.push({
+      severity: "error",
+      code: "bitcoin-mark",
+      slug: "brand",
+      name: "Official Bitcoin mark",
+      image: "/brand/bitcoin-coin.svg",
+      detail: "Official bitboy ₿ files are missing or were rewritten. Restore public/brand/bitcoin-b.svg and bitcoin-coin.svg.",
+    });
+  }
 
   for (const p of products) {
     const rel = p.image.replace(/^\//, "");
@@ -183,6 +195,18 @@ export async function auditCatalogImages(
           detail: studio.square
             ? `Photo is not a white studio mockup (white border ${(studio.whiteBorder * 100).toFixed(0)}%, dark border ${(studio.darkBorder * 100).toFixed(0)}%). Ghost mannequin on white only — no lifestyle walls or props.`
             : "Photo must be square (1:1). A 3:2 landscape shot sits as a dark band in the product grid.",
+        });
+      }
+      const jewelry = productObject(p) === "pendant" || productObject(p) === "bracelet";
+      const mark = jewelry ? { found: false, tilt: 0, upright: false } : await largestOrangeMarkTilt(abs);
+      if (mark.found && mark.upright) {
+        issues.push({
+          severity: "error",
+          code: "bitcoin-mark",
+          slug: p.slug,
+          name: p.name,
+          image: p.image,
+          detail: `Bitcoin mark is upright (${mark.tilt.toFixed(1)}° off vertical). Use the official bitboy ₿ — ~14° clockwise, #F7931A. Never a vertical B.`,
         });
       }
     }

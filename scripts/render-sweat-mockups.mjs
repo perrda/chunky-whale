@@ -6,6 +6,7 @@
 import { mkdirSync } from "fs";
 import path from "path";
 import sharp from "sharp";
+import { officialMarkPng } from "./lib/official-bitcoin-mark.mjs";
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, "public/products");
@@ -105,10 +106,21 @@ async function loadRaw(file) {
 }
 
 function sampleShoulder(data, w, h) {
-  const x = Math.floor(w * 0.5);
-  const y = Math.floor(h * 0.22);
-  const o = (y * w + x) * 4;
-  return [data[o], data[o + 1], data[o + 2]];
+  const spots = [
+    [Math.floor(w * 0.28), Math.floor(h * 0.36)],
+    [Math.floor(w * 0.72), Math.floor(h * 0.36)],
+    [Math.floor(w * 0.22), Math.floor(h * 0.28)],
+  ];
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  for (const [x, y] of spots) {
+    const o = (y * w + x) * 4;
+    r += data[o];
+    g += data[o + 1];
+    b += data[o + 2];
+  }
+  return [Math.round(r / spots.length), Math.round(g / spots.length), Math.round(b / spots.length)];
 }
 
 function backgroundMask(data, w, h) {
@@ -141,27 +153,6 @@ function backgroundMask(data, w, h) {
     tryPush(x, y - 1);
   }
   return bg;
-}
-
-function coverPrint(raw, kind) {
-  const { data, width: w, height: h } = raw;
-  const left = kind === "hoodie" ? 260 : 330;
-  const right = kind === "hoodie" ? 770 : 710;
-  const top = kind === "hoodie" ? 220 : 200;
-  const bottom = kind === "hoodie" ? 600 : 610;
-  const bg = backgroundMask(data, w, h);
-  const [sr, sg, sb] = sampleShoulder(data, w, h);
-  for (let y = top; y < bottom; y++) {
-    for (let x = left; x < right; x++) {
-      const i = y * w + x;
-      if (bg[i]) continue;
-      const o = i * 4;
-      data[o] = sr;
-      data[o + 1] = sg;
-      data[o + 2] = sb;
-    }
-  }
-  return raw;
 }
 
 function recolorGarment(raw, targetHex) {
@@ -209,32 +200,25 @@ function recolorGarment(raw, targetHex) {
   return raw;
 }
 
-async function extractMark() {
-  const { data, width: w, height: h } = await loadRaw(PULLOVER_TMPL);
-  const left = 420;
-  const top = 228;
-  const right = 620;
-  const bottom = 458;
-  const cw = right - left;
-  const ch = bottom - top;
-  const out = Buffer.alloc(cw * ch * 4);
-  for (let y = 0; y < ch; y++) {
-    for (let x = 0; x < cw; x++) {
-      const si = ((top + y) * w + (left + x)) * 4;
-      const di = (y * cw + x) * 4;
-      const r = data[si];
-      const g = data[si + 1];
-      const b = data[si + 2];
-      const [hh, s, l] = rgbToHsl(r, g, b);
-      const deg = hh * 360;
-      const orange = deg >= 14 && deg <= 52 && s > 0.35 && l > 0.22 && l < 0.8;
-      out[di] = r;
-      out[di + 1] = g;
-      out[di + 2] = b;
-      out[di + 3] = orange ? 255 : 0;
+function coverPrint(raw, kind) {
+  const { data, width: w, height: h } = raw;
+  const left = kind === "hoodie" ? 250 : 320;
+  const right = kind === "hoodie" ? 780 : 720;
+  const top = kind === "hoodie" ? 200 : 180;
+  const bottom = kind === "hoodie" ? 640 : 640;
+  const bg = backgroundMask(data, w, h);
+  const [sr, sg, sb] = sampleShoulder(data, w, h);
+  for (let y = top; y < bottom; y++) {
+    for (let x = left; x < right; x++) {
+      const i = y * w + x;
+      if (bg[i]) continue;
+      const o = i * 4;
+      data[o] = sr;
+      data[o + 1] = sg;
+      data[o + 2] = sb;
     }
   }
-  return sharp(out, { raw: { width: cw, height: ch, channels: 4 } }).png().toBuffer();
+  return raw;
 }
 
 function printSvg(lines, markOnly) {
@@ -292,7 +276,7 @@ const only = process.argv.slice(2);
 
 async function main() {
   mkdirSync(OUT, { recursive: true });
-  const markPng = await extractMark();
+  const markPng = await officialMarkPng("b", 320);
   const jobs = [
     ...HOODIES.map((s) => ({ spec: s, kind: "hoodie" })),
     ...PULLOVERS.map((s) => ({ spec: s, kind: "pullover" })),
