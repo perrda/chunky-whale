@@ -18,6 +18,8 @@ npm run dev -- --port 3001
 
 Open [http://127.0.0.1:3001](http://127.0.0.1:3001)
 
+Keep the Mac Mini and MacBook Pro the same: [docs/SYNC.md](docs/SYNC.md).
+
 Checkout is **demo** until payment keys exist.
 
 ## Go live
