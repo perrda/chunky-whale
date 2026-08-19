@@ -6,7 +6,7 @@ Never put API keys in email. Never commit `.env`.
 
 ## What we sell
 
-Bitcoin-only merch. No altcoins. Ghost-mannequin photos, ₿ on almost every piece. Categories: t-shirts, sweatshirts (hoodie / crew / zip / pullover), women (v-neck / tank / crop), hats (dad, beanie, bucket, distressed, flexfit, snapback, trucker, vintage), kids (youth / toddler / infant), drinkware (mugs, tumblers, pints, coasters), jewelry, posters, stickers, bags.
+Bitcoin-only merch. No altcoins. Ghost-mannequin photos, ₿ on almost every piece. Categories: t-shirts, sweatshirts (hoodie / crew / zip / pullover), women (v-neck / tank / crop), hats (dad, beanie, bucket, distressed, flexfit, snapback, trucker, vintage), kids (youth / toddler / infant), drinkware (mugs, whiskey glasses, shot glasses, tumblers, pints, coasters), jewelry, posters, stickers, bags.
 
 Payments the customer sees: card (Stripe), Bitcoin + Lightning (OpenNode), USDC (Coinbase Commerce), USDT (NOWPayments). You (the printer) get paid by us in the usual Printful/Gelato invoice — not in sats.
 

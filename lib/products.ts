@@ -5,6 +5,7 @@ import { CLOTHING_COLORS, drop07 } from "./drop-07";
 import { drop08Swim } from "./drop-08-swim";
 import { drop09Parents } from "./drop-09-parents";
 import { drop10Sweats } from "./drop-10-sweats";
+import { drop11Glasses } from "./drop-11-glasses";
 
 export { CLOTHING_COLORS };
 
@@ -138,7 +139,7 @@ export const collections = [
   { slug: "hats", label: "Hats", blurb: "Dad hats, buckets, beanies. Stitched ₿." },
   { slug: "kids", label: "Kids", blurb: "Youth, toddler, infant." },
   { slug: "swimwear", label: "Swimwear", blurb: "Shorts, bikinis, caps. Same ₿." },
-  { slug: "drinkware", label: "Drinkware", blurb: "Mugs, tumblers, pints, coasters." },
+  { slug: "drinkware", label: "Drinkware", blurb: "Mugs, whiskey, shots, tumblers, pints." },
   { slug: "jewelry", label: "Jewelry", blurb: "Pendants, necklaces, bracelets." },
   { slug: "posters", label: "Posters", blurb: "Charts, 21 million, the paper." },
   { slug: "premium", label: "Premium", blurb: "Stitched logos. Caps, hoodies, tees." },
@@ -149,6 +150,7 @@ export const collections = [
 ] as const;
 
 export const products: Product[] = [
+  ...drop11Glasses,
   ...drop10Sweats,
   ...drop09Parents,
   ...drop08Swim,
@@ -1324,6 +1326,8 @@ export function productKind(p: Product) {
   if (s.includes("crop")) return "crop";
   if (s.includes("tank") && p.cut === "women") return "tank";
   if (s.includes("vneck")) return "vneck";
+  if (s.includes("whiskey") || s.includes("whisky")) return "whiskey";
+  if (s.includes("shot")) return "shot";
   if (s.includes("tumbler")) return "tumbler";
   if (s.includes("pint")) return "pint";
   if (s.includes("coaster")) return "coaster";
@@ -1369,6 +1373,8 @@ export function productsIn(slug: string) {
   if (slug === "coffee-mugs") return list.filter((p) => productKind(p) === "mug");
   if (slug === "tumblers") return list.filter((p) => productKind(p) === "tumbler");
   if (slug === "pint-glasses") return list.filter((p) => productKind(p) === "pint");
+  if (slug === "whiskey-glasses") return list.filter((p) => productKind(p) === "whiskey");
+  if (slug === "shot-glasses") return list.filter((p) => productKind(p) === "shot");
   if (slug === "coasters") return list.filter((p) => productKind(p) === "coaster");
   if (slug === "swimwear") return list.filter((p) => p.category === "swimwear");
   if (slug === "swim-men")
@@ -1422,6 +1428,8 @@ const KIND_LABELS: Record<string, string> = {
   vneck: "V-neck",
   tumbler: "Tumbler",
   pint: "Pint",
+  whiskey: "Whiskey glass",
+  shot: "Shot glass",
   coaster: "Coaster",
   mug: "Mug",
   bikini: "Bikini",
@@ -1453,6 +1461,8 @@ export function collectionFor(p: Product): { href: string; label: string } {
   if (k === "pullover") return { href: "/collection/pullovers", label: "Pullovers" };
   if (k === "crew") return { href: "/collection/crewnecks", label: "Crewnecks" };
   if (k === "zip") return { href: "/collection/zip-ups", label: "Zip-ups" };
+  if (k === "whiskey") return { href: "/collection/whiskey-glasses", label: "Whiskey glasses" };
+  if (k === "shot") return { href: "/collection/shot-glasses", label: "Shot glasses" };
   if (p.category === "swimwear") return { href: "/collection/swimwear", label: "Swimwear" };
   if (p.cut === "youth" || p.cut === "toddler" || p.cut === "infant")
     return { href: "/collection/kids", label: "Kids" };
@@ -1481,7 +1491,7 @@ export function sizeLabel(p: Product, sizeId?: string) {
 /** Same joke / mark on a different object (hoodie vs tee vs mug). */
 export function markKey(p: Product) {
   return p.slug.toLowerCase().replace(
-    /-(tee|hoodie|crew|zip|pullover|mug|tumbler|pint|coasters|tote|pack|hat|cap|beanie|poster|print|sticker|pin|pendant|bracelet|longsleeve|vneck|tank|crop|youth|toddler|infant|dad-hat|trucker-hat|bucket-hat|flexfit-hat|vintage-hat|distressed-hat|swim-shorts|board-shorts|bikini|one-piece|rash-guard|swim-cap|youth-swim|toddler-swim)$/i,
+    /-(tee|hoodie|crew|zip|pullover|mug|tumbler|pint|whiskey|shot|coasters|tote|pack|hat|cap|beanie|poster|print|sticker|pin|pendant|bracelet|longsleeve|vneck|tank|crop|youth|toddler|infant|dad-hat|trucker-hat|bucket-hat|flexfit-hat|vintage-hat|distressed-hat|swim-shorts|board-shorts|bikini|one-piece|rash-guard|swim-cap|youth-swim|toddler-swim)$/i,
     "",
   );
 }

@@ -42,6 +42,12 @@ export function Footer() {
               <Link href="/collection/drinkware">Drinkware</Link>
             </li>
             <li>
+              <Link href="/collection/whiskey-glasses">Whiskey glasses</Link>
+            </li>
+            <li>
+              <Link href="/collection/shot-glasses">Shot glasses</Link>
+            </li>
+            <li>
               <Link href="/collection/jewelry">Jewelry</Link>
             </li>
             <li>

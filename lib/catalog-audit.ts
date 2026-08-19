@@ -59,6 +59,22 @@ const MARK_PREFIXES = [
   "self-custody",
   "digital-energy",
   "b-mark",
+  "one-btc",
+  "satoshi",
+  "stay-solvent",
+  "peer-to-peer",
+  "genesis",
+  "infinite-fiat",
+  "run-node",
+  "one-sat",
+  "hard-cap",
+  "no-second",
+  "one-more-block",
+  "dip-feature",
+  "number-go-up",
+  "cant-print",
+  "bitcoin-fixes",
+  "the-joke",
   "orange-daily",
   "future-utxo",
   "node-toddler",
@@ -69,7 +85,7 @@ const MARK_PREFIXES = [
 
 export function designFamily(product: Product): string {
   const slug = product.slug.toLowerCase().replace(
-    /-(tee|hoodie|crew|zip|pullover|mug|tumbler|pint|coasters|tote|pack|hat|cap|beanie|poster|print|sticker|pin|pendant|bracelet|longsleeve|vneck|tank|crop|youth|toddler|infant|dad-hat|trucker-hat|bucket-hat|flexfit-hat|vintage-hat|distressed-hat|swim-shorts|board-shorts|bikini|one-piece|rash-guard|swim-cap|youth-swim|toddler-swim)$/i,
+    /-(tee|hoodie|crew|zip|pullover|mug|tumbler|pint|whiskey|shot|coasters|tote|pack|hat|cap|beanie|poster|print|sticker|pin|pendant|bracelet|longsleeve|vneck|tank|crop|youth|toddler|infant|dad-hat|trucker-hat|bucket-hat|flexfit-hat|vintage-hat|distressed-hat|swim-shorts|board-shorts|bikini|one-piece|rash-guard|swim-cap|youth-swim|toddler-swim)$/i,
     "",
   );
   for (const mark of MARK_PREFIXES) {
@@ -88,6 +104,8 @@ function imageKindHint(image: string): string | null {
 function productObject(product: Product): string {
   const slug = product.slug.toLowerCase();
   if (slug.includes("tumbler")) return "tumbler";
+  if (slug.includes("whiskey") || slug.includes("whisky")) return "whiskey";
+  if (slug.includes("shot")) return "shot";
   if (slug.includes("pint")) return "pint";
   if (slug.includes("coaster")) return "coaster";
   if (slug.includes("mug")) return "mug";
@@ -102,6 +120,8 @@ function productObject(product: Product): string {
 const STRICT_OBJECTS = new Set([
   "mug",
   "tumbler",
+  "whiskey",
+  "shot",
   "pint",
   "coaster",
   "tote",
@@ -113,6 +133,8 @@ const STRICT_OBJECTS = new Set([
 const OBJECT_OK: Record<string, string[]> = {
   mug: ["mug"],
   tumbler: ["tumbler"],
+  whiskey: ["whiskey"],
+  shot: ["shot"],
   pint: ["pint"],
   coaster: ["coaster"],
   tote: ["tote"],
