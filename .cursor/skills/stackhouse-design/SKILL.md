@@ -50,7 +50,7 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 
 - Cuts: unisex, women, youth, toddler, infant.
 - Adult sizes: XS–4XL. Youth S–L. Toddler 2T–5T. Infant 3–24 months.
-- Colourways: ink, charcoal, heather, bone, navy, royal blue, sky, forest, olive, crimson, burgundy, Bitcoin orange. Picking a swatch recolours the garment in the photo.
+- Colourways: ink, charcoal, heather, bone, navy, royal blue, sky, forest, olive, crimson, burgundy, Bitcoin orange. Picking a swatch recolours the garment or bag in the photo. Same 12 colours on tees, sweatshirts, hats, bags, socks, and phone cases. Jewelry: gold / silver / rose gold / ink / orange. Not on glassware, mugs, prints, stickers, or pins.
 - Mockups: ghost mannequin, white background, square crop. Product cards use a white well + colour swatches that **change the photo** (`imagesByColor`).
 - Premium = embroidery/stitch on hats, hoodies, some tees.
 - Categories: tees, sweatshirts, women, hats, kids, drinkware, jewelry, posters, stickers, bags, premium. Do not advertise booths or an event plan on the public site.

@@ -1229,17 +1229,42 @@ export function productImage(product: Product, color?: string) {
   return product.image;
 }
 
-export function colorsFor(product: Product): ColorOption[] | undefined {
-  const apparel = Boolean(
-    product.sizes && ["tees", "hoodies", "longsleeves", "hats"].includes(product.category),
-  );
-  if (apparel) {
-    const merged: ColorOption[] = [];
-    for (const c of [...(product.colors ?? []), ...CLOTHING_COLORS]) {
+export const JEWELRY_COLORS: ColorOption[] = [
+  { id: "gold", label: "Gold", hex: "#C9A227" },
+  { id: "silver", label: "Silver", hex: "#C0C4C8" },
+  { id: "rose", label: "Rose gold", hex: "#B76E79" },
+  { id: "ink", label: "Ink", hex: "#0B0C0E" },
+  { id: "btc", label: "Bitcoin orange", hex: "#F7931A" },
+];
+
+function mergeColors(...lists: (readonly ColorOption[] | undefined)[]): ColorOption[] {
+  const merged: ColorOption[] = [];
+  for (const list of lists) {
+    for (const c of list ?? []) {
       if (!merged.some((x) => x.id === c.id)) merged.push(c);
     }
-    return merged;
   }
+  return merged;
+}
+
+/** Fabric / metal goods get swatches. Glass, ceramic, prints, and enamel stay as photographed. */
+export function takesColourways(product: Product): "garment" | "jewelry" | false {
+  if (product.category === "drinkware" || product.category === "posters") return false;
+  if (product.category === "jewelry") return "jewelry";
+  if (product.category === "bags") return "garment";
+  if (["tees", "hoodies", "longsleeves", "hats"].includes(product.category)) return "garment";
+  if (product.category === "accessories") {
+    if (product.slug.includes("sticker") || product.slug.includes("pin")) return false;
+    return "garment";
+  }
+  if (product.category === "home" && product.slug.includes("throw")) return "garment";
+  return false;
+}
+
+export function colorsFor(product: Product): ColorOption[] | undefined {
+  const mode = takesColourways(product);
+  if (mode === "jewelry") return mergeColors(product.colors, JEWELRY_COLORS);
+  if (mode === "garment") return mergeColors(product.colors, CLOTHING_COLORS);
   if (product.imagesByColor) {
     const palette = [...TEE_COLORS, ...HOUSE_COLORS, ...CLOTHING_COLORS, ...(product.colors ?? [])];
     return Object.keys(product.imagesByColor).map((id) => {
