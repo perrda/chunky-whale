@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
       { source: "/events", destination: "/", permanent: true },
       { source: "/events/:path*", destination: "/", permanent: true },
       { source: "/collection/events", destination: "/shop", permanent: true },
+      { source: "/blog", destination: "/shop", permanent: true },
+      { source: "/blog/:path*", destination: "/shop", permanent: true },
     ];
   },
 };

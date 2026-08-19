@@ -62,9 +62,6 @@ export function Footer() {
               <Link href="/sizes">Size charts</Link>
             </li>
             <li>
-              <Link href="/blog">Blog</Link>
-            </li>
-            <li>
               <Link href="/shipping">Shipping &amp; returns</Link>
             </li>
             <li>
