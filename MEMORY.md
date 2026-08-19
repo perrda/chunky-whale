@@ -8,7 +8,9 @@ Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + coin ₿ mark 
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.12** (19 Aug 2026 square grid + 6×2 swatches). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+Version **0.7.13** (19 Aug 2026 hoodie / pullover split). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+
+**Hoodies vs Pullovers:** they used to look like the same grid because Pullovers included every hoodie. Fixed. **Hoodies** = hood + pocket (20 unique designs). **Pullovers** = crew neck, no hood, no zip (20 unique designs). Sweatshirts is the parent of hoodie / pullover / crew / zip. Never reuse a hoodie photo on a pullover listing.
 
 No thin top bar listing payment rails or print regions. How you pay is only at checkout. Print hubs stay on the shipping page, not in the header.
 
@@ -27,6 +29,8 @@ Bags, socks, phone cases, jewelry, and swimwear have colour swatches the same wa
 QA pass on `cursor/qa-bugfix-pass-1342`: checkout no longer pretends a missing payment rail is live; OpenNode charges pounds not 100×; NOWPayments and Coinbase webhooks verify correctly; Printful will not submit a fake or zero variant; success page only clears the basket after a demo order or a paid order; cart/checkout wait for saved basket; nav works with keyboard. Still blocked for live money: Printful variant IDs, durable order store, and David’s payment keys.
 
 Drop 08: **Swimwear** — men (board shorts, rash guard, cap), women (bikinis, one-pieces, rash guard, cap), kids (youth shorts / one-piece / rash / cap, toddler swim). Unique photo per SKU. Top nav: **Swimwear** sits left of Drinkware. Swim subsections live only under Swimwear (Men / Women / Kids / Bikinis / Shorts / One-pieces / Rash guards / Caps). Collections keeps a single Swimwear link — no swim sub-links there.
+
+Drop 10: filled Hoodies and Pullovers to **20 unique designs each** (own photo, own line). So Back / So Over / Not a Forecast hoodies and No Laser / Orange Pill pullovers are live again with real sweat shots, not tee clones.
 
 Drop 07: topical Bitcoin lines (We are so back / It’s so over / Strategic reserve / No laser eyes / Proof of work not proof of tweet / Quantum can wait / Fiat is the experiment / Orange pill / Not a forecast / Four year tide). Apparel **and bags** have **12 colours** including royal blue, crimson, forest, olive, burgundy. The photo recolours when the buyer picks a swatch. Aim: 20+ live options in tees, sweatshirts, hats, women, kids, drinkware, bags, swimwear.
 

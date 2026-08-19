@@ -4,6 +4,7 @@ import { drop06 } from "./drop-06";
 import { CLOTHING_COLORS, drop07 } from "./drop-07";
 import { drop08Swim } from "./drop-08-swim";
 import { drop09Parents } from "./drop-09-parents";
+import { drop10Sweats } from "./drop-10-sweats";
 
 export { CLOTHING_COLORS };
 
@@ -132,7 +133,7 @@ export const EMB = ["Raised embroidery (not a cheap DTG print)", "Printful stitc
 export const collections = [
   { slug: "memes", label: "Memes", blurb: "The lines Bitcoiners already shout." },
   { slug: "tees", label: "T-Shirts", blurb: "₿ on the chest. Wear it." },
-  { slug: "hoodies", label: "Sweatshirts", blurb: "Hoodies, crew, zip. Same jokes, heavier cloth." },
+  { slug: "hoodies", label: "Sweatshirts", blurb: "Hoodies, pullovers, crew, zip. Same jokes, heavier cloth." },
   { slug: "women", label: "Women", blurb: "V-neck, tank, same ₿." },
   { slug: "hats", label: "Hats", blurb: "Dad hats, buckets, beanies. Stitched ₿." },
   { slug: "kids", label: "Kids", blurb: "Youth, toddler, infant." },
@@ -148,6 +149,7 @@ export const collections = [
 ] as const;
 
 export const products: Product[] = [
+  ...drop10Sweats,
   ...drop09Parents,
   ...drop08Swim,
   ...drop07,
@@ -427,6 +429,7 @@ export const products: Product[] = [
     priceGbp: 55,
     category: "hoodies",
     tag: "Meme",
+    kind: "hoodie",
     featured: true,
     cut: "unisex",
     colors: [
@@ -979,6 +982,7 @@ export const products: Product[] = [
     priceGbp: 55,
     category: "hoodies",
     tag: "Chart",
+    kind: "hoodie",
     cut: "unisex",
     colors: HOUSE_COLORS,
     description: "White and orange candles as a textile. You stayed for the chart. Now you wear it.",
@@ -1349,7 +1353,10 @@ export function productsIn(slug: string) {
   if (slug === "premium") return list.filter((p) => p.finish === "embroidery" || p.tag === "Premium");
   if (slug === "home") return list.filter((p) => p.category === "home" || p.category === "drinkware" || p.category === "posters");
   if (slug === "crewnecks") return list.filter((p) => productKind(p) === "crew");
-  if (slug === "pullovers") return list.filter((p) => productKind(p) === "pullover" || productKind(p) === "hoodie");
+  if (slug === "sweatshirts")
+    return list.filter((p) => p.category === "hoodies" || ["hoodie", "pullover", "crew", "zip"].includes(productKind(p) ?? ""));
+  if (slug === "hoodies") return list.filter((p) => productKind(p) === "hoodie");
+  if (slug === "pullovers") return list.filter((p) => productKind(p) === "pullover");
   if (slug === "zip-ups") return list.filter((p) => productKind(p) === "zip");
   if (slug === "dad-hats") return list.filter((p) => productKind(p) === "dad");
   if (slug === "beanies") return list.filter((p) => productKind(p) === "beanie");

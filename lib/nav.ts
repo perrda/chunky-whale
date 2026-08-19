@@ -6,7 +6,7 @@ export const MEGA_NAV: NavItem[] = [
   { href: "/collection/trending", label: "Trending" },
   { href: "/collection/tees", label: "T-Shirts" },
   {
-    href: "/collection/hoodies",
+    href: "/collection/sweatshirts",
     label: "Sweatshirts",
     children: [
       { href: "/collection/crewnecks", label: "Crewnecks" },
@@ -95,7 +95,7 @@ export const MEGA_NAV: NavItem[] = [
 
 export const HOME_COLLECTIONS = [
   { slug: "tees", label: "T-Shirts", blurb: "₿ on the chest." },
-  { slug: "hoodies", label: "Sweatshirts", blurb: "Hoodies, crew, zip." },
+  { slug: "sweatshirts", label: "Sweatshirts", blurb: "Hoodies, pullovers, crew, zip." },
   { slug: "hats", label: "Hats", blurb: "Dad, snapback, bucket, beanie." },
   { slug: "women", label: "Women", blurb: "V-neck, tank, crop." },
   { slug: "kids", label: "Kids", blurb: "Youth to infant." },
@@ -109,8 +109,9 @@ export const HOME_COLLECTIONS = [
 export const COLLECTION_META: { slug: string; label: string; blurb: string }[] = [
   { slug: "trending", label: "Trending", blurb: "What Bitcoiners are grabbing." },
   ...HOME_COLLECTIONS,
+  { slug: "hoodies", label: "Hoodies", blurb: "Hood and pocket. Same ₿." },
   { slug: "crewnecks", label: "Crewnecks", blurb: "No hood. Same ₿." },
-  { slug: "pullovers", label: "Pullovers", blurb: "Heavy cotton, no zip." },
+  { slug: "pullovers", label: "Pullovers", blurb: "Heavy cotton. No hood, no zip." },
   { slug: "zip-ups", label: "Zip-ups", blurb: "On and off between halls." },
   { slug: "women-crop", label: "Crop tops", blurb: "Shorter hem. Same stack." },
   { slug: "women-tanks", label: "Tank tops", blurb: "Heat. ₿." },
