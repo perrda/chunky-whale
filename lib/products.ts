@@ -1,5 +1,8 @@
 import { drop05 } from "./drop-05";
 import { drop06 } from "./drop-06";
+import { CLOTHING_COLORS, drop07 } from "./drop-07";
+
+export { CLOTHING_COLORS };
 
 export type ProductCategory =
   | "tees"
@@ -133,6 +136,7 @@ export const collections = [
 ] as const;
 
 export const products: Product[] = [
+  ...drop07,
   ...drop06,
   ...drop05,
   {
@@ -1206,8 +1210,18 @@ export function productImage(product: Product, color?: string) {
 }
 
 export function colorsFor(product: Product): ColorOption[] | undefined {
+  const apparel = Boolean(
+    product.sizes && ["tees", "hoodies", "longsleeves", "hats"].includes(product.category),
+  );
+  if (apparel) {
+    const merged: ColorOption[] = [];
+    for (const c of [...(product.colors ?? []), ...CLOTHING_COLORS]) {
+      if (!merged.some((x) => x.id === c.id)) merged.push(c);
+    }
+    return merged;
+  }
   if (product.imagesByColor) {
-    const palette = [...TEE_COLORS, ...HOUSE_COLORS, ...(product.colors ?? [])];
+    const palette = [...TEE_COLORS, ...HOUSE_COLORS, ...CLOTHING_COLORS, ...(product.colors ?? [])];
     return Object.keys(product.imagesByColor).map((id) => {
       const hit = palette.find((c) => c.id === id);
       return hit ?? { id, label: id, hex: "#888888" };
