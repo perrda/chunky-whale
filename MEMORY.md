@@ -4,11 +4,11 @@
 Source of truth: GitHub **`perrda/stackhouse`** branch **`main`**.  
 Folder on both Macs: **`~/Projects/stackhouse`**.  
 Local URL: **http://127.0.0.1:3001**  
-Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + orange ₿ badge + STACK**HOUSE**.
+Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + coin ₿ mark + **StackHouse** wordmark. No Event Plan in the header.
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.2** (19 Aug 2026 catalog photos). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional.
+Version **0.7.3** (19 Aug 2026 storefront). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products.
 
 **Catalog photo rule (do not break again):** every live SKU needs its own photo whose writing matches the title. Drop 07 had cloned STRATEGIC RESERVE onto every mug, HARD MONEY onto extra totes, and other slogans onto family/jewelry clones. Fixed: unique mug/tumbler/pint/coaster/tote shots; clones without a real photo are retired. Guard: `npm run qa:catalog` (also runs before production build). If the audit fails, do not ship.
 
@@ -42,7 +42,9 @@ Before new work, and after any GitHub change, run the sync block on **Mac Mini a
 
 ## House rules
 
+- Public site does **not** advertise booths or an event plan. `/events` redirects home. Internal MENA notes stay in docs only.
 - Mega-nav: Trending, T-Shirts, Sweatshirts, Women, Hats, Kids, Drinkware, Blog, Collections. Colour swatches on every garment. Hero photos where we have them.
+- Homepage hero shows **six** products, shuffled on each visit, drawn from featured / trending, and later from `soldCount` when sales exist. No empty white panel.
 - Sync both Macs: `docs/SYNC.md`. Live card/BTC/USDC/USDT still need David’s keys — demo until then.
 - Vendor pack: `docs/VENDOR-ONBOARDING.md` + `docs/ARTWORK-SPEC.md`
 - Edition IDs: `SH-` prefix. Bitcoin merch. Dry / insider. Full family cuts. Printful first.

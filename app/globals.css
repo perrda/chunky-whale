@@ -35,6 +35,7 @@
   --font-display: var(--font-syne);
   --font-serif: var(--font-source);
   --font-mono: var(--font-geist-mono);
+  --font-mark: var(--font-oswald);
   --font-arabic: var(--font-naskh);
 }
 

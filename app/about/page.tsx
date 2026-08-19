@@ -17,8 +17,7 @@ export default function AboutPage() {
         apparel piece.
       </p>
       <p className="mt-4 font-serif text-paper/80">
-        Payments are equal: card, Bitcoin + Lightning, USDC, and USDT. First live floor: Bitcoin MENA, Abu Dhabi, 7–8
-        December 2026.
+        Payments are equal: card, Bitcoin + Lightning, USDC, and USDT.
       </p>
       <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
         {site.merchant}. Not financial advice. We never claim this brand will make you money.

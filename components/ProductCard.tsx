@@ -14,7 +14,7 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <div className="group">
       <Link href={`/product/${product.slug}`} className="block">
-        <div className="relative aspect-square overflow-hidden border border-paper/10 bg-white">
+        <div className="relative aspect-square overflow-hidden bg-white">
           <GarmentImage
             src={img}
             hex={selected?.hex}
@@ -26,6 +26,14 @@ export function ProductCard({ product }: { product: Product }) {
               Limited
             </span>
           ) : null}
+          {product.featured && !product.limited ? (
+            <span className="absolute left-3 top-3 bg-ink/90 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-paper">
+              Featured
+            </span>
+          ) : null}
+          <span className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 bg-ink/90 py-2 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-paper opacity-0 transition group-hover:translate-y-0 group-hover:opacity-100">
+            View
+          </span>
         </div>
         <div className="mt-3">
           <h3 className="font-display text-base font-bold tracking-wide text-paper group-hover:text-ember">

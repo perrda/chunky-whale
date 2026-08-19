@@ -49,11 +49,15 @@ export function Header() {
           </Link>
           <Link
             href="/cart"
-            className="font-display text-sm font-bold text-paper/80 hover:text-ember"
+            className="inline-flex items-center gap-1.5 font-display text-sm font-bold text-paper/80 hover:text-ember"
             aria-label={cartReady ? `Basket, ${count} items` : "Basket"}
           >
-            Basket
-            {cartReady && count > 0 ? <span className="ml-1 text-ember">{count}</span> : null}
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+              <path d="M6 8h12l-1 11H7L6 8Z" />
+              <path d="M9 8V7a3 3 0 0 1 6 0v1" />
+            </svg>
+            <span className="hidden sm:inline">Basket</span>
+            {cartReady && count > 0 ? <span className="text-ember">{count}</span> : null}
           </Link>
           <button
             type="button"

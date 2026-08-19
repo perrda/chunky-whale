@@ -65,8 +65,7 @@ export default async function SuccessPage({ searchParams }: Props) {
             <div className="mt-8 border border-paper/15 bg-surface p-6">
               <p className="font-display font-bold">Bitcoin / Lightning (demo)</p>
               <p className="mt-2 font-serif text-sm text-paper/75">
-                Live mode shows an OpenNode invoice (on-chain address + Lightning QR). At Bitcoin MENA the same flow
-                sits on a tablet as POS.
+                Live mode shows an OpenNode invoice (on-chain address + Lightning QR).
               </p>
               <div className="mt-4 grid place-items-center border border-dashed border-ember/50 p-8">
                 <span className="ember-pulse h-24 w-24 rounded-full border-4 border-ember" />

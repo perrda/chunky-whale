@@ -43,6 +43,8 @@ export type Product = {
   limited?: boolean;
   remaining?: number;
   featured?: boolean;
+  /** Units sold. When live orders exist, the homepage hero prefers these. */
+  soldCount?: number;
   event?: boolean;
   retired?: boolean;
   printful?: {
@@ -137,7 +139,6 @@ export const collections = [
   { slug: "longsleeves", label: "Long sleeves", blurb: "Conference weather." },
   { slug: "bags", label: "Bags", blurb: "Totes and a pack." },
   { slug: "accessories", label: "Stickers & pins", blurb: "Laptop and lapel." },
-  { slug: "events", label: "Events", blurb: "City drops." },
 ] as const;
 
 export const products: Product[] = [
@@ -1213,6 +1214,14 @@ export const RETIRED_SLUGS = new Set([
 
 export function liveProducts() {
   return products.filter((p) => !p.retired && !RETIRED_SLUGS.has(p.slug));
+}
+
+/** Ranked pool for the homepage hero. Live sales first, then featured / trending. */
+export function heroPool(count = 24) {
+  const list = liveProducts();
+  const score = (p: Product) =>
+    (p.soldCount ?? 0) * 100 + (p.featured ? 10 : 0) + (p.trending ? 5 : 0);
+  return [...list].sort((a, b) => score(b) - score(a)).slice(0, count);
 }
 
 export function productImage(product: Product, color?: string) {
