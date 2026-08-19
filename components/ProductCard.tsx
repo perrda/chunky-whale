@@ -28,7 +28,7 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="mt-1 font-mono text-sm text-gold">{formatGbp(product.priceGbp)}</p>
         {swatches ? (
           <div className="mt-2 flex flex-wrap gap-1.5" aria-label="Available colours">
-            {swatches.slice(0, 6).map((c) => (
+            {swatches.slice(0, 12).map((c) => (
               <span
                 key={c.id}
                 title={c.label}

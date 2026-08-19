@@ -37,6 +37,13 @@ export function ProductView({ product }: { product: Product }) {
     <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-2 md:px-6">
       <div className="space-y-4">
         <div className="relative aspect-square bg-white">
+          <div
+            className="pointer-events-none absolute inset-3 rounded-sm"
+            style={{
+              boxShadow: `inset 0 0 0 6px ${colors?.find((c) => c.id === color)?.hex ?? "transparent"}`,
+            }}
+            aria-hidden
+          />
           <Image
             key={img}
             src={img}
@@ -47,6 +54,12 @@ export function ProductView({ product }: { product: Product }) {
             sizes="50vw"
           />
         </div>
+        {colors && color ? (
+          <p className="font-serif text-sm text-paper/70">
+            You selected <strong>{colors.find((c) => c.id === color)?.label}</strong>
+            {product.imagesByColor?.[color] ? "." : ". Photo shows the hero colour — we print the mark on your colour."}
+          </p>
+        ) : null}
         {colors && colors.length > 1 ? (
           <div className="flex gap-2 overflow-x-auto">
             {colors.map((c) => (

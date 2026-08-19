@@ -8,7 +8,9 @@ Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + orange ₿ bad
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.6.0**. Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional.
+Version **0.7.0** (19 Aug 2026 catalog). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional.
+
+Drop 07: topical Bitcoin lines (We are so back / It’s so over / Strategic reserve / No laser eyes / Proof of work not proof of tweet / Quantum can wait / Fiat is the experiment / Orange pill / Not a forecast / Four year tide). Apparel has **12 colours** including royal blue, crimson, forest, olive, burgundy — photo is the hero colour; swatches pick the rest. Aim: 20+ live options in tees, sweatshirts, hats, women, kids, drinkware.
 
 ## Remind David: sync both Macs
 
@@ -36,7 +38,8 @@ Before new work, and after any GitHub change, run the sync block on **Mac Mini a
 
 ## House rules
 
-- Mega-nav: Trending, T-Shirts, Sweatshirts, Women, Hats, Kids, Drinkware, Blog, Collections. Colour swatches change photos.
+- Mega-nav: Trending, T-Shirts, Sweatshirts, Women, Hats, Kids, Drinkware, Blog, Collections. Colour swatches on every garment. Hero photos where we have them.
+- Sync both Macs: `docs/SYNC.md`. Live card/BTC/USDC/USDT still need David’s keys — demo until then.
 - Vendor pack: `docs/VENDOR-ONBOARDING.md` + `docs/ARTWORK-SPEC.md`
 - Edition IDs: `SH-` prefix. Bitcoin merch. Dry / insider. Full family cuts. Printful first.
 - Never copy FOMO21. Never promise profits.

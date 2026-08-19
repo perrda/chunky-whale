@@ -23,11 +23,16 @@ export default function CheckoutPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [cancelled, setCancelled] = useState(false);
+  const [demo, setDemo] = useState(true);
 
   useEffect(() => {
     setReady(true);
     const q = new URLSearchParams(window.location.search);
     setCancelled(q.get("cancelled") === "1");
+    fetch("/api/status")
+      .then((r) => r.json())
+      .then((s: { demo?: boolean }) => setDemo(Boolean(s.demo)))
+      .catch(() => setDemo(true));
   }, []);
 
   const total = cartTotalGbp(items);
@@ -95,15 +100,28 @@ export default function CheckoutPage() {
           <Field name="postcode" label="Postcode" autoComplete="postal-code" />
         </div>
         <label className="block">
-          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-gold">Country code</span>
-          <input
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-gold">Country</span>
+          <select
             name="country"
             required
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             autoComplete="country"
             className="mt-1 w-full border border-paper/20 bg-ink px-3 py-2 font-serif text-paper"
-          />
+          >
+            <option value="GB">United Kingdom</option>
+            <option value="US">United States</option>
+            <option value="DE">Germany</option>
+            <option value="FR">France</option>
+            <option value="NL">Netherlands</option>
+            <option value="IE">Ireland</option>
+            <option value="AE">United Arab Emirates</option>
+            <option value="TH">Thailand</option>
+            <option value="SG">Singapore</option>
+            <option value="AU">Australia</option>
+            <option value="JP">Japan</option>
+            <option value="CA">Canada</option>
+          </select>
         </label>
         <fieldset>
           <legend className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Pay with</legend>
@@ -140,7 +158,16 @@ export default function CheckoutPage() {
           {busy ? "Starting payment…" : `Pay ${formatGbp(total)}`}
         </button>
         <p className="font-serif text-sm text-muted">
-          Until live keys are added, checkout runs in demo mode and does not take real money.
+          {demo
+            ? "Demo mode — no real money is taken until payment keys are live. Card, Bitcoin + Lightning, USDC, and USDT are equal once keys exist."
+            : "Live rails are on. You will be sent to the payment provider to finish. Crypto is final once confirmed."}
+        </p>
+        <p className="font-serif text-sm text-paper/70">
+          <Link href="/shipping" className="text-ember">Shipping times</Link>
+          {" · "}
+          <Link href="/legal/refunds" className="text-ember">Returns</Link>
+          {" · "}
+          <Link href="/legal/terms" className="text-ember">Terms</Link>
         </p>
       </form>
       <aside>
