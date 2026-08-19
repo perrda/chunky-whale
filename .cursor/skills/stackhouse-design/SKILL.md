@@ -55,7 +55,7 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 - Colourways: ink, charcoal, heather, bone, navy, royal blue, sky, forest, olive, crimson, burgundy, Bitcoin orange. Picking a swatch recolours the garment or bag in the photo. Same 12 colours on tees, sweatshirts, hats, bags, socks, and phone cases. Jewelry: gold / silver / rose gold / ink / orange. Not on glassware, mugs, prints, stickers, or pins.
 - Mockups: ghost mannequin, white background, square crop. Product cards use a white well + colour swatches that **change the photo** (`imagesByColor`).
 - Premium = embroidery/stitch on hats, hoodies, some tees.
-- Categories: tees, sweatshirts, women, hats, kids, drinkware, swimwear (shorts, bikinis, one-pieces, rash guards, swim caps), jewelry, posters, stickers, bags, premium. Do not advertise booths or an event plan on the public site. Same 12 colours on swimwear.
+- Categories: tees, sweatshirts, women, hats, kids, swimwear (shorts, bikinis, one-pieces, rash guards, swim caps), drinkware, jewelry, posters, stickers, bags, premium. Do not advertise booths or an event plan on the public site. Same 12 colours on swimwear. Swim subsections belong under Swimwear only, not under Collections.
 
 ## How to add a design
 

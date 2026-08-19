@@ -33,10 +33,10 @@ export function Footer() {
               <Link href="/collection/hats">Hats</Link>
             </li>
             <li>
-              <Link href="/collection/drinkware">Drinkware</Link>
+              <Link href="/collection/swimwear">Swimwear</Link>
             </li>
             <li>
-              <Link href="/collection/swimwear">Swimwear</Link>
+              <Link href="/collection/drinkware">Drinkware</Link>
             </li>
             <li>
               <Link href="/collection/jewelry">Jewelry</Link>

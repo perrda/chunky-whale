@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductView } from "@/components/ProductView";
 import { RelatedProducts } from "@/components/RelatedProducts";
-import { getProduct, liveProducts, RETIRED_SLUGS } from "@/lib/products";
+import { getProduct, isLiveProduct, liveProducts } from "@/lib/products";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -13,7 +13,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const p = getProduct(slug);
-  if (!p || p.retired || RETIRED_SLUGS.has(slug)) return { title: "Not found" };
+  if (!p || !isLiveProduct(slug)) return { title: "Not found" };
   return {
     title: p.name,
     description: p.description,
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
   const product = getProduct(slug);
-  if (!product || product.retired || RETIRED_SLUGS.has(slug)) notFound();
+  if (!product || !isLiveProduct(slug)) notFound();
 
   return (
     <>

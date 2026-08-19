@@ -52,16 +52,6 @@ export const MEGA_NAV: NavItem[] = [
     ],
   },
   {
-    href: "/collection/drinkware",
-    label: "Drinkware",
-    children: [
-      { href: "/collection/coffee-mugs", label: "Coffee mugs" },
-      { href: "/collection/coasters", label: "Coasters" },
-      { href: "/collection/pint-glasses", label: "Pint glasses" },
-      { href: "/collection/tumblers", label: "Tumblers" },
-    ],
-  },
-  {
     href: "/collection/swimwear",
     label: "Swimwear",
     children: [
@@ -76,6 +66,16 @@ export const MEGA_NAV: NavItem[] = [
     ],
   },
   {
+    href: "/collection/drinkware",
+    label: "Drinkware",
+    children: [
+      { href: "/collection/coffee-mugs", label: "Coffee mugs" },
+      { href: "/collection/coasters", label: "Coasters" },
+      { href: "/collection/pint-glasses", label: "Pint glasses" },
+      { href: "/collection/tumblers", label: "Tumblers" },
+    ],
+  },
+  {
     href: "/shop",
     label: "Collections",
     children: [
@@ -87,14 +87,6 @@ export const MEGA_NAV: NavItem[] = [
       { href: "/collection/bags", label: "Bags" },
       { href: "/collection/longsleeves", label: "Long sleeves" },
       { href: "/collection/swimwear", label: "Swimwear" },
-      { href: "/collection/swim-men", label: "Men’s swim" },
-      { href: "/collection/swim-women", label: "Women’s swim" },
-      { href: "/collection/swim-kids", label: "Kids’ swim" },
-      { href: "/collection/bikinis", label: "Bikinis" },
-      { href: "/collection/swim-shorts", label: "Swim shorts" },
-      { href: "/collection/one-pieces", label: "One-pieces" },
-      { href: "/collection/rash-guards", label: "Rash guards" },
-      { href: "/collection/swim-caps", label: "Swim caps" },
       { href: "/collection/mummy-daddy", label: "Mummy & Daddy" },
       { href: "/collection/bitcoin-daddy", label: "Bitcoin Daddy" },
     ],
@@ -107,8 +99,8 @@ export const HOME_COLLECTIONS = [
   { slug: "hats", label: "Hats", blurb: "Dad, snapback, bucket, beanie." },
   { slug: "women", label: "Women", blurb: "V-neck, tank, crop." },
   { slug: "kids", label: "Kids", blurb: "Youth to infant." },
-  { slug: "drinkware", label: "Drinkware", blurb: "Mugs, tumblers, pints." },
   { slug: "swimwear", label: "Swimwear", blurb: "Shorts, bikinis, caps." },
+  { slug: "drinkware", label: "Drinkware", blurb: "Mugs, tumblers, pints." },
   { slug: "jewelry", label: "Jewelry", blurb: "Pendants and chains." },
   { slug: "posters", label: "Posters", blurb: "Charts and 21 million." },
   { slug: "mummy-daddy", label: "Mummy & Daddy", blurb: "Bitcoin Mummy. Bitcoin Daddy." },
