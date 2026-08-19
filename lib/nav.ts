@@ -57,7 +57,6 @@ export const MEGA_NAV: NavItem[] = [
       { href: "/collection/tumblers", label: "Tumblers" },
     ],
   },
-  { href: "/blog", label: "Blog" },
   {
     href: "/shop",
     label: "Collections",

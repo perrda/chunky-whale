@@ -1,6 +1,6 @@
 # STACKHOUSE
 
-Bitcoin merch. **Stack sats. Wear ₿.** Version **0.7.4**.
+Bitcoin merch. **Stack sats. Wear ₿.** Version **0.7.5**.
 
 Folder and GitHub repo: **`stackhouse`** (`perrda/stackhouse`).
 

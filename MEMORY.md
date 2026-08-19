@@ -8,7 +8,7 @@ Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + coin ₿ mark 
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.4** (19 Aug 2026 colourways). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products.
+Version **0.7.5** (19 Aug 2026). Strapline: **Stack sats. Wear ₿.** Guest checkout. Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
 
 Bags, socks, phone cases, and jewelry now have colour swatches the same way tees do. Pick a colour and the photo updates. Glassware, mugs, prints, stickers, and pins stay as photographed.
 
@@ -45,7 +45,7 @@ Before new work, and after any GitHub change, run the sync block on **Mac Mini a
 ## House rules
 
 - Public site does **not** advertise booths or an event plan. `/events` redirects home. Internal MENA notes stay in docs only.
-- Mega-nav: Trending, T-Shirts, Sweatshirts, Women, Hats, Kids, Drinkware, Blog, Collections. Colour swatches on every garment. Hero photos where we have them.
+- Mega-nav: Trending, T-Shirts, Sweatshirts, Women, Hats, Kids, Drinkware, Collections. No Blog. Colour swatches on every garment. Hero photos where we have them.
 - Homepage hero shows **six** products, shuffled on each visit, drawn from featured / trending, and later from `soldCount` when sales exist. No empty white panel.
 - Sync both Macs: `docs/SYNC.md`. Live card/BTC/USDC/USDT still need David’s keys — demo until then.
 - Vendor pack: `docs/VENDOR-ONBOARDING.md` + `docs/ARTWORK-SPEC.md`
