@@ -53,7 +53,18 @@ export default function ShippingPage() {
       <h2 className="mt-10 font-display text-xl font-bold">Returns</h2>
       <p className="mt-3 font-serif text-paper/80">
         30 days from delivery. Unused, tags on. Email hello@stackhouse.com with your order ID. Event-numbered capsules
-        marked final sale cannot be returned unless faulty. UK consumer rights are not affected.
+        marked final sale cannot be returned unless faulty. UK consumer rights are not affected. Full detail:{" "}
+        <a href="/legal/refunds" className="text-ember">Refund policy</a>.
+      </p>
+      <h2 className="mt-10 font-display text-xl font-bold">Customs and what we cannot ship</h2>
+      <p className="mt-3 font-serif text-paper/80">
+        Rest-of-world orders may face import VAT or duty — the carrier collects this, not us. We do not ship to
+        sanctioned regions. We do not guarantee PO-box or hotel-desk delivery; use a staffed address where you can.
+      </p>
+      <h2 className="mt-10 font-display text-xl font-bold">Before we take real money</h2>
+      <p className="mt-3 font-serif text-paper/80">
+        Checkout is demo until Stripe, OpenNode, Coinbase Commerce, and NOWPayments keys are in. We will not flip live
+        until a £1 test on each rail works and samples have been worn. Sales are not guaranteed.
       </p>
     </div>
   );

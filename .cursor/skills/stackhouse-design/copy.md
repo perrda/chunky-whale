@@ -20,6 +20,16 @@ Voice: a Bitcoiner explaining it to a clever friend. Funny, serious, and giftabl
 - INFINITE FIAT / FINITE BITCOIN
 - RUN YOUR NODE
 - NUMBER GO UP — rising line + ₿, not FOMO21 “models destroyed”
+- WE ARE SO BACK / IT'S SO OVER — cycle mood, not a price call
+- STRATEGIC RESERVE — nation-state joke, not advice
+- NO LASER EYES
+- PROOF OF WORK NOT PROOF OF TWEET
+- FIAT IS THE EXPERIMENT
+- QUANTUM CAN WAIT
+- ORANGE PILL
+- NOT A FORECAST
+- FOUR YEAR TIDE
+- THE PRINTER IS THE JOKE
 
 ## Charts as jokes
 
