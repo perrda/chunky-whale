@@ -1203,6 +1203,12 @@ export const RETIRED_SLUGS = new Set([
   "amsterdam-tee",
   "prague-tee",
   "nashville-tee",
+  "stayed-chart-tee",
+  "ten-minutes-tee",
+  "verify-tee",
+  "block-one-tee",
+  "hashrate-tee",
+  "difficulty-adjusts-tee",
 ]);
 
 export function liveProducts() {

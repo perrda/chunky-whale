@@ -170,6 +170,10 @@ const MARKS: Mark[] = [
   },
 ];
 
+function photo(id: string, kind: string) {
+  return `/products/${id}-${kind}.png`;
+}
+
 function tee(m: Mark, extra: Partial<Product> = {}): Product {
   return {
     slug: `${m.id}-tee`,
@@ -460,7 +464,7 @@ export const drop07: Product[] = [
         colors: CLOTHING_COLORS,
         description: `${m.desc} Hat cut.`,
         details: HATD,
-        image: id === "so-over" ? "/products/printer-cap.png" : m.image,
+        image: m.image,
         sizes: HAT,
       };
     },
@@ -487,7 +491,7 @@ export const drop07: Product[] = [
         colors: CLOTHING_COLORS,
         description: `${m.desc} Women’s ${c.kind}.`,
         details: [...TEE, "Women’s cut XS–2XL"],
-        image: id === "so-back" && c.kind === "vneck" ? "/products/humble-vneck.png" : m.image,
+        image: m.image,
         sizes: WOMEN,
       }),
     );
@@ -536,6 +540,7 @@ export const drop07: Product[] = [
         details: [r.cut === "youth" ? "Youth S–L" : r.cut === "toddler" ? "2T–5T" : "0–24 months"],
         image: r.image,
         sizes: r.sizes,
+        retired: id !== "stack" || r.cut === "infant",
       }),
     );
   }),
@@ -563,6 +568,7 @@ export const drop07: Product[] = [
         details: [r.cut],
         image: r.cut === "infant" ? "/products/infant-node-onesie.png" : "/products/stack-youth-tee.png",
         sizes: r.sizes,
+        retired: true,
       }),
     );
   }),
@@ -607,7 +613,7 @@ export const drop07: Product[] = [
         kind: "mug",
         description: `${m.short} on ceramic. Dishwasher-safe conviction.`,
         details: DRINK,
-        image: "/products/reserve-mug.png",
+        image: photo(id, "mug"),
       };
     },
   ),
@@ -623,7 +629,7 @@ export const drop07: Product[] = [
       kind: "tumbler",
       description: "Steel. Same ₿. Travel stack.",
       details: ["Stainless tumbler"],
-      image: "/products/stack-tumbler-green.png",
+      image: photo(id, "tumbler"),
     }),
   ),
   ...(["so-back", "printer"] as const).map(
@@ -638,7 +644,7 @@ export const drop07: Product[] = [
       kind: "pint",
       description: "After the conference. ₿ on glass.",
       details: ["Pint glass"],
-      image: "/products/reserve-mug.png",
+      image: photo(id, "pint"),
     }),
   ),
   ...(["so-back", "reserve"] as const).map(
@@ -653,7 +659,7 @@ export const drop07: Product[] = [
       kind: "coaster",
       description: "The table knows. Four-pack. ₿.",
       details: ["Set of 4"],
-      image: "/products/reserve-mug.png",
+      image: photo(id, "coasters"),
     }),
   ),
 
@@ -681,7 +687,7 @@ export const drop07: Product[] = [
       tag: "Meme",
       description: "Same line, canvas.",
       details: ["Canvas tote"],
-      image: "/products/hard-money-tote.png",
+      image: photo(id, "tote"),
     }),
   ),
 
@@ -770,6 +776,7 @@ export const drop07: Product[] = [
       description: `${m.short} on canvas.`,
       details: ["Canvas tote"],
       image: "/products/hard-money-tote.png",
+      retired: true,
     }),
   ).filter((p) => !["so-back-tote", "reserve-tote", "pow-tweet-tote", "fiat-exp-tote"].includes(p.slug)),
   ...MARKS.map(
@@ -784,6 +791,7 @@ export const drop07: Product[] = [
       description: `Die-cut ${m.short}. Laptop armour.`,
       details: ["Vinyl", "Weatherproof"],
       image: m.image,
+      retired: true,
     }),
   ),
   ...MARKS.slice(0, 8).map(
@@ -798,6 +806,7 @@ export const drop07: Product[] = [
       description: `Enamel ${m.short}. Lapel ₿.`,
       details: ["Enamel", "Locking back"],
       image: m.image,
+      retired: true,
     }),
   ),
   ...MARKS.map(
@@ -812,6 +821,7 @@ export const drop07: Product[] = [
       description: `${m.short} as a quiet charm. Not costume.`,
       details: ["Gift box", "Specialty jewelry partner"],
       image: "/products/b-pendant.png",
+      retired: true,
     }),
   ),
   ...MARKS.map(
@@ -826,10 +836,11 @@ export const drop07: Product[] = [
       description: `Thin chain. ${m.short}. Daily ₿.`,
       details: ["Gift box"],
       image: "/products/b-bracelet.png",
+      retired: true,
     }),
   ),
   ...[
-    { id: "verify-x", name: "VERIFY Long sleeve", image: "/products/keys-tee.png" },
+    { id: "verify-x", name: "VERIFY Long sleeve", image: "/products/verify-longsleeve.png" },
     { id: "hodl-x", name: "HODL Long sleeve", image: "/products/hodl-tee.png" },
     { id: "21m-x", name: "21 MILLION Long sleeve", image: "/products/21-million-tee.png" },
     { id: "humble-x", name: "STAY HUMBLE Long sleeve", image: "/products/stay-humble-tee.png" },
@@ -885,6 +896,7 @@ export const drop07: Product[] = [
       description: `Canvas pack. ${m.short}.`,
       details: ["Canvas backpack"],
       image: "/products/hard-money-tote.png",
+      retired: true,
     }),
   ),
 ];

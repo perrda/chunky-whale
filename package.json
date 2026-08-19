@@ -1,13 +1,15 @@
 {
   "name": "stackhouse",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "qa:payments": "node scripts/qa-payments.mjs"
+    "qa:payments": "node scripts/qa-payments.mjs",
+    "qa:catalog": "npx --yes tsx scripts/audit-catalog-images.ts",
+    "prebuild": "npm run qa:catalog"
   },
   "dependencies": {
     "framer-motion": "^13.1.0",

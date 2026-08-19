@@ -58,10 +58,18 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 ## How to add a design
 
 1. Write one Bitcoin line (meme, philosophy, or protocol). Original — not FOMO21.
-2. Generate a **ghost-mannequin mockup** on white (1:1), ₿ somewhere on the garment.
-3. Save mockup to `public/products/`. Optional print to `public/prints/`.
+2. Generate a **ghost-mannequin mockup** on white (1:1), ₿ somewhere on the garment. The writing on the photo **must match the product title**.
+3. Save mockup to `public/products/` as `{mark}-{kind}.png` (example: `so-back-mug.png`). Optional print to `public/prints/`.
 4. Add SKU at the **top** of `lib/products.ts` with `tag: "Meme"` if it is a slogan tee, `colors`, `cut`, `sizes`, `featured` if it should lead the homepage.
 5. Family gifts: same ₿, smaller placement, no sarcasm on infant.
+6. Run `npm run qa:catalog`. It must print `0 error(s)`. Do not ship if it fails.
+
+## HARD RULE — unique photos
+
+- **Never** reuse another SKU’s photo for a different slogan. Drop 07 once put STRATEGIC RESERVE on every mug. That is a fireable catalog error.
+- Same design on a different object (tee vs mug vs tote) needs its **own** photo of that object with the **same** line.
+- If you do not have a unique matching photo, **do not list the SKU**. Set `retired: true` or omit it. Never borrow a neighbour’s image.
+- `npm run qa:catalog` (also runs before `next build`) fails the build if two live designs share a photo or a mug/tote/pint uses the wrong object.
 
 ## Agents (run in this order, do not skip)
 
