@@ -1,3 +1,4 @@
+/** Server / QA only. Do not import from client components — uses sharp. */
 import sharp from "sharp";
 
 /** High-frequency speckle on the studio backdrop. Catalog photos must be clean white, not grain. */

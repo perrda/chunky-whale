@@ -1,3 +1,4 @@
+import "server-only";
 import { claimFulfillment, markFulfilled, releaseFulfillment } from "@/lib/orders";
 import { createPrintfulOrder } from "@/lib/printful";
 import { getProduct, printfulVariantId } from "@/lib/products";
@@ -5,6 +6,11 @@ import { getProduct, printfulVariantId } from "@/lib/products";
 export async function fulfillPaidOrder(orderId: string) {
   const claimed = await claimFulfillment(orderId);
   if (!claimed) return { skipped: true };
+  if (claimed.demo) {
+    console.error("Printful blocked: demo order", orderId);
+    await releaseFulfillment(orderId);
+    return { error: "demo_order" };
+  }
 
   const items = claimed.items.map((i) => ({
     variantId: printfulVariantId(i.slug, i.size, i.color),

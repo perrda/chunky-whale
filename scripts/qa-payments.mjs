@@ -29,9 +29,29 @@ function sortKeysDeep(value) {
   return value;
 }
 
+function gbpToPence(gbp) {
+  return Math.round(fiatMajorAmount(gbp) * 100);
+}
+
+function gbpAmountsMatch(expectedGbp, actualGbp, slack = 0.02) {
+  return Math.abs(fiatMajorAmount(expectedGbp) - fiatMajorAmount(actualGbp)) <= slack;
+}
+
+function penceMatchesGbp(expectedGbp, actualPence) {
+  return Number.isFinite(actualPence) && gbpToPence(expectedGbp) === actualPence;
+}
+
 assert.equal(fiatMajorAmount(28), 28);
 assert.equal(fiatMajorAmount(28.5), 28.5);
 assert.notEqual(Math.round(28 * 100), fiatMajorAmount(28));
+assert.equal(gbpToPence(28.5), 2850);
+assert.equal(penceMatchesGbp(28.5, 2850), true);
+assert.equal(penceMatchesGbp(28.5, 28), false);
+assert.equal(penceMatchesGbp(28.5, 285000), false);
+assert.equal(gbpAmountsMatch(32, 32), true);
+assert.equal(gbpAmountsMatch(32, 0.32), false);
+assert.equal(gbpAmountsMatch(32, 3200), false);
+assert.equal(gbpAmountsMatch(28, undefined ?? NaN), false);
 
 const raw = JSON.stringify({ payment_status: "finished", order_id: "SH-1" });
 const parsed = JSON.parse(raw);

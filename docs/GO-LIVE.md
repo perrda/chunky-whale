@@ -17,6 +17,6 @@ Sales are not guaranteed. A good shop can still sell nothing. Ads, events, and p
 
 ## Dropship map
 
-See `/fulfillment` on the site and [DROPSHIP.md](./DROPSHIP.md).
+See [DROPSHIP.md](./DROPSHIP.md). The public site shows customer shipping on `/shipping` only — booth freight stays in docs.
 
 Primary: Printful. Scale/local: Gelato. Overflow: Printify, Gooten, SPOD.

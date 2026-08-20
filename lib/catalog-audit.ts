@@ -1,3 +1,4 @@
+/** Server / QA only. Do not import from client components — uses fs/sharp. */
 import { existsSync } from "fs";
 import path from "path";
 import { largestOrangeMarkTilt, officialMarkLooksLocked } from "./catalog-bitcoin-mark";

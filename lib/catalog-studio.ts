@@ -1,3 +1,4 @@
+/** Server / QA only. Do not import from client components — uses sharp. */
 import sharp from "sharp";
 
 /** True when the photo looks like a white studio / ghost-mannequin shot, not a lifestyle scene. */

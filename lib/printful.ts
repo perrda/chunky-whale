@@ -1,3 +1,5 @@
+import "server-only";
+
 const PRINTFUL = "https://api.printful.com";
 
 export function printfulConfigured() {

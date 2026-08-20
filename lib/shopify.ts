@@ -1,3 +1,4 @@
+import "server-only";
 import { products, type Product } from "./products";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN;

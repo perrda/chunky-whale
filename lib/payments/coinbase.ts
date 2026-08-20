@@ -1,3 +1,5 @@
+import "server-only";
+
 const COMMERCE = "https://api.commerce.coinbase.com";
 
 export async function createCoinbaseCharge(input: {

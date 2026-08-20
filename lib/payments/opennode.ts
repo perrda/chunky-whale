@@ -1,3 +1,4 @@
+import "server-only";
 import { hmacHex, safeEqualHex } from "@/lib/hmac";
 import { fiatMajorAmount } from "@/lib/payments/amount";
 
@@ -38,6 +39,47 @@ export async function createOpenNodeCharge(input: {
     data: { id: string; hosted_checkout_url: string };
   };
   return { id: json.data.id, url: json.data.hosted_checkout_url };
+}
+
+export async function getOpenNodeCharge(id: string) {
+  const key = process.env.OPENNODE_API_KEY;
+  if (!key || !id) return null;
+  const res = await fetch(`${OPENNODE}/v1/charge/${encodeURIComponent(id)}`, {
+    headers: { Authorization: key },
+  });
+  if (!res.ok) {
+    console.error("OpenNode charge lookup failed", res.status, await res.text());
+    return null;
+  }
+  const json = (await res.json()) as {
+    data?: {
+      id?: string;
+      status?: string;
+      order_id?: string;
+      fiat_value?: number;
+      amount?: number;
+      price?: number;
+      currency?: string;
+    };
+  };
+  return json.data ?? null;
+}
+
+/** Prefer fiat_value. GBP `amount`/`price` only if they look like pounds, not sats. */
+export function openNodePaidGbp(charge: {
+  fiat_value?: number;
+  amount?: number;
+  price?: number;
+  currency?: string;
+}): number | undefined {
+  if (typeof charge.fiat_value === "number" && Number.isFinite(charge.fiat_value)) {
+    return charge.fiat_value;
+  }
+  const cur = (charge.currency ?? "").toUpperCase();
+  if (cur !== "GBP") return undefined;
+  if (typeof charge.amount === "number" && charge.amount < 10_000) return charge.amount;
+  if (typeof charge.price === "number" && charge.price < 10_000) return charge.price;
+  return undefined;
 }
 
 /** OpenNode hashed_order = HMAC-SHA256(charge id, API key). */
