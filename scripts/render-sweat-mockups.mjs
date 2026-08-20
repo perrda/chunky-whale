@@ -3,7 +3,7 @@
  * ghost-mannequin templates. Covers the old chest print and stamps a
  * new ₿ + slogan so Pullovers never reuse a hoodie photo.
  */
-import { mkdirSync } from "fs";
+import { copyFileSync, existsSync, mkdirSync } from "fs";
 import path from "path";
 import sharp from "sharp";
 import { officialMarkPng } from "./lib/official-bitcoin-mark.mjs";
@@ -11,9 +11,17 @@ import { officialMarkPng } from "./lib/official-bitcoin-mark.mjs";
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, "public/products");
 const FONT = "/usr/share/fonts/truetype/macos/Inter-Bold.ttf";
+const TMPL_DIR = path.join(ROOT, "public/templates");
+const PULLOVER_TMPL = path.join(TMPL_DIR, "pullover-ghost.png");
+const HOODIE_TMPL = path.join(TMPL_DIR, "hoodie-ghost.png");
 
-const PULLOVER_TMPL = path.join(ROOT, "public/products/21m-pullover.png");
-const HOODIE_TMPL = path.join(ROOT, "public/products/hodl-hoodie.png");
+function lockTemplates() {
+  mkdirSync(TMPL_DIR, { recursive: true });
+  const pullSrc = path.join(OUT, "21m-pullover.png");
+  const hoodSrc = path.join(OUT, "hodl-hoodie.png");
+  if (!existsSync(PULLOVER_TMPL) && existsSync(pullSrc)) copyFileSync(pullSrc, PULLOVER_TMPL);
+  if (!existsSync(HOODIE_TMPL) && existsSync(hoodSrc)) copyFileSync(hoodSrc, HOODIE_TMPL);
+}
 
 const HOODIES = [
   { file: "so-back-hoodie.png", lines: ["WE ARE", "SO BACK"], hex: "#0B0C0E" },
@@ -25,6 +33,8 @@ const HOODIES = [
   { file: "hard-money-hoodie.png", lines: ["HARD", "MONEY"], hex: "#6B1D2A" },
   { file: "verify-hoodie.png", lines: ["DON'T TRUST.", "VERIFY."], hex: "#3A3D42" },
   { file: "few-understand-hoodie.png", lines: ["FEW", "UNDERSTAND"], hex: "#0B0C0E" },
+  { file: "hodl-hoodie.png", lines: ["HODL"], hex: "#0B0C0E" },
+  { file: "hodl-hoodie-navy.png", lines: ["HODL"], hex: "#1B2430" },
 ];
 
 const PULLOVERS = [
@@ -200,22 +210,97 @@ function recolorGarment(raw, targetHex) {
   return raw;
 }
 
+function fabricPool(data, w, h, bg) {
+  const pool = [];
+  const bands = [
+    [0.18, 0.28, 0.26, 0.36],
+    [0.72, 0.82, 0.26, 0.36],
+    [0.14, 0.22, 0.40, 0.52],
+    [0.78, 0.86, 0.40, 0.52],
+  ];
+  for (const [x0, x1, y0, y1] of bands) {
+    const xa = Math.floor(w * x0);
+    const xb = Math.floor(w * x1);
+    const ya = Math.floor(h * y0);
+    const yb = Math.floor(h * y1);
+    for (let y = ya; y < yb; y += 2) {
+      for (let x = xa; x < xb; x += 2) {
+        const i = y * w + x;
+        if (bg[i]) continue;
+        const o = i * 4;
+        const [, s, l] = rgbToHsl(data[o], data[o + 1], data[o + 2]);
+        if (s > 0.45 && l > 0.28 && l < 0.72) continue;
+        if (l > 0.88) continue;
+        pool.push(data[o], data[o + 1], data[o + 2]);
+      }
+    }
+  }
+  return pool;
+}
+
+/** Hide the old chest print by cloning real fabric — never a flat rectangle. */
 function coverPrint(raw, kind) {
   const { data, width: w, height: h } = raw;
-  const left = kind === "hoodie" ? 250 : 320;
-  const right = kind === "hoodie" ? 780 : 720;
-  const top = kind === "hoodie" ? 200 : 180;
-  const bottom = kind === "hoodie" ? 640 : 640;
   const bg = backgroundMask(data, w, h);
-  const [sr, sg, sb] = sampleShoulder(data, w, h);
+  const pool = fabricPool(data, w, h, bg);
+  if (pool.length < 30) return raw;
+  const cx = w * 0.5;
+  const cy = kind === "hoodie" ? h * 0.38 : h * 0.4;
+  const rx = kind === "hoodie" ? w * 0.28 : w * 0.3;
+  const ry = kind === "hoodie" ? h * 0.2 : h * 0.22;
+  const n = pool.length / 3;
+  for (let y = Math.floor(cy - ry * 1.25); y < cy + ry * 1.25; y++) {
+    for (let x = Math.floor(cx - rx * 1.25); x < cx + rx * 1.25; x++) {
+      if (x < 0 || y < 0 || x >= w || y >= h) continue;
+      const i = y * w + x;
+      if (bg[i]) continue;
+      const nx = (x - cx) / rx;
+      const ny = (y - cy) / ry;
+      const d = Math.sqrt(nx * nx + ny * ny);
+      if (d > 1.2) continue;
+      const t = d < 0.72 ? 1 : Math.max(0, (1.2 - d) / 0.48);
+      const pick = Math.floor((Math.abs(Math.sin(x * 12.9898 + y * 78.233)) * 43758.5453) % n);
+      const po = pick * 3;
+      const o = i * 4;
+      data[o] = Math.round(data[o] * (1 - t) + pool[po] * t);
+      data[o + 1] = Math.round(data[o + 1] * (1 - t) + pool[po + 1] * t);
+      data[o + 2] = Math.round(data[o + 2] * (1 - t) + pool[po + 2] * t);
+    }
+  }
+  return raw;
+}
+
+/** Kill leftover white slogan / old ₿ in the chest so only the new stamp remains. */
+function eraseOldPrint(raw, kind) {
+  const { data, width: w, height: h } = raw;
+  const bg = backgroundMask(data, w, h);
+  const pool = fabricPool(data, w, h, bg);
+  if (pool.length < 30) return raw;
+  const n = pool.length / 3;
+  let clothL = 0;
+  for (let i = 0; i < pool.length; i += 3) {
+    clothL += rgbToHsl(pool[i], pool[i + 1], pool[i + 2])[2];
+  }
+  clothL /= n;
+  const top = kind === "hoodie" ? Math.floor(h * 0.2) : Math.floor(h * 0.18);
+  const bottom = kind === "hoodie" ? Math.floor(h * 0.6) : Math.floor(h * 0.64);
+  const left = Math.floor(w * 0.2);
+  const right = Math.floor(w * 0.8);
   for (let y = top; y < bottom; y++) {
     for (let x = left; x < right; x++) {
       const i = y * w + x;
       if (bg[i]) continue;
       const o = i * 4;
-      data[o] = sr;
-      data[o + 1] = sg;
-      data[o + 2] = sb;
+      const [hue, s, l] = rgbToHsl(data[o], data[o + 1], data[o + 2]);
+      const deg = hue * 360;
+      const oldMark = deg >= 16 && deg <= 48 && s > 0.35 && l > 0.22 && l < 0.8;
+      const oldType = s < 0.4 && l > clothL + 0.08;
+      if (!oldMark && !oldType) continue;
+      const pick = Math.floor((Math.abs(Math.sin(x * 7.1 + y * 13.7)) * 23311) % n);
+      const po = pick * 3;
+      data[o] = pool[po];
+      data[o + 1] = pool[po + 1];
+      data[o + 2] = pool[po + 2];
     }
   }
   return raw;
@@ -253,6 +338,7 @@ async function renderOne(spec, kind, markPng) {
   const tmpl = kind === "hoodie" ? HOODIE_TMPL : PULLOVER_TMPL;
   let raw = await loadRaw(tmpl);
   raw = coverPrint(raw, kind === "hoodie" ? "hoodie" : "pullover");
+  raw = eraseOldPrint(raw, kind === "hoodie" ? "hoodie" : "pullover");
   raw = recolorGarment(raw, spec.hex);
   const base = await toPng(raw);
   const markW = spec.markOnly ? 280 : 168;
@@ -276,6 +362,7 @@ const only = process.argv.slice(2);
 
 async function main() {
   mkdirSync(OUT, { recursive: true });
+  lockTemplates();
   const markPng = await officialMarkPng("b", 320);
   const jobs = [
     ...HOODIES.map((s) => ({ spec: s, kind: "hoodie" })),

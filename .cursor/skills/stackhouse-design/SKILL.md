@@ -78,6 +78,7 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 - If you do not have a unique matching photo, **do not list the SKU**. Set `retired: true` or omit it. Never borrow a neighbour’s image.
 - If the only photo is a lifestyle shot (dark wall, props, wooden table), **do not list it** until a white studio mockup exists. The candlestick hoodie once sat on charcoal stone while every neighbour was a ghost mannequin — that is a catalog error.
 - `npm run qa:catalog` (also runs before `next build`) fails the build if two live designs share a photo, a mug/tote/pint uses the wrong object, a live photo is not a white studio mockup, a live photo still has an **upright** Bitcoin B, a swatch recolour does not match the garment colour (`color-match`), or the studio backdrop is grainy (`grain`).
+- **HARD RULE — writing and marks must be readable.** The buyer decides from the photo. Every live shot must show the title line in clean, complete letters and a coherent official ₿ — not smashed type, missing strokes, a second ghost slogan, or a sticker rectangle behind the print. If you cannot read it at card size, retire the SKU or re-stamp Inter + `public/brand/bitcoin-b.svg`. Never ship a garbled “I AM HODLING”. Hoodie/pullover restamps: `node scripts/render-sweat-mockups.mjs` (clone fabric, erase the old chest line, then stamp). Do not paint a flat colour box over the chest.
 
 ## Agents (run in this order, do not skip)
 

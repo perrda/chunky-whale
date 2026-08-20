@@ -69,6 +69,12 @@ assert.equal(gbpToPence(totals.totalGbp), Math.round(totals.totalGbp * 100));
 assert.equal(penceMatchesGbp(32, 32), false, "32 pence must not confirm a £32 order (100×)");
 assert.equal(gbpAmountsMatch(32, 0.32), false);
 
+const sweatRender = readFileSync(path.join(process.cwd(), "scripts/render-sweat-mockups.mjs"), "utf8");
+assert.match(sweatRender, /fabricPool/, "sweat mockups must clone fabric, not a flat chest box");
+assert.match(sweatRender, /eraseOldPrint/, "sweat mockups must wipe leftover slogan before restamping");
+assert.match(sweatRender, /officialMarkPng/, "sweat mockups must stamp the official ₿");
+assert.doesNotMatch(sweatRender, /data\[o\] = sr/, "do not paint a single-colour chest rectangle");
+
 const checkoutSrc = readFileSync(path.join(process.cwd(), "app/api/checkout/route.ts"), "utf8");
 assert.match(checkoutSrc, /basketTotals/);
 assert.match(checkoutSrc, /guardShopPost/);
