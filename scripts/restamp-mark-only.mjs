@@ -5,7 +5,7 @@
  */
 import path from "path";
 import sharp from "sharp";
-import { officialMarkPng } from "./lib/official-bitcoin-mark.mjs";
+import { garmentMarkPng } from "./lib/official-bitcoin-mark.mjs";
 
 const ROOT = process.cwd();
 
@@ -180,7 +180,7 @@ const files = process.argv.slice(2).map((name) => {
   return path.join(ROOT, "public/products", name);
 });
 
-const markPng = await officialMarkPng("b", 640);
+const markPng = await garmentMarkPng(640);
 for (const file of files) {
   const result = await restamp(file, markPng);
   console.log(result.ok ? "restamped" : "skip", path.relative(ROOT, file), result.size ?? result.reason);

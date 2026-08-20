@@ -11,10 +11,10 @@ export const MIN_OFFICIAL_TILT_DEG = 2.2;
 
 /**
  * top-mean-X minus bottom-mean-X, divided by blob height.
- * Official bitboy on a garment stamp is ~+0.016 (≈0.9°) at 384px.
- * The old upright 3D B is ~0.000–0.007.
+ * Garment stamps add ~16° clockwise so the lean is obvious at card size (~0.2+).
+ * Old upright / 3D B is ~0.000–0.007.
  */
-export const MIN_CLOCKWISE_LEAN = 0.012;
+export const MIN_CLOCKWISE_LEAN = 0.05;
 
 export type MarkLean = "clockwise" | "ccw" | "upright" | "none";
 

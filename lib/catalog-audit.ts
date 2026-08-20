@@ -123,7 +123,7 @@ export async function auditCatalogImages(
           detail: `Studio backdrop is grainy (score ${grain.grain.toFixed(1)}). Catalog photos must be clean white, not speckled.`,
         });
       }
-      const skipMark = ["pendant", "bracelet", "mug", "tote", "tumbler", "pint", "coaster"].includes(
+      const skipMark = ["pendant", "bracelet", "mug", "tote", "tumbler", "pint", "coaster", "whiskey", "shot"].includes(
         productObject(p),
       );
       const markImages = skipMark
@@ -133,7 +133,8 @@ export async function auditCatalogImages(
         const markAbs = path.join(publicDir, image.replace(/^\//, ""));
         if (!existsSync(markAbs)) continue;
         const mark = await largestOrangeMarkTilt(markAbs);
-        if (mark.found && mark.primary && !mark.clockwise) {
+        const mustLean = /bitcoin-daddy|bitcoin-mummy|b-mark-hoodie|btc-b-tee/.test(p.slug);
+        if (mark.found && !mark.clockwise && (mark.primary || mustLean)) {
           issues.push({
             severity: "error",
             code: "bitcoin-mark",
