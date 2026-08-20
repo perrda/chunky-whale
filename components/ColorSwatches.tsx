@@ -7,15 +7,19 @@ export function ColorSwatches({
   colors,
   value,
   onChange,
+  max = 3,
 }: {
   colors: ColorOption[];
   value: string;
   onChange: (id: string) => void;
+  /** Cards stay quiet. Product page uses ColorChoiceGrid for the full twelve. */
+  max?: number;
 }) {
-  const shown = colors.slice(0, 12);
+  const shown = colors.slice(0, max);
+  const extra = Math.max(0, colors.length - shown.length);
   return (
     <div className="mt-2 flex justify-center" aria-label="Preview colours">
-      <div className="flex w-[8.25rem] flex-wrap justify-center gap-1 sm:w-[10.875rem] sm:gap-1.5">
+      <div className="flex items-center justify-center gap-1 sm:gap-1.5">
         {shown.map((c) => (
           <button
             key={c.id}
@@ -24,12 +28,15 @@ export function ColorSwatches({
             aria-label={`Preview ${c.label}`}
             aria-pressed={value === c.id}
             onClick={() => onChange(c.id)}
-            className={`h-4 w-4 rounded-full border sm:h-6 sm:w-6 ${
+            className={`h-4 w-4 rounded-full border sm:h-5 sm:w-5 ${
               value === c.id ? "border-ember ring-1 ring-ember" : "border-paper/25"
             }`}
             style={{ background: c.hex }}
           />
         ))}
+        {extra > 0 ? (
+          <span className="pl-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-muted">+{extra}</span>
+        ) : null}
       </div>
     </div>
   );

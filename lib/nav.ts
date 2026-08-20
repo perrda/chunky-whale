@@ -1,66 +1,27 @@
 export type NavChild = { href: string; label: string };
 export type NavItem = { href: string; label: string; children?: NavChild[] };
 
-/** Mirrors a serious Bitcoin merch house IA — original labels, not FOMO21 slogans. */
+/** Five top links. The rest live under Shop — not a second row of categories. */
 export const MEGA_NAV: NavItem[] = [
-  { href: "/collection/trending", label: "Trending" },
   { href: "/collection/tees", label: "T-Shirts" },
   {
     href: "/collection/sweatshirts",
     label: "Sweatshirts",
     children: [
-      { href: "/collection/crewnecks", label: "Crewnecks" },
       { href: "/collection/hoodies", label: "Hoodies" },
       { href: "/collection/pullovers", label: "Pullovers" },
+      { href: "/collection/crewnecks", label: "Crewnecks" },
       { href: "/collection/zip-ups", label: "Zip-ups" },
-    ],
-  },
-  {
-    href: "/collection/women",
-    label: "Women",
-    children: [
-      { href: "/collection/women-crop", label: "Crop tops" },
-      { href: "/collection/women-tanks", label: "Tank tops" },
-      { href: "/collection/women-vneck", label: "V-neck tees" },
-      { href: "/collection/bitcoin-mummy", label: "Bitcoin Mummy" },
     ],
   },
   {
     href: "/collection/hats",
     label: "Hats",
     children: [
-      { href: "/collection/beanies", label: "Beanies" },
-      { href: "/collection/bucket-hats", label: "Bucket hats" },
       { href: "/collection/dad-hats", label: "Dad hats" },
-      { href: "/collection/distressed-hats", label: "Distressed hats" },
-      { href: "/collection/flexfit-hats", label: "Flexfit hats" },
-      { href: "/collection/snapback-hats", label: "Snapback hats" },
-      { href: "/collection/trucker-hats", label: "Trucker hats" },
-      { href: "/collection/vintage-hats", label: "Vintage hats" },
-    ],
-  },
-  {
-    href: "/collection/kids",
-    label: "Kids",
-    children: [
-      { href: "/collection/youth", label: "Youth" },
-      { href: "/collection/toddler", label: "Toddler" },
-      { href: "/collection/infant", label: "Infant" },
-      { href: "/collection/swim-kids", label: "Kids’ swim" },
-    ],
-  },
-  {
-    href: "/collection/swimwear",
-    label: "Swimwear",
-    children: [
-      { href: "/collection/swim-men", label: "Men" },
-      { href: "/collection/swim-women", label: "Women" },
-      { href: "/collection/swim-kids", label: "Kids" },
-      { href: "/collection/bikinis", label: "Bikinis" },
-      { href: "/collection/swim-shorts", label: "Swim shorts" },
-      { href: "/collection/one-pieces", label: "One-pieces" },
-      { href: "/collection/rash-guards", label: "Rash guards" },
-      { href: "/collection/swim-caps", label: "Swim caps" },
+      { href: "/collection/beanies", label: "Beanies" },
+      { href: "/collection/snapback-hats", label: "Snapbacks" },
+      { href: "/collection/hats", label: "All hats" },
     ],
   },
   {
@@ -77,20 +38,60 @@ export const MEGA_NAV: NavItem[] = [
   },
   {
     href: "/shop",
-    label: "Collections",
+    label: "Shop",
     children: [
-      { href: "/collection/memes", label: "Memes" },
-      { href: "/collection/premium", label: "Stitched / premium" },
-      { href: "/collection/jewelry", label: "Jewelry" },
-      { href: "/collection/posters", label: "Posters" },
-      { href: "/collection/accessories", label: "Stickers & pins" },
-      { href: "/collection/bags", label: "Bags" },
-      { href: "/collection/longsleeves", label: "Long sleeves" },
+      { href: "/collection/women", label: "Women" },
+      { href: "/collection/kids", label: "Kids" },
       { href: "/collection/swimwear", label: "Swimwear" },
       { href: "/collection/mummy-daddy", label: "Mummy & Daddy" },
-      { href: "/collection/bitcoin-daddy", label: "Bitcoin Daddy" },
+      { href: "/collection/hodl", label: "HODL" },
+      { href: "/collection/so-back", label: "We are so back" },
+      { href: "/collection/21-million", label: "21 million" },
+      { href: "/collection/memes", label: "Memes" },
+      { href: "/collection/jewelry", label: "Jewelry" },
+      { href: "/collection/posters", label: "Posters" },
+      { href: "/collection/bags", label: "Bags" },
+      { href: "/collection/longsleeves", label: "Long sleeves" },
+      { href: "/collection/premium", label: "Stitched / premium" },
     ],
   },
+];
+
+/** Hats collection chips — more types than the slim header dropdown. */
+export const HAT_SECTIONS: NavChild[] = [
+  { href: "/collection/dad-hats", label: "Dad hats" },
+  { href: "/collection/beanies", label: "Beanies" },
+  { href: "/collection/bucket-hats", label: "Bucket hats" },
+  { href: "/collection/snapback-hats", label: "Snapbacks" },
+  { href: "/collection/trucker-hats", label: "Trucker hats" },
+  { href: "/collection/flexfit-hats", label: "Flexfit" },
+  { href: "/collection/distressed-hats", label: "Distressed" },
+  { href: "/collection/vintage-hats", label: "Vintage" },
+];
+
+export const WOMEN_SECTIONS: NavChild[] = [
+  { href: "/collection/women-crop", label: "Crop tops" },
+  { href: "/collection/women-tanks", label: "Tank tops" },
+  { href: "/collection/women-vneck", label: "V-neck tees" },
+];
+
+export const KIDS_SECTIONS: NavChild[] = [
+  { href: "/collection/youth", label: "Youth" },
+  { href: "/collection/toddler", label: "Toddler" },
+  { href: "/collection/infant", label: "Infant" },
+  { href: "/collection/swim-kids", label: "Kids’ swim" },
+];
+
+/** Swimwear collection chips stay on the swim page, not under Women. */
+export const SWIM_SECTIONS: NavChild[] = [
+  { href: "/collection/swim-men", label: "Men" },
+  { href: "/collection/swim-women", label: "Women" },
+  { href: "/collection/swim-kids", label: "Kids" },
+  { href: "/collection/bikinis", label: "Bikinis" },
+  { href: "/collection/swim-shorts", label: "Swim shorts" },
+  { href: "/collection/one-pieces", label: "One-pieces" },
+  { href: "/collection/rash-guards", label: "Rash guards" },
+  { href: "/collection/swim-caps", label: "Swim caps" },
 ];
 
 /** Shop page chips — keep the first row short. The rest sit under More. */
@@ -108,10 +109,19 @@ export const SHOP_MORE_FILTERS = [
   { slug: "jewelry", label: "Jewelry" },
   { slug: "posters", label: "Posters" },
   { slug: "mummy-daddy", label: "Mummy & Daddy" },
+  { slug: "hodl", label: "HODL" },
+  { slug: "so-back", label: "So Back" },
+  { slug: "21-million", label: "21 million" },
   { slug: "bags", label: "Bags" },
   { slug: "longsleeves", label: "Long sleeves" },
   { slug: "memes", label: "Memes" },
   { slug: "premium", label: "Stitched" },
+] as const;
+
+export const HOME_DOORS = [
+  { slug: "wear", label: "Wear it", blurb: "Tees, sweats, hats, swim." },
+  { slug: "drinkware", label: "Drink from it", blurb: "Whiskey, shots, mugs, tumblers." },
+  { slug: "mummy-daddy", label: "Gift it", blurb: "Bitcoin Mummy. Bitcoin Daddy." },
 ] as const;
 
 export const HOME_COLLECTIONS = [
@@ -133,13 +143,25 @@ export function collectionNavFor(slug: string): {
   parentHref: string;
   children: NavChild[];
 } | null {
+  if (slug === "hats" || HAT_SECTIONS.some((c) => c.href === `/collection/${slug}`)) {
+    return { parentLabel: "Hats", parentHref: "/collection/hats", children: HAT_SECTIONS };
+  }
+  if (slug === "women" || WOMEN_SECTIONS.some((c) => c.href === `/collection/${slug}`)) {
+    return { parentLabel: "Women", parentHref: "/collection/women", children: WOMEN_SECTIONS };
+  }
+  if (slug === "kids" || KIDS_SECTIONS.some((c) => c.href === `/collection/${slug}`)) {
+    return { parentLabel: "Kids", parentHref: "/collection/kids", children: KIDS_SECTIONS };
+  }
+  if (slug === "swimwear" || SWIM_SECTIONS.some((c) => c.href === `/collection/${slug}`)) {
+    return { parentLabel: "Swimwear", parentHref: "/collection/swimwear", children: SWIM_SECTIONS };
+  }
   const href = `/collection/${slug}`;
   const parent = MEGA_NAV.find((n) => n.href === href && n.children?.length);
   if (parent?.children) {
     return { parentLabel: parent.label, parentHref: parent.href, children: parent.children };
   }
   const owner = MEGA_NAV.find((n) => n.children?.some((c) => c.href === href));
-  if (owner?.children) {
+  if (owner?.children && owner.label !== "Shop") {
     return { parentLabel: owner.label, parentHref: owner.href, children: owner.children };
   }
   return null;
@@ -187,5 +209,12 @@ export const COLLECTION_META: { slug: string; label: string; blurb: string }[] =
   { slug: "swim-caps", label: "Swim caps", blurb: "Silicone. One joke." },
   { slug: "bitcoin-mummy", label: "Bitcoin Mummy", blurb: "The other half of the pair." },
   { slug: "bitcoin-daddy", label: "Bitcoin Daddy", blurb: "A dad hat that says it." },
+  { slug: "wear", label: "Wear it", blurb: "Tees, sweats, hats, swim. The clothes." },
+  { slug: "hodl", label: "HODL", blurb: "I AM HODLING. Same line on cloth and glass." },
+  { slug: "stack-sats", label: "Stack sats", blurb: "The daily habit. Wear it or drink it." },
+  { slug: "so-back", label: "We are so back", blurb: "The group-chat pendulum. Not a price call." },
+  { slug: "21-million", label: "21 million", blurb: "That's the joke. Same cap on more than a tee." },
+  { slug: "stay-humble", label: "Stay humble", blurb: "Stay humble, stack sats." },
+  { slug: "hard-money", label: "Hard money", blurb: "The other kind of hard." },
 ];
 

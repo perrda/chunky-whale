@@ -5,7 +5,7 @@ import { HeroShowcase } from "@/components/HeroShowcase";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { ProductCard } from "@/components/ProductCard";
 import { site } from "@/lib/config";
-import { HOME_COLLECTIONS } from "@/lib/nav";
+import { HOME_DOORS } from "@/lib/nav";
 import { heroPool, liveProducts, productsIn } from "@/lib/products";
 
 const catalog = liveProducts();
@@ -25,19 +25,19 @@ export default function HomePage() {
           <FadeIn>
             <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ember">{site.strap}</p>
             <h1 className="mt-4 max-w-lg font-display text-4xl font-extrabold leading-[1.05] sm:text-6xl">
-              Bitcoin tees.
+              Bitcoin merch.
               <br />
               Don&apos;t miss the stack.
             </h1>
             <p className="mt-5 max-w-md font-serif text-lg text-paper/75">
-              {site.tagline} Original designs. No altcoins.
+              {site.tagline} Wear it, drink from it, gift it. Original designs. No altcoins.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href="/collection/trending"
+                href="/collection/wear"
                 className="inline-flex items-center gap-2 bg-ember px-7 py-3 font-display text-sm font-bold text-ink"
               >
-                Shop now
+                Wear it
               </Link>
               <Link
                 href="/shop"
@@ -66,9 +66,10 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-8 md:px-6">
-        <h2 className="font-display text-2xl font-extrabold">Shop by type</h2>
-        <div className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {HOME_COLLECTIONS.map((c) => {
+        <h2 className="font-display text-2xl font-extrabold">Three doors</h2>
+        <p className="mt-2 max-w-lg font-serif text-paper/70">Wear it. Drink from it. Gift it.</p>
+        <div className="mt-6 grid gap-3 md:grid-cols-3">
+          {HOME_DOORS.map((c) => {
             const sample = productsIn(c.slug)[0];
             return (
               <Link
@@ -76,19 +77,24 @@ export default function HomePage() {
                 href={`/collection/${c.slug}`}
                 className="group overflow-hidden border border-paper/10 bg-surface hover:border-ember"
               >
-                <div className="relative aspect-square bg-white">
+                <div className="relative aspect-[4/3] bg-white md:aspect-square">
                   {sample ? (
-                    <Image src={sample.image} alt="" fill className="object-contain p-4" sizes="25vw" />
+                    <Image src={sample.image} alt="" fill className="object-contain p-6" sizes="33vw" />
                   ) : null}
                 </div>
                 <div className="px-4 py-4">
-                  <p className="font-display text-lg font-bold group-hover:text-ember">{c.label}</p>
+                  <p className="font-display text-xl font-bold group-hover:text-ember">{c.label}</p>
                   <p className="mt-1 font-serif text-sm text-paper/70">{c.blurb}</p>
                 </div>
               </Link>
             );
           })}
         </div>
+        <p className="mt-6">
+          <Link href="/shop" className="font-display text-sm font-bold text-ember">
+            Shop all {catalog.length} pieces
+          </Link>
+        </p>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-16 md:px-6">

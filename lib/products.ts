@@ -1,4 +1,5 @@
 import { photoKindMismatch } from "./catalog-kind";
+import { isFeaturedLine, lineKey } from "./design-line";
 import { drop05 } from "./drop-05";
 import { drop06 } from "./drop-06";
 import { CLOTHING_COLORS, drop07 } from "./drop-07";
@@ -1422,6 +1423,19 @@ export function productsIn(slug: string) {
     return list.filter((p) => p.slug.startsWith("bitcoin-mummy") || p.slug.startsWith("bitcoin-daddy"));
   if (slug === "bitcoin-mummy") return list.filter((p) => p.slug.startsWith("bitcoin-mummy"));
   if (slug === "bitcoin-daddy") return list.filter((p) => p.slug.startsWith("bitcoin-daddy"));
+  if (slug === "wear")
+    return list.filter(
+      (p) =>
+        p.category === "tees" ||
+        p.category === "longsleeves" ||
+        p.category === "hoodies" ||
+        p.category === "hats" ||
+        p.category === "swimwear" ||
+        (p.cut === "women" && p.category !== "swimwear"),
+    );
+  if (isFeaturedLine(slug)) {
+    return list.filter((p) => lineKey(p) === slug);
+  }
   return list.filter((p) => p.category === slug);
 }
 
@@ -1519,22 +1533,50 @@ export function sizeLabel(p: Product, sizeId?: string) {
 
 /** Same joke / mark on a different object (hoodie vs tee vs mug). */
 export function markKey(p: Product) {
-  return p.slug.toLowerCase().replace(
-    /-(tee|hoodie|crew|zip|pullover|mug|tumbler|pint|whiskey|shot|coasters|tote|pack|hat|cap|beanie|poster|print|sticker|pin|pendant|bracelet|longsleeve|vneck|tank|crop|youth|toddler|infant|dad-hat|trucker-hat|bucket-hat|flexfit-hat|vintage-hat|distressed-hat|swim-shorts|board-shorts|bikini|one-piece|rash-guard|swim-cap|youth-swim|toddler-swim)$/i,
-    "",
-  );
+  return lineKey(p);
+}
+
+export function sameLine(slug: string) {
+  const p = getProduct(slug);
+  if (!p || !isLiveProduct(slug)) return [];
+  const mark = lineKey(p);
+  return liveProducts().filter((x) => x.slug !== slug && lineKey(x) === mark);
 }
 
 export function relatedProducts(slug: string, limit = 4) {
   const list = liveProducts();
   const p = getProduct(slug);
   if (!p) return list.filter((x) => x.featured).slice(0, limit);
-  const mark = markKey(p);
-  const sameMark = list.filter((x) => x.slug !== slug && markKey(x) === mark);
+  const mark = lineKey(p);
+  const sameMark = list.filter((x) => x.slug !== slug && lineKey(x) === mark);
   const rest = list.filter(
-    (x) => x.slug !== slug && markKey(x) !== mark && (x.tag === p.tag || x.category === p.category || x.featured),
+    (x) => x.slug !== slug && lineKey(x) !== mark && (x.tag === p.tag || x.category === p.category || x.featured),
   );
   return [...sameMark, ...rest].slice(0, limit);
+}
+
+/** One sentence so the buyer knows if it will fit. */
+export function fitNote(p: Product) {
+  const k = productKind(p);
+  if (k === "whiskey" || k === "shot" || k === "mug" || k === "pint" || k === "tumbler" || k === "coaster")
+    return "As photographed. No size to pick.";
+  if (p.category === "jewelry" || p.category === "accessories" || p.category === "posters")
+    return "One size, as photographed.";
+  if (p.category === "hats" && k === "flexfit") return "Stretch fit. No clasp. Pick S/M or L/XL if both are listed.";
+  if (p.category === "hats") return "One size. Adjustable unless the title says Flexfit.";
+  if (p.cut === "infant") return "Snaps at the crotch. Pick the size by month, not adult letters.";
+  if (p.cut === "toddler") return "Toddler 2T–5T. Not youth or adult sizing.";
+  if (p.cut === "youth") return "Youth S–L. Smaller than adult Small.";
+  if (p.cut === "women" && p.category !== "swimwear")
+    return "Women’s cut, closer through the body than the unisex tee. XS–2XL.";
+  if (p.category === "swimwear") return "Swim fabric. Check the size list — it is not the same as the cotton tee.";
+  if (k === "hoodie") return "Adult unisex. Hood and pocket. True to size; size up if you want it boxy.";
+  if (k === "pullover") return "Adult unisex. No hood, no zip. Size up for a relaxed crew.";
+  if (k === "zip") return "Adult unisex. Full zip. Same chest as the hoodie.";
+  if (p.category === "longsleeves") return "Adult unisex, XS–4XL. Conference weather. True to size.";
+  if (p.category === "tees") return "Adult unisex, XS–4XL. True to size; size up for a baggier tee.";
+  if (p.category === "bags") return "One size tote. No fit to pick.";
+  return "Check the size list if you are between sizes.";
 }
 
 export function formatGbp(amount: number) {

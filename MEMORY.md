@@ -4,11 +4,11 @@
 Source of truth: GitHub **`perrda/stackhouse`** branch **`main`**.  
 Folder on both Macs: **`~/Projects/stackhouse`**.  
 Local URL: **http://127.0.0.1:3001**  
-Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + coin ₿ mark + **StackHouse** wordmark. No Event Plan in the header.
+Homepage check: **“Bitcoin merch. Don’t miss the stack.”** + three doors (Wear it / Drink from it / Gift it) + coin ₿ mark + **StackHouse** wordmark. No Event Plan in the header.
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.22** (20 Aug 2026 site-wide print clarity). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + **StackHouse** wordmark (Stack + orange House). All-caps **STACKHOUSE** is the legal/meta name — do not “fix” the wordmark to one word. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop. `/fulfillment` redirects to Shipping (booth freight is not a public page).
+Version **0.7.23** (20 Aug 2026 five UX doors). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + **StackHouse** wordmark (Stack + orange House). All-caps **STACKHOUSE** is the legal/meta name — do not “fix” the wordmark to one word. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop. `/fulfillment` redirects to Shipping (booth freight is not a public page).
 
 **Do not retrace (every past catalog / UX fire):**
 - Swatch colour must match the garment in the photo. Bone = cream, never a tinted black tee.
@@ -58,6 +58,8 @@ Harden pass **0.7.20**: webhooks now refuse a missing or wrong amount and will n
 Print clarity **0.7.21**: HODL pullover (and the other restamped hoodies/pullovers) had a flat chest box and leftover type. Recolour then smashed “I AM HODLING”. Fixed: clone real fabric, wipe the old line, stamp Inter + official ₿. First view uses the photographed colour so the letters are not recoloured on load. Do not paint a rectangle on the chest again.
 
 Print clarity **0.7.22** (whole shop): Drop-07 white mugs had a ₿ hanging off the cup. Mummy hat had a second ₿ clipped off the brim. HODL / Mummy / Daddy mugs and the 21M poster had a ghosted mark. Those SKUs are **retired** until David has a clean unique studio shot. Daddy hoodie was restamped from the hoodie ghost template (readable BITCOIN DADDY + official ₿). Do not stamp a new ₿ onto a live white-mug photo — that paints a sticker box. Glass, tees, restamped sweats, totes, and swim that already read clean stay live.
+
+UX five-pass **0.7.23**: shop the joke (This line + HODL / So Back / 21 million collections), five-link header with search on the phone bar, product page gallery + fit line + sticky add with price, homepage three doors (Wear / Drink / Gift) instead of ten type tiles, cards show three colour dots not twelve. Header is T-Shirts / Sweatshirts / Hats / Drinkware / Shop. Women, Kids, Swimwear live under Shop. Swim chips stay on the Swimwear page only.
 
 Drop 08: **Swimwear** — men (board shorts, rash guard, cap), women (bikinis, one-pieces, rash guard, cap), kids (youth shorts / one-piece / rash / cap, toddler swim). Unique photo per SKU. Top nav: **Swimwear** sits left of Drinkware. Swim subsections live only under Swimwear (Men / Women / Kids / Bikinis / Shorts / One-pieces / Rash guards / Caps). Collections keeps a single Swimwear link — no swim sub-links there.
 

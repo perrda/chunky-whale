@@ -39,12 +39,39 @@ const women = productsIn("women");
 assert.ok(women.every((p) => p.category !== "swimwear"), "Women collection includes swimwear");
 assert.ok(women.length > 0, "Women collection empty");
 
-const womenNav = MEGA_NAV.find((n) => n.label === "Women");
-assert.ok(womenNav);
-assert.ok(
-  !womenNav.children?.some((c) => /bikini|one-piece/i.test(c.href)),
-  "Women nav still lists swim subsections",
+assert.deepEqual(
+  MEGA_NAV.map((n) => n.label),
+  ["T-Shirts", "Sweatshirts", "Hats", "Drinkware", "Shop"],
+  "header must stay five links",
 );
+assert.ok(!MEGA_NAV.some((n) => n.label === "Women"), "Women is under Shop, not a top link");
+const shopNav = MEGA_NAV.find((n) => n.label === "Shop");
+assert.ok(shopNav);
+assert.ok(shopNav.children?.some((c) => c.href === "/collection/women"), "Shop must still reach Women");
+assert.ok(shopNav.children?.some((c) => c.href === "/collection/swimwear"), "Shop must still reach Swimwear");
+assert.ok(
+  !shopNav.children?.some((c) => /bikini|one-piece/i.test(c.href)),
+  "Shop dropdown still lists swim subsections",
+);
+assert.ok(productsIn("hodl").length >= 2, "HODL line too thin");
+assert.ok(productsIn("so-back").length >= 2, "So Back line too thin");
+assert.ok(productsIn("21-million").length >= 2, "21 million line too thin");
+assert.ok(productsIn("wear").length > 20, "Wear it door empty");
+
+const searchSrc = readFileSync(path.join(process.cwd(), "components/SearchBox.tsx"), "utf8");
+assert.doesNotMatch(searchSrc, /hidden w-full justify-center md:flex/, "search must show on the phone bar");
+const homeSrc = readFileSync(path.join(process.cwd(), "app/page.tsx"), "utf8");
+assert.match(homeSrc, /Wear it/);
+assert.match(homeSrc, /Drink from it/);
+assert.match(homeSrc, /Gift it/);
+assert.match(homeSrc, /Bitcoin merch/);
+const cardSwatch = readFileSync(path.join(process.cwd(), "components/ColorSwatches.tsx"), "utf8");
+assert.match(cardSwatch, /max = 3/, "cards must not dump all twelve dots");
+const lineStrip = readFileSync(path.join(process.cwd(), "components/LineStrip.tsx"), "utf8");
+assert.match(lineStrip, /This line/);
+const pdp = readFileSync(path.join(process.cwd(), "components/ProductView.tsx"), "utf8");
+assert.match(pdp, /fitNote/);
+assert.match(pdp, /Print close-up/);
 
 for (const p of productsIn("whiskey-glasses").concat(productsIn("shot-glasses"), productsIn("coffee-mugs"))) {
   assert.equal(takesColourways(p), false, `${p.slug} glass/mug must not have colour swatches`);

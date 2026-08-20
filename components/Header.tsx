@@ -34,7 +34,7 @@ export function Header() {
       </a>
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 md:px-6">
         <Logo compact />
-        <div className="hidden flex-1 justify-center md:flex">
+        <div className="flex min-w-0 flex-1 justify-center">
           <Suspense fallback={null}>
             <SearchBox />
           </Suspense>
@@ -82,11 +82,6 @@ export function Header() {
           className="max-h-[min(70vh,32rem)] overflow-y-auto border-t border-paper/10 px-4 py-4 lg:hidden"
           aria-label="Mobile"
         >
-          <div className="mb-4">
-            <Suspense fallback={null}>
-              <SearchBox variant="mobile" />
-            </Suspense>
-          </div>
           <Link
             href={authReady && account ? "/account" : "/login"}
             className="mb-3 inline-block font-display text-sm font-bold sm:hidden"

@@ -6,99 +6,11 @@ import { auditColorMatch } from "./catalog-color";
 import { studioGrainScore } from "./catalog-grain";
 import { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catalog-kind";
 import { isStudioWhiteBackground } from "./catalog-studio";
+import { lineKey } from "./design-line";
 import { products as allProducts, RETIRED_SLUGS, type Product } from "./products";
 
 export { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catalog-kind";
-
-/** Canonical design family. Aliases collapse “humble-ps” and “stay-humble” to one mark. */
-const FAMILY_ALIASES: Record<string, string> = {
-  "humble-x": "stay-humble",
-  "humble-ps": "stay-humble",
-  "21m-x": "21-million",
-  "21m-ps": "21-million",
-  "21m": "21-million",
-  "hodl-x": "hodl",
-  "hodl-ps": "hodl",
-  "keys-x": "keys",
-  "keys-ps": "keys",
-  "verify-x": "verify",
-  "dip-x": "dip-feature",
-  "dip-ps": "dip-feature",
-  "node-x": "run-node",
-  "stack-tumbler-green": "stack-sats",
-  stack: "stack-sats",
-  "infant-node-onesie": "infant-node",
-  "youth-utxo": "utxo",
-  "toddler-btc": "utxo",
-  pow: "pow-tweet",
-  fiat: "fiat-exp",
-};
-
-const MARK_PREFIXES = [
-  "so-back",
-  "so-over",
-  "no-forecast",
-  "no-laser",
-  "pow-tweet",
-  "fiat-exp",
-  "orange-pill",
-  "four-year",
-  "timechain",
-  "strategic-reserve",
-  "reserve",
-  "quantum",
-  "printer",
-  "stay-humble",
-  "stack-sats",
-  "21-million",
-  "hard-money",
-  "bitcoin-mummy",
-  "bitcoin-daddy",
-  "infant-node",
-  "few-understand",
-  "proof-of-work",
-  "not-your-keys",
-  "sound-money",
-  "cold-storage",
-  "self-custody",
-  "digital-energy",
-  "b-mark",
-  "one-btc",
-  "satoshi",
-  "stay-solvent",
-  "peer-to-peer",
-  "genesis",
-  "infinite-fiat",
-  "run-node",
-  "one-sat",
-  "hard-cap",
-  "no-second",
-  "one-more-block",
-  "dip-feature",
-  "number-go-up",
-  "cant-print",
-  "bitcoin-fixes",
-  "the-joke",
-  "orange-daily",
-  "future-utxo",
-  "node-toddler",
-  "verify",
-  "hodl",
-  "keys",
-].sort((a, b) => b.length - a.length);
-
-export function designFamily(product: Product): string {
-  const slug = product.slug.toLowerCase().replace(
-    /-(tee|hoodie|crew|zip|pullover|mug|tumbler|pint|whiskey|shot|coasters|tote|pack|hat|cap|beanie|poster|print|sticker|pin|pendant|bracelet|longsleeve|vneck|tank|crop|youth|toddler|infant|dad-hat|trucker-hat|bucket-hat|flexfit-hat|vintage-hat|distressed-hat|swim-shorts|board-shorts|bikini|one-piece|rash-guard|swim-cap|youth-swim|toddler-swim)$/i,
-    "",
-  );
-  for (const mark of MARK_PREFIXES) {
-    if (slug === mark || slug.startsWith(`${mark}-`)) {
-      return FAMILY_ALIASES[mark] ?? mark;
-    }
-  }
-  return FAMILY_ALIASES[slug] ?? FAMILY_ALIASES[slug.split("-")[0] ?? ""] ?? slug;
-}
+export { lineKey as designFamily } from "./design-line";
 
 function imageKindHint(image: string): string | null {
   const base = path.basename(image, path.extname(image)).toLowerCase();
@@ -257,7 +169,7 @@ export async function auditCatalogImages(
   }
 
   for (const [image, group] of byImage) {
-    const families = new Set(group.map(designFamily));
+    const families = new Set(group.map(lineKey));
     if (families.size > 1) {
       for (const p of group) {
         issues.push({

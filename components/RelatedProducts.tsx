@@ -2,12 +2,13 @@ import Link from "next/link";
 import { ProductCard } from "./ProductCard";
 import { getProduct, markKey, relatedProducts } from "@/lib/products";
 
-export function RelatedProducts({ slug }: { slug: string }) {
-  const list = relatedProducts(slug);
-  if (!list.length) return null;
+export function RelatedProducts({ slug, excludeLine = false }: { slug: string; excludeLine?: boolean }) {
   const p = getProduct(slug);
   const mark = p ? markKey(p) : "";
-  const sameMark = p ? list.some((x) => markKey(x) === mark) : false;
+  const raw = relatedProducts(slug, excludeLine ? 8 : 4);
+  const list = excludeLine && mark ? raw.filter((x) => markKey(x) !== mark) : raw;
+  if (!list.length) return null;
+  const sameMark = !excludeLine && p ? list.some((x) => markKey(x) === mark) : false;
   return (
     <section className="mx-auto max-w-7xl px-4 pb-16 md:px-6">
       <div className="flex items-end justify-between">

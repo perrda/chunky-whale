@@ -8,6 +8,8 @@ import {
   collectionFor,
   colorsFor,
   defaultColorId,
+  fitNote,
+  formatGbp,
   productImage,
   productKindLabel,
   type Product,
@@ -26,10 +28,18 @@ export function ProductView({ product }: { product: Product }) {
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [zoom, setZoom] = useState(false);
+  const [shot, setShot] = useState<"front" | "print">("front");
   const remaining = product.limited ? Math.max(0, product.remaining ?? 0) : 20;
   const soldOut = Boolean(product.limited && remaining <= 0);
   const qtyMax = Math.max(1, Math.min(20, remaining || 20));
   const img = productImage(product, color || undefined);
+  const printSrc = product.print;
+  const showingPrint = shot === "print" && Boolean(printSrc);
+  const displaySrc = showingPrint ? printSrc! : img;
+  const displayRecolor = !showingPrint && !product.imagesByColor?.[color];
+  const hex = colors?.find((c) => c.id === color)?.hex;
+  const fit = fitNote(product);
+  const colorName = colors?.find((c) => c.id === color)?.label ?? color;
   const crumb = collectionFor(product);
   const chartKind =
     product.category === "hoodies"
@@ -83,19 +93,50 @@ export function ProductView({ product }: { product: Product }) {
           aria-label="Enlarge photo"
         >
           <GarmentImage
-            key={`${img}-${color}`}
-            src={img}
-            hex={colors?.find((c) => c.id === color)?.hex}
-            recolor={!product.imagesByColor?.[color]}
-            alt={`${product.name}${color ? ` in ${colors?.find((c) => c.id === color)?.label ?? color}` : ""}`}
+            key={`${displaySrc}-${color}-${shot}`}
+            src={displaySrc}
+            hex={hex}
+            recolor={displayRecolor}
+            alt={`${product.name}${color ? ` in ${colorName}` : ""}${showingPrint ? " print" : ""}`}
+            className={shot === "print" && !printSrc ? "scale-125" : undefined}
           />
           <span className="absolute bottom-3 right-3 bg-ink/80 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-paper">
             Tap to zoom
           </span>
         </button>
+        <div className="flex gap-2" aria-label="Product photos">
+          <button
+            type="button"
+            onClick={() => setShot("front")}
+            aria-pressed={shot === "front"}
+            className={`relative h-16 w-16 overflow-hidden bg-white ${
+              shot === "front" ? "ring-2 ring-ember" : "ring-1 ring-paper/15"
+            }`}
+          >
+            <GarmentImage src={img} hex={hex} recolor={!product.imagesByColor?.[color]} alt="" />
+            <span className="sr-only">Front</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setShot("print")}
+            aria-pressed={shot === "print"}
+            className={`relative h-16 w-16 overflow-hidden bg-white ${
+              shot === "print" ? "ring-2 ring-ember" : "ring-1 ring-paper/15"
+            }`}
+          >
+            <GarmentImage
+              src={printSrc ?? img}
+              hex={printSrc ? undefined : hex}
+              recolor={!printSrc && !product.imagesByColor?.[color]}
+              alt=""
+              className="scale-150"
+            />
+            <span className="sr-only">Print close-up</span>
+          </button>
+        </div>
         {colors && color ? (
           <p className="font-serif text-sm text-paper/70">
-            Showing <strong>{colors.find((c) => c.id === color)?.label}</strong>
+            Showing <strong>{colorName}</strong>
             {product.imagesByColor?.[color] ? " (studio photo)." : "."}
           </p>
         ) : null}
@@ -125,6 +166,10 @@ export function ProductView({ product }: { product: Product }) {
               <ColorChoiceGrid colors={colors} value={color} onChange={setColor} name="pdp-color" />
             </fieldset>
           ) : null}
+          <p className="font-serif text-sm text-paper/80">
+            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-gold">Fit · </span>
+            {fit}
+          </p>
           {product.sizes ? (
             <fieldset>
               <legend className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Size</legend>
@@ -161,7 +206,12 @@ export function ProductView({ product }: { product: Product }) {
               className="mt-2 w-20 border border-paper/20 bg-ink px-3 py-2 font-mono text-sm text-paper"
             />
           </label>
-          <div className="sticky bottom-0 z-20 -mx-4 mt-6 flex flex-col gap-3 border-t border-paper/10 bg-ink/95 px-4 py-3 backdrop-blur-md sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:flex-row">
+          <div className="sticky bottom-0 z-20 -mx-4 mt-6 flex flex-col gap-3 border-t border-paper/10 bg-ink/95 px-4 py-3 backdrop-blur-md sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0">
+            <div className="flex items-center justify-between gap-3 sm:hidden">
+              <p className="truncate font-display text-sm font-bold">{product.shortName}</p>
+              <p className="shrink-0 font-mono text-sm text-gold">{formatGbp(product.priceGbp)}</p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row">
             <button
               type="button"
               onClick={onAdd}
@@ -188,6 +238,7 @@ export function ProductView({ product }: { product: Product }) {
                 </button>
               </>
             ) : null}
+            </div>
           </div>
         </div>
 
@@ -228,9 +279,9 @@ export function ProductView({ product }: { product: Product }) {
         >
           <div className="relative aspect-square w-full max-w-3xl bg-white p-4" onClick={(e) => e.stopPropagation()}>
             <GarmentImage
-              src={img}
-              hex={colors?.find((c) => c.id === color)?.hex}
-              recolor={!product.imagesByColor?.[color]}
+              src={displaySrc}
+              hex={hex}
+              recolor={displayRecolor}
               alt={product.name}
             />
             <button
