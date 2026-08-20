@@ -1,5 +1,9 @@
-import path from "path";
 import type { Product } from "./products";
+
+function fileBase(image: string) {
+  const name = (image.split("/").pop() ?? image).split("?")[0] ?? image;
+  return name.replace(/\.[a-z0-9]+$/i, "");
+}
 
 /** What the photo file looks like. Null = cannot tell from the name. */
 export function filenamePhotoKind(base: string): string | null {
@@ -96,7 +100,7 @@ const KIND_OK: Record<string, string[]> = {
 
 /** True when the listing is a hat/hoodie/etc but the photo file is clearly another object (usually a tee). */
 export function photoKindMismatch(product: Product): boolean {
-  const file = filenamePhotoKind(path.basename(product.image, path.extname(product.image)));
+  const file = filenamePhotoKind(fileBase(product.image));
   if (!file) return false;
   const expect = expectedPhotoKind(product);
   const ok = KIND_OK[expect] ?? [expect];

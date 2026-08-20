@@ -23,6 +23,7 @@ Version **0.7.19** (20 Aug 2026 storefront QA). Strapline: **Stack sats. Wear �
 - Glass, mugs, prints, stickers, pins: no colour swatches.
 - New edition IDs are `SH-`. Old `HM-` IDs stay (printed on those pieces) — do not mass-rename.
 - After every merge: Control+C, `rm -rf .next`, SYNC. `npm run qa` must be 0 errors (`qa:catalog` + `qa:storefront` + `qa:payments`).
+- A blank white **Internal Server Error** after clicking around is the Next default crash page. Recolour now runs at display size (not 1500px canvases), catalog helpers do not import Node `path` on the client, and `app/error.tsx` shows a STACKHOUSE retry instead of a blank page. Still SYNC if it happens.
 
 **Colour must match the photo.** Picking Bone on Genesis used to leave the black tee looking mottled olive — the old tint kept the dark pixels. Recolour now maps the cloth to the swatch (Bone = cream, Ink = black) on every garment, bag, hat, and swim piece. White tees recolour to dark colours; orange tees/caps recolour too (the whole shirt is not treated as the ₿). Grainy grey studio paper on dark garments was bleached to pure white. `npm run qa:catalog` fails `color-match` and `grain`. Do not flood-bleach cream totes or white mugs. After merge: Control+C, `rm -rf .next`, SYNC. Check http://127.0.0.1:3001/product/genesis-2009-tee — Bone must be cream.
 

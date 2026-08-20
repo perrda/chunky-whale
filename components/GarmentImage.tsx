@@ -4,6 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { paintRecolor } from "@/lib/recolor-garment";
 
 const cache = new Map<string, string>();
+const CACHE_MAX = 64;
+
+function remember(key: string, value: string) {
+  if (cache.has(key)) cache.delete(key);
+  cache.set(key, value);
+  while (cache.size > CACHE_MAX) {
+    const oldest = cache.keys().next().value;
+    if (!oldest) break;
+    cache.delete(oldest);
+  }
+}
 
 export function GarmentImage({
   src,
@@ -46,7 +57,7 @@ export function GarmentImage({
       try {
         paintRecolor(canvas, img, hex);
         const next = canvas.toDataURL("image/png");
-        cache.set(key, next);
+        remember(key, next);
         setUrl(next);
         setFailed(false);
       } catch {

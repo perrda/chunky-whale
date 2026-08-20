@@ -17,7 +17,13 @@ export default function ForgePage() {
         Later, anyone will be able to generate a mark, preview it on a garment, and buy it with a unique SH- ID.
       </p>
       <div className="relative my-10 aspect-square max-w-md">
-        <Image src="/prints/print-difficulty.png" alt="Difficulty hash lattice print" fill className="object-cover" />
+        <Image
+          src="/prints/print-difficulty.png"
+          alt="Difficulty hash lattice print"
+          fill
+          unoptimized
+          className="object-cover"
+        />
       </div>
       <ol className="space-y-4 font-serif text-paper/80">
         <li>

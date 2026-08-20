@@ -280,19 +280,24 @@ export function recolorGarmentData(image: ImageData, targetHex: string) {
   return image;
 }
 
+const DISPLAY_MAX = 720;
+
 export function paintRecolor(
   canvas: HTMLCanvasElement,
   img: HTMLImageElement,
   targetHex: string,
 ) {
-  const w = img.naturalWidth || img.width;
-  const h = img.naturalHeight || img.height;
+  const srcW = img.naturalWidth || img.width;
+  const srcH = img.naturalHeight || img.height;
+  const scale = Math.min(1, DISPLAY_MAX / Math.max(srcW, srcH, 1));
+  const w = Math.max(1, Math.round(srcW * scale));
+  const h = Math.max(1, Math.round(srcH * scale));
   canvas.width = w;
   canvas.height = h;
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
   if (!ctx) return;
   ctx.clearRect(0, 0, w, h);
-  ctx.drawImage(img, 0, 0);
+  ctx.drawImage(img, 0, 0, w, h);
   const snap = ctx.getImageData(0, 0, w, h);
   recolorGarmentData(snap, targetHex);
   ctx.putImageData(snap, 0, 0);

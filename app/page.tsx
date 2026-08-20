@@ -78,7 +78,7 @@ export default function HomePage() {
               >
                 <div className="relative aspect-square bg-white">
                   {sample ? (
-                    <Image src={sample.image} alt="" fill className="object-contain p-4" sizes="25vw" />
+                    <Image src={sample.image} alt="" fill unoptimized className="object-contain p-4" sizes="25vw" />
                   ) : null}
                 </div>
                 <div className="px-4 py-4">

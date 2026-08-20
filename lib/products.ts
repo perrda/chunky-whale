@@ -1229,8 +1229,19 @@ export const RETIRED_SLUGS = new Set([
   "difficulty-adjusts-tee",
 ]);
 
+function isShown(p: Product) {
+  if (p.retired || RETIRED_SLUGS.has(p.slug)) return false;
+  try {
+    return !photoKindMismatch(p);
+  } catch {
+    return true;
+  }
+}
+
+const LIVE = products.filter(isShown);
+
 export function liveProducts() {
-  return products.filter((p) => !p.retired && !RETIRED_SLUGS.has(p.slug) && !photoKindMismatch(p));
+  return LIVE;
 }
 
 /** Ranked pool for the homepage hero. Live sales first, then featured / trending. */
@@ -1306,7 +1317,7 @@ export function getProduct(slug: string) {
 
 export function isLiveProduct(slug: string) {
   const p = getProduct(slug);
-  return Boolean(p && !p.retired && !RETIRED_SLUGS.has(slug) && !photoKindMismatch(p));
+  return Boolean(p && isShown(p));
 }
 
 /** Looks up size × colour first; falls back to a single mapped variant. 0 = not mapped yet. */
