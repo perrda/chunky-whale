@@ -52,7 +52,7 @@ Bags, socks, phone cases, jewelry, and swimwear have colour swatches the same wa
 
 QA pass on `cursor/qa-bugfix-pass-1342`: checkout no longer pretends a missing payment rail is live; OpenNode charges pounds not 100×; NOWPayments and Coinbase webhooks verify correctly; Printful will not submit a fake or zero variant; success page only clears the basket after a demo order or a paid order; cart/checkout wait for saved basket; nav works with keyboard. Still blocked for live money: Printful variant IDs, durable order store, and David’s payment keys.
 
-Harden pass **0.7.20**: webhooks now refuse a missing or wrong amount and will not mark a demo order paid. Checkout, newsletter, and wholesale only accept requests from the shop (plus LAN while developing). `/fulfillment` no longer publishes booth freight. Catalog QA files stay off the client. Payments are still demo.
+Harden pass **0.7.20**: webhooks now refuse a missing or wrong amount and will not mark a demo order paid. Checkout, newsletter, and wholesale only accept requests from the shop (plus LAN while developing). `/fulfillment` no longer publishes booth freight. Catalog QA files stay off the client. Payments are still demo. Full route crawl: `npx tsx scripts/crawl-shop.ts` (shop must be running) — last run 282 routes, 0 errors.
 
 Drop 08: **Swimwear** — men (board shorts, rash guard, cap), women (bikinis, one-pieces, rash guard, cap), kids (youth shorts / one-piece / rash / cap, toddler swim). Unique photo per SKU. Top nav: **Swimwear** sits left of Drinkware. Swim subsections live only under Swimwear (Men / Women / Kids / Bikinis / Shorts / One-pieces / Rash guards / Caps). Collections keeps a single Swimwear link — no swim sub-links there.
 
