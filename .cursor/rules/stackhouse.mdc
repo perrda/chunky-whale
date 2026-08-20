@@ -16,5 +16,5 @@ Bitcoin merch at `~/Projects/stackhouse`. David Perry. DSP Capital Ventures Ltd 
 - Official files: GitHub `perrda/stackhouse` **`main`** only. Folder `~/Projects/stackhouse`. URL http://127.0.0.1:3001. Homepage check: “Bitcoin tees. Don’t miss the stack.”
 - The other site (“Forged, not printed.”) is `atelier-archive` — do not develop it.
 - Remind David to sync **Mac Mini and MacBook Pro** with `docs/SYNC.md` before new work and after every GitHub merge.
-- Catalog photos: writing on the image must match the title. Never clone one mug/tote/tee photo across other slogans. After SKU or image edits run `npm run qa:catalog` (must be 0 errors). If there is no unique matching photo, retire the SKU — do not borrow a neighbour’s image.
+- Catalog photos: writing on the image must match the title. Never clone one mug/tote/tee photo across other slogans. Swatch colour must match the garment in the picture (Bone = cream, not a tinted black photo). Photos are clean white studio, not grainy. After SKU or image edits run `npm run qa:catalog` (must be 0 errors). If there is no unique matching photo, retire the SKU — do not borrow a neighbour’s image.
 

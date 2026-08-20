@@ -8,7 +8,9 @@ Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + coin ₿ mark 
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.17** (19 Aug 2026 official ₿). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+Version **0.7.18** (20 Aug 2026 colour match). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+
+**Colour must match the photo.** Picking Bone on Genesis used to leave the black tee looking mottled olive — the old tint kept the dark pixels. Recolour now maps the cloth to the swatch (Bone = cream, Ink = black) on every garment, bag, hat, and swim piece. White tees recolour to dark colours; orange tees/caps recolour too (the whole shirt is not treated as the ₿). Grainy grey studio paper on dark garments was bleached to pure white. `npm run qa:catalog` fails `color-match` and `grain`. Do not flood-bleach cream totes or white mugs. After merge: Control+C, `rm -rf .next`, SYNC. Check http://127.0.0.1:3001/product/genesis-2009-tee — Bone must be cream.
 
 **HARD RULE — official Bitcoin ₿ on every product photo.** The upright “B with bars” on hoodies, tees, hats, glass, and prints was wrong. Use only the bitboy 2010 mark: `#F7931A`, **~14° clockwise**. Files: `public/brand/bitcoin-b.svg` and `public/brand/bitcoin-coin.svg`. Header `Logo.tsx` uses the same ₿ path. Render scripts must stamp that SVG — never copy a B off an old pullover. After new mockups: `npm run marks:fix` then `npm run qa:catalog` (fails `bitcoin-mark` if a live photo is still upright). Do not ship a vertical B again.
 

@@ -1291,6 +1291,14 @@ export function colorsFor(product: Product): ColorOption[] | undefined {
   return product.colors;
 }
 
+/** Start on a photographed colour so the first frame matches the studio shot. */
+export function defaultColorId(product: Product) {
+  const colors = colorsFor(product);
+  const shot = product.imagesByColor ? Object.keys(product.imagesByColor)[0] : undefined;
+  if (shot && colors?.some((c) => c.id === shot)) return shot;
+  return colors?.[0]?.id ?? "";
+}
+
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);
 }
