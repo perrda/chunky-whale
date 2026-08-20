@@ -8,7 +8,7 @@ Homepage check: **“Bitcoin merch. Don’t miss the stack.”** + three doors (
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.24** (20 Aug 2026 official ₿ lean). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + **StackHouse** wordmark (Stack + orange House). All-caps **STACKHOUSE** is the legal/meta name — do not “fix” the wordmark to one word. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop. `/fulfillment` redirects to Shipping (booth freight is not a public page).
+Version **0.7.25** (20 Aug 2026 Bitcoin Daddy tee rebuilt). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + **StackHouse** wordmark (Stack + orange House). All-caps **STACKHOUSE** is the legal/meta name — do not “fix” the wordmark to one word. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop. `/fulfillment` redirects to Shipping (booth freight is not a public page).
 
 **Do not retrace (every past catalog / UX fire):**
 - Swatch colour must match the garment in the photo. Bone = cream, never a tinted black tee.
@@ -61,7 +61,7 @@ Print clarity **0.7.22** (whole shop): Drop-07 white mugs had a ₿ hanging off 
 
 UX five-pass **0.7.23**: shop the joke (This line + HODL / So Back / 21 million collections), five-link header with search on the phone bar, product page gallery + fit line + sticky add with price, homepage three doors (Wear / Drink / Gift) instead of ten type tiles, cards show three colour dots not twelve. Header is T-Shirts / Sweatshirts / Hats / Drinkware / Shop. Women, Kids, Swimwear live under Shop. Swim chips stay on the Swimwear page only.
 
-Official ₿ lean **0.7.24**: the brand SVG was already the bitboy mark (leans right). Catalog photos were not — ₿ Mark Hoodie and other large-B shots still had the old upright 3D B, and QA treated a square orange blob as “already tilted.” Fixed: restamp those photos from the official SVG; QA now measures lean and fails a large upright or left-leaning ₿. Do not flip `bitcoin-b.svg`. Check `/product/b-mark-hoodie` — the ₿ leans the same way as the header coin.
+Official ₿ lean **0.7.24–0.7.25**: the brand SVG was already the bitboy mark (leans right). Catalog photos were not. **0.7.25** rebuilds Bitcoin Daddy tee / hoodie / longsleeve (and Mummy matches) from ghost templates with a **visible** clockwise ₿ — the old 3D B on `/product/bitcoin-daddy-tee` is gone. Garment stamps use `garmentMarkPng` (official SVG + 16° clockwise) so the lean reads at card size. QA fails Daddy/Mummy/mark-only SKUs if the ₿ is upright or leans left. Do not flip `bitcoin-b.svg`. Check `/product/bitcoin-daddy-tee` then `/product/b-mark-hoodie`.
 
 Drop 08: **Swimwear** — men (board shorts, rash guard, cap), women (bikinis, one-pieces, rash guard, cap), kids (youth shorts / one-piece / rash / cap, toddler swim). Unique photo per SKU. Top nav: **Swimwear** sits left of Drinkware. Swim subsections live only under Swimwear (Men / Women / Kids / Bikinis / Shorts / One-pieces / Rash guards / Caps). Collections keeps a single Swimwear link — no swim sub-links there.
 

@@ -11,7 +11,7 @@ David Perry. Project `~/Projects/stackhouse`. GitHub `perrda/stackhouse`. Mercha
 
 - Bitcoin merch Bitcoiners actually want. Fun, humorous, and serious. Ghost-mannequin tees on white, like a proper merch grid.
 - Visuals **must** include Bitcoin language: the **official ₿** (bitboy 2010), orange `#F7931A`, 21 million, Satoshi, white paper, HODL, stack sats.
-- **HARD RULE — official ₿ only.** The mark is the bitboy coin/₿: orange `#F7931A`, white ₿ on the coin, **tilted ~14° clockwise (leans right)**. Never a straight-up B. Never a left-leaning B. Never a generic B with two bars pasted through it. Stamp from `public/brand/bitcoin-b.svg` or `public/brand/bitcoin-coin.svg`. Do not flip those files. Do not extract a B from an old mockup. `npm run qa:catalog` fails `bitcoin-mark` if a large live ₿ is upright or leans left. Mark-only sweats: `scripts/render-sweat-mockups.mjs`. Unique tees/hats: `scripts/restamp-mark-only.mjs`. Then `npm run marks:fix` if needed.
+- **HARD RULE — official ₿ only.** The mark is the bitboy coin/₿: orange `#F7931A`, white ₿ on the coin, **tilted clockwise (leans right)**. Never a straight-up B. Never a left-leaning B. Never a generic B with two bars pasted through it. Stamp from `public/brand/bitcoin-b.svg` via `garmentMarkPng` (adds a visible clockwise lean at card size). Do not flip the brand files. Do not extract a B from an old mockup. Rebuild slogan tees with `scripts/render-tee-mockups.mjs` (Bitcoin Daddy tee lives there). Sweats: `scripts/render-sweat-mockups.mjs`. `npm run qa:catalog` fails `bitcoin-mark` on Daddy/Mummy/mark-only SKUs if the ₿ is upright or leans left.
 - Ember `#E85D04` is the site UI seal. Garment orange is classic Bitcoin orange.
 - One joke or one mark per piece. ₿ appears on almost every SKU.
 
