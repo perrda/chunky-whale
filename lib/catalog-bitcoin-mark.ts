@@ -6,8 +6,17 @@ import sharp from "sharp";
 const BITCOIN_B = path.join(process.cwd(), "public/brand/bitcoin-b.svg");
 const BITCOIN_COIN = path.join(process.cwd(), "public/brand/bitcoin-coin.svg");
 
-/** Official ₿ spine is ~11–16° off vertical. A fake upright B is under ~6°. */
+/** Official ₿ spine is ~11–16° off vertical, leaning right (clockwise). */
 export const MIN_OFFICIAL_TILT_DEG = 2.2;
+
+/**
+ * top-mean-X minus bottom-mean-X, divided by blob height.
+ * Official bitboy on a garment stamp is ~+0.016 (≈0.9°) at 384px.
+ * The old upright 3D B is ~0.000–0.007.
+ */
+export const MIN_CLOCKWISE_LEAN = 0.012;
+
+export type MarkLean = "clockwise" | "ccw" | "upright" | "none";
 
 function rgbToHsl(r: number, g: number, b: number): [number, number, number] {
   r /= 255;
@@ -43,36 +52,40 @@ export function officialMarkLooksLocked() {
   return b.includes("M46.11,27.441") && coin.includes("M46.11,27.441") && coin.includes("#F7931A");
 }
 
-export async function largestOrangeMarkTilt(absPath: string): Promise<{
-  found: boolean;
-  tilt: number;
-  upright: boolean;
-}> {
-  const { data, info } = await sharp(absPath)
-    .resize(384, 384, { fit: "inside" })
-    .ensureAlpha()
-    .raw()
-    .toBuffer({ resolveWithObject: true });
-  const w = info.width;
-  const h = info.height;
-  const mask: number[] = [];
+type Blob = {
+  cells: number[];
+  minx: number;
+  maxx: number;
+  miny: number;
+  maxy: number;
+  bw: number;
+  bh: number;
+  area: number;
+  cx: number;
+  cy: number;
+};
+
+function blobsFromOrange(data: Buffer, w: number, h: number): Blob[] {
+  const seen = new Uint8Array(w * h);
+  const blobs: Blob[] = [];
   for (let i = 0; i < w * h; i++) {
     const o = i * 4;
-    if (isOrange(data[o], data[o + 1], data[o + 2])) mask.push(i);
-  }
-  if (mask.length < 40) return { found: false, tilt: 0, upright: false };
-
-  const seen = new Uint8Array(w * h);
-  const groups: number[][] = [];
-  for (const start of mask) {
-    if (seen[start]) continue;
-    const q = [start];
-    seen[start] = 1;
-    const cells = [start];
+    if (seen[i] || !isOrange(data[o], data[o + 1], data[o + 2])) continue;
+    const q = [i];
+    seen[i] = 1;
+    const cells = [i];
+    let minx = w;
+    let maxx = 0;
+    let miny = h;
+    let maxy = 0;
     while (q.length) {
       const p = q.pop()!;
       const x = p % w;
       const y = (p - x) / w;
+      if (x < minx) minx = x;
+      if (x > maxx) maxx = x;
+      if (y < miny) miny = y;
+      if (y > maxy) maxy = y;
       for (const [dx, dy] of [
         [1, 0],
         [-1, 0],
@@ -84,79 +97,132 @@ export async function largestOrangeMarkTilt(absPath: string): Promise<{
         if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;
         const n = ny * w + nx;
         if (seen[n]) continue;
-        const o = n * 4;
-        if (!isOrange(data[o], data[o + 1], data[o + 2])) continue;
+        const no = n * 4;
+        if (!isOrange(data[no], data[no + 1], data[no + 2])) continue;
         seen[n] = 1;
         q.push(n);
         cells.push(n);
       }
     }
-    if (cells.length >= 40) groups.push(cells);
+    if (cells.length < 40) continue;
+    const bw = maxx - minx + 1;
+    const bh = maxy - miny + 1;
+    blobs.push({
+      cells,
+      minx,
+      maxx,
+      miny,
+      maxy,
+      bw,
+      bh,
+      area: cells.length,
+      cx: (minx + maxx) / 2,
+      cy: (miny + maxy) / 2,
+    });
   }
-  const scored = groups
-    .map((cells) => {
-      let minx = w;
-      let maxx = 0;
-      let miny = h;
-      let maxy = 0;
-      for (const p of cells) {
-        const x = p % w;
-        const y = (p - x) / w;
-        if (x < minx) minx = x;
-        if (x > maxx) maxx = x;
-        if (y < miny) miny = y;
-        if (y > maxy) maxy = y;
-      }
-      const bw = maxx - minx + 1;
-      const bh = maxy - miny + 1;
-      const aspect = bw / bh;
-      const fill = cells.length / (bw * bh);
-      const bLike = aspect >= 0.4 && aspect <= 1.35 && fill >= 0.16 && fill <= 0.82;
-      return { cells, score: bLike ? cells.length : cells.length * 0.15 };
-    })
-    .sort((a, b) => b.score - a.score);
-  const best = scored[0]?.cells ?? [];
-  if (best.length < 40) return { found: false, tilt: 0, upright: false };
+  return blobs;
+}
 
-  let minx = w;
-  let maxx = 0;
-  let miny = h;
-  let maxy = 0;
-  let mx = 0;
-  let my = 0;
-  for (const p of best) {
+function looksLikeB(blob: Blob, w: number, h: number) {
+  const aspect = blob.bw / blob.bh;
+  if (blob.bh < 16 && blob.bh < h * 0.05) return false;
+  if (blob.bw > w * 0.42 || blob.bh > h * 0.4) return false;
+  if (aspect < 0.4 || aspect > 1.4) return false;
+  const fill = blob.area / (blob.bw * blob.bh);
+  // Official ₿ fill is ~0.55–0.65. A solid orange circle (tote coin) is ~0.75+.
+  if (fill < 0.16 || fill > 0.70) return false;
+  return true;
+}
+
+function isTextRow(blob: Blob, others: Blob[]) {
+  const peers = others.filter((o) => {
+    if (o === blob) return false;
+    const dy = Math.abs(o.cy - blob.cy);
+    const hs = Math.abs(o.bh - blob.bh) / Math.max(blob.bh, 1);
+    return dy < blob.bh * 0.55 && hs < 0.45 && o.bh < blob.bh * 1.35;
+  });
+  return peers.length >= 2;
+}
+
+function blobLean(blob: Blob, w: number): { dx: number; ratio: number; lean: MarkLean } {
+  const tCut = blob.miny + blob.bh * 0.22;
+  const bCut = blob.maxy - blob.bh * 0.22;
+  let tN = 0;
+  let tX = 0;
+  let bN = 0;
+  let bX = 0;
+  for (const p of blob.cells) {
     const x = p % w;
     const y = (p - x) / w;
-    mx += x;
-    my += y;
-    if (x < minx) minx = x;
-    if (x > maxx) maxx = x;
-    if (y < miny) miny = y;
-    if (y > maxy) maxy = y;
+    if (y <= tCut) {
+      tN += 1;
+      tX += x;
+    }
+    if (y >= bCut) {
+      bN += 1;
+      bX += x;
+    }
   }
-  const bh = maxy - miny + 1;
-  const bw = maxx - minx + 1;
-  const fill = best.length / (bw * bh);
-  if (bh < 12 || bw / bh > 1.6 || bw / bh < 0.35) return { found: false, tilt: 0, upright: false };
-  if (bw / bh > 0.78 && bw / bh < 1.28 && fill > 0.38) {
-    return { found: true, tilt: 14, upright: false };
-  }
+  if (tN < 8 || bN < 8) return { dx: 0, ratio: 0, lean: "none" };
+  const dx = tX / tN - bX / bN;
+  const ratio = dx / blob.bh;
+  const lean: MarkLean =
+    ratio > MIN_CLOCKWISE_LEAN ? "clockwise" : ratio < -MIN_CLOCKWISE_LEAN ? "ccw" : "upright";
+  return { dx, ratio, lean };
+}
 
-  mx /= best.length;
-  my /= best.length;
-  let xx = 0;
-  let xy = 0;
-  let yy = 0;
-  for (const p of best) {
-    const x = p % w - mx;
-    const y = (p - (p % w)) / w - my;
-    xx += x * x;
-    xy += x * y;
-    yy += y * y;
+export async function largestOrangeMarkTilt(absPath: string): Promise<{
+  found: boolean;
+  tilt: number;
+  upright: boolean;
+  lean: MarkLean;
+  clockwise: boolean;
+  primary: boolean;
+}> {
+  const empty = {
+    found: false,
+    tilt: 0,
+    upright: false,
+    lean: "none" as MarkLean,
+    clockwise: false,
+    primary: false,
+  };
+  const { data, info } = await sharp(absPath)
+    .resize(512, 512, { fit: "inside" })
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  const w = info.width;
+  const h = info.height;
+  let garment = 0;
+  let orange = 0;
+  for (let i = 0; i < w * h; i++) {
+    const o = i * 4;
+    if (data[o + 3] < 80) continue;
+    const r = data[o];
+    const g = data[o + 1];
+    const b = data[o + 2];
+    const [, s, l] = rgbToHsl(r, g, b);
+    if (l < 0.93 || s > 0.12) garment += 1;
+    if (isOrange(r, g, b)) orange += 1;
   }
-  const n = best.length;
-  const angle = 0.5 * Math.atan2((2 * xy) / n, xx / n - yy / n);
-  const fromVertical = Math.abs(90 - Math.abs((angle * 180) / Math.PI));
-  const tilt = Math.min(fromVertical, 180 - fromVertical);
-  return { found: true, tilt, upright: tilt < MIN_OFFICIAL_TILT_DEG };
+  // Orange cloth (Bitcoin-orange garment) — do not treat the shirt as a ₿.
+  if (garment > 0 && orange / garment > 0.22) return empty;
+
+  const blobs = blobsFromOrange(data as Buffer, w, h);
+  const candidates = blobs
+    .filter((b) => looksLikeB(b, w, h) && !isTextRow(b, blobs))
+    .sort((a, b) => b.area - a.area);
+  const best = candidates[0];
+  if (!best) return empty;
+
+  const { ratio, lean } = blobLean(best, w);
+  if (lean === "none") return empty;
+
+  const tilt = Math.abs(Math.atan(ratio) * (180 / Math.PI));
+  const clockwise = lean === "clockwise";
+  const upright = lean === "upright" || lean === "ccw";
+  // Chest-filling ₿ (hoodie / hat / mark tee). A 20px badge next to a slogan is not this check.
+  const primary = best.bh >= h * 0.16 || best.area >= w * h * 0.022;
+  return { found: true, tilt, upright, lean, clockwise, primary };
 }

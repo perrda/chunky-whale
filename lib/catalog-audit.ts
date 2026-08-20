@@ -123,17 +123,29 @@ export async function auditCatalogImages(
           detail: `Studio backdrop is grainy (score ${grain.grain.toFixed(1)}). Catalog photos must be clean white, not speckled.`,
         });
       }
-      const jewelry = productObject(p) === "pendant" || productObject(p) === "bracelet";
-      const mark = jewelry ? { found: false, tilt: 0, upright: false } : await largestOrangeMarkTilt(abs);
-      if (mark.found && mark.upright) {
-        issues.push({
-          severity: "error",
-          code: "bitcoin-mark",
-          slug: p.slug,
-          name: p.name,
-          image: p.image,
-          detail: `Bitcoin mark is upright (${mark.tilt.toFixed(1)}° off vertical). Use the official bitboy ₿ — ~14° clockwise, #F7931A. Never a vertical B.`,
-        });
+      const skipMark = ["pendant", "bracelet", "mug", "tote", "tumbler", "pint", "coaster"].includes(
+        productObject(p),
+      );
+      const markImages = skipMark
+        ? []
+        : [p.image, ...Object.values(p.imagesByColor ?? {})].filter((v, i, a) => a.indexOf(v) === i);
+      for (const image of markImages) {
+        const markAbs = path.join(publicDir, image.replace(/^\//, ""));
+        if (!existsSync(markAbs)) continue;
+        const mark = await largestOrangeMarkTilt(markAbs);
+        if (mark.found && mark.primary && !mark.clockwise) {
+          issues.push({
+            severity: "error",
+            code: "bitcoin-mark",
+            slug: p.slug,
+            name: p.name,
+            image,
+            detail:
+              mark.lean === "ccw"
+                ? `Bitcoin mark leans left / counter-clockwise. Official bitboy ₿ leans ~14° right (clockwise), #F7931A.`
+                : `Bitcoin mark is upright (${mark.tilt.toFixed(1)}° off vertical). Use the official bitboy ₿ — ~14° clockwise, #F7931A. Never a vertical B.`,
+          });
+        }
       }
     }
 
