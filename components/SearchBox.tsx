@@ -66,7 +66,7 @@ export function SearchBox({ variant = "nav" }: { variant?: "nav" | "mobile" }) {
   }
 
   return (
-    <div ref={wrap} className={variant === "mobile" ? "relative w-full" : "relative hidden w-full justify-center md:flex"}>
+    <div ref={wrap} className="relative flex w-full justify-center">
       <form onSubmit={onSubmit} className="flex w-full justify-center">
         <label className="sr-only" htmlFor={id}>
           Search
@@ -87,7 +87,7 @@ export function SearchBox({ variant = "nav" }: { variant?: "nav" | "mobile" }) {
           aria-controls={`${id}-suggest`}
           aria-autocomplete="list"
           aria-activedescendant={active >= 0 ? `${id}-opt-${active}` : undefined}
-          className="w-full max-w-md rounded-full border border-paper/20 bg-surface px-4 py-2 font-serif text-sm text-paper placeholder:text-muted md:w-80"
+          className="w-full max-w-[11rem] rounded-full border border-paper/20 bg-surface px-3 py-1.5 font-serif text-sm text-paper placeholder:text-muted sm:max-w-md sm:px-4 sm:py-2 md:w-80"
         />
       </form>
       {open && hits.length > 0 ? (

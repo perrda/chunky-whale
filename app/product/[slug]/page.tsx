@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { LineStrip } from "@/components/LineStrip";
 import { ProductView } from "@/components/ProductView";
 import { RelatedProducts } from "@/components/RelatedProducts";
 import { getProduct, isLiveProduct, liveProducts } from "@/lib/products";
@@ -29,7 +30,8 @@ export default async function ProductPage({ params }: Props) {
   return (
     <>
       <ProductView product={product} />
-      <RelatedProducts slug={product.slug} />
+      <LineStrip product={product} />
+      <RelatedProducts slug={product.slug} excludeLine />
     </>
   );
 }
