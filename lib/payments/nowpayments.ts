@@ -1,3 +1,6 @@
+import "server-only";
+import { fiatMajorAmount } from "@/lib/payments/amount";
+
 export async function createNowPaymentsInvoice(input: {
   orderId: string;
   amountGbp: number;
@@ -14,7 +17,7 @@ export async function createNowPaymentsInvoice(input: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      price_amount: input.amountGbp,
+      price_amount: fiatMajorAmount(input.amountGbp),
       price_currency: "gbp",
       pay_currency: input.payCurrency,
       order_id: input.orderId,

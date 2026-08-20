@@ -8,7 +8,7 @@ Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + coin ₿ mark 
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.19** (20 Aug 2026 storefront QA). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + **StackHouse** wordmark (Stack + orange House). All-caps **STACKHOUSE** is the legal/meta name — do not “fix” the wordmark to one word. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+Version **0.7.20** (20 Aug 2026 harden). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + **StackHouse** wordmark (Stack + orange House). All-caps **STACKHOUSE** is the legal/meta name — do not “fix” the wordmark to one word. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop. `/fulfillment` redirects to Shipping (booth freight is not a public page).
 
 **Do not retrace (every past catalog / UX fire):**
 - Swatch colour must match the garment in the photo. Bone = cream, never a tinted black tee.
@@ -23,6 +23,8 @@ Version **0.7.19** (20 Aug 2026 storefront QA). Strapline: **Stack sats. Wear �
 - Glass, mugs, prints, stickers, pins: no colour swatches.
 - New edition IDs are `SH-`. Old `HM-` IDs stay (printed on those pieces) — do not mass-rename.
 - After every merge: Control+C, `rm -rf .next`, SYNC. `npm run qa` must be 0 errors (`qa:catalog` + `qa:storefront` + `qa:payments`).
+- A blank white **Internal Server Error** after clicking around is the Next default crash page. Recolour now runs at display size (not 1500px canvases), catalog helpers do not import Node `path` on the client, and `app/error.tsx` shows a STACKHOUSE retry instead of a blank page. Still SYNC if it happens.
+- Webhooks must match the paid amount to `basketTotals()` (items + shipping). Missing amount, wrong amount, or a demo order = do not mark paid, do not send to Printful. Checkout / newsletter / wholesale must come from the shop origin and are rate-limited. Do not import `lib/catalog-audit.ts` (or color/grain/studio/bitcoin-mark) into a client component — those use fs/sharp. `/fulfillment` is not a public ops page.
 
 **Colour must match the photo.** Picking Bone on Genesis used to leave the black tee looking mottled olive — the old tint kept the dark pixels. Recolour now maps the cloth to the swatch (Bone = cream, Ink = black) on every garment, bag, hat, and swim piece. White tees recolour to dark colours; orange tees/caps recolour too (the whole shirt is not treated as the ₿). Grainy grey studio paper on dark garments was bleached to pure white. `npm run qa:catalog` fails `color-match` and `grain`. Do not flood-bleach cream totes or white mugs. After merge: Control+C, `rm -rf .next`, SYNC. Check http://127.0.0.1:3001/product/genesis-2009-tee — Bone must be cream.
 
@@ -49,6 +51,8 @@ Bags, socks, phone cases, jewelry, and swimwear have colour swatches the same wa
 **Catalog photo rule (do not break again):** every live SKU needs its own photo whose writing matches the title. Drop 07 had cloned STRATEGIC RESERVE onto every mug, HARD MONEY onto extra totes, and other slogans onto family/jewelry clones. Fixed: unique mug/tumbler/pint/coaster/tote shots; clones without a real photo are retired. Guard: `npm run qa:catalog` (also runs before production build). If the audit fails, do not ship.
 
 QA pass on `cursor/qa-bugfix-pass-1342`: checkout no longer pretends a missing payment rail is live; OpenNode charges pounds not 100×; NOWPayments and Coinbase webhooks verify correctly; Printful will not submit a fake or zero variant; success page only clears the basket after a demo order or a paid order; cart/checkout wait for saved basket; nav works with keyboard. Still blocked for live money: Printful variant IDs, durable order store, and David’s payment keys.
+
+Harden pass **0.7.20**: webhooks now refuse a missing or wrong amount and will not mark a demo order paid. Checkout, newsletter, and wholesale only accept requests from the shop (plus LAN while developing). `/fulfillment` no longer publishes booth freight. Catalog QA files stay off the client. Payments are still demo.
 
 Drop 08: **Swimwear** — men (board shorts, rash guard, cap), women (bikinis, one-pieces, rash guard, cap), kids (youth shorts / one-piece / rash / cap, toddler swim). Unique photo per SKU. Top nav: **Swimwear** sits left of Drinkware. Swim subsections live only under Swimwear (Men / Women / Kids / Bikinis / Shorts / One-pieces / Rash guards / Caps). Collections keeps a single Swimwear link — no swim sub-links there.
 

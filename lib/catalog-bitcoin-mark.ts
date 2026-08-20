@@ -1,3 +1,4 @@
+/** Server / QA only. Do not import from client components — uses fs/sharp. */
 import { readFileSync, existsSync } from "fs";
 import path from "path";
 import sharp from "sharp";

@@ -1,3 +1,4 @@
+/** Server / QA only. Do not import from client components — uses path/sharp. */
 import path from "path";
 import sharp from "sharp";
 import { CLOTHING_COLORS } from "./drop-07";

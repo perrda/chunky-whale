@@ -3,7 +3,10 @@
  * Run: npm run qa:storefront
  */
 import assert from "node:assert/strict";
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import path from "node:path";
 import { SHOP_FILTERS, SHOP_MORE_FILTERS, MEGA_NAV } from "../lib/nav";
+import { gbpAmountsMatch, gbpToPence, penceMatchesGbp } from "../lib/payments/amount";
 import { liveProducts, productsIn, takesColourways } from "../lib/products";
 import { basketTotals } from "../lib/shipping";
 
@@ -61,6 +64,34 @@ assert.equal(totals.totalGbp, totals.itemsGbp + totals.shipGbp);
 const us = basketTotals([{ category: "tees", qty: 1, priceGbp: 28 }], "US");
 const row = basketTotals([{ category: "tees", qty: 1, priceGbp: 28 }], "AE");
 assert.ok(row.shipGbp >= us.shipGbp, "rest-of-world should not be cheaper than US");
+
+assert.equal(gbpToPence(totals.totalGbp), Math.round(totals.totalGbp * 100));
+assert.equal(penceMatchesGbp(32, 32), false, "32 pence must not confirm a £32 order (100×)");
+assert.equal(gbpAmountsMatch(32, 0.32), false);
+
+const checkoutSrc = readFileSync(path.join(process.cwd(), "app/api/checkout/route.ts"), "utf8");
+assert.match(checkoutSrc, /basketTotals/);
+assert.match(checkoutSrc, /guardShopPost/);
+assert.match(checkoutSrc, /liveProducts/);
+
+const stripeWh = readFileSync(path.join(process.cwd(), "app/api/webhooks/stripe/route.ts"), "utf8");
+assert.match(stripeWh, /confirmPaidOrder/);
+assert.match(stripeWh, /paidPence/);
+assert.doesNotMatch(stripeWh, /ignored:\s*true/);
+
+const BANNED_PUBLIC = /Forged, not printed|Event Plan|MENA booth|Bitcoin MENA|booth restock/i;
+function walk(dir: string, out: string[] = []) {
+  for (const name of readdirSync(dir)) {
+    const p = path.join(dir, name);
+    if (statSync(p).isDirectory()) walk(p, out);
+    else if (/\.(tsx|ts)$/.test(name)) out.push(p);
+  }
+  return out;
+}
+for (const file of [...walk(path.join(process.cwd(), "app")), ...walk(path.join(process.cwd(), "components"))]) {
+  const text = readFileSync(file, "utf8");
+  assert.ok(!BANNED_PUBLIC.test(text), `public copy mentions booth/event plan: ${path.relative(process.cwd(), file)}`);
+}
 
 console.log("qa:storefront ok", {
   live: live.length,

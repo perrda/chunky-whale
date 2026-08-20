@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { guardShopPost } from "@/lib/request-guard";
 
 const schema = z.object({
   name: z.string().min(2),
@@ -9,6 +10,8 @@ const schema = z.object({
 });
 
 export async function POST(req: Request) {
+  const blocked = guardShopPost(req, "wholesale", 5, 10 * 60_000);
+  if (blocked) return blocked;
   const json = await req.json().catch(() => null);
   const parsed = schema.safeParse(json);
   if (!parsed.success) {

@@ -1,3 +1,4 @@
+import "server-only";
 import { hmacHex, safeEqualHex } from "@/lib/hmac";
 
 export function sortKeysDeep(value: unknown): unknown {

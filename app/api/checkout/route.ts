@@ -8,6 +8,7 @@ import { createStripeCheckout } from "@/lib/payments/stripe";
 import { createOpenNodeCharge } from "@/lib/payments/opennode";
 import { createCoinbaseCharge } from "@/lib/payments/coinbase";
 import { createNowPaymentsInvoice } from "@/lib/payments/nowpayments";
+import { guardShopPost } from "@/lib/request-guard";
 
 const bodySchema = z.object({
   email: z.string().email(),
@@ -31,6 +32,8 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: Request) {
+  const blocked = guardShopPost(req, "checkout", 10, 10 * 60_000);
+  if (blocked) return blocked;
   const json = await req.json().catch(() => null);
   const parsed = bodySchema.safeParse(json);
   if (!parsed.success) {

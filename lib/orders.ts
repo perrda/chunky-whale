@@ -1,3 +1,4 @@
+import "server-only";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 
@@ -71,7 +72,12 @@ export async function markPaid(id: string, providerRef?: string) {
     const orders = await load();
     const i = orders.findIndex((o) => o.id === id);
     if (i < 0) return null;
+    if (orders[i].demo) {
+      console.error("Refused to mark a demo order paid", id);
+      return null;
+    }
     if (orders[i].status === "paid") return orders[i];
+    if (orders[i].status === "failed") return null;
     orders[i] = { ...orders[i], status: "paid", providerRef: providerRef ?? orders[i].providerRef };
     await save(orders);
     return orders[i];

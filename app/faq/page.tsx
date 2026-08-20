@@ -52,7 +52,7 @@ export default function FaqPage() {
         ))}
       </dl>
       <p className="mt-10 font-serif text-sm">
-        Fulfilment map: <Link href="/fulfillment" className="text-ember">Who ships</Link>
+        Who prints and ships: <Link href="/shipping" className="text-ember">Shipping</Link>
         . Email <Link href={`mailto:${site.email}`} className="text-ember">{site.email}</Link>
       </p>
     </div>

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { GarmentImage } from "@/components/GarmentImage";
-import { cartTotalGbp, useCart } from "@/lib/cart-store";
+import { useCart } from "@/lib/cart-store";
 import {
   colorLabel,
   colorsFor,
@@ -14,7 +14,7 @@ import {
   productImage,
   sizeLabel,
 } from "@/lib/products";
-import { estimateShippingGbp, regionForCountry } from "@/lib/shipping";
+import { basketTotals, regionForCountry } from "@/lib/shipping";
 import { useAuth } from "@/lib/auth-store";
 import { usePersistReady } from "@/lib/use-persist-ready";
 
@@ -86,7 +86,6 @@ export default function CheckoutPage() {
     }
   }, [anyLive, liveById, method]);
 
-  const total = cartTotalGbp(items);
   const ready = cartReady && authReady;
 
   const lines = useMemo(
@@ -99,6 +98,16 @@ export default function CheckoutPage() {
     [items],
   );
   const stale = lines.some((l) => !l.live);
+  const money = useMemo(
+    () =>
+      basketTotals(
+        lines
+          .filter((l) => l.live && l.product)
+          .map((l) => ({ category: l.product!.category, qty: l.qty, priceGbp: l.product!.priceGbp })),
+        country,
+      ),
+    [lines, country],
+  );
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -154,13 +163,6 @@ export default function CheckoutPage() {
       </div>
     );
   }
-
-  const ship = estimateShippingGbp(
-    lines
-      .filter((l) => l.live && l.product)
-      .map((l) => ({ category: l.product!.category, qty: l.qty })),
-    country,
-  );
 
   return (
     <div className="mx-auto grid max-w-5xl gap-12 px-4 py-14 md:grid-cols-2 md:px-6">
@@ -268,7 +270,7 @@ export default function CheckoutPage() {
           disabled={busy || stale || (!rails && !railsError) || !methodAllowed(method)}
           className="bg-ember px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-ink disabled:opacity-60"
         >
-          {busy ? "Starting payment…" : `Pay ${formatGbp(total + ship)}`}
+          {busy ? "Starting payment…" : `Pay ${formatGbp(money.totalGbp)}`}
         </button>
         <p className="font-serif text-sm text-muted">
           {!rails
@@ -327,14 +329,14 @@ export default function CheckoutPage() {
         </ul>
         <div className="mt-6 space-y-2 border-t border-paper/15 pt-4">
           <p className="flex justify-between font-serif text-sm">
-            Items <span className="font-mono text-gold">{formatGbp(total)}</span>
+            Items <span className="font-mono text-gold">{formatGbp(money.itemsGbp)}</span>
           </p>
           <p className="flex justify-between font-serif text-sm text-paper/75">
             Shipping estimate ({regionForCountry(country).label}){" "}
-            <span className="font-mono">{formatGbp(ship)}</span>
+            <span className="font-mono">{formatGbp(money.shipGbp)}</span>
           </p>
           <p className="flex justify-between font-display text-lg">
-            Estimated total <span className="font-mono text-gold">{formatGbp(total + ship)}</span>
+            Estimated total <span className="font-mono text-gold">{formatGbp(money.totalGbp)}</span>
           </p>
         </div>
         <p className="mt-4 font-serif text-sm text-paper/70">

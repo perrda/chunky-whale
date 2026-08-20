@@ -20,7 +20,7 @@ You should see **“Bitcoin tees. Don’t miss the stack.”** on both machines.
 
 Open [Genesis 2009](http://127.0.0.1:3001/product/genesis-2009-tee) and tap **Bone**. The shirt must be cream, not a dark mottled tee.
 
-On the shop page, **More → Mummy & Daddy** must show the parent pieces, not “Nothing matches.” Drinkware must include the log-chart mug. Checkout total must match items + the shipping line.
+On the shop page, **More → Mummy & Daddy** must show the parent pieces, not “Nothing matches.” Drinkware must include the log-chart mug. Checkout total must match items + the shipping line. Checkout still says **demo** until your keys are in. `/fulfillment` should send you to Shipping — that page must not talk about booths.
 
 If Drinkware still looks like only mugs and tumblers, the old process is still running. Control+C, then the block again. Direct pages: [Whiskey glasses](http://127.0.0.1:3001/collection/whiskey-glasses) and [Shot glasses](http://127.0.0.1:3001/collection/shot-glasses).
 
