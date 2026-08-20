@@ -26,7 +26,9 @@ export function ProductView({ product }: { product: Product }) {
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [zoom, setZoom] = useState(false);
-  const soldOut = Boolean(product.limited && (product.remaining ?? 0) <= 0);
+  const remaining = product.limited ? Math.max(0, product.remaining ?? 0) : 20;
+  const soldOut = Boolean(product.limited && remaining <= 0);
+  const qtyMax = Math.max(1, Math.min(20, remaining || 20));
   const img = productImage(product, color || undefined);
   const crumb = collectionFor(product);
   const chartKind =
@@ -38,8 +40,13 @@ export function ProductView({ product }: { product: Product }) {
 
   useEffect(() => {
     if (!zoom) return;
+    const close = document.getElementById("product-zoom-close");
+    close?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setZoom(false);
+      if (e.key !== "Tab") return;
+      e.preventDefault();
+      close?.focus();
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
@@ -143,13 +150,13 @@ export function ProductView({ product }: { product: Product }) {
             <input
               type="number"
               min={1}
-              max={20}
+              max={qtyMax}
               inputMode="numeric"
               value={qty}
               onChange={(e) => {
                 const n = Number(e.target.value);
                 if (!Number.isFinite(n)) return;
-                setQty(Math.min(20, Math.max(1, Math.round(n))));
+                setQty(Math.min(qtyMax, Math.max(1, Math.round(n))));
               }}
               className="mt-2 w-20 border border-paper/20 bg-ink px-3 py-2 font-mono text-sm text-paper"
             />
@@ -227,6 +234,7 @@ export function ProductView({ product }: { product: Product }) {
               alt={product.name}
             />
             <button
+              id="product-zoom-close"
               type="button"
               onClick={() => setZoom(false)}
               className="absolute right-3 top-3 bg-ink px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-paper"

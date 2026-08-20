@@ -68,6 +68,9 @@ export function Footer() {
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-gold">House</p>
           <ul className="mt-3 space-y-2 font-serif text-sm text-paper/80">
             <li>
+              <Link href="/wholesale">Wholesale</Link>
+            </li>
+            <li>
               <Link href="/about">About</Link>
             </li>
             <li>

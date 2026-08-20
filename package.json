@@ -1,6 +1,6 @@
 {
   "name": "stackhouse",
-  "version": "0.7.18",
+  "version": "0.7.19",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -9,8 +9,10 @@
     "lint": "eslint",
     "qa:payments": "node scripts/qa-payments.mjs",
     "qa:catalog": "npx --yes tsx scripts/audit-catalog-images.ts",
+    "qa:storefront": "npx --yes tsx scripts/qa-storefront.ts",
+    "qa": "npm run qa:catalog && npm run qa:storefront && npm run qa:payments",
     "marks:fix": "node scripts/fix-bitcoin-marks.mjs",
-    "prebuild": "npm run qa:catalog"
+    "prebuild": "npm run qa:catalog && npm run qa:storefront"
   },
   "dependencies": {
     "framer-motion": "^13.1.0",

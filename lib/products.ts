@@ -1178,7 +1178,8 @@ export const products: Product[] = [
     shortName: "Log Mug",
     editionId: "SH-MUG-LOG",
     priceGbp: 16,
-    category: "home",
+    category: "drinkware",
+    kind: "mug",
     tag: "Chart",
     description: "The curve wraps the cup. Morning log scale.",
     details: ["11oz ceramic", "Dishwasher safe"],
@@ -1357,7 +1358,8 @@ export function productsIn(slug: string) {
   if (slug === "youth") return list.filter((p) => p.cut === "youth");
   if (slug === "toddler") return list.filter((p) => p.cut === "toddler");
   if (slug === "infant") return list.filter((p) => p.cut === "infant");
-  if (slug === "women") return list.filter((p) => p.cut === "women");
+  if (slug === "women")
+    return list.filter((p) => p.cut === "women" && p.category !== "swimwear");
   if (slug === "women-crop") return list.filter((p) => p.cut === "women" && productKind(p) === "crop");
   if (slug === "women-tanks") return list.filter((p) => p.cut === "women" && productKind(p) === "tank");
   if (slug === "women-vneck") return list.filter((p) => p.cut === "women" && productKind(p) === "vneck");
@@ -1378,6 +1380,12 @@ export function productsIn(slug: string) {
   if (slug === "snapback-hats") return list.filter((p) => productKind(p) === "snapback");
   if (slug === "trucker-hats") return list.filter((p) => productKind(p) === "trucker");
   if (slug === "vintage-hats") return list.filter((p) => productKind(p) === "vintage");
+  if (slug === "drinkware")
+    return list.filter(
+      (p) =>
+        p.category === "drinkware" ||
+        ["mug", "tumbler", "pint", "whiskey", "shot", "coaster"].includes(productKind(p) ?? ""),
+    );
   if (slug === "coffee-mugs") return list.filter((p) => productKind(p) === "mug");
   if (slug === "tumblers") return list.filter((p) => productKind(p) === "tumbler");
   if (slug === "pint-glasses") return list.filter((p) => productKind(p) === "pint");
