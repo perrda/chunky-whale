@@ -73,6 +73,7 @@ export const drop09Parents: Product[] = [
     description: "Heavier cloth. Same joke. Orange ₿.",
     details: HOOD,
     image: "/products/bitcoin-daddy-hoodie.png",
+    imagesByColor: { ink: "/products/bitcoin-daddy-hoodie.png" },
     sizes: APPAREL,
   },
   {

@@ -1227,6 +1227,19 @@ export const RETIRED_SLUGS = new Set([
   "block-one-tee",
   "hashrate-tee",
   "difficulty-adjusts-tee",
+  "so-back-mug",
+  "so-over-mug",
+  "pow-tweet-mug",
+  "fiat-exp-mug",
+  "quantum-mug",
+  "no-laser-mug",
+  "orange-pill-mug",
+  "no-forecast-mug",
+  "bitcoin-mummy-hat",
+  "bitcoin-mummy-mug",
+  "bitcoin-daddy-mug",
+  "hodl-mug",
+  "21m-poster",
 ]);
 
 export function liveProducts() {
