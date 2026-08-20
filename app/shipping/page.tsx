@@ -42,7 +42,7 @@ export default function ShippingPage() {
         </table>
       </div>
       <p className="mt-3 font-serif text-sm text-paper/70">
-        Embroidery can sit at the long end of 2–5 days. UAE / MENA is rest-of-world unless we bulk-ship to the booth.
+        Embroidery can sit at the long end of 2–5 days. Destinations without a nearby hub use rest-of-world times.
       </p>
       <h2 className="mt-10 font-display text-xl font-bold">Tax</h2>
       <p className="mt-3 font-serif text-paper/80">

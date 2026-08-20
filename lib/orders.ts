@@ -13,6 +13,8 @@ export type Order = {
   postcode: string;
   method: PaymentMethod;
   items: { slug: string; size?: string; color?: string; qty: number; priceGbp: number }[];
+  itemsGbp?: number;
+  shipGbp?: number;
   totalGbp: number;
   status: "pending" | "paid" | "failed";
   demo: boolean;

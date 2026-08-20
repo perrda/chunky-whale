@@ -36,4 +36,4 @@ If the printer does not have the exact blank, nearest navy/black/heather. Tell u
 
 ## Naming
 
-Edition IDs: `SH-` prefix (STACKHOUSE).
+Edition IDs: `SH-` prefix on new SKUs. Legacy `HM-` IDs on early pieces stay — do not rename them.

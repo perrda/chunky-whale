@@ -22,8 +22,6 @@ export const MEGA_NAV: NavItem[] = [
       { href: "/collection/women-crop", label: "Crop tops" },
       { href: "/collection/women-tanks", label: "Tank tops" },
       { href: "/collection/women-vneck", label: "V-neck tees" },
-      { href: "/collection/bikinis", label: "Bikinis" },
-      { href: "/collection/one-pieces", label: "One-pieces" },
       { href: "/collection/bitcoin-mummy", label: "Bitcoin Mummy" },
     ],
   },

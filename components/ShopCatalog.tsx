@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { ProductCard } from "./ProductCard";
 import { SHOP_FILTERS, SHOP_MORE_FILTERS } from "@/lib/nav";
-import { type Product } from "@/lib/products";
+import { productsIn, type Product } from "@/lib/products";
 
 type SortKey = "featured" | "price-asc" | "price-desc" | "name";
 
@@ -23,15 +23,7 @@ export function ShopCatalog({
   const [sort, setSort] = useState<SortKey>("featured");
 
   const list = useMemo(() => {
-    let next = products;
-    if (filter === "events") next = next.filter((p) => p.event);
-    else if (filter === "family" || filter === "kids")
-      next = next.filter((p) => p.cut === "youth" || p.cut === "toddler" || p.cut === "infant");
-    else if (filter === "women") next = next.filter((p) => p.cut === "women");
-    else if (filter === "memes") next = next.filter((p) => p.tag === "Meme");
-    else if (filter === "premium") next = next.filter((p) => p.finish === "embroidery" || p.tag === "Premium");
-    else if (filter === "sweatshirts") next = next.filter((p) => p.category === "hoodies");
-    else if (filter !== "all") next = next.filter((p) => p.category === filter);
+    let next = filter === "all" ? products : productsIn(filter);
     const n = q.trim().toLowerCase();
     if (n) {
       next = next.filter(

@@ -46,10 +46,10 @@ export const metadata: Metadata = {
     template: "%s · STACKHOUSE",
   },
   description:
-    "Bitcoin merch Bitcoiners actually wear. HODL, 21 million, Satoshi, the ₿. Pay with card, Bitcoin + Lightning, USDC, or USDT.",
+    "Bitcoin merch Bitcoiners actually wear. HODL, 21 million, Satoshi, the ₿. Card, Bitcoin + Lightning, USDC, and USDT — demo until payment keys are live.",
   openGraph: {
     title: "STACKHOUSE — Stack sats. Wear ₿.",
-    description: "Original Bitcoin merch. Card, sats, USDC, and USDT.",
+    description: "Original Bitcoin merch. Card, sats, USDC, and USDT — demo until keys are live.",
     images: ["/products/hodl-tee.png"],
     type: "website",
   },

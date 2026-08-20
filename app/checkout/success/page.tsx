@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ClearCart } from "@/components/ClearCart";
 import { PendingRefresh } from "@/components/PendingRefresh";
-import { formatGbp, getProduct } from "@/lib/products";
+import { colorLabel, formatGbp, getProduct, sizeLabel } from "@/lib/products";
 import { getOrder } from "@/lib/orders";
 
 export const dynamic = "force-dynamic";
@@ -53,14 +53,25 @@ export default async function SuccessPage({ searchParams }: Props) {
                   : `Paid with ${order.method}. We will email ${order.email} when Printful starts the print.`}
           </p>
           <ul className="mt-8 space-y-2 font-serif">
-            {order.items.map((i) => (
-              <li key={`${i.slug}-${i.size}-${i.color}`}>
-                {getProduct(i.slug)?.name} {i.color ? `${i.color} ` : ""}
-                {i.size ? `(${i.size})` : ""} × {i.qty} — {formatGbp(i.priceGbp * i.qty)}
-              </li>
-            ))}
+            {order.items.map((i) => {
+              const p = getProduct(i.slug);
+              const bits = p
+                ? [sizeLabel(p, i.size), colorLabel(p, i.color)].filter(Boolean)
+                : [i.size, i.color].filter(Boolean);
+              return (
+                <li key={`${i.slug}-${i.size}-${i.color}`}>
+                  {p?.name ?? i.slug}
+                  {bits.length ? ` · ${bits.join(" · ")}` : ""} × {i.qty} — {formatGbp(i.priceGbp * i.qty)}
+                </li>
+              );
+            })}
           </ul>
-          <p className="mt-6 font-mono text-gold">{formatGbp(order.totalGbp)}</p>
+          {order.shipGbp != null ? (
+            <p className="mt-4 font-serif text-sm text-paper/70">
+              Shipping estimate {formatGbp(order.shipGbp)}
+            </p>
+          ) : null}
+          <p className="mt-2 font-mono text-gold">{formatGbp(order.totalGbp)}</p>
           {order.method === "bitcoin" && order.demo ? (
             <div className="mt-8 border border-paper/15 bg-surface p-6">
               <p className="font-display font-bold">Bitcoin / Lightning (demo)</p>

@@ -93,6 +93,7 @@ function MobileItem({ item }: { item: NavItem }) {
             type="button"
             className="shrink-0 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-paper/70"
             aria-expanded={open}
+            aria-label={`${item.label} submenu`}
             onClick={() => setOpen((v) => !v)}
           >
             {open ? "Hide" : "Show"}

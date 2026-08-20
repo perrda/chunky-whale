@@ -44,7 +44,7 @@ export const SHIP_REGIONS: ShipRegion[] = [
   },
   {
     id: "row",
-    label: "Rest of world (incl. UAE / MENA)",
+    label: "Rest of world",
     fulfilDays: "2–5",
     transitDays: "10–20",
     doorToDoor: "12–25 business days",
@@ -78,6 +78,16 @@ export function regionForCountry(country: string) {
   if (["DE", "FR", "ES", "IT", "NL", "IE", "PT", "BE", "AT", "PL", "SE", "DK"].includes(c)) return SHIP_REGIONS[2];
   if (["JP", "SG", "AU", "NZ", "KR", "HK", "TH"].includes(c)) return SHIP_REGIONS[3];
   return SHIP_REGIONS[4];
+}
+
+/** Items + Printful shipping estimate. Checkout, Stripe, and QA must use this. */
+export function basketTotals(
+  lines: { category: string; qty: number; priceGbp: number }[],
+  country: string,
+) {
+  const itemsGbp = lines.reduce((n, l) => n + l.priceGbp * l.qty, 0);
+  const shipGbp = estimateShippingGbp(lines, country);
+  return { itemsGbp, shipGbp, totalGbp: itemsGbp + shipGbp };
 }
 
 export const PRINTERS = [

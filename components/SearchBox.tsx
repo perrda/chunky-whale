@@ -46,16 +46,21 @@ export function SearchBox({ variant = "nav" }: { variant?: "nav" | "mobile" }) {
           onFocus={() => setOpen(true)}
           placeholder="Search marks…"
           autoComplete="off"
+          role="combobox"
+          aria-expanded={open && hits.length > 0}
+          aria-controls={`${id}-suggest`}
+          aria-autocomplete="list"
           className="w-full max-w-md rounded-full border border-paper/20 bg-surface px-4 py-2 font-serif text-sm text-paper placeholder:text-muted md:w-80"
         />
       </form>
       {open && hits.length > 0 ? (
         <ul
+          id={`${id}-suggest`}
           className="absolute left-1/2 top-full z-50 mt-1 w-full max-w-md -translate-x-1/2 border border-paper/15 bg-ink py-1 shadow-lg md:w-80"
           role="listbox"
         >
           {hits.map((p) => (
-            <li key={p.slug}>
+            <li key={p.slug} role="option" aria-selected="false">
               <Link
                 href={`/product/${p.slug}`}
                 className="flex items-center justify-between gap-3 px-4 py-2 hover:bg-surface"

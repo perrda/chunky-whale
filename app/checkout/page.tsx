@@ -259,13 +259,13 @@ export default function CheckoutPage() {
         </fieldset>
         {railsError ? (
           <p className="font-serif text-sm text-ember">
-            Could not check which payment methods are live. Refresh the page before you pay.
+            Could not check which payment methods are live. You can still place a demo order, or refresh and try again.
           </p>
         ) : null}
         {error ? <p className="font-serif text-sm text-ember">{error}</p> : null}
         <button
           type="submit"
-          disabled={busy || stale || !rails || railsError || !methodAllowed(method)}
+          disabled={busy || stale || (!rails && !railsError) || !methodAllowed(method)}
           className="bg-ember px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-ink disabled:opacity-60"
         >
           {busy ? "Starting payment…" : `Pay ${formatGbp(total + ship)}`}

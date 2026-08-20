@@ -76,7 +76,7 @@ export default function HomePage() {
                 href={`/collection/${c.slug}`}
                 className="group overflow-hidden border border-paper/10 bg-surface hover:border-ember"
               >
-                <div className="relative aspect-[4/3] bg-white">
+                <div className="relative aspect-square bg-white">
                   {sample ? (
                     <Image src={sample.image} alt="" fill className="object-contain p-4" sizes="25vw" />
                   ) : null}

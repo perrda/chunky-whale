@@ -28,12 +28,15 @@ export const useCart = create<CartState>()(
     (set, get) => ({
       items: [],
       add: (item) => {
+        const p = getProduct(item.slug);
+        const cap = p?.limited ? Math.max(0, p.remaining ?? 0) : 20;
+        if (cap <= 0) return;
         const items = [...get().items];
         const i = items.findIndex((x) => keyOf(x) === keyOf(item));
         if (i >= 0) {
-          items[i] = { ...items[i], qty: items[i].qty + item.qty };
+          items[i] = { ...items[i], qty: Math.min(cap, items[i].qty + item.qty) };
         } else {
-          items.push(item);
+          items.push({ ...item, qty: Math.min(cap, item.qty) });
         }
         set({ items });
       },
@@ -45,7 +48,9 @@ export const useCart = create<CartState>()(
           });
           return;
         }
-        const clamped = Math.min(20, Math.max(1, Math.round(n)));
+        const p = getProduct(slug);
+        const cap = p?.limited ? Math.max(1, Math.min(20, p.remaining ?? 1)) : 20;
+        const clamped = Math.min(cap, Math.max(1, Math.round(n)));
         set({
           items: get().items.map((x) =>
             keyOf(x) === keyOf({ slug, size, color }) ? { ...x, qty: clamped } : x,

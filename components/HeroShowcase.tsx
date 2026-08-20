@@ -39,8 +39,8 @@ export function HeroShowcase({ items }: { items: HeroItem[] }) {
           <div className="aspect-square">
             <GarmentImage src={p.image} alt={p.name} />
           </div>
-          <p className="mt-2 line-clamp-1 font-display text-[11px] font-bold text-black sm:text-xs">{p.name}</p>
-          <p className="font-mono text-[10px] text-black/55">{formatGbp(p.priceGbp)}</p>
+          <p className="mt-2 line-clamp-1 font-display text-[11px] font-bold text-neutral-950 sm:text-xs">{p.name}</p>
+          <p className="font-mono text-[10px] text-neutral-950/55">{formatGbp(p.priceGbp)}</p>
         </Link>
       ))}
     </div>

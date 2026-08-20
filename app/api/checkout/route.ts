@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { colorsFor, getProduct, liveProducts } from "@/lib/products";
+import { colorLabel, colorsFor, getProduct, liveProducts, sizeLabel } from "@/lib/products";
 import { createOrder, newOrderId } from "@/lib/orders";
 import { paymentsReady, site } from "@/lib/config";
+import { basketTotals } from "@/lib/shipping";
 import { createStripeCheckout } from "@/lib/payments/stripe";
 import { createOpenNodeCharge } from "@/lib/payments/opennode";
 import { createCoinbaseCharge } from "@/lib/payments/coinbase";
@@ -59,7 +60,14 @@ export async function POST(req: Request) {
     });
   }
 
-  const totalGbp = items.reduce((n, i) => n + i.priceGbp * i.qty, 0);
+  const { itemsGbp, shipGbp, totalGbp } = basketTotals(
+    items.map((i) => ({
+      category: getProduct(i.slug)!.category,
+      qty: i.qty,
+      priceGbp: i.priceGbp,
+    })),
+    parsed.data.country,
+  );
   const id = newOrderId();
   const ready = paymentsReady();
   const origin = site.url;
@@ -88,10 +96,18 @@ export async function POST(req: Request) {
       const session = await createStripeCheckout({
         orderId: id,
         email: parsed.data.email,
-        lineItems: items.map((i) => {
-          const p = getProduct(i.slug)!;
-          return { name: `${p.name}${i.size ? ` / ${i.size}` : ""}`, amountGbp: i.priceGbp, qty: i.qty };
-        }),
+        lineItems: [
+          ...items.map((i) => {
+            const p = getProduct(i.slug)!;
+            const bits = [sizeLabel(p, i.size), colorLabel(p, i.color)].filter(Boolean);
+            return {
+              name: bits.length ? `${p.name} / ${bits.join(" / ")}` : p.name,
+              amountGbp: i.priceGbp,
+              qty: i.qty,
+            };
+          }),
+          ...(shipGbp > 0 ? [{ name: "Shipping estimate", amountGbp: shipGbp, qty: 1 }] : []),
+        ],
         successUrl: success,
         cancelUrl: `${origin}/checkout?cancelled=1`,
       });
@@ -170,6 +186,8 @@ export async function POST(req: Request) {
     method: parsed.data.method,
     items,
     totalGbp,
+    shipGbp,
+    itemsGbp,
     status: "pending",
     demo,
     createdAt: new Date().toISOString(),

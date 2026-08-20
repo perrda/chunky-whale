@@ -8,7 +8,21 @@ Homepage check: **“Bitcoin tees. Don’t miss the stack.”** + coin ₿ mark 
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.18** (20 Aug 2026 colour match). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + StackHouse wordmark. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+Version **0.7.19** (20 Aug 2026 storefront QA). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + **StackHouse** wordmark (Stack + orange House). All-caps **STACKHOUSE** is the legal/meta name — do not “fix” the wordmark to one word. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop.
+
+**Do not retrace (every past catalog / UX fire):**
+- Swatch colour must match the garment in the photo. Bone = cream, never a tinted black tee.
+- Official tilted ₿ only. Never a vertical B. Never extract a B from an old mockup.
+- Unique photo per slogan **and** object. Never clone a mug/tote/tee photo onto another SKU.
+- Square 1:1 white studio only. No lifestyle walls. No grainy grey paper. Do not flood-bleach cream totes or white mugs.
+- Hoodie ≠ pullover. Swim subsections live under Swimwear only — not under Women.
+- Shop filters must use `productsIn()` (Mummy & Daddy is a slug prefix, not a category). Drinkware includes every mug, including leftovers that once sat in `home`.
+- Checkout **must charge items + shipping**. The page already showed the estimate; the API used to drop it. Use `basketTotals()`.
+- Demo checkout must still work if `/api/status` fails. Never claim live card/BTC/USDC/USDT in metadata while keys are missing.
+- Public pages do not mention the MENA booth. Internal docs only.
+- Glass, mugs, prints, stickers, pins: no colour swatches.
+- New edition IDs are `SH-`. Old `HM-` IDs stay (printed on those pieces) — do not mass-rename.
+- After every merge: Control+C, `rm -rf .next`, SYNC. `npm run qa` must be 0 errors (`qa:catalog` + `qa:storefront` + `qa:payments`).
 
 **Colour must match the photo.** Picking Bone on Genesis used to leave the black tee looking mottled olive — the old tint kept the dark pixels. Recolour now maps the cloth to the swatch (Bone = cream, Ink = black) on every garment, bag, hat, and swim piece. White tees recolour to dark colours; orange tees/caps recolour too (the whole shirt is not treated as the ₿). Grainy grey studio paper on dark garments was bleached to pure white. `npm run qa:catalog` fails `color-match` and `grain`. Do not flood-bleach cream totes or white mugs. After merge: Control+C, `rm -rf .next`, SYNC. Check http://127.0.0.1:3001/product/genesis-2009-tee — Bone must be cream.
 
