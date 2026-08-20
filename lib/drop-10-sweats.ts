@@ -25,9 +25,12 @@ type Mark = {
   cut?: Product["cut"];
   featured?: boolean;
   trending?: boolean;
+  /** Photographed colour — first view must not recolour or the type smears. */
+  photo?: string;
 };
 
 function hoodie(m: Mark): Product {
+  const image = `/products/${m.id}-hoodie.png`;
   return {
     slug: `${m.id}-hoodie`,
     name: `${m.name} Hoodie`,
@@ -43,12 +46,14 @@ function hoodie(m: Mark): Product {
     colors: CLOTHING_COLORS,
     description: m.desc,
     details: m.cut === "women" ? [...HOOD, "Women’s cut XS–2XL"] : HOOD,
-    image: `/products/${m.id}-hoodie.png`,
+    image,
+    imagesByColor: m.photo ? { [m.photo]: image } : undefined,
     sizes: m.cut === "women" ? WOMEN : APPAREL,
   };
 }
 
 function pullover(m: Mark): Product {
+  const image = `/products/${m.id}-pullover.png`;
   return {
     slug: `${m.id}-pullover`,
     name: `${m.name} Pullover`,
@@ -64,7 +69,8 @@ function pullover(m: Mark): Product {
     colors: CLOTHING_COLORS,
     description: m.desc,
     details: m.cut === "women" ? [...PULL, "Women’s cut XS–2XL"] : PULL,
-    image: `/products/${m.id}-pullover.png`,
+    image,
+    imagesByColor: m.photo ? { [m.photo]: image } : undefined,
     sizes: m.cut === "women" ? WOMEN : APPAREL,
   };
 }
@@ -76,6 +82,7 @@ const NEW_HOODIES: Mark[] = [
     short: "Humble",
     desc: "The other half of stack sats. Hood on. Orange ₿.",
     tag: "Meme",
+    photo: "forest",
   },
   {
     id: "proof-of-work",
@@ -83,6 +90,7 @@ const NEW_HOODIES: Mark[] = [
     short: "PoW",
     desc: "Energy, not a slogan deck. Fleece.",
     tag: "Meme",
+    photo: "ink",
   },
   {
     id: "not-your-keys",
@@ -90,6 +98,7 @@ const NEW_HOODIES: Mark[] = [
     short: "Keys",
     desc: "Not your coins. Warmer now.",
     tag: "Meme",
+    photo: "navy",
   },
   {
     id: "hard-money",
@@ -97,6 +106,7 @@ const NEW_HOODIES: Mark[] = [
     short: "Hard Money",
     desc: "Soft fleece. Hard cap. Orange ₿.",
     tag: "Copy",
+    photo: "burgundy",
   },
   {
     id: "verify",
@@ -105,6 +115,7 @@ const NEW_HOODIES: Mark[] = [
     desc: "Then pull the hood up.",
     tag: "Meme",
     featured: true,
+    photo: "charcoal",
   },
   {
     id: "few-understand",
@@ -113,6 +124,7 @@ const NEW_HOODIES: Mark[] = [
     desc: "And they wear the hood anyway.",
     tag: "Meme",
     trending: true,
+    photo: "ink",
   },
 ];
 
@@ -124,6 +136,7 @@ const NEW_PULLOVERS: Mark[] = [
     desc: "No hood. Same typo. Conference layer.",
     tag: "Meme",
     featured: true,
+    photo: "charcoal",
   },
   {
     id: "stack-sats",
@@ -131,6 +144,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "Stack",
     desc: "The daily habit, in heavy cotton.",
     tag: "Meme",
+    photo: "forest",
   },
   {
     id: "timechain",
@@ -138,6 +152,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "Timechain",
     desc: "The word before marketing got to it. No zip.",
     tag: "Copy",
+    photo: "ink",
   },
   {
     id: "digital-energy",
@@ -145,6 +160,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "Digital Energy",
     desc: "Saylor’s frame. Crew neck. Orange ₿.",
     tag: "Meme",
+    photo: "navy",
   },
   {
     id: "four-year",
@@ -152,6 +168,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "Tide",
     desc: "The cycle, without a hood in the way.",
     tag: "Chart",
+    photo: "royal",
   },
   {
     id: "b-mark",
@@ -159,6 +176,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "B Mark",
     desc: "Just the mark. Heavy cotton. No explanation.",
     tag: "₿",
+    photo: "ink",
   },
   {
     id: "stay-humble",
@@ -166,6 +184,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "Humble",
     desc: "Stack sats. No hood required.",
     tag: "Meme",
+    photo: "charcoal",
   },
   {
     id: "proof-of-work",
@@ -173,6 +192,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "PoW",
     desc: "The line, on a pullover you can sit in.",
     tag: "Meme",
+    photo: "burgundy",
   },
   {
     id: "not-your-keys",
@@ -180,6 +200,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "Keys",
     desc: "Not your coins. Crew neck.",
     tag: "Meme",
+    photo: "navy",
   },
   {
     id: "hard-money",
@@ -187,6 +208,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "Hard Money",
     desc: "Soft cotton. Hard cap.",
     tag: "Copy",
+    photo: "forest",
   },
   {
     id: "sound-money",
@@ -194,6 +216,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "Sound Money",
     desc: "Quiet cloth. Loud rule.",
     tag: "Copy",
+    photo: "ink",
   },
   {
     id: "cold-storage",
@@ -201,6 +224,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "Cold Storage",
     desc: "Keys offline. You, slightly warmer.",
     tag: "Meme",
+    photo: "navy",
   },
   {
     id: "self-custody",
@@ -208,6 +232,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "Self Custody",
     desc: "Nobody else holds this layer.",
     tag: "Meme",
+    photo: "charcoal",
   },
   {
     id: "verify",
@@ -215,6 +240,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "Verify",
     desc: "Then put the pullover on.",
     tag: "Meme",
+    photo: "ink",
   },
   {
     id: "few-understand",
@@ -222,6 +248,7 @@ const NEW_PULLOVERS: Mark[] = [
     short: "Few",
     desc: "Crew neck. Same ₿.",
     tag: "Meme",
+    photo: "olive",
   },
   {
     id: "bitcoin-mummy",
@@ -231,6 +258,7 @@ const NEW_PULLOVERS: Mark[] = [
     tag: "Family",
     cut: "women",
     trending: true,
+    photo: "royal",
   },
   {
     id: "bitcoin-daddy",
@@ -239,6 +267,7 @@ const NEW_PULLOVERS: Mark[] = [
     desc: "The title, without the hood.",
     tag: "Family",
     trending: true,
+    photo: "ink",
   },
 ];
 

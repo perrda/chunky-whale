@@ -268,6 +268,7 @@ export const drop07: Product[] = [
     description: "Same joke, heavier cloth. Orange ₿.",
     details: HOOD,
     image: "/products/so-back-hoodie.png",
+    imagesByColor: { ink: "/products/so-back-hoodie.png" },
     sizes: APPAREL,
   },
   {
@@ -284,6 +285,7 @@ export const drop07: Product[] = [
     description: "Pair it with So Back. Honesty in fleece.",
     details: HOOD,
     image: "/products/so-over-hoodie.png",
+    imagesByColor: { navy: "/products/so-over-hoodie.png" },
     sizes: APPAREL,
   },
   {
@@ -368,6 +370,7 @@ export const drop07: Product[] = [
     description: "No zip. No lasers. ₿.",
     details: PULL,
     image: "/products/no-laser-pullover.png",
+    imagesByColor: { navy: "/products/no-laser-pullover.png" },
     sizes: APPAREL,
   },
   {
@@ -384,6 +387,7 @@ export const drop07: Product[] = [
     description: "The colour, in fleece.",
     details: PULL,
     image: "/products/orange-pill-pullover.png",
+    imagesByColor: { ink: "/products/orange-pill-pullover.png" },
     sizes: APPAREL,
   },
   {
@@ -400,6 +404,7 @@ export const drop07: Product[] = [
     description: "Still not advice. Warmer.",
     details: HOOD,
     image: "/products/no-forecast-hoodie.png",
+    imagesByColor: { charcoal: "/products/no-forecast-hoodie.png" },
     sizes: APPAREL,
   },
 

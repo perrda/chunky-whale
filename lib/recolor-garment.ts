@@ -237,7 +237,8 @@ export function recolorRaw(
     if (typeSeed[i] && nearBackdrop[i]) typeSeed[i] = 0;
   }
 
-  const print = dilate(typeSeed, w, h, 2);
+  dropPrintBoxes(typeSeed, w, h);
+  const print = dilate(typeSeed, w, h, 1);
   const minL = Math.max(0.04, tl - 0.2);
   const maxL = Math.min(0.97, tl + 0.16);
 
@@ -275,6 +276,55 @@ export function recolorRaw(
   return { sourceL, targetL: tl };
 }
 
+/**
+ * A flat chest rectangle is not type. Letters are small, holey blobs.
+ * Inverting a stamp box is what made “I AM HODLING” look smashed.
+ */
+function dropPrintBoxes(seed: Uint8Array, w: number, h: number) {
+  const seen = new Uint8Array(w * h);
+  const maxArea = Math.floor(w * h * 0.045);
+  for (let start = 0; start < w * h; start++) {
+    if (!seed[start] || seen[start]) continue;
+    const stack = [start];
+    const cells: number[] = [];
+    let minx = w;
+    let maxx = 0;
+    let miny = h;
+    let maxy = 0;
+    seen[start] = 1;
+    while (stack.length) {
+      const i = stack.pop()!;
+      cells.push(i);
+      const x = i % w;
+      const y = (i - x) / w;
+      if (x < minx) minx = x;
+      if (x > maxx) maxx = x;
+      if (y < miny) miny = y;
+      if (y > maxy) maxy = y;
+      const nbr = [
+        [x + 1, y],
+        [x - 1, y],
+        [x, y + 1],
+        [x, y - 1],
+      ];
+      for (const [nx, ny] of nbr) {
+        if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;
+        const n = ny * w + nx;
+        if (seen[n] || !seed[n]) continue;
+        seen[n] = 1;
+        stack.push(n);
+      }
+    }
+    const bw = maxx - minx + 1;
+    const bh = maxy - miny + 1;
+    const fill = cells.length / Math.max(1, bw * bh);
+    const boxy = fill > 0.78 && bw > w * 0.18 && bh > h * 0.16;
+    if (cells.length > maxArea || boxy) {
+      for (const i of cells) seed[i] = 0;
+    }
+  }
+}
+
 export function recolorGarmentData(image: ImageData, targetHex: string) {
   recolorRaw(image.data, image.width, image.height, targetHex);
   return image;
@@ -285,14 +335,17 @@ export function paintRecolor(
   img: HTMLImageElement,
   targetHex: string,
 ) {
-  const w = img.naturalWidth || img.width;
-  const h = img.naturalHeight || img.height;
+  const srcW = img.naturalWidth || img.width;
+  const srcH = img.naturalHeight || img.height;
+  const scale = Math.min(1, 720 / Math.max(srcW, srcH));
+  const w = Math.max(1, Math.round(srcW * scale));
+  const h = Math.max(1, Math.round(srcH * scale));
   canvas.width = w;
   canvas.height = h;
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
   if (!ctx) return;
   ctx.clearRect(0, 0, w, h);
-  ctx.drawImage(img, 0, 0);
+  ctx.drawImage(img, 0, 0, w, h);
   const snap = ctx.getImageData(0, 0, w, h);
   recolorGarmentData(snap, targetHex);
   ctx.putImageData(snap, 0, 0);
