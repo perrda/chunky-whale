@@ -4,12 +4,12 @@ Give this to Printful / Gelato / Printify designers or upload yourself.
 
 ## Files
 
-- Mockups (site photos): `public/products/*.png` — 1:1, **pure white** background, ghost mannequin or clean product shot. No lifestyle scenes.
+- Mockups (site photos): `public/products/*.png` — 1:1, **pure white** background, ghost mannequin or clean product shot. No lifestyle scenes. No grainy grey paper. The colour in the photo must match the swatch the customer picked.
 - Print files (what gets printed): `public/prints/*.png` — high contrast, ₿ orange `#F7931A` on transparent or black.
 
 ## Print rules
 
-1. **Official Bitcoin ₿ only.** Bitboy 2010 mark: orange `#F7931A`, **~14° clockwise tilt**. Never a vertical B. Never a generic “B with two bars.” Source files: `public/brand/bitcoin-b.svg` (orange ₿) and `public/brand/bitcoin-coin.svg` (orange coin, white ₿). `npm run qa:catalog` fails `bitcoin-mark` if a live photo still has an upright B.
+1. **Official Bitcoin ₿ only.** Bitboy 2010 mark: orange `#F7931A`, **~14° clockwise tilt**. Never a vertical B. Never a generic “B with two bars.” Source files: `public/brand/bitcoin-b.svg` (orange ₿) and `public/brand/bitcoin-coin.svg` (orange coin, white ₿). `npm run qa:catalog` fails `bitcoin-mark` if a live photo still has an upright B, `color-match` if a swatch does not match the garment, and `grain` if the backdrop is speckled.
 2. One joke or one mark. Do not crowd.
 3. Never copy FOMO21 slogans or art.
 4. No profit claims (“guaranteed 100x”).

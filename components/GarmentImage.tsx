@@ -62,13 +62,17 @@ export function GarmentImage({
     };
   }, [src, hex, recolor]);
 
-  const show = !hex || !recolor || failed ? src : url ?? src;
+  const show = !hex || !recolor || failed ? src : url;
 
   return (
     <div className={`relative h-full w-full bg-white ${className}`}>
       <canvas ref={canvasRef} className="hidden" aria-hidden />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={show} alt={alt} className="h-full w-full object-contain p-[8%]" />
+      {show ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={show} alt={alt} className="h-full w-full object-contain p-[8%]" />
+      ) : (
+        <div className="h-full w-full bg-white" aria-hidden />
+      )}
     </div>
   );
 }

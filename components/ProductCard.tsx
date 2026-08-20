@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { colorsFor, formatGbp, productImage, productKindLabel, type Product } from "@/lib/products";
+import { colorsFor, defaultColorId, formatGbp, productImage, productKindLabel, type Product } from "@/lib/products";
 import { ColorSwatches } from "./ColorSwatches";
 import { GarmentImage } from "./GarmentImage";
 
 export function ProductCard({ product }: { product: Product }) {
   const swatches = colorsFor(product);
-  const [color, setColor] = useState(swatches?.[0]?.id ?? "");
+  const [color, setColor] = useState(defaultColorId(product));
   const selected = swatches?.find((c) => c.id === color);
   const img = productImage(product, color || undefined);
 

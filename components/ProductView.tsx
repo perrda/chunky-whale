@@ -7,6 +7,7 @@ import { useCart } from "@/lib/cart-store";
 import {
   collectionFor,
   colorsFor,
+  defaultColorId,
   productImage,
   productKindLabel,
   type Product,
@@ -20,7 +21,7 @@ export function ProductView({ product }: { product: Product }) {
   const add = useCart((s) => s.add);
   const router = useRouter();
   const colors = useMemo(() => colorsFor(product), [product]);
-  const [color, setColor] = useState(colors?.[0]?.id ?? "");
+  const [color, setColor] = useState(defaultColorId(product));
   const [size, setSize] = useState(product.sizes?.[0]?.id ?? "");
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);

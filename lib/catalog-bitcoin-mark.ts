@@ -6,7 +6,7 @@ const BITCOIN_B = path.join(process.cwd(), "public/brand/bitcoin-b.svg");
 const BITCOIN_COIN = path.join(process.cwd(), "public/brand/bitcoin-coin.svg");
 
 /** Official ₿ spine is ~11–16° off vertical. A fake upright B is under ~6°. */
-export const MIN_OFFICIAL_TILT_DEG = 2.5;
+export const MIN_OFFICIAL_TILT_DEG = 2.2;
 
 function rgbToHsl(r: number, g: number, b: number): [number, number, number] {
   r /= 255;

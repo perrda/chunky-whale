@@ -18,6 +18,8 @@ Then open **http://127.0.0.1:3001**
 
 You should see **“Bitcoin tees. Don’t miss the stack.”** on both machines.
 
+Open [Genesis 2009](http://127.0.0.1:3001/product/genesis-2009-tee) and tap **Bone**. The shirt must be cream, not a dark mottled tee.
+
 If Drinkware still looks like only mugs and tumblers, the old process is still running. Control+C, then the block again. Direct pages: [Whiskey glasses](http://127.0.0.1:3001/collection/whiskey-glasses) and [Shot glasses](http://127.0.0.1:3001/collection/shot-glasses).
 
 That `reset --hard` makes this Mac match GitHub `main` exactly. Do not run it if you have unpaid work on this Mac that was never uploaded — say so first and we will save a backup branch.
