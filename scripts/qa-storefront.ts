@@ -119,7 +119,18 @@ const sweatRender = readFileSync(path.join(process.cwd(), "scripts/render-sweat-
 assert.match(sweatRender, /fabricPool/, "sweat mockups must clone fabric, not a flat chest box");
 assert.match(sweatRender, /eraseOldPrint/, "sweat mockups must wipe leftover slogan before restamping");
 assert.match(sweatRender, /officialMarkPng/, "sweat mockups must stamp the official ₿");
+assert.match(sweatRender, /b-mark-hoodie\.png/, "₿ Mark Hoodie must be built from the official stamp");
+assert.match(sweatRender, /markOnly: true/, "mark-only sweats must stamp the ₿ with no slogan");
 assert.doesNotMatch(sweatRender, /data\[o\] = sr/, "do not paint a single-colour chest rectangle");
+
+const markQa = readFileSync(path.join(process.cwd(), "lib/catalog-bitcoin-mark.ts"), "utf8");
+assert.match(markQa, /MIN_CLOCKWISE_LEAN/, "catalog QA must measure ₿ lean direction");
+assert.doesNotMatch(markQa, /tilt: 14/, "do not treat a square orange blob as already official");
+assert.match(
+  readFileSync(path.join(process.cwd(), "scripts/restamp-mark-only.mjs"), "utf8"),
+  /officialMarkPng/,
+  "in-place restamp must use the official SVG",
+);
 
 const checkoutSrc = readFileSync(path.join(process.cwd(), "app/api/checkout/route.ts"), "utf8");
 assert.match(checkoutSrc, /basketTotals/);

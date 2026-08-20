@@ -36,6 +36,8 @@ const HOODIES = [
   { file: "hodl-hoodie.png", lines: ["HODL"], hex: "#0B0C0E" },
   { file: "hodl-hoodie-navy.png", lines: ["HODL"], hex: "#1B2430" },
   { file: "bitcoin-daddy-hoodie.png", lines: ["BITCOIN", "DADDY"], hex: "#0B0C0E" },
+  { file: "b-mark-hoodie.png", lines: [], hex: "#0B0C0E", markOnly: true },
+  { file: "embroidered-b-hoodie-navy.png", lines: [], hex: "#1B2430", markOnly: true },
 ];
 
 const PULLOVERS = [

@@ -46,6 +46,8 @@ const SKIP = new Set([
   "bitcoin-daddy-hoodie.png",
   "hodl-hoodie.png",
   "hodl-hoodie-navy.png",
+  "b-mark-hoodie.png",
+  "embroidered-b-hoodie-navy.png",
   ...WHISKEYS.map((s) => s.file),
   ...SHOTS.map((s) => s.file),
 ]);
@@ -121,8 +123,35 @@ function looksLikeB(blob) {
   if (blob.bh < 26 || blob.bh > 560) return false;
   if (aspect < 0.4 || aspect > 1.4) return false;
   const fill = blob.area / (blob.bw * blob.bh);
-  if (fill < 0.16 || fill > 0.82) return false;
+  if (fill < 0.16 || fill > 0.70) return false;
   return true;
+}
+
+/** Official bitboy: top of the mark sits right of the bottom (clockwise / lean right). */
+function blobLean(blob, w) {
+  const tCut = blob.miny + blob.bh * 0.22;
+  const bCut = blob.maxy - blob.bh * 0.22;
+  let tN = 0;
+  let tX = 0;
+  let bN = 0;
+  let bX = 0;
+  for (const p of blob.pixels) {
+    const x = p % w;
+    const y = (p - x) / w;
+    if (y <= tCut) {
+      tN += 1;
+      tX += x;
+    }
+    if (y >= bCut) {
+      bN += 1;
+      bX += x;
+    }
+  }
+  if (tN < 8 || bN < 8) return "unknown";
+  const ratio = (tX / tN - bX / bN) / blob.bh;
+  if (ratio > 0.012) return "clockwise";
+  if (ratio < -0.012) return "ccw";
+  return "upright";
 }
 
 function looksLikeCoin(blob) {
@@ -205,14 +234,20 @@ function floodBackground(data, w, h) {
 
 function paintBlob(data, w, h, blob, rgb, extra = 8) {
   const [pr, pg, pb] = rgb;
-  const x0 = Math.max(0, blob.minx - extra);
-  const x1 = Math.min(w - 1, blob.maxx + extra);
-  const y0 = Math.max(0, blob.miny - extra);
-  const y1 = Math.min(h - 1, blob.maxy + extra);
+  const pad = Math.max(extra, Math.round(Math.min(blob.bw, blob.bh) * 0.18));
+  const x0 = Math.max(0, blob.minx - pad);
+  const x1 = Math.min(w - 1, blob.maxx + pad);
+  const y0 = Math.max(0, blob.miny - pad);
+  const y1 = Math.min(h - 1, blob.maxy + pad);
   for (let y = y0; y <= y1; y++) {
     for (let x = x0; x <= x1; x++) {
       const o = (y * w + x) * 4;
       if (nearWhite(data[o], data[o + 1], data[o + 2])) continue;
+      const [hues, s, l] = rgbToHsl(data[o], data[o + 1], data[o + 2]);
+      const deg = hues * 360;
+      const leftoverOrange = deg >= 8 && deg <= 62 && s > 0.18 && l > 0.12 && l < 0.9;
+      const inCore = x >= blob.minx && x <= blob.maxx && y >= blob.miny && y <= blob.maxy;
+      if (!inCore && !leftoverOrange) continue;
       data[o] = pr;
       data[o + 1] = pg;
       data[o + 2] = pb;
@@ -253,8 +288,9 @@ async function fixFile(file, bMark, coinMark) {
   const blobs = blobsFromMask(mask, w, h).filter((b) => b.area >= 80);
   const candidates = blobs
     .filter((b) => (looksLikeB(b) || looksLikeCoin(b)) && !isTextRow(b, blobs))
+    .filter((b) => blobLean(b, w) !== "clockwise")
     .sort((a, b) => b.area - a.area)
-    .slice(0, 1);
+    .slice(0, name.includes("coaster") ? 6 : 1);
   if (!candidates.length) return { file, replaced: 0, skipped: "no-mark" };
 
   const layers = [];
