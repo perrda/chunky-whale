@@ -22,7 +22,7 @@ Open [Genesis 2009](http://127.0.0.1:3001/product/genesis-2009-tee) and tap **Bo
 
 On the shop page, **More → Mummy & Daddy** must show the parent pieces, not “Nothing matches.” Drinkware must include the log-chart mug. Checkout total must match items + the shipping line. Checkout still says **demo** until your keys are in. `/fulfillment` should send you to Shipping — that page must not talk about booths.
 
-Open [HODL Pullover](http://127.0.0.1:3001/product/hodl-pullover). You must be able to read **I AM HODLING** and see a clean orange ₿ — not a black box or broken letters. Then tap Bone: the shirt goes cream and the writing stays readable.
+Open [HODL Pullover](http://127.0.0.1:3001/product/hodl-pullover). You must be able to read **I AM HODLING** and see a clean orange ₿ — not a black box or broken letters. Then tap Bone: the shirt goes cream and the writing stays readable. Open [Bitcoin Daddy Hoodie](http://127.0.0.1:3001/product/bitcoin-daddy-hoodie) — **BITCOIN DADDY** must be readable with a clean ₿ on the chest. Drinkware must not show a ₿ floating off a white mug (those listings are retired).
 
 If Drinkware still looks like only mugs and tumblers, the old process is still running. Control+C, then the block again. Direct pages: [Whiskey glasses](http://127.0.0.1:3001/collection/whiskey-glasses) and [Shot glasses](http://127.0.0.1:3001/collection/shot-glasses).
 

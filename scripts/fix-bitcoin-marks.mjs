@@ -43,6 +43,9 @@ const SKIP = new Set([
   "few-understand-pullover.png",
   "bitcoin-mummy-pullover.png",
   "bitcoin-daddy-pullover.png",
+  "bitcoin-daddy-hoodie.png",
+  "hodl-hoodie.png",
+  "hodl-hoodie-navy.png",
   ...WHISKEYS.map((s) => s.file),
   ...SHOTS.map((s) => s.file),
 ]);

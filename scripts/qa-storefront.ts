@@ -7,7 +7,7 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { SHOP_FILTERS, SHOP_MORE_FILTERS, MEGA_NAV } from "../lib/nav";
 import { gbpAmountsMatch, gbpToPence, penceMatchesGbp } from "../lib/payments/amount";
-import { liveProducts, productsIn, takesColourways } from "../lib/products";
+import { liveProducts, productsIn, RETIRED_SLUGS, takesColourways } from "../lib/products";
 import { basketTotals } from "../lib/shipping";
 
 const live = liveProducts();
@@ -68,6 +68,25 @@ assert.ok(row.shipGbp >= us.shipGbp, "rest-of-world should not be cheaper than U
 assert.equal(gbpToPence(totals.totalGbp), Math.round(totals.totalGbp * 100));
 assert.equal(penceMatchesGbp(32, 32), false, "32 pence must not confirm a £32 order (100×)");
 assert.equal(gbpAmountsMatch(32, 0.32), false);
+
+const PRINT_CLARITY_RETIRED = [
+  "so-back-mug",
+  "so-over-mug",
+  "pow-tweet-mug",
+  "fiat-exp-mug",
+  "quantum-mug",
+  "no-laser-mug",
+  "orange-pill-mug",
+  "no-forecast-mug",
+  "bitcoin-mummy-hat",
+  "bitcoin-mummy-mug",
+  "bitcoin-daddy-mug",
+  "hodl-mug",
+  "21m-poster",
+];
+for (const slug of PRINT_CLARITY_RETIRED) {
+  assert.ok(RETIRED_SLUGS.has(slug), `${slug} must stay retired — ₿ off the object or a ghosted mark`);
+}
 
 const sweatRender = readFileSync(path.join(process.cwd(), "scripts/render-sweat-mockups.mjs"), "utf8");
 assert.match(sweatRender, /fabricPool/, "sweat mockups must clone fabric, not a flat chest box");
