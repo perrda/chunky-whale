@@ -39,6 +39,11 @@ const HOODIES = [
   { file: "bitcoin-mummy-hoodie.png", lines: ["BITCOIN", "MUMMY"], hex: "#1B2430" },
   { file: "four-year-hoodie.png", lines: ["FOUR YEAR", "TIDE"], hex: "#1D4E89" },
   { file: "21m-hoodie.png", lines: ["21", "MILLION"], hex: "#3A3D42" },
+  { file: "timechain-hoodie.png", lines: ["TIMECHAIN"], hex: "#0B0C0E" },
+  { file: "stack-sats-hoodie.png", lines: ["STACK", "SATS"], hex: "#2D5A3D" },
+  { file: "digital-energy-hoodie.png", lines: ["DIGITAL", "ENERGY"], hex: "#1B2430" },
+  { file: "sound-money-hoodie.png", lines: ["SOUND", "MONEY"], hex: "#0B0C0E" },
+  { file: "self-custody-hoodie.png", lines: ["SELF", "CUSTODY"], hex: "#1B2430" },
   { file: "b-mark-hoodie.png", lines: [], hex: "#0B0C0E", markOnly: true },
   { file: "embroidered-b-hoodie-navy.png", lines: [], hex: "#1B2430", markOnly: true },
 ];

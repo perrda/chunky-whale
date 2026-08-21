@@ -7,6 +7,7 @@ import { studioGrainScore } from "./catalog-grain";
 import { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catalog-kind";
 import { isStudioWhiteBackground } from "./catalog-studio";
 import { lineKey } from "./design-line";
+import { auditPrintSources } from "./catalog-print-allowlist";
 import { products as allProducts, RETIRED_SLUGS, type Product } from "./products";
 
 export { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catalog-kind";
@@ -61,7 +62,7 @@ const OBJECT_OK: Record<string, string[]> = {
 
 export type CatalogImageIssue = {
   severity: "error" | "warning";
-  code: "missing-file" | "slogan-collision" | "kind-mismatch" | "studio-background" | "bitcoin-mark" | "color-match" | "grain";
+  code: "missing-file" | "slogan-collision" | "kind-mismatch" | "studio-background" | "bitcoin-mark" | "color-match" | "grain" | "print-source";
   slug: string;
   name: string;
   image: string;
@@ -206,6 +207,17 @@ export async function auditCatalogImages(
       name: c.name,
       image: c.image,
       detail: c.detail,
+    });
+  }
+
+  for (const p of auditPrintSources(products)) {
+    issues.push({
+      severity: "error",
+      code: "print-source",
+      slug: p.slug,
+      name: p.name,
+      image: p.image,
+      detail: p.detail,
     });
   }
 

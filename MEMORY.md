@@ -8,7 +8,9 @@ Homepage check: **“Bitcoin merch. Don’t miss the stack.”** + three doors (
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
 
-Version **0.7.25** (20 Aug 2026 Bitcoin Daddy tee rebuilt). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + **StackHouse** wordmark (Stack + orange House). All-caps **STACKHOUSE** is the legal/meta name — do not “fix” the wordmark to one word. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop. `/fulfillment` redirects to Shipping (booth freight is not a public page).
+Version **0.7.26** (21 Aug 2026 catalog print QA). Strapline: **Stack sats. Wear ₿.** Login optional. Public site does not advertise events. Header uses a coin ₿ mark + **StackHouse** wordmark (Stack + orange House). All-caps **STACKHOUSE** is the legal/meta name — do not “fix” the wordmark to one word. Homepage hero is six rotating products. No Blog — old `/blog` links go to the shop. `/fulfillment` redirects to Shipping (booth freight is not a public page).
+
+**Catalog print QA 0.7.26:** live photos were a mix of wrong ₿, leftover slogans, sticker boxes, and overlays. Fail SKUs are retired (swim, totes, jewelry, posters, leftover hats/mugs/tumblers, chart tees). **124 excellent** live pieces remain (renderer tees/sweats/glass + the 21M dad hat). Live apparel and glass must be stamped by `render-tee-mockups.mjs` / `render-sweat-mockups.mjs` / `render-glass-mockups.mjs` (official ₿ + Inter). Only approved studio photo: **21M dad hat**. `npm run qa:catalog` now fails `print-source` if a live shot is not on that list. Do not restamp a bad mug or hat — retire it. Check `/product/bitcoin-daddy-tee` then `/product/21m-hat`.
 
 **Do not retrace (every past catalog / UX fire):**
 - Swatch colour must match the garment in the photo. Bone = cream, never a tinted black tee.

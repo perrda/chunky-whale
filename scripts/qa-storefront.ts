@@ -5,6 +5,7 @@
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
+import { allowedPrintFilenames, auditPrintSources } from "../lib/catalog-print-allowlist";
 import { SHOP_FILTERS, SHOP_MORE_FILTERS, MEGA_NAV } from "../lib/nav";
 import { gbpAmountsMatch, gbpToPence, penceMatchesGbp } from "../lib/payments/amount";
 import { liveProducts, productsIn, RETIRED_SLUGS, takesColourways } from "../lib/products";
@@ -25,9 +26,12 @@ assert.ok(
 assert.ok(productsIn("whiskey-glasses").length >= 20, "whiskey range thin");
 assert.ok(productsIn("shot-glasses").length >= 20, "shot range thin");
 assert.ok(productsIn("mummy-daddy").length >= 4, "Mummy & Daddy shop filter would be empty");
+assert.ok(RETIRED_SLUGS.has("log-chart-mug"), "log-chart-mug must stay retired — chart wrap was unreadable");
+assert.ok(productsIn("hats").length >= 1, "Hats collection empty");
+assert.equal(productsIn("swimwear").length, 0, "failed swim photos must stay retired");
 assert.ok(
-  productsIn("drinkware").some((p) => p.slug === "log-chart-mug"),
-  "log-chart-mug missing from Drinkware",
+  productsIn("drinkware").every((p) => p.kind === "whiskey" || p.kind === "shot"),
+  "Drinkware must be renderer whiskey/shot only",
 );
 
 for (const slug of [...SHOP_FILTERS, ...SHOP_MORE_FILTERS].map((c) => c.slug)) {
@@ -48,7 +52,7 @@ assert.ok(!MEGA_NAV.some((n) => n.label === "Women"), "Women is under Shop, not 
 const shopNav = MEGA_NAV.find((n) => n.label === "Shop");
 assert.ok(shopNav);
 assert.ok(shopNav.children?.some((c) => c.href === "/collection/women"), "Shop must still reach Women");
-assert.ok(shopNav.children?.some((c) => c.href === "/collection/swimwear"), "Shop must still reach Swimwear");
+assert.ok(!shopNav.children?.some((c) => c.href === "/collection/swimwear"), "Shop must not list retired Swimwear");
 assert.ok(
   !shopNav.children?.some((c) => /bikini|one-piece/i.test(c.href)),
   "Shop dropdown still lists swim subsections",
@@ -110,10 +114,26 @@ const PRINT_CLARITY_RETIRED = [
   "bitcoin-daddy-mug",
   "hodl-mug",
   "21m-poster",
+  "log-chart-mug",
+  "bitcoin-daddy-hat",
+  "satoshi-hat",
+  "hard-money-hat",
+  "btc-dad-hat",
+  "keys-tee",
+  "log-scale-tee",
+  "orange-daily-tee",
+  "candles-hoodie",
+  "embroidered-b-hoodie",
+  "b-zip-hoodie",
 ];
 for (const slug of PRINT_CLARITY_RETIRED) {
   assert.ok(RETIRED_SLUGS.has(slug), `${slug} must stay retired — ₿ off the object or a ghosted mark`);
 }
+
+const printFails = auditPrintSources(live);
+assert.equal(printFails.length, 0, printFails.map((p) => `${p.slug}:${p.image}`).join(", ") || "print allowlist");
+assert.ok(allowedPrintFilenames().has("bitcoin-daddy-tee.png"), "Daddy tee must stay on the tee renderer");
+assert.ok(allowedPrintFilenames().has("21m-hat.png"), "21M hat is the one approved studio hat");
 
 const sweatRender = readFileSync(path.join(process.cwd(), "scripts/render-sweat-mockups.mjs"), "utf8");
 assert.match(sweatRender, /fabricPool/, "sweat mockups must clone fabric, not a flat chest box");
@@ -129,6 +149,8 @@ assert.doesNotMatch(markQa, /tilt: 14/, "do not treat a square orange blob as al
 const teeRender = readFileSync(path.join(process.cwd(), "scripts/render-tee-mockups.mjs"), "utf8");
 assert.match(teeRender, /bitcoin-daddy-tee\.png/, "Bitcoin Daddy tee must be rebuilt from the official ₿");
 assert.match(teeRender, /garmentMarkPng/, "tee mockups must use the visible clockwise ₿");
+const glassRender = readFileSync(path.join(process.cwd(), "scripts/render-glass-mockups.mjs"), "utf8");
+assert.match(glassRender, /garmentMarkPng/, "glass mockups must use the visible clockwise ₿");
 assert.match(
   readFileSync(path.join(process.cwd(), "scripts/restamp-mark-only.mjs"), "utf8"),
   /garmentMarkPng/,

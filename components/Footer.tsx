@@ -48,9 +48,6 @@ export function Footer() {
               <Link href="/collection/hats">Hats</Link>
             </li>
             <li>
-              <Link href="/collection/swimwear">Swimwear</Link>
-            </li>
-            <li>
               <Link href="/collection/drinkware">Drinkware</Link>
             </li>
             <li>
@@ -58,12 +55,6 @@ export function Footer() {
             </li>
             <li>
               <Link href="/collection/shot-glasses">Shot glasses</Link>
-            </li>
-            <li>
-              <Link href="/collection/jewelry">Jewelry</Link>
-            </li>
-            <li>
-              <Link href="/collection/posters">Posters</Link>
             </li>
             <li>
               <Link href="/collection/kids">Kids</Link>
