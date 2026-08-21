@@ -126,6 +126,22 @@ const NEW_HOODIES: Mark[] = [
     trending: true,
     photo: "ink",
   },
+  {
+    id: "sound-money",
+    name: "SOUND MONEY",
+    short: "Sound Money",
+    desc: "Quiet fleece. Loud rule. Orange ₿.",
+    tag: "Copy",
+    photo: "ink",
+  },
+  {
+    id: "self-custody",
+    name: "SELF CUSTODY",
+    short: "Self Custody",
+    desc: "Nobody else holds this layer. Hood on.",
+    tag: "Meme",
+    photo: "navy",
+  },
 ];
 
 const NEW_PULLOVERS: Mark[] = [

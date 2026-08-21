@@ -7,6 +7,7 @@ import { studioGrainScore } from "./catalog-grain";
 import { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catalog-kind";
 import { isStudioWhiteBackground } from "./catalog-studio";
 import { lineKey } from "./design-line";
+import { auditPrintSources } from "./catalog-print-allowlist";
 import { products as allProducts, RETIRED_SLUGS, type Product } from "./products";
 
 export { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catalog-kind";
@@ -61,7 +62,7 @@ const OBJECT_OK: Record<string, string[]> = {
 
 export type CatalogImageIssue = {
   severity: "error" | "warning";
-  code: "missing-file" | "slogan-collision" | "kind-mismatch" | "studio-background" | "bitcoin-mark" | "color-match" | "grain";
+  code: "missing-file" | "slogan-collision" | "kind-mismatch" | "studio-background" | "bitcoin-mark" | "color-match" | "grain" | "print-source";
   slug: string;
   name: string;
   image: string;
@@ -123,7 +124,7 @@ export async function auditCatalogImages(
           detail: `Studio backdrop is grainy (score ${grain.grain.toFixed(1)}). Catalog photos must be clean white, not speckled.`,
         });
       }
-      const skipMark = ["pendant", "bracelet", "mug", "tote", "tumbler", "pint", "coaster"].includes(
+      const skipMark = ["pendant", "bracelet", "mug", "tote", "tumbler", "pint", "coaster", "whiskey", "shot"].includes(
         productObject(p),
       );
       const markImages = skipMark
@@ -133,7 +134,8 @@ export async function auditCatalogImages(
         const markAbs = path.join(publicDir, image.replace(/^\//, ""));
         if (!existsSync(markAbs)) continue;
         const mark = await largestOrangeMarkTilt(markAbs);
-        if (mark.found && mark.primary && !mark.clockwise) {
+        const mustLean = /bitcoin-daddy|bitcoin-mummy|b-mark-hoodie|btc-b-tee/.test(p.slug);
+        if (mark.found && !mark.clockwise && (mark.primary || mustLean)) {
           issues.push({
             severity: "error",
             code: "bitcoin-mark",
@@ -205,6 +207,17 @@ export async function auditCatalogImages(
       name: c.name,
       image: c.image,
       detail: c.detail,
+    });
+  }
+
+  for (const p of auditPrintSources(products)) {
+    issues.push({
+      severity: "error",
+      code: "print-source",
+      slug: p.slug,
+      name: p.name,
+      image: p.image,
+      detail: p.detail,
     });
   }
 

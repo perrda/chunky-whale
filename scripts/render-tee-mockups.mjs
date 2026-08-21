@@ -1,7 +1,6 @@
 /**
- * Build unique square hoodie / pullover catalog shots from existing
- * ghost-mannequin templates. Covers the old chest print and stamps a
- * new ₿ + slogan so Pullovers never reuse a hoodie photo.
+ * Rebuild tee / long-sleeve catalog shots from ghost templates.
+ * Erase the old chest print, stamp official ₿ (visible clockwise lean) + Inter slogan.
  */
 import { copyFileSync, existsSync, mkdirSync } from "fs";
 import path from "path";
@@ -12,64 +11,65 @@ const ROOT = process.cwd();
 const OUT = path.join(ROOT, "public/products");
 const FONT = "/usr/share/fonts/truetype/macos/Inter-Bold.ttf";
 const TMPL_DIR = path.join(ROOT, "public/templates");
-const PULLOVER_TMPL = path.join(TMPL_DIR, "pullover-ghost.png");
-const HOODIE_TMPL = path.join(TMPL_DIR, "hoodie-ghost.png");
+const TEE_TMPL = path.join(TMPL_DIR, "tee-ghost.png");
+const LS_TMPL = path.join(TMPL_DIR, "longsleeve-ghost.png");
 
 function lockTemplates() {
   mkdirSync(TMPL_DIR, { recursive: true });
-  const pullSrc = path.join(OUT, "21m-pullover.png");
-  const hoodSrc = path.join(OUT, "hodl-hoodie.png");
-  if (!existsSync(PULLOVER_TMPL) && existsSync(pullSrc)) copyFileSync(pullSrc, PULLOVER_TMPL);
-  if (!existsSync(HOODIE_TMPL) && existsSync(hoodSrc)) copyFileSync(hoodSrc, HOODIE_TMPL);
+  const teeSrc = path.join(OUT, "hodl-tee-ink.png");
+  const lsSrc = path.join(OUT, "verify-longsleeve.png");
+  if (!existsSync(TEE_TMPL) && existsSync(teeSrc)) copyFileSync(teeSrc, TEE_TMPL);
+  if (!existsSync(LS_TMPL) && existsSync(lsSrc)) copyFileSync(lsSrc, LS_TMPL);
 }
 
-const HOODIES = [
-  { file: "so-back-hoodie.png", lines: ["WE ARE", "SO BACK"], hex: "#0B0C0E" },
-  { file: "so-over-hoodie.png", lines: ["IT'S SO", "OVER"], hex: "#1B2430" },
-  { file: "no-forecast-hoodie.png", lines: ["NOT A", "FORECAST"], hex: "#3A3D42" },
-  { file: "stay-humble-hoodie.png", lines: ["STAY", "HUMBLE"], hex: "#2D5A3D" },
-  { file: "proof-of-work-hoodie.png", lines: ["PROOF OF", "WORK"], hex: "#0B0C0E" },
-  { file: "not-your-keys-hoodie.png", lines: ["NOT YOUR", "KEYS"], hex: "#1B2430" },
-  { file: "hard-money-hoodie.png", lines: ["HARD", "MONEY"], hex: "#6B1D2A" },
-  { file: "verify-hoodie.png", lines: ["DON'T TRUST.", "VERIFY."], hex: "#3A3D42" },
-  { file: "few-understand-hoodie.png", lines: ["FEW", "UNDERSTAND"], hex: "#0B0C0E" },
-  { file: "hodl-hoodie.png", lines: ["HODL"], hex: "#0B0C0E" },
-  { file: "hodl-hoodie-navy.png", lines: ["HODL"], hex: "#1B2430" },
-  { file: "bitcoin-daddy-hoodie.png", lines: ["BITCOIN", "DADDY"], hex: "#0B0C0E" },
-  { file: "bitcoin-mummy-hoodie.png", lines: ["BITCOIN", "MUMMY"], hex: "#1B2430" },
-  { file: "four-year-hoodie.png", lines: ["FOUR YEAR", "TIDE"], hex: "#1D4E89" },
-  { file: "21m-hoodie.png", lines: ["21", "MILLION"], hex: "#3A3D42" },
-  { file: "timechain-hoodie.png", lines: ["TIMECHAIN"], hex: "#0B0C0E" },
-  { file: "stack-sats-hoodie.png", lines: ["STACK", "SATS"], hex: "#2D5A3D" },
-  { file: "digital-energy-hoodie.png", lines: ["DIGITAL", "ENERGY"], hex: "#1B2430" },
-  { file: "sound-money-hoodie.png", lines: ["SOUND", "MONEY"], hex: "#0B0C0E" },
-  { file: "self-custody-hoodie.png", lines: ["SELF", "CUSTODY"], hex: "#1B2430" },
-  { file: "b-mark-hoodie.png", lines: [], hex: "#0B0C0E", markOnly: true },
-  { file: "embroidered-b-hoodie-navy.png", lines: [], hex: "#1B2430", markOnly: true },
+const TEES = [
+  { file: "bitcoin-daddy-tee.png", lines: ["BITCOIN", "DADDY"], hex: "#0B0C0E" },
+  { file: "bitcoin-mummy-tee.png", lines: ["BITCOIN", "MUMMY"], hex: "#1B2430" },
+  { file: "hodl-tee.png", lines: ["I AM", "HODLING"], hex: "#3A3D42" },
+  { file: "hodl-tee-ink.png", lines: ["I AM", "HODLING"], hex: "#0B0C0E" },
+  { file: "hodl-tee-navy.png", lines: ["I AM", "HODLING"], hex: "#1B2430" },
+  { file: "strategic-reserve-tee.png", lines: ["STRATEGIC", "RESERVE"], hex: "#1B2430" },
+  { file: "hard-money-tee.png", lines: ["HARD", "MONEY"], hex: "#8A8D92" },
+  { file: "proof-tweet-tee.png", lines: ["PROOF OF WORK", "NOT PROOF OF TWEET"], hex: "#6B1D2A" },
+  { file: "btc-b-tee.png", lines: [], hex: "#0B0C0E", markOnly: true },
+  { file: "women-btc-tee.png", lines: [], hex: "#0B0C0E", markOnly: true, markSmall: true },
+  { file: "so-back-tee.png", lines: ["WE ARE", "SO BACK"], hex: "#0B0C0E" },
+  { file: "no-laser-tee.png", lines: ["NO LASER", "EYES"], hex: "#1B2430" },
+  { file: "cant-print-tee.png", lines: ["CAN'T", "PRINT THIS"], hex: "#3A3D42" },
+  { file: "satoshi-tee.png", lines: ["SATOSHI", "WAS HERE"], hex: "#0B0C0E" },
+  { file: "verify-meme-tee.png", lines: ["DON'T TRUST.", "VERIFY."], hex: "#1B2430" },
+  { file: "women-crop.png", lines: ["STACK", "SATS"], hex: "#0B0C0E" },
+  { file: "women-tank.png", lines: ["STACK", "SATS"], hex: "#6B1D2A" },
+  { file: "women-vneck.png", lines: [], hex: "#0B0C0E", markOnly: true, markSmall: true },
+  { file: "youth-utxo-tee.png", lines: ["FUTURE", "UTXO"], hex: "#1B2430" },
+  { file: "so-over-tee.png", lines: ["IT'S SO", "OVER"], hex: "#1B2430" },
+  { file: "fiat-experiment-tee.png", lines: ["FIAT IS THE", "EXPERIMENT"], hex: "#3A3D42" },
+  { file: "quantum-tee.png", lines: ["QUANTUM", "CAN WAIT"], hex: "#0B0C0E" },
+  { file: "orange-pill-tee.png", lines: ["ORANGE", "PILL"], hex: "#0B0C0E" },
+  { file: "not-forecast-tee.png", lines: ["NOT A", "FORECAST"], hex: "#1B2430" },
+  { file: "stay-humble-tee.png", lines: ["STAY HUMBLE", "STACK SATS"], hex: "#2D5A3D" },
+  { file: "genesis-2009-tee.png", lines: ["GENESIS", "03 JAN 2009"], hex: "#0B0C0E" },
+  { file: "low-time-tee.png", lines: ["LOW TIME", "PREFERENCE"], hex: "#1B2430" },
+  { file: "stack-sats-tee.png", lines: ["STACK", "SATS"], hex: "#2D5A3D" },
+  { file: "few-understand-tee.png", lines: ["FEW", "UNDERSTAND"], hex: "#0B0C0E" },
+  { file: "fixes-this-tee.png", lines: ["BITCOIN", "FIXES THIS"], hex: "#1B2430" },
+  { file: "one-btc-tee.png", lines: ["1 BTC", "= 1 BTC"], hex: "#3A3D42" },
+  { file: "21-million-tee.png", lines: ["21", "MILLION"], hex: "#0B0C0E" },
+  { file: "no-second-tee.png", lines: ["NO SECOND", "BEST"], hex: "#6B1D2A" },
+  { file: "whitepaper-tee.png", lines: ["PEER-TO-PEER", "ELECTRONIC CASH"], hex: "#1B2430" },
+  { file: "gradually-tee.png", lines: ["GRADUALLY,", "THEN SUDDENLY"], hex: "#0B0C0E" },
+  { file: "nyknyc-tee.png", lines: ["NOT YOUR KEYS", "NOT YOUR COINS"], hex: "#1B2430" },
+  { file: "finite-tee.png", lines: ["INFINITE FIAT", "FINITE BITCOIN"], hex: "#3A3D42" },
+  { file: "run-node-tee.png", lines: ["RUN YOUR", "NODE"], hex: "#0B0C0E" },
+  { file: "ngu-tee.png", lines: ["NUMBER", "GO UP"], hex: "#1B2430" },
+  { file: "dip-feature-tee.png", lines: ["THE DIP IS", "THE FEATURE"], hex: "#2D5A3D" },
+  { file: "joke-21-tee.png", lines: ["21 MILLION.", "THAT'S THE JOKE."], hex: "#0B0C0E" },
 ];
 
-const PULLOVERS = [
-  { file: "no-laser-pullover.png", lines: ["NO LASER", "EYES"], hex: "#1B2430", tmpl: "pullover" },
-  { file: "orange-pill-pullover.png", lines: ["ORANGE", "PILL"], hex: "#0B0C0E", tmpl: "pullover" },
-  { file: "hodl-pullover.png", lines: ["I AM", "HODLING"], hex: "#3A3D42", tmpl: "pullover" },
-  { file: "stack-sats-pullover.png", lines: ["STACK", "SATS"], hex: "#2D5A3D", tmpl: "pullover" },
-  { file: "timechain-pullover.png", lines: ["TIMECHAIN"], hex: "#0B0C0E", tmpl: "pullover" },
-  { file: "digital-energy-pullover.png", lines: ["DIGITAL", "ENERGY"], hex: "#1B2430", tmpl: "pullover" },
-  { file: "four-year-pullover.png", lines: ["FOUR YEAR", "TIDE"], hex: "#1D4E89", tmpl: "pullover" },
-  { file: "b-mark-pullover.png", lines: [], hex: "#0B0C0E", tmpl: "pullover", markOnly: true },
-  { file: "stay-humble-pullover.png", lines: ["STAY HUMBLE", "STACK SATS"], hex: "#3A3D42", tmpl: "pullover" },
-  { file: "proof-of-work-pullover.png", lines: ["PROOF OF", "WORK"], hex: "#6B1D2A", tmpl: "pullover" },
-  { file: "not-your-keys-pullover.png", lines: ["NOT YOUR KEYS", "NOT YOUR COINS"], hex: "#1B2430", tmpl: "pullover" },
-  { file: "hard-money-pullover.png", lines: ["HARD", "MONEY"], hex: "#2D5A3D", tmpl: "pullover" },
-  { file: "sound-money-pullover.png", lines: ["SOUND", "MONEY"], hex: "#0B0C0E", tmpl: "pullover" },
-  { file: "cold-storage-pullover.png", lines: ["COLD", "STORAGE"], hex: "#1B2430", tmpl: "pullover" },
-  { file: "self-custody-pullover.png", lines: ["SELF", "CUSTODY"], hex: "#3A3D42", tmpl: "pullover" },
-  { file: "verify-pullover.png", lines: ["DON'T TRUST.", "VERIFY."], hex: "#0B0C0E", tmpl: "pullover" },
-  { file: "few-understand-pullover.png", lines: ["FEW", "UNDERSTAND"], hex: "#6B7A3D", tmpl: "pullover" },
-  { file: "bitcoin-mummy-pullover.png", lines: ["BITCOIN", "MUMMY"], hex: "#1D4E89", tmpl: "pullover" },
-  { file: "bitcoin-daddy-pullover.png", lines: ["BITCOIN", "DADDY"], hex: "#0B0C0E", tmpl: "pullover" },
-  { file: "21m-pullover.png", lines: ["21", "MILLION"], hex: "#1B2430", tmpl: "pullover" },
-  { file: "hodl-crew.png", lines: ["HODL"], hex: "#8A8D92", tmpl: "pullover" },
+const LONGSLEEVES = [
+  { file: "bitcoin-daddy-longsleeve.png", lines: ["BITCOIN", "DADDY"], hex: "#1B2430" },
+  { file: "bitcoin-mummy-longsleeve.png", lines: ["BITCOIN", "MUMMY"], hex: "#3A3D42" },
+  { file: "verify-longsleeve.png", lines: ["DON'T TRUST.", "VERIFY."], hex: "#0B0C0E" },
 ];
 
 function hexToRgb(hex) {
@@ -124,26 +124,12 @@ function nearWhite(r, g, b) {
 }
 
 async function loadRaw(file) {
-  const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const { data, info } = await sharp(file)
+    .resize(1024, 1024, { fit: "cover", position: "centre" })
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
   return { data: Buffer.from(data), width: info.width, height: info.height };
-}
-
-function sampleShoulder(data, w, h) {
-  const spots = [
-    [Math.floor(w * 0.28), Math.floor(h * 0.36)],
-    [Math.floor(w * 0.72), Math.floor(h * 0.36)],
-    [Math.floor(w * 0.22), Math.floor(h * 0.28)],
-  ];
-  let r = 0;
-  let g = 0;
-  let b = 0;
-  for (const [x, y] of spots) {
-    const o = (y * w + x) * 4;
-    r += data[o];
-    g += data[o + 1];
-    b += data[o + 2];
-  }
-  return [Math.round(r / spots.length), Math.round(g / spots.length), Math.round(b / spots.length)];
 }
 
 function backgroundMask(data, w, h) {
@@ -181,34 +167,7 @@ function backgroundMask(data, w, h) {
 function recolorGarment(raw, targetHex) {
   const { data, width: w, height: h } = raw;
   const [th, ts, tl] = rgbToHsl(...hexToRgb(targetHex));
-  const bg = new Uint8Array(w * h);
-  const q = [];
-  const tryPush = (x, y) => {
-    if (x < 0 || y < 0 || x >= w || y >= h) return;
-    const i = y * w + x;
-    if (bg[i]) return;
-    const o = i * 4;
-    if (!nearWhite(data[o], data[o + 1], data[o + 2])) return;
-    bg[i] = 1;
-    q.push(i);
-  };
-  for (let x = 0; x < w; x++) {
-    tryPush(x, 0);
-    tryPush(x, h - 1);
-  }
-  for (let y = 0; y < h; y++) {
-    tryPush(0, y);
-    tryPush(w - 1, y);
-  }
-  while (q.length) {
-    const i = q.pop();
-    const x = i % w;
-    const y = (i - x) / w;
-    tryPush(x + 1, y);
-    tryPush(x - 1, y);
-    tryPush(x, y + 1);
-    tryPush(x, y - 1);
-  }
+  const bg = backgroundMask(data, w, h);
   for (let i = 0; i < w * h; i++) {
     if (bg[i]) continue;
     const o = i * 4;
@@ -226,10 +185,10 @@ function recolorGarment(raw, targetHex) {
 function fabricPool(data, w, h, bg) {
   const pool = [];
   const bands = [
-    [0.18, 0.28, 0.26, 0.36],
-    [0.72, 0.82, 0.26, 0.36],
-    [0.14, 0.22, 0.40, 0.52],
-    [0.78, 0.86, 0.40, 0.52],
+    [0.16, 0.28, 0.22, 0.34],
+    [0.72, 0.84, 0.22, 0.34],
+    [0.12, 0.22, 0.42, 0.58],
+    [0.78, 0.88, 0.42, 0.58],
   ];
   for (const [x0, x1, y0, y1] of bands) {
     const xa = Math.floor(w * x0);
@@ -251,19 +210,18 @@ function fabricPool(data, w, h, bg) {
   return pool;
 }
 
-/** Hide the old chest print by cloning real fabric — never a flat rectangle. */
-function coverPrint(raw, kind) {
+function coverPrint(raw) {
   const { data, width: w, height: h } = raw;
   const bg = backgroundMask(data, w, h);
   const pool = fabricPool(data, w, h, bg);
   if (pool.length < 30) return raw;
   const cx = w * 0.5;
-  const cy = kind === "hoodie" ? h * 0.38 : h * 0.4;
-  const rx = kind === "hoodie" ? w * 0.28 : w * 0.3;
-  const ry = kind === "hoodie" ? h * 0.2 : h * 0.22;
+  const cy = h * 0.36;
+  const rx = w * 0.3;
+  const ry = h * 0.22;
   const n = pool.length / 3;
-  for (let y = Math.floor(cy - ry * 1.25); y < cy + ry * 1.25; y++) {
-    for (let x = Math.floor(cx - rx * 1.25); x < cx + rx * 1.25; x++) {
+  for (let y = Math.floor(cy - ry * 1.3); y < cy + ry * 1.3; y++) {
+    for (let x = Math.floor(cx - rx * 1.3); x < cx + rx * 1.3; x++) {
       if (x < 0 || y < 0 || x >= w || y >= h) continue;
       const i = y * w + x;
       if (bg[i]) continue;
@@ -283,8 +241,7 @@ function coverPrint(raw, kind) {
   return raw;
 }
 
-/** Kill leftover white slogan / old ₿ in the chest so only the new stamp remains. */
-function eraseOldPrint(raw, kind) {
+function eraseOldPrint(raw) {
   const { data, width: w, height: h } = raw;
   const bg = backgroundMask(data, w, h);
   const pool = fabricPool(data, w, h, bg);
@@ -295,10 +252,10 @@ function eraseOldPrint(raw, kind) {
     clothL += rgbToHsl(pool[i], pool[i + 1], pool[i + 2])[2];
   }
   clothL /= n;
-  const top = kind === "hoodie" ? Math.floor(h * 0.2) : Math.floor(h * 0.18);
-  const bottom = kind === "hoodie" ? Math.floor(h * 0.6) : Math.floor(h * 0.64);
-  const left = Math.floor(w * 0.2);
-  const right = Math.floor(w * 0.8);
+  const top = Math.floor(h * 0.16);
+  const bottom = Math.floor(h * 0.62);
+  const left = Math.floor(w * 0.18);
+  const right = Math.floor(w * 0.82);
   for (let y = top; y < bottom; y++) {
     for (let x = left; x < right; x++) {
       const i = y * w + x;
@@ -319,11 +276,11 @@ function eraseOldPrint(raw, kind) {
   return raw;
 }
 
-function printSvg(lines, markOnly) {
+function printSvg(lines) {
   const longest = lines.reduce((n, s) => Math.max(n, s.length), 0);
-  const size = markOnly ? 0 : longest > 14 ? 34 : longest > 10 ? 40 : 46;
-  const startY = markOnly ? 0 : 560;
-  const lineH = size + 6;
+  const size = longest > 16 ? 32 : longest > 12 ? 38 : 44;
+  const startY = 520;
+  const lineH = size + 8;
   const tspans = lines
     .map((line, i) => {
       const y = startY + i * lineH;
@@ -348,14 +305,14 @@ async function toPng(raw) {
 }
 
 async function renderOne(spec, kind, markPng) {
-  const tmpl = kind === "hoodie" ? HOODIE_TMPL : PULLOVER_TMPL;
+  const tmpl = kind === "tee" ? TEE_TMPL : LS_TMPL;
   let raw = await loadRaw(tmpl);
-  raw = coverPrint(raw, kind === "hoodie" ? "hoodie" : "pullover");
-  raw = eraseOldPrint(raw, kind === "hoodie" ? "hoodie" : "pullover");
+  raw = coverPrint(raw);
+  raw = eraseOldPrint(raw);
   raw = recolorGarment(raw, spec.hex);
   const base = await toPng(raw);
-  const markW = spec.markOnly ? 280 : 168;
-  const markTop = kind === "hoodie" ? (spec.markOnly ? 268 : 278) : spec.markOnly ? 250 : 268;
+  const markW = spec.markOnly ? (spec.markSmall ? 96 : 260) : 168;
+  const markTop = spec.markOnly ? (spec.markSmall ? 300 : 250) : 248;
   const layers = [
     {
       input: await sharp(markPng).resize({ width: markW }).png().toBuffer(),
@@ -364,7 +321,7 @@ async function renderOne(spec, kind, markPng) {
     },
   ];
   if (!spec.markOnly && spec.lines.length) {
-    layers.push({ input: await sharp(printSvg(spec.lines, false)).png().toBuffer(), left: 0, top: 0 });
+    layers.push({ input: await sharp(printSvg(spec.lines)).png().toBuffer(), left: 0, top: 0 });
   }
   const out = path.join(OUT, spec.file);
   await sharp(base).composite(layers).png().toFile(out);
@@ -376,10 +333,12 @@ const only = process.argv.slice(2);
 async function main() {
   mkdirSync(OUT, { recursive: true });
   lockTemplates();
+  if (!existsSync(TEE_TMPL)) throw new Error("tee-ghost template missing");
+  if (!existsSync(LS_TMPL)) throw new Error("longsleeve-ghost template missing");
   const markPng = await garmentMarkPng(320);
   const jobs = [
-    ...HOODIES.map((s) => ({ spec: s, kind: "hoodie" })),
-    ...PULLOVERS.map((s) => ({ spec: s, kind: "pullover" })),
+    ...TEES.map((s) => ({ spec: s, kind: "tee" })),
+    ...LONGSLEEVES.map((s) => ({ spec: s, kind: "ls" })),
   ].filter((j) => !only.length || only.includes(j.spec.file));
   for (const job of jobs) {
     const out = await renderOne(job.spec, job.kind, markPng);

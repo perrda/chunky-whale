@@ -16,7 +16,7 @@ export default async function ShopPage({ searchParams }: Props) {
       <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-gold">Catalog</p>
       <h1 className="mt-2 font-display text-4xl font-extrabold">Bitcoin merch</h1>
       <p className="mt-3 max-w-2xl font-serif text-paper/75">
-        The memes, the ₿, the 21 million. Tees, hoodies, hats, drinkware, jewelry, posters. Mid-price.
+        The memes, the ₿, the 21 million. Tees, hoodies, hats, whiskey, shots. Mid-price.
       </p>
       <div className="mt-10">
         <ShopCatalog products={liveProducts()} initialFilter={cat ?? "all"} initialQ={q ?? ""} />

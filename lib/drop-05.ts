@@ -58,8 +58,6 @@ export const drop05: Product[] = [
     colors: [heather, navy, ink],
     imagesByColor: {
       heather: "/products/stay-humble-tee.png",
-      navy: "/products/stay-humble-tee-navy.png",
-      ink: "/products/stay-humble-tee-ink.png",
     },
     description: "The two-part religion. Humble in the group chat. Relentless in the stack. Orange ₿.",
     details: TEE,
@@ -147,7 +145,6 @@ export const drop05: Product[] = [
     colors: [ink, navy],
     imagesByColor: {
       ink: "/products/stack-sats-hoodie.png",
-      navy: "/products/stack-sats-hoodie-navy.png",
     },
     description: "Stitched ₿, STACK SATS. The conference layer that does not peel.",
     details: [...HOOD, ...EMB],

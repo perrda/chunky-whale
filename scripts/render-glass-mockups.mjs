@@ -4,7 +4,7 @@
 import { mkdirSync } from "fs";
 import path from "path";
 import sharp from "sharp";
-import { officialMarkPng } from "./lib/official-bitcoin-mark.mjs";
+import { garmentMarkPng } from "./lib/official-bitcoin-mark.mjs";
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, "public/products");
@@ -102,7 +102,7 @@ const only = process.argv.slice(2);
 
 async function main() {
   mkdirSync(OUT, { recursive: true });
-  const markPng = await officialMarkPng("b", 280);
+  const markPng = await garmentMarkPng(280);
   const jobs = [
     ...WHISKEYS.map((s) => ({ spec: s, kind: "whiskey" })),
     ...SHOTS.map((s) => ({ spec: s, kind: "shot" })),
