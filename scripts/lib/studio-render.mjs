@@ -284,8 +284,15 @@ function lineWidth(font, text, size, tracking) {
 /** Inter as SVG paths — never a font-face raster that goes soft or distressed. */
 export function sloganSvg(lines, { fill = PRINT_WHITE, canvas = SIZE, startY = 690, face = "inter", layout = "stack" } = {}) {
   const font = loadFace(face);
-  const size = lineSize(lines, canvas, layout);
-  const tracking = Math.round(size * (face === "condensed" || face === "display" ? 0.04 : 0.06));
+  let size = lineSize(lines, canvas, layout);
+  let tracking = Math.round(size * (face === "condensed" || face === "display" ? 0.04 : 0.06));
+  const maxW = canvas * 0.84;
+  while (size > 28) {
+    tracking = Math.round(size * (face === "condensed" || face === "display" ? 0.04 : 0.06));
+    const widest = lines.reduce((n, t) => Math.max(n, lineWidth(font, t, size, tracking)), 0);
+    if (widest <= maxW) break;
+    size -= 3;
+  }
   const lineH = Math.round(size * (face === "serif" ? 1.32 : 1.22));
   const paths = [];
   let lastY = startY;

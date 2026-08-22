@@ -167,7 +167,7 @@ assert.ok(statSync(path.join(process.cwd(), "scripts/fonts/Oswald-Bold.ttf")).si
 assert.ok(statSync(path.join(process.cwd(), "scripts/fonts/ArchivoBlack-Regular.ttf")).size > 40000, "Archivo Black must ship");
 assert.ok(statSync(path.join(process.cwd(), "docs/DESIGN-DIRECTION.md")).size > 400, "design direction (inspire, do not copy FOMO21) must stay");
 const sayingsSrc = readFileSync(path.join(process.cwd(), "lib/sayings.json"), "utf8");
-assert.doesNotMatch(sayingsSrc, /TICK TOCK|FIX THE MONEY/i, "never print FOMO21 slogans from the sayings list");
+assert.doesNotMatch(sayingsSrc, /TICK TOCK|FIX THE MONEY|GOING TO ZERO|MELT YOUR FACE|GOT BITCOIN|PARANOID SURVIVE/i, "never print FOMO21 slogans from the sayings list");
 assert.ok(statSync(path.join(process.cwd(), "docs/SAYINGS.md")).size > 200, "approved sayings list must stay editable");
 
 assert.equal(defaultColorId(getProduct("no-second-tee")!), "ink", "No Second tee must open on the Ink studio shot");

@@ -183,9 +183,9 @@
       "fill": "#FFFFFF",
       "face": "display",
       "layout": "huge",
-      "tee": ["THE HOUSE", "ALWAYS STACKS"],
-      "hoodie": ["THE HOUSE", "ALWAYS STACKS"],
-      "pullover": ["THE HOUSE", "ALWAYS STACKS"],
+      "tee": ["THE HOUSE", "ALWAYS", "STACKS"],
+      "hoodie": ["THE HOUSE", "ALWAYS", "STACKS"],
+      "pullover": ["THE HOUSE", "ALWAYS", "STACKS"],
       "whiskey": ["ALWAYS", "STACKS"],
       "shot": ["STACKS"]
     },
