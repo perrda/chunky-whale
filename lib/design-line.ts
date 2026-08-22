@@ -88,6 +88,16 @@ const MARK_PREFIXES = [
   "inflation-theft",
   "forever-laura",
   "buy-the-dip",
+  "house-stacks",
+  "block-zero",
+  "verify-hodl",
+  "sound-loud",
+  "stackhouse-est",
+  "polo-crest",
+  "polo-center",
+  "polo-mini",
+  "quiet-b",
+  "crest-b",
 ].sort((a, b) => b.length - a.length);
 
 const KIND_TAIL =
@@ -125,6 +135,16 @@ const LINE_TITLES: Record<string, { label: string; blurb: string }> = {
   "inflation-theft": { label: "Inflation is theft", blurb: "The printer is the joke." },
   "forever-laura": { label: "Forever, Laura", blurb: "A joke. Not a forecast." },
   "buy-the-dip": { label: "Buy the dip", blurb: "Cycle mood. Not advice." },
+  "house-stacks": { label: "The house always stacks", blurb: "House joke. We stack." },
+  "block-zero": { label: "Block zero", blurb: "Genesis energy." },
+  "verify-hodl": { label: "Verify then HODL", blurb: "Check the keys. Then sit." },
+  "sound-loud": { label: "Sound money, loud shirt", blurb: "Quiet money. Loud cotton." },
+  "stackhouse-est": { label: "STACKHOUSE Est. 2009", blurb: "House mark. Genesis year." },
+  "polo-crest": { label: "Stitched ₿ polo", blurb: "Left chest. Dinner-safe." },
+  "polo-center": { label: "Center ₿ polo", blurb: "One stitched mark." },
+  "polo-mini": { label: "Mini ₿ polo", blurb: "The smallest stitch." },
+  "quiet-b": { label: "Quiet ₿", blurb: "Just the mark." },
+  "crest-b": { label: "Crest ₿", blurb: "Left chest on a tee." },
 };
 
 /** Lines with enough live SKUs to shop as a family. */

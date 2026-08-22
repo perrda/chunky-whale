@@ -9,6 +9,7 @@ const RENDER_SCRIPTS = [
   "scripts/render-tee-mockups.mjs",
   "scripts/render-sweat-mockups.mjs",
   "scripts/render-glass-mockups.mjs",
+  "scripts/render-polo-mockups.mjs",
 ] as const;
 
 /** Real studio photo that already has official clockwise ₿ + readable type. */

@@ -12,5 +12,6 @@ export function sayingJobs(kind) {
     lines: m[kind] ?? m.tee,
     fill: m.fill,
     face: m.face,
+    layout: m.layout,
   }));
 }

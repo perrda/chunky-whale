@@ -41,8 +41,14 @@ Voice: a Bitcoiner explaining it to a clever friend. Funny, serious, and giftabl
 - INFLATION IS THEFT
 - IT'S GOING UP FOREVER, LAURA — joke, not a forecast
 - BUY THE DIP — cycle mood, not advice
+- THE HOUSE ALWAYS STACKS
+- BLOCK ZERO
+- VERIFY THEN HODL
+- SOUND MONEY LOUD SHIRT
+- STACKHOUSE EST. 2009
 
-House list (add / remove here and in `lib/sayings.json`): [docs/SAYINGS.md](../../../docs/SAYINGS.md)
+House list (add / remove here and in `lib/sayings.json`): [docs/SAYINGS.md](../../../docs/SAYINGS.md)  
+Energy vs clones: [docs/DESIGN-DIRECTION.md](../../../docs/DESIGN-DIRECTION.md)
 
 ## Charts as jokes
 
@@ -65,4 +71,4 @@ House list (add / remove here and in `lib/sayings.json`): [docs/SAYINGS.md](../.
 
 ## Never print (FOMO21 / clones)
 
-First Rule Of Bitcoin, B Sovereign, All Your Models Are Destroyed, Vitamin B, Tick Tock Next Block, Fix The Money Fix The World, Fist Bitcoin, Get Rich Or Die Mining, HFSP, Make Money Great Again.
+First Rule Of Bitcoin, B Sovereign, All Your Models Are Destroyed, Vitamin B, Tick Tock Next Block, Fix The Money Fix The World, Fist Bitcoin, Get Rich Or Die Mining, HFSP, Make Money Great Again, Only The Paranoid Survive, Going To Zero Since 2009, Melt Your Face Off, got bitcoin?, Nirvana Satoshi, MAGA / Barbie / Metallica / Top Gun / Banksy / Pulp Fiction / Mt. Gox / laser-eye clones. Steal their **energy** (varied grid, quiet next to loud). Never their art. See `docs/DESIGN-DIRECTION.md`.

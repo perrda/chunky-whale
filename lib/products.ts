@@ -8,6 +8,7 @@ import { drop09Parents } from "./drop-09-parents";
 import { drop10Sweats } from "./drop-10-sweats";
 import { drop11Glasses } from "./drop-11-glasses";
 import { drop12Sayings } from "./drop-12-sayings";
+import { drop13Polos } from "./drop-13-polos";
 
 export { CLOTHING_COLORS };
 
@@ -147,6 +148,7 @@ export const collections = [
 ] as const;
 
 export const products: Product[] = [
+  ...drop13Polos,
   ...drop12Sayings,
   ...drop11Glasses,
   ...drop10Sweats,
@@ -1430,6 +1432,7 @@ export function productKind(p: Product) {
   if (s.includes("vintage")) return "vintage";
   if (p.category === "hats") return "dad";
   if (s.includes("zip")) return "zip";
+  if (s.includes("polo") || p.kind === "polo") return "polo";
   if (s.includes("crew")) return "crew";
   if (s.includes("pullover")) return "pullover";
   if (p.category === "hoodies") return "hoodie";
@@ -1464,6 +1467,8 @@ export function productsIn(slug: string) {
   if (slug === "women-crop") return list.filter((p) => p.cut === "women" && productKind(p) === "crop");
   if (slug === "women-tanks") return list.filter((p) => p.cut === "women" && productKind(p) === "tank");
   if (slug === "women-vneck") return list.filter((p) => p.cut === "women" && productKind(p) === "vneck");
+  if (slug === "tees") return list.filter((p) => p.category === "tees" && productKind(p) !== "polo");
+  if (slug === "polos") return list.filter((p) => productKind(p) === "polo");
   if (slug === "memes") return list.filter((p) => p.tag === "Meme");
   if (slug === "premium") return list.filter((p) => p.finish === "embroidery" || p.tag === "Premium");
   if (slug === "home") return list.filter((p) => p.category === "home" || p.category === "drinkware" || p.category === "posters");
@@ -1541,6 +1546,7 @@ export function searchProducts(q: string) {
 }
 
 const KIND_LABELS: Record<string, string> = {
+  polo: "Polo",
   hoodie: "Hoodie",
   pullover: "Pullover",
   crew: "Crewneck",
@@ -1587,6 +1593,7 @@ export function productKindLabel(p: Product) {
 
 export function collectionFor(p: Product): { href: string; label: string } {
   const k = productKind(p);
+  if (k === "polo") return { href: "/collection/polos", label: "Polo shirts" };
   if (k === "hoodie") return { href: "/collection/hoodies", label: "Hoodies" };
   if (k === "pullover") return { href: "/collection/pullovers", label: "Pullovers" };
   if (k === "crew") return { href: "/collection/crewnecks", label: "Crewnecks" };
@@ -1657,6 +1664,7 @@ export function fitNote(p: Product) {
   if (p.cut === "women" && p.category !== "swimwear")
     return "Women’s cut, closer through the body than the unisex tee. XS–2XL.";
   if (p.category === "swimwear") return "Swim fabric. Check the size list — it is not the same as the cotton tee.";
+  if (k === "polo") return "Unisex polo. Collar and placket. Stitched ₿ only — nothing flashy. XS–4XL.";
   if (k === "hoodie") return "Adult unisex. Hood and pocket. True to size; size up if you want it boxy.";
   if (k === "pullover") return "Adult unisex. No hood, no zip. Size up for a relaxed crew.";
   if (k === "zip") return "Adult unisex. Full zip. Same chest as the hoodie.";

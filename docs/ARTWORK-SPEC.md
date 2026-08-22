@@ -10,7 +10,7 @@ Give this to Printful / Gelato / Printify designers or upload yourself.
 ## Print rules
 
 1. **Official Bitcoin ₿ only.** Bitboy 2010 mark: orange `#F7931A`, **~14° clockwise tilt**. Never a vertical B. Never a generic “B with two bars.” Source files: `public/brand/bitcoin-b.svg` (orange ₿) and `public/brand/bitcoin-coin.svg` (orange coin, white ₿). Site mockups stamp that SVG via `garmentMarkPng` (rotate in the SVG, then rasterise). `npm run qa:catalog` fails `bitcoin-mark` if a live photo still has an upright B, `color-match` if a swatch does not match the garment, `grain` if the backdrop is speckled, and `print-clarity` if the writing is distressed, missing, leftover, or smashed by recolour.
-2. **Type is solid Inter, never distressed.** Catalog letters come from `scripts/fonts/Inter-Bold.ttf` as SVG paths (`sloganPng`). No grunge, no scuffed S/B/E, no ghost HODL under the new line. The buyer must read the title on the photo.
+2. **Type is solid, never distressed.** Faces: Inter, JetBrains Mono, Oswald, Libre Baskerville, Archivo Black (`scripts/fonts/`, SVG paths). No grunge, no FOMO21 parodies, no ghost HODL under the new line. The buyer must read the title on the photo. Polos: stitched ₿ only.
 3. One joke or one mark. Do not crowd.
 4. Never copy FOMO21 slogans or art.
 5. No profit claims (“guaranteed 100x”).

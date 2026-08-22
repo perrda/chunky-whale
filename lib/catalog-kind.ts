@@ -12,6 +12,7 @@ export function filenamePhotoKind(base: string): string | null {
     /(?:^|-)cap$/.test(b)
   )
     return "hat";
+  if (b.includes("polo")) return "polo";
   if (b.includes("-pullover") || /(pullover)$/.test(b)) return "pullover";
   if (b.includes("-zip") || /(zip)$/.test(b) || b.includes("zip-hoodie")) return "zip";
   if (b.includes("crewneck") || b.endsWith("-crew") || b.includes("-crew-")) return "crew";
@@ -42,6 +43,7 @@ export function expectedPhotoKind(product: Product): string {
   const k = (product.kind ?? "").toLowerCase();
   if (product.category === "swimwear") return "swim";
   if (product.category === "hats") return "hat";
+  if (k === "polo" || s.includes("polo")) return "polo";
   if (k === "pullover" || s.includes("pullover")) return "pullover";
   if (k === "crew" || s.includes("crew")) return "crew";
   if (k === "zip" || s.includes("zip")) return "zip";
@@ -68,6 +70,7 @@ export function expectedPhotoKind(product: Product): string {
 }
 
 const KIND_OK: Record<string, string[]> = {
+  polo: ["polo"],
   tee: ["tee", "onesie"],
   onesie: ["onesie", "tee"],
   hoodie: ["hoodie"],

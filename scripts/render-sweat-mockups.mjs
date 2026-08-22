@@ -108,6 +108,7 @@ async function main() {
       markOnly: job.spec.markOnly,
       fill: job.spec.fill,
       face: job.spec.face,
+      layout: job.spec.layout,
     });
     console.log("wrote", path.relative(ROOT, out));
   }

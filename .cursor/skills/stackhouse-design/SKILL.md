@@ -17,7 +17,9 @@ David Perry. Project `~/Projects/stackhouse`. GitHub `perrda/stackhouse`. Mercha
 
 ## Banned
 
-FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovereign, All Your Models Are Destroyed, Vitamin B, Tick Tock Next Block, Fix The Money Fix The World, Fist Bitcoin, Get Rich Or Die Mining, Going To Zero Since 2009, Make Money Great Again, Melt Your Face Off, Have Fun Staying Poor, Only The Paranoid Survive (as a Bitcoin tee). No altcoin logos. No profit claims on garments.
+FOMO21 copy, parodies, and clones. Full list: `docs/DESIGN-DIRECTION.md` and `docs/SAYINGS.md`. Steal **grid energy** (quiet crest next to huge type). Never their slogans, smiley, formula, melting ₿, flag ₿, or movie/band lockups. No altcoin logos. No profit claims on garments.
+
+**Polos:** official ₿ only, stitched, collar, nothing flashy. No slogans on polos. Men-mostly formal. Renderer: `scripts/render-polo-mockups.mjs`.
 
 ## Approved copy (use these; invent more in the same voice)
 
@@ -59,6 +61,11 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 - Inflation is theft
 - It's going up forever, Laura (joke, not a forecast)
 - Buy the dip (cycle mood, not advice)
+- The house always stacks
+- Block zero
+- Verify then HODL
+- Sound money, loud shirt
+- STACKHOUSE Est. 2009
 
 Approved list to edit: `docs/SAYINGS.md` + `lib/sayings.json`. Never add FOMO21 lines from the banned list.
 
@@ -73,7 +80,7 @@ Approved list to edit: `docs/SAYINGS.md` + `lib/sayings.json`. Never add FOMO21 
 - Payments stay demo until David’s keys. Webhooks must call `confirmPaidOrder()` (catalog total × qty + shipping). Never mark paid on a missing or wrong amount. Never fulfil a demo order. Browser APIs (checkout, newsletter, wholesale) need an origin check + rate limit. Catalog QA (`lib/catalog-audit.ts` and friends) uses fs/sharp — do not import those from client components; keep `lib/catalog-kind.ts` browser-safe. `/fulfillment` redirects to `/shipping`. Booth / MENA notes stay in docs only.
 - Wordmark is **StackHouse** (Stack + orange House). Meta/legal name is **STACKHOUSE**. Leave both. New edition IDs `SH-`; legacy `HM-` stay put.
 - Premium = embroidery/stitch on hats, hoodies, some tees.
-- Live categories: tees, sweatshirts (hoodie / pullover / crew), women, hats (dad hat), kids (youth), drinkware (whiskey + shot only), premium, longsleeves, mummy-daddy. Swim, bags, jewelry, posters, leftover mugs/totes stay retired until each has a renderer-backed or clean studio photo. Do not advertise booths or an event plan on the public site. Glassware has no colour swatches. Whiskey and shot each need **20+ unique designs** with matching writing on the photo. Drinkware menu order: whiskey and shot first. Parent collection pages show subsection chips — do not hide a range behind hover-only dropdowns.
+- Live categories: tees, **polo shirts** (stitched ₿ only), sweatshirts (hoodie / pullover / crew), women, hats (dad hat), kids (youth), drinkware (whiskey + shot only), premium, longsleeves, mummy-daddy. Swim, bags, jewelry, posters, leftover mugs/totes stay retired until each has a renderer-backed or clean studio photo. Do not advertise booths or an event plan on the public site. Glassware has no colour swatches. Whiskey and shot each need **20+ unique designs** with matching writing on the photo. Drinkware menu order: whiskey and shot first. Parent collection pages show subsection chips — do not hide a range behind hover-only dropdowns.
 
 ## How to add a design
 
@@ -94,7 +101,7 @@ Approved list to edit: `docs/SAYINGS.md` + `lib/sayings.json`. Never add FOMO21 
 - If the only photo is a lifestyle shot (dark wall, props, wooden table), **do not list it** until a white studio mockup exists. The candlestick hoodie once sat on charcoal stone while every neighbour was a ghost mannequin — that is a catalog error.
 - `npm run qa:catalog` (also runs before `next build`) fails the build if two live designs share a photo, a mug/tote/pint uses the wrong object, a live photo is not a white studio mockup, a live photo still has an **upright** Bitcoin B, a swatch recolour does not match the garment colour (`color-match`), the studio backdrop is grainy (`grain`), a live photo is not renderer output (`print-source`), or the writing/₿ fails `print-clarity` (distressed crumbs, missing letters, leftover slogan, ₿ off the object, recolour smashed the type).
 - **HARD RULE — writing and marks must be readable. No exceptions.** The buyer decides from the photo. Every live shot must show the title line in **solid, complete Inter letters** and a coherent official ₿ **on the object** — not distressed/grunge type, missing strokes, a second ghost slogan (old HODL under the new line), a sticker rectangle, or a ₿ hanging off a mug/hat into the white backdrop. If you cannot read it at card size, or the mark is off the product, **retire the SKU**. Never ship a garbled “I AM HODLING” or a scuffed “NO SECOND BEST”.
-- **How stamps are built (do not invent another method).** Live apparel/glass photos must come from `scripts/render-tee-mockups.mjs`, `scripts/render-sweat-mockups.mjs`, or `scripts/render-glass-mockups.mjs`. Those call `scripts/lib/studio-render.mjs`: (1) wipe the ghost to a **blank** silhouette (`blankChest` — never clone random fabric pixels, that is the distressed-letter bug), (2) stamp official ₿ via `garmentMarkPng`, (3) stamp Inter (or JetBrains Mono on protocol lines) as **SVG paths** from `scripts/fonts/` (`sloganPng` / opentype.js). Type fill may be white, cream, or ice — never Bitcoin-orange `#F7931A` on the slogan (it collides with the ₿). Never `@font-face` through Sharp — that goes soft. Never lock `hodl-tee-ink.png` as the ghost (it still has distressed HODL). The only photo exception is `21m-hat.png` (real embroidered dad hat). Do not paint a flat colour box over the chest. Do not composite a new ₿ onto an existing white-mug or hat photo. After SKU or image edits: `npm run mockups` then `npm run qa` (must be 0 errors).
+- **How stamps are built (do not invent another method).** Live apparel/glass/polo photos must come from `scripts/render-tee-mockups.mjs`, `scripts/render-sweat-mockups.mjs`, `scripts/render-glass-mockups.mjs`, or `scripts/render-polo-mockups.mjs`. Those call `scripts/lib/studio-render.mjs`: (1) wipe the ghost to a **blank** silhouette (`blankChest` — never clone random fabric pixels), (2) stamp official ₿ via `garmentMarkPng` (polos use a stitched offset), (3) stamp type as **SVG paths** from `scripts/fonts/` — Inter, Mono, Oswald, Libre Baskerville, Archivo Black. Layouts: stack / huge / banner / crest. Type fill is white on apparel — never Bitcoin-orange `#F7931A` on the slogan. Never distressed fonts. Never `@font-face` through Sharp. Never lock `hodl-tee-ink.png` as the ghost. The only photo exception is `21m-hat.png`. After SKU or image edits: `npm run mockups` then `npm run qa` (must be 0 errors).
 - **First view is the studio shot.** Renderer apparel is **Ink**. `defaultColorId` / `needsRecolor` must open on Ink (or the `imagesByColor` photo) so the first frame is not a smashed recolour. Recolour may change cloth when the buyer picks another swatch — it must never punch holes in letters.
 
 ## Agents (run in this order, do not skip)

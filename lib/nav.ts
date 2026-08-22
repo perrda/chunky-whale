@@ -3,7 +3,14 @@ export type NavItem = { href: string; label: string; children?: NavChild[] };
 
 /** Five top links. The rest live under Shop — not a second row of categories. */
 export const MEGA_NAV: NavItem[] = [
-  { href: "/collection/tees", label: "T-Shirts" },
+  {
+    href: "/collection/tees",
+    label: "T-Shirts",
+    children: [
+      { href: "/collection/tees", label: "All tees" },
+      { href: "/collection/polos", label: "Polo shirts" },
+    ],
+  },
   {
     href: "/collection/sweatshirts",
     label: "Sweatshirts",
@@ -91,16 +98,18 @@ export const SHOP_MORE_FILTERS = [
   { slug: "longsleeves", label: "Long sleeves" },
   { slug: "memes", label: "Memes" },
   { slug: "premium", label: "Stitched" },
+  { slug: "polos", label: "Polo shirts" },
 ] as const;
 
 export const HOME_DOORS = [
-  { slug: "wear", label: "Wear it", blurb: "Tees, sweats, hats." },
+  { slug: "wear", label: "Wear it", blurb: "Tees, polos, sweats, hats." },
   { slug: "drinkware", label: "Drink from it", blurb: "Whiskey and shot glasses." },
   { slug: "mummy-daddy", label: "Gift it", blurb: "Bitcoin Mummy. Bitcoin Daddy." },
 ] as const;
 
 export const HOME_COLLECTIONS = [
-  { slug: "tees", label: "T-Shirts", blurb: "₿ on the chest." },
+  { slug: "tees", label: "T-Shirts", blurb: "₿ on the chest. Loud or quiet." },
+  { slug: "polos", label: "Polo shirts", blurb: "Stitched ₿ only. Formal. Nothing flashy." },
   { slug: "sweatshirts", label: "Sweatshirts", blurb: "Hoodies, pullovers, crew, zip." },
   { slug: "hats", label: "Hats", blurb: "Dad hats with a stitched ₿." },
   { slug: "women", label: "Women", blurb: "V-neck, tank, crop." },

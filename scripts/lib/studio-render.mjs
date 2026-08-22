@@ -30,6 +30,18 @@ const FONT_CANDIDATES = {
     path.join(ROOT, "scripts/fonts/JetBrainsMono-Bold.ttf"),
     "/usr/share/fonts/truetype/macos/JetBrainsMono-Bold.ttf",
   ],
+  condensed: [
+    path.join(HERE, "../fonts/Oswald-Bold.ttf"),
+    path.join(ROOT, "scripts/fonts/Oswald-Bold.ttf"),
+  ],
+  serif: [
+    path.join(HERE, "../fonts/LibreBaskerville-Bold.ttf"),
+    path.join(ROOT, "scripts/fonts/LibreBaskerville-Bold.ttf"),
+  ],
+  display: [
+    path.join(HERE, "../fonts/ArchivoBlack-Regular.ttf"),
+    path.join(ROOT, "scripts/fonts/ArchivoBlack-Regular.ttf"),
+  ],
 };
 
 export function resolveFace(face = "inter") {
@@ -37,7 +49,7 @@ export function resolveFace(face = "inter") {
   for (const file of list) {
     if (existsSync(file)) return file;
   }
-  throw new Error(`${face} font missing. Keep scripts/fonts/Inter-Bold.ttf (and JetBrainsMono-Bold.ttf) in the repo.`);
+  throw new Error(`${face} font missing. Keep Inter, JetBrains Mono, Oswald, Libre Baskerville, and Archivo Black in scripts/fonts/.`);
 }
 
 export function resolveInterBold() {
@@ -239,10 +251,11 @@ export async function toPng(raw) {
     .toBuffer();
 }
 
-function lineSize(lines, canvas) {
+function lineSize(lines, canvas, layout = "stack") {
   const longest = lines.reduce((n, s) => Math.max(n, s.length), 1);
   const base = longest > 18 ? 54 : longest > 14 ? 62 : longest > 10 ? 74 : longest > 6 ? 86 : 96;
-  return Math.round(base * (canvas / SIZE));
+  const bump = layout === "huge" ? 1.36 : layout === "banner" ? 1.08 : 1;
+  return Math.round(base * (canvas / SIZE) * bump);
 }
 
 const fontCache = new Map();
@@ -269,17 +282,28 @@ function lineWidth(font, text, size, tracking) {
 }
 
 /** Inter as SVG paths — never a font-face raster that goes soft or distressed. */
-export function sloganSvg(lines, { fill = PRINT_WHITE, canvas = SIZE, startY = 690, face = "inter" } = {}) {
+export function sloganSvg(lines, { fill = PRINT_WHITE, canvas = SIZE, startY = 690, face = "inter", layout = "stack" } = {}) {
   const font = loadFace(face);
-  const size = lineSize(lines, canvas);
-  const tracking = Math.round(size * 0.06);
-  const lineH = Math.round(size * 1.22);
+  let size = lineSize(lines, canvas, layout);
+  let tracking = Math.round(size * (face === "condensed" || face === "display" ? 0.04 : 0.06));
+  const maxW = canvas * 0.84;
+  while (size > 28) {
+    tracking = Math.round(size * (face === "condensed" || face === "display" ? 0.04 : 0.06));
+    const widest = lines.reduce((n, t) => Math.max(n, lineWidth(font, t, size, tracking)), 0);
+    if (widest <= maxW) break;
+    size -= 3;
+  }
+  const lineH = Math.round(size * (face === "serif" ? 1.32 : 1.22));
   const paths = [];
+  let lastY = startY;
+  let lastW = 0;
   for (let i = 0; i < lines.length; i++) {
     const text = lines[i];
     const width = lineWidth(font, text, size, tracking);
     let x = (canvas - width) / 2;
     const y = startY + i * lineH;
+    lastY = y;
+    lastW = width;
     const glyphs = glyphsFor(font, text);
     for (let g = 0; g < glyphs.length; g++) {
       const glyph = glyphs[g];
@@ -289,25 +313,31 @@ export function sloganSvg(lines, { fill = PRINT_WHITE, canvas = SIZE, startY = 6
       x += glyph.advanceWidth * (size / font.unitsPerEm) + tracking;
     }
   }
+  if (layout === "banner" && lastW) {
+    const barW = Math.min(canvas * 0.42, lastW * 0.72);
+    const barX = (canvas - barW) / 2;
+    const barY = lastY + Math.round(size * 0.28);
+    paths.push(`<rect x="${barX.toFixed(1)}" y="${barY}" width="${barW.toFixed(1)}" height="${Math.max(5, size * 0.07)}" fill="${fill}"/>`);
+  }
   return Buffer.from(`<?xml version="1.0" encoding="UTF-8"?>
 <svg width="${canvas}" height="${canvas}" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
   ${paths.join("")}
 </svg>`);
 }
 
-/** Vector Inter at 2×, then Lanczos — smooth edges, solid letters. */
-export async function sloganPng(lines, { fill = PRINT_WHITE, canvas = SIZE, startY = 690, face = "inter" } = {}) {
+/** Vector type at 2×, then Lanczos — smooth edges, solid letters. Never distressed. */
+export async function sloganPng(lines, { fill = PRINT_WHITE, canvas = SIZE, startY = 690, face = "inter", layout = "stack" } = {}) {
   const hi = canvas * 2;
-  const svg = sloganSvg(lines, { fill, canvas: hi, startY: startY * 2, face });
+  const svg = sloganSvg(lines, { fill, canvas: hi, startY: startY * 2, face, layout });
   return sharp(svg)
     .resize(canvas, canvas, { kernel: sharp.kernel.lanczos3 })
     .png()
     .toBuffer();
 }
 
-export async function markStamp(width = 200) {
+export async function markStamp(width = 200, { stitch = false } = {}) {
   const hi = await garmentMarkPng(width * 2);
-  return sharp(hi)
+  const mark = await sharp(hi)
     .resize({
       width,
       height: width,
@@ -315,6 +345,21 @@ export async function markStamp(width = 200) {
       background: { r: 0, g: 0, b: 0, alpha: 0 },
       kernel: sharp.kernel.lanczos3,
     })
+    .png()
+    .toBuffer();
+  if (!stitch) return mark;
+  const under = await sharp(mark)
+    .modulate({ brightness: 0.62, saturation: 1.05 })
+    .png()
+    .toBuffer();
+  const pad = 4;
+  return sharp({
+    create: { width: width + pad, height: width + pad, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+  })
+    .composite([
+      { input: under, left: pad, top: pad },
+      { input: mark, left: 0, top: 0 },
+    ])
     .png()
     .toBuffer();
 }
@@ -329,29 +374,89 @@ export async function renderApparel({
   markSmall = false,
   fill = PRINT_WHITE,
   face = "inter",
+  layout = "stack",
+  stitch = false,
 }) {
   let raw = await loadRaw(template, SIZE);
   raw = await blankChest(raw, kind);
   raw = recolorGarment(raw, hex);
   const base = await toPng(raw);
   const mid = Math.round(SIZE / 2);
-  const markW = markOnly ? (markSmall ? 170 : 420) : 300;
-  const markTop = markOnly ? (kind === "hoodie" ? 400 : markSmall ? 450 : 375) : kind === "hoodie" ? 375 : 354;
+  const crest = layout === "crest";
+  const huge = layout === "huge";
+  let markW = markOnly ? (markSmall ? 170 : 420) : huge ? 230 : 300;
+  if (crest) markW = markOnly ? 132 : 168;
+  const markTop = crest
+    ? kind === "hoodie"
+      ? 390
+      : 360
+    : markOnly
+      ? kind === "hoodie"
+        ? 400
+        : markSmall
+          ? 450
+          : 375
+      : kind === "hoodie"
+        ? 375
+        : 354;
+  const markLeft = crest ? Math.round(SIZE * 0.36 - markW / 2) : Math.round(mid - markW / 2);
+  const stamp = await markStamp(markW, { stitch });
   const layers = [
     {
-      input: await markStamp(markW),
-      left: Math.round(mid - markW / 2),
+      input: stamp,
+      left: markLeft,
       top: markTop,
     },
   ];
   if (!markOnly && lines.length) {
-    const startY = markTop + markW + 28;
+    const startY = markTop + markW + (huge ? 18 : 28);
     layers.push({
-      input: await sloganPng(lines, { fill, face, canvas: SIZE, startY }),
+      input: await sloganPng(lines, { fill, face, layout, canvas: SIZE, startY }),
       left: 0,
       top: 0,
     });
   }
   await sharp(base).composite(layers).png({ compressionLevel: 9 }).toFile(outFile);
+  return outFile;
+}
+
+/** Quiet formal polo — collar + placket + stitched ₿ only. No slogans. */
+export async function renderPolo({ outFile, hex = INK, place = "crest" }) {
+  const w = SIZE;
+  const h = SIZE;
+  const [r, g, b] = hexToRgb(hex);
+  const [hh, ss, ll] = rgbToHsl(r, g, b);
+  const [cr, cg, cb] = hslToRgb(hh, ss, Math.min(0.42, ll + 0.07));
+  const [pr, pg, pb] = hslToRgb(hh, ss, Math.max(0.04, ll - 0.04));
+  const [br, bg, bb] = hslToRgb(hh, Math.max(0, ss - 0.1), Math.min(0.72, ll + 0.28));
+  const cloth = `rgb(${r},${g},${b})`;
+  const collar = `rgb(${cr},${cg},${cb})`;
+  const placket = `rgb(${pr},${pg},${pb})`;
+  const button = `rgb(${br},${bg},${bb})`;
+  const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg">
+  <rect width="${w}" height="${h}" fill="#ffffff"/>
+  <g fill="${cloth}">
+    <path d="M430 410 C470 250 620 210 768 210 C916 210 1066 250 1106 410
+             L1280 520 L1240 700 L1088 620 L1108 1320 L428 1320 L448 620 L296 700 L256 520 Z"/>
+  </g>
+  <path d="M620 250 C700 300 768 318 836 300 C836 300 900 250 916 230
+           C860 210 768 208 620 250 Z" fill="${collar}"/>
+  <path d="M620 250 C640 320 700 360 768 368 C700 300 640 270 620 250 Z" fill="${collar}"/>
+  <path d="M916 230 C896 320 836 360 768 368 C836 300 896 270 916 230 Z" fill="${collar}"/>
+  <rect x="748" y="368" width="40" height="196" fill="${placket}"/>
+  <circle cx="768" cy="410" r="7" fill="${button}"/>
+  <circle cx="768" cy="458" r="7" fill="${button}"/>
+  <circle cx="768" cy="506" r="7" fill="${button}"/>
+</svg>`;
+  const base = await sharp(Buffer.from(svg)).png().toBuffer();
+  const markW = place === "center" ? 148 : place === "mini" ? 78 : 96;
+  const stamp = await markStamp(markW, { stitch: true });
+  const left = place === "center" ? Math.round(w / 2 - (markW + 4) / 2) : Math.round(w * 0.39 - markW / 2);
+  const top = place === "center" ? 520 : 430;
+  await sharp(base)
+    .composite([{ input: stamp, left, top }])
+    .png({ compressionLevel: 9 })
+    .toFile(outFile);
   return outFile;
 }
