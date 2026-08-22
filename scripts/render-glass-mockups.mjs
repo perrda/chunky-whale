@@ -6,6 +6,7 @@ import { mkdirSync } from "fs";
 import path from "path";
 import sharp from "sharp";
 import { PRINT_INK, markStamp, sloganPng } from "./lib/studio-render.mjs";
+import { sayingJobs } from "./lib/load-sayings.mjs";
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, "public/products");
@@ -69,7 +70,16 @@ async function renderOne(spec, kind) {
       left: Math.round(512 - markW / 2),
       top: markTop,
     },
-    { input: await sloganPng(spec.lines, { fill: PRINT_INK, startY, canvas: 1024 }), left: 0, top: 0 },
+    {
+      input: await sloganPng(spec.lines, {
+        fill: spec.fill === "#F7931A" ? "#F7931A" : PRINT_INK,
+        face: spec.face,
+        startY,
+        canvas: 1024,
+      }),
+      left: 0,
+      top: 0,
+    },
   ];
   const out = path.join(OUT, spec.file);
   await sharp(tmpl).resize(1024, 1024, { fit: "cover" }).composite(layers).png({ compressionLevel: 9 }).toFile(out);
@@ -82,7 +92,9 @@ async function main() {
   mkdirSync(OUT, { recursive: true });
   const jobs = [
     ...WHISKEYS.map((s) => ({ spec: s, kind: "whiskey" })),
+    ...sayingJobs("whiskey").map((s) => ({ spec: s, kind: "whiskey" })),
     ...SHOTS.map((s) => ({ spec: s, kind: "shot" })),
+    ...sayingJobs("shot").map((s) => ({ spec: s, kind: "shot" })),
   ].filter((j) => !only.length || only.includes(j.spec.file));
   for (const job of jobs) {
     const out = await renderOne(job.spec, job.kind);

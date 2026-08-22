@@ -19,11 +19,19 @@ function filesFromRenderer(rel: string): string[] {
   return [...src.matchAll(/file:\s*"([^"]+\.png)"/g)].map((m) => m[1]);
 }
 
+function filesFromSayings(): string[] {
+  const src = readFileSync(path.join(ROOT, "lib/sayings.json"), "utf8");
+  const marks = JSON.parse(src).marks as { id: string }[];
+  const kinds = ["tee", "hoodie", "pullover", "whiskey", "shot"] as const;
+  return marks.flatMap((m) => kinds.map((k) => `${m.id}-${k}.png`));
+}
+
 export function allowedPrintFilenames(): Set<string> {
   const files = new Set<string>(PHOTO_OK);
   for (const script of RENDER_SCRIPTS) {
     for (const file of filesFromRenderer(script)) files.add(file);
   }
+  for (const file of filesFromSayings()) files.add(file);
   return files;
 }
 

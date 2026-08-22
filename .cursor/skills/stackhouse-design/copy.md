@@ -30,6 +30,19 @@ Voice: a Bitcoiner explaining it to a clever friend. Funny, serious, and giftabl
 - NOT A FORECAST
 - FOUR YEAR TIDE
 - THE PRINTER IS THE JOKE
+- IN CASE IT CATCHES ON
+- NOTHING STOPS THIS TRAIN
+- WHEN IN DOUBT, ZOOM OUT
+- THIS IS GOOD FOR BITCOIN
+- SATS ARE THE STANDARD
+- VIRES IN NUMERIS
+- BITCOIN IS HOPE
+- I LOST IT IN A BOATING ACCIDENT
+- INFLATION IS THEFT
+- IT'S GOING UP FOREVER, LAURA — joke, not a forecast
+- BUY THE DIP — cycle mood, not advice
+
+House list (add / remove here and in `lib/sayings.json`): [docs/SAYINGS.md](../../../docs/SAYINGS.md)
 
 ## Charts as jokes
 

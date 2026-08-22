@@ -13,6 +13,7 @@ import {
   renderApparel,
   toPng,
 } from "./lib/studio-render.mjs";
+import { sayingJobs } from "./lib/load-sayings.mjs";
 import sharp from "sharp";
 
 const ROOT = process.cwd();
@@ -93,6 +94,7 @@ async function main() {
   const lsTmpl = await ensureBlank("ls");
   const jobs = [
     ...TEES.map((s) => ({ spec: s, kind: "tee", tmpl: teeTmpl })),
+    ...sayingJobs("tee").map((s) => ({ spec: s, kind: "tee", tmpl: teeTmpl })),
     ...LONGSLEEVES.map((s) => ({ spec: s, kind: "ls", tmpl: lsTmpl })),
   ].filter((j) => !only.length || only.includes(j.spec.file));
   for (const job of jobs) {
@@ -105,6 +107,8 @@ async function main() {
       kind: job.kind,
       markOnly: job.spec.markOnly,
       markSmall: job.spec.markSmall,
+      fill: job.spec.fill,
+      face: job.spec.face,
     });
     console.log("wrote", path.relative(ROOT, out));
   }

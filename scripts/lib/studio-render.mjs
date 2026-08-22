@@ -19,18 +19,29 @@ export const PRINT_INK = "#161616";
 export const INK = "#0B0C0E";
 export const SIZE = 1536;
 
-const FONT_CANDIDATES = [
-  path.join(HERE, "../fonts/Inter-Bold.ttf"),
-  path.join(ROOT, "scripts/fonts/Inter-Bold.ttf"),
-  "/usr/share/fonts/truetype/macos/Inter-Bold.ttf",
-  "/Library/Fonts/Inter-Bold.ttf",
-];
+const FONT_CANDIDATES = {
+  inter: [
+    path.join(HERE, "../fonts/Inter-Bold.ttf"),
+    path.join(ROOT, "scripts/fonts/Inter-Bold.ttf"),
+    "/usr/share/fonts/truetype/macos/Inter-Bold.ttf",
+  ],
+  mono: [
+    path.join(HERE, "../fonts/JetBrainsMono-Bold.ttf"),
+    path.join(ROOT, "scripts/fonts/JetBrainsMono-Bold.ttf"),
+    "/usr/share/fonts/truetype/macos/JetBrainsMono-Bold.ttf",
+  ],
+};
 
-export function resolveInterBold() {
-  for (const file of FONT_CANDIDATES) {
+export function resolveFace(face = "inter") {
+  const list = FONT_CANDIDATES[face] ?? FONT_CANDIDATES.inter;
+  for (const file of list) {
     if (existsSync(file)) return file;
   }
-  throw new Error("Inter-Bold.ttf missing. Keep scripts/fonts/Inter-Bold.ttf in the repo.");
+  throw new Error(`${face} font missing. Keep scripts/fonts/Inter-Bold.ttf (and JetBrainsMono-Bold.ttf) in the repo.`);
+}
+
+export function resolveInterBold() {
+  return resolveFace("inter");
 }
 
 export function hexToRgb(hex) {
@@ -234,10 +245,13 @@ function lineSize(lines, canvas) {
   return Math.round(base * (canvas / SIZE));
 }
 
-let interFont = null;
-function loadInter() {
-  if (!interFont) interFont = opentype.parse(readFileSync(resolveInterBold()).buffer);
-  return interFont;
+const fontCache = new Map();
+function loadFace(face = "inter") {
+  if (!fontCache.has(face)) {
+    const buf = readFileSync(resolveFace(face));
+    fontCache.set(face, opentype.parse(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength)));
+  }
+  return fontCache.get(face);
 }
 
 function glyphsFor(font, text) {
@@ -255,8 +269,8 @@ function lineWidth(font, text, size, tracking) {
 }
 
 /** Inter as SVG paths — never a font-face raster that goes soft or distressed. */
-export function sloganSvg(lines, { fill = PRINT_WHITE, canvas = SIZE, startY = 690 } = {}) {
-  const font = loadInter();
+export function sloganSvg(lines, { fill = PRINT_WHITE, canvas = SIZE, startY = 690, face = "inter" } = {}) {
+  const font = loadFace(face);
   const size = lineSize(lines, canvas);
   const tracking = Math.round(size * 0.06);
   const lineH = Math.round(size * 1.22);
@@ -282,9 +296,9 @@ export function sloganSvg(lines, { fill = PRINT_WHITE, canvas = SIZE, startY = 6
 }
 
 /** Vector Inter at 2×, then Lanczos — smooth edges, solid letters. */
-export async function sloganPng(lines, { fill = PRINT_WHITE, canvas = SIZE, startY = 690 } = {}) {
+export async function sloganPng(lines, { fill = PRINT_WHITE, canvas = SIZE, startY = 690, face = "inter" } = {}) {
   const hi = canvas * 2;
-  const svg = sloganSvg(lines, { fill, canvas: hi, startY: startY * 2 });
+  const svg = sloganSvg(lines, { fill, canvas: hi, startY: startY * 2, face });
   return sharp(svg)
     .resize(canvas, canvas, { kernel: sharp.kernel.lanczos3 })
     .png()
@@ -313,6 +327,8 @@ export async function renderApparel({
   kind = "tee",
   markOnly = false,
   markSmall = false,
+  fill = PRINT_WHITE,
+  face = "inter",
 }) {
   let raw = await loadRaw(template, SIZE);
   raw = await blankChest(raw, kind);
@@ -331,7 +347,7 @@ export async function renderApparel({
   if (!markOnly && lines.length) {
     const startY = markTop + markW + 28;
     layers.push({
-      input: await sloganPng(lines, { fill: PRINT_WHITE, canvas: SIZE, startY }),
+      input: await sloganPng(lines, { fill, face, canvas: SIZE, startY }),
       left: 0,
       top: 0,
     });

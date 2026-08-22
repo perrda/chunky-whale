@@ -77,6 +77,17 @@ const MARK_PREFIXES = [
   "verify",
   "hodl",
   "keys",
+  "catches-on",
+  "nothing-stops",
+  "zoom-out",
+  "good-for-btc",
+  "sats-standard",
+  "vires",
+  "bitcoin-hope",
+  "boating",
+  "inflation-theft",
+  "forever-laura",
+  "buy-the-dip",
 ].sort((a, b) => b.length - a.length);
 
 const KIND_TAIL =
@@ -103,6 +114,17 @@ const LINE_TITLES: Record<string, { label: string; blurb: string }> = {
   "bitcoin-daddy": { label: "Bitcoin Daddy", blurb: "The title. Gift it." },
   "few-understand": { label: "Few understand", blurb: "The line, on more than one object." },
   verify: { label: "Don't trust. Verify.", blurb: "Same joke, heavier cloth or glass." },
+  "catches-on": { label: "In case it catches on", blurb: "Satoshi, 2009. Same line on cloth and glass." },
+  "nothing-stops": { label: "Nothing stops this train", blurb: "The debt machine. Not a price call." },
+  "zoom-out": { label: "When in doubt, zoom out", blurb: "The weekly candle is not the story." },
+  "good-for-btc": { label: "This is good for Bitcoin", blurb: "Every headline. Same reply." },
+  "sats-standard": { label: "Sats are the standard", blurb: "The unit. Not the dollar." },
+  "vires": { label: "Vires in numeris", blurb: "Strength in numbers." },
+  "bitcoin-hope": { label: "Bitcoin is hope", blurb: "Not a ticker. A reason." },
+  "boating": { label: "Boating accident", blurb: "The keys went swimming." },
+  "inflation-theft": { label: "Inflation is theft", blurb: "The printer is the joke." },
+  "forever-laura": { label: "Forever, Laura", blurb: "A joke. Not a forecast." },
+  "buy-the-dip": { label: "Buy the dip", blurb: "Cycle mood. Not advice." },
 };
 
 /** Lines with enough live SKUs to shop as a family. */

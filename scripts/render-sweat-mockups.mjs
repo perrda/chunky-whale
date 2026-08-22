@@ -14,6 +14,7 @@ import {
   renderApparel,
   toPng,
 } from "./lib/studio-render.mjs";
+import { sayingJobs } from "./lib/load-sayings.mjs";
 
 const ROOT = process.cwd();
 const PULLOVER_BLANK = path.join(TMPL_DIR, "pullover-blank.png");
@@ -92,7 +93,9 @@ async function main() {
   const pullTmpl = await ensureBlank("pullover");
   const jobs = [
     ...HOODIES.map((s) => ({ spec: s, kind: "hoodie", tmpl: hoodieTmpl })),
+    ...sayingJobs("hoodie").map((s) => ({ spec: s, kind: "hoodie", tmpl: hoodieTmpl })),
     ...PULLOVERS.map((s) => ({ spec: s, kind: "pullover", tmpl: pullTmpl })),
+    ...sayingJobs("pullover").map((s) => ({ spec: s, kind: "pullover", tmpl: pullTmpl })),
   ].filter((j) => !only.length || only.includes(j.spec.file));
   for (const job of jobs) {
     const out = path.join(OUT, job.spec.file);
@@ -103,6 +106,8 @@ async function main() {
       hex: job.spec.hex ?? INK,
       kind: job.kind === "hoodie" ? "hoodie" : "tee",
       markOnly: job.spec.markOnly,
+      fill: job.spec.fill,
+      face: job.spec.face,
     });
     console.log("wrote", path.relative(ROOT, out));
   }
