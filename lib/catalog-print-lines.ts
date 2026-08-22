@@ -20,6 +20,21 @@ function parseLines(raw: string): string[] {
   return [...raw.matchAll(/"([^"]*)"/g)].map((m) => m[1]);
 }
 
+function specsFromSayings(): PrintSpec[] {
+  const src = readFileSync(path.join(ROOT, "lib/sayings.json"), "utf8");
+  const marks = JSON.parse(src).marks as Record<string, unknown>[];
+  const kinds = ["tee", "hoodie", "pullover", "whiskey", "shot"] as const;
+  const specs: PrintSpec[] = [];
+  for (const m of marks) {
+    const id = String(m.id);
+    for (const kind of kinds) {
+      const lines = (m[kind] as string[] | undefined) ?? (m.tee as string[]);
+      specs.push({ file: `${id}-${kind}.png`, lines: lines ?? [], markOnly: false });
+    }
+  }
+  return specs;
+}
+
 export function printSpecsFromRenderers(): PrintSpec[] {
   const specs: PrintSpec[] = [];
   for (const rel of RENDER_SCRIPTS) {
@@ -34,7 +49,7 @@ export function printSpecsFromRenderers(): PrintSpec[] {
       specs.push({ file, lines, markOnly });
     }
   }
-  return specs;
+  return [...specs, ...specsFromSayings()];
 }
 
 export function printSpecForFile(file: string): PrintSpec | undefined {

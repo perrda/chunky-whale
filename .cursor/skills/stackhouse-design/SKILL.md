@@ -48,6 +48,19 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 - Future UTXO. (youth)
 - Bitcoin Mummy. (parent)
 - Bitcoin Daddy. (parent)
+- In case it catches on
+- Nothing stops this train
+- When in doubt, zoom out
+- This is good for Bitcoin
+- Sats are the standard
+- Vires in numeris
+- Bitcoin is hope
+- I lost it in a boating accident
+- Inflation is theft
+- It's going up forever, Laura (joke, not a forecast)
+- Buy the dip (cycle mood, not advice)
+
+Approved list to edit: `docs/SAYINGS.md` + `lib/sayings.json`. Never add FOMO21 lines from the banned list.
 
 ## Product system
 
@@ -64,6 +77,8 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 
 ## How to add a design
 
+**Easy path (new slogan on tee / hoodie / pullover / whiskey / shot):** edit `docs/SAYINGS.md` and `lib/sayings.json`, then `npm run mockups` and `npm run qa`. Do not add FOMO21 lines. Do not stamp hats — only the 21M dad hat is live.
+
 1. Write one Bitcoin line (meme, philosophy, or protocol). Original — not FOMO21.
 2. Generate a **ghost-mannequin mockup** on **pure white** (1:1). Same lighting and crop as the rest of the grid. ₿ somewhere on the garment. The writing on the photo **must match the product title**. Never drop in a lifestyle / atmospheric photo.
 3. Save mockup to `public/products/` as `{mark}-{kind}.png` (example: `so-back-mug.png`). Optional print to `public/prints/`.
@@ -79,7 +94,7 @@ FOMO21 copy and clones, including: First Rule Of Bitcoin / Do Not Sell, B Sovere
 - If the only photo is a lifestyle shot (dark wall, props, wooden table), **do not list it** until a white studio mockup exists. The candlestick hoodie once sat on charcoal stone while every neighbour was a ghost mannequin — that is a catalog error.
 - `npm run qa:catalog` (also runs before `next build`) fails the build if two live designs share a photo, a mug/tote/pint uses the wrong object, a live photo is not a white studio mockup, a live photo still has an **upright** Bitcoin B, a swatch recolour does not match the garment colour (`color-match`), the studio backdrop is grainy (`grain`), a live photo is not renderer output (`print-source`), or the writing/₿ fails `print-clarity` (distressed crumbs, missing letters, leftover slogan, ₿ off the object, recolour smashed the type).
 - **HARD RULE — writing and marks must be readable. No exceptions.** The buyer decides from the photo. Every live shot must show the title line in **solid, complete Inter letters** and a coherent official ₿ **on the object** — not distressed/grunge type, missing strokes, a second ghost slogan (old HODL under the new line), a sticker rectangle, or a ₿ hanging off a mug/hat into the white backdrop. If you cannot read it at card size, or the mark is off the product, **retire the SKU**. Never ship a garbled “I AM HODLING” or a scuffed “NO SECOND BEST”.
-- **How stamps are built (do not invent another method).** Live apparel/glass photos must come from `scripts/render-tee-mockups.mjs`, `scripts/render-sweat-mockups.mjs`, or `scripts/render-glass-mockups.mjs`. Those call `scripts/lib/studio-render.mjs`: (1) wipe the ghost to a **blank** silhouette (`blankChest` — never clone random fabric pixels, that is the distressed-letter bug), (2) stamp official ₿ via `garmentMarkPng`, (3) stamp Inter as **SVG paths** from `scripts/fonts/Inter-Bold.ttf` (`sloganPng` / opentype.js). Never `@font-face` through Sharp — that goes soft. Never lock `hodl-tee-ink.png` as the ghost (it still has distressed HODL). The only photo exception is `21m-hat.png` (real embroidered dad hat). Do not paint a flat colour box over the chest. Do not composite a new ₿ onto an existing white-mug or hat photo. After SKU or image edits: `npm run mockups` then `npm run qa` (must be 0 errors).
+- **How stamps are built (do not invent another method).** Live apparel/glass photos must come from `scripts/render-tee-mockups.mjs`, `scripts/render-sweat-mockups.mjs`, or `scripts/render-glass-mockups.mjs`. Those call `scripts/lib/studio-render.mjs`: (1) wipe the ghost to a **blank** silhouette (`blankChest` — never clone random fabric pixels, that is the distressed-letter bug), (2) stamp official ₿ via `garmentMarkPng`, (3) stamp Inter (or JetBrains Mono on protocol lines) as **SVG paths** from `scripts/fonts/` (`sloganPng` / opentype.js). Type fill may be white, cream, or ice — never Bitcoin-orange `#F7931A` on the slogan (it collides with the ₿). Never `@font-face` through Sharp — that goes soft. Never lock `hodl-tee-ink.png` as the ghost (it still has distressed HODL). The only photo exception is `21m-hat.png` (real embroidered dad hat). Do not paint a flat colour box over the chest. Do not composite a new ₿ onto an existing white-mug or hat photo. After SKU or image edits: `npm run mockups` then `npm run qa` (must be 0 errors).
 - **First view is the studio shot.** Renderer apparel is **Ink**. `defaultColorId` / `needsRecolor` must open on Ink (or the `imagesByColor` photo) so the first frame is not a smashed recolour. Recolour may change cloth when the buyer picks another swatch — it must never punch holes in letters.
 
 ## Agents (run in this order, do not skip)

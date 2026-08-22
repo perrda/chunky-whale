@@ -7,6 +7,7 @@ import { drop08Swim } from "./drop-08-swim";
 import { drop09Parents } from "./drop-09-parents";
 import { drop10Sweats } from "./drop-10-sweats";
 import { drop11Glasses } from "./drop-11-glasses";
+import { drop12Sayings } from "./drop-12-sayings";
 
 export { CLOTHING_COLORS };
 
@@ -146,6 +147,7 @@ export const collections = [
 ] as const;
 
 export const products: Product[] = [
+  ...drop12Sayings,
   ...drop11Glasses,
   ...drop10Sweats,
   ...drop09Parents,

@@ -151,6 +151,14 @@ assert.ok(
   statSync(path.join(process.cwd(), "scripts/fonts/Inter-Bold.ttf")).size > 100000,
   "Inter-Bold must ship in the repo so every Mac stamps the same letters",
 );
+assert.ok(
+  statSync(path.join(process.cwd(), "scripts/fonts/JetBrainsMono-Bold.ttf")).size > 80000,
+  "JetBrains Mono must ship so Vires / protocol lines stamp the same",
+);
+assert.match(studioRender, /JetBrainsMono-Bold\.ttf/, "second face is clean mono, not a display/grunge font");
+const sayingsSrc = readFileSync(path.join(process.cwd(), "lib/sayings.json"), "utf8");
+assert.doesNotMatch(sayingsSrc, /TICK TOCK|FIX THE MONEY/i, "never print FOMO21 slogans from the sayings list");
+assert.ok(statSync(path.join(process.cwd(), "docs/SAYINGS.md")).size > 200, "approved sayings list must stay editable");
 
 assert.equal(defaultColorId(getProduct("no-second-tee")!), "ink", "No Second tee must open on the Ink studio shot");
 assert.equal(defaultColorId(getProduct("hodl-tee")!), "ink", "HODL tee must open on Ink, not a smashed recolour");
