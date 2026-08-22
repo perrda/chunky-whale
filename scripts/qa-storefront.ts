@@ -8,7 +8,7 @@ import path from "node:path";
 import { allowedPrintFilenames, auditPrintSources } from "../lib/catalog-print-allowlist";
 import { SHOP_FILTERS, SHOP_MORE_FILTERS, MEGA_NAV } from "../lib/nav";
 import { gbpAmountsMatch, gbpToPence, penceMatchesGbp } from "../lib/payments/amount";
-import { liveProducts, productsIn, RETIRED_SLUGS, takesColourways } from "../lib/products";
+import { defaultColorId, getProduct, liveProducts, productsIn, RETIRED_SLUGS, takesColourways } from "../lib/products";
 import { basketTotals } from "../lib/shipping";
 
 const live = liveProducts();
@@ -136,21 +136,39 @@ assert.ok(allowedPrintFilenames().has("bitcoin-daddy-tee.png"), "Daddy tee must 
 assert.ok(allowedPrintFilenames().has("21m-hat.png"), "21M hat is the one approved studio hat");
 
 const sweatRender = readFileSync(path.join(process.cwd(), "scripts/render-sweat-mockups.mjs"), "utf8");
-assert.match(sweatRender, /fabricPool/, "sweat mockups must clone fabric, not a flat chest box");
-assert.match(sweatRender, /eraseOldPrint/, "sweat mockups must wipe leftover slogan before restamping");
-assert.match(sweatRender, /garmentMarkPng/, "sweat mockups must stamp the official ₿ with a visible clockwise lean");
+assert.match(sweatRender, /blankChest/, "sweat mockups must wipe leftover slogan on a blank ghost");
+assert.match(sweatRender, /renderApparel/, "sweat mockups must use the high-DPI Inter + ₿ stamp");
 assert.match(sweatRender, /b-mark-hoodie\.png/, "₿ Mark Hoodie must be built from the official stamp");
 assert.match(sweatRender, /markOnly: true/, "mark-only sweats must stamp the ₿ with no slogan");
-assert.doesNotMatch(sweatRender, /data\[o\] = sr/, "do not paint a single-colour chest rectangle");
+assert.doesNotMatch(sweatRender, /43758\.5453/, "do not clone random fabric pixels — that distresses letters");
+
+const studioRender = readFileSync(path.join(process.cwd(), "scripts/lib/studio-render.mjs"), "utf8");
+assert.match(studioRender, /sloganPng/, "catalog stamps must render Inter at 4× then downscale");
+assert.match(studioRender, /blankChest/, "ghost templates must be wiped smooth, not speckled");
+assert.match(studioRender, /Inter-Bold\.ttf/, "Inter must ship in the repo so Macs stamp the same letters");
+assert.doesNotMatch(studioRender, /43758\.5453/, "studio render must not sprinkle random fabric noise");
+assert.ok(
+  statSync(path.join(process.cwd(), "scripts/fonts/Inter-Bold.ttf")).size > 100000,
+  "Inter-Bold must ship in the repo so every Mac stamps the same letters",
+);
+
+assert.equal(defaultColorId(getProduct("no-second-tee")!), "ink", "No Second tee must open on the Ink studio shot");
+assert.equal(defaultColorId(getProduct("hodl-tee")!), "ink", "HODL tee must open on Ink, not a smashed recolour");
 
 const markQa = readFileSync(path.join(process.cwd(), "lib/catalog-bitcoin-mark.ts"), "utf8");
 assert.match(markQa, /MIN_CLOCKWISE_LEAN/, "catalog QA must measure ₿ lean direction");
 assert.doesNotMatch(markQa, /tilt: 14/, "do not treat a square orange blob as already official");
 const teeRender = readFileSync(path.join(process.cwd(), "scripts/render-tee-mockups.mjs"), "utf8");
 assert.match(teeRender, /bitcoin-daddy-tee\.png/, "Bitcoin Daddy tee must be rebuilt from the official ₿");
-assert.match(teeRender, /garmentMarkPng/, "tee mockups must use the visible clockwise ₿");
+assert.match(teeRender, /blankChest/, "tee mockups must start from a blank ghost");
+assert.match(teeRender, /THERE IS NO/, "No Second tee must print the full readable line");
 const glassRender = readFileSync(path.join(process.cwd(), "scripts/render-glass-mockups.mjs"), "utf8");
-assert.match(glassRender, /garmentMarkPng/, "glass mockups must use the visible clockwise ₿");
+assert.match(glassRender, /sloganPng/, "glass mockups must use the high-DPI Inter stamp");
+assert.match(
+  readFileSync(path.join(process.cwd(), "lib/catalog-audit.ts"), "utf8"),
+  /print-clarity/,
+  "catalog QA must fail unreadable / distressed type",
+);
 assert.match(
   readFileSync(path.join(process.cwd(), "scripts/restamp-mark-only.mjs"), "utf8"),
   /garmentMarkPng/,

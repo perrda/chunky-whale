@@ -1,6 +1,6 @@
 {
   "name": "stackhouse",
-  "version": "0.7.26",
+  "version": "0.7.27",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -11,6 +11,7 @@
     "qa:catalog": "npx --yes tsx scripts/audit-catalog-images.ts",
     "qa:storefront": "npx --yes tsx scripts/qa-storefront.ts",
     "qa:crawl": "npx --yes tsx scripts/crawl-shop.ts",
+    "mockups": "node scripts/render-tee-mockups.mjs && node scripts/render-sweat-mockups.mjs && node scripts/render-glass-mockups.mjs",
     "qa": "npm run qa:catalog && npm run qa:storefront && npm run qa:payments",
     "marks:fix": "node scripts/fix-bitcoin-marks.mjs",
     "prebuild": "npm run qa:catalog && npm run qa:storefront"
@@ -18,6 +19,7 @@
   "dependencies": {
     "framer-motion": "^13.1.0",
     "next": "15.5.23",
+    "opentype.js": "^2.0.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "sharp": "^0.34.5",

@@ -72,10 +72,10 @@ export const HOUSE_COLORS: ColorOption[] = [
 ];
 
 export const TEE_COLORS: ColorOption[] = [
-  { id: "heather-light", label: "Light heather", hex: "#C8C9CB" },
+  { id: "ink", label: "Ink", hex: "#0B0C0E" },
   { id: "charcoal", label: "Charcoal", hex: "#3A3D42" },
   { id: "navy", label: "Navy", hex: "#1B2430" },
-  { id: "ink", label: "Ink", hex: "#0B0C0E" },
+  { id: "heather-light", label: "Light heather", hex: "#C8C9CB" },
   { id: "btc", label: "Bitcoin orange", hex: "#F7931A" },
   { id: "bone", label: "Bone", hex: "#EDE6D9" },
 ];
@@ -171,14 +171,14 @@ export const products: Product[] = [
       { id: "bone", label: "Bone", hex: "#EDE6D9" },
     ],
     imagesByColor: {
-      charcoal: "/products/hodl-tee.png",
-      navy: "/products/hodl-tee-navy.png",
       ink: "/products/hodl-tee-ink.png",
+      navy: "/products/hodl-tee-navy.png",
+      charcoal: "/products/hodl-tee.png",
     },
     description:
       "December 2013. A drunk typo on BitcoinTalk. The whole personality since. Orange ₿ on the chest.",
     details: TEE,
-    image: "/products/hodl-tee.png",
+    image: "/products/hodl-tee-ink.png",
     sizes: APPAREL_SIZES,
   },
   {
@@ -1372,11 +1372,30 @@ export function colorsFor(product: Product): ColorOption[] | undefined {
   return product.colors;
 }
 
-/** Start on a photographed colour so the first frame matches the studio shot. */
+/** Studio shot colour. Renderer apparel is Ink unless a dedicated photo exists. */
+export function photoColorId(product: Product): string | undefined {
+  if (product.imagesByColor) {
+    const shot = Object.keys(product.imagesByColor)[0];
+    return shot;
+  }
+  if (takesColourways(product) === "garment") return "ink";
+  return undefined;
+}
+
+/** Recolour only when the buyer picked a different swatch than the studio shot. */
+export function needsRecolor(product: Product, color?: string) {
+  if (!color) return false;
+  if (product.imagesByColor?.[color]) return false;
+  if (photoColorId(product) === color) return false;
+  return takesColourways(product) === "garment";
+}
+
+/** Start on a photographed colour so the first frame is the real shot — never a smashed recolour. */
 export function defaultColorId(product: Product) {
   const colors = colorsFor(product);
-  const shot = product.imagesByColor ? Object.keys(product.imagesByColor)[0] : undefined;
-  if (shot && colors?.some((c) => c.id === shot)) return shot;
+  const photo = photoColorId(product);
+  if (photo && colors?.some((c) => c.id === photo)) return photo;
+  if (colors?.some((c) => c.id === "ink")) return "ink";
   return colors?.[0]?.id ?? "";
 }
 

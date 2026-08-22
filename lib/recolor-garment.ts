@@ -226,8 +226,8 @@ export function recolorRaw(
     if (bg[i] || orangeMask[i]) continue;
     const o = i * 4;
     const [, s, l] = rgbToHsl(data[o], data[o + 1], data[o + 2]);
-    const darkPrint = l < Math.min(0.34, sourceL - 0.2) && s < 0.4;
-    const lightPrint = l > Math.max(0.62, sourceL + 0.2) && s < 0.3;
+    const darkPrint = l < Math.min(0.38, sourceL - 0.16) && s < 0.42;
+    const lightPrint = l > Math.max(0.55, sourceL + 0.16) && s < 0.34;
     if (darkPrint || lightPrint) typeSeed[i] = 1;
   }
 
@@ -238,7 +238,7 @@ export function recolorRaw(
   }
 
   dropPrintBoxes(typeSeed, w, h);
-  const print = dilate(typeSeed, w, h, 1);
+  const print = dilate(typeSeed, w, h, 2);
   const minL = Math.max(0.04, tl - 0.2);
   const maxL = Math.min(0.97, tl + 0.16);
 
@@ -318,7 +318,8 @@ function dropPrintBoxes(seed: Uint8Array, w: number, h: number) {
     const bw = maxx - minx + 1;
     const bh = maxy - miny + 1;
     const fill = cells.length / Math.max(1, bw * bh);
-    const boxy = fill > 0.78 && bw > w * 0.18 && bh > h * 0.16;
+    const square = bw / Math.max(1, bh);
+    const boxy = fill > 0.9 && bw > w * 0.28 && bh > h * 0.22 && square > 0.7 && square < 1.45;
     if (cells.length > maxArea || boxy) {
       for (const i of cells) seed[i] = 0;
     }
@@ -337,7 +338,7 @@ export function paintRecolor(
 ) {
   const srcW = img.naturalWidth || img.width;
   const srcH = img.naturalHeight || img.height;
-  const scale = Math.min(1, 720 / Math.max(srcW, srcH));
+  const scale = Math.min(1, 1024 / Math.max(srcW, srcH));
   const w = Math.max(1, Math.round(srcW * scale));
   const h = Math.max(1, Math.round(srcH * scale));
   canvas.width = w;

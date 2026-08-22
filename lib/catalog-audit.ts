@@ -8,6 +8,7 @@ import { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catal
 import { isStudioWhiteBackground } from "./catalog-studio";
 import { lineKey } from "./design-line";
 import { auditPrintSources } from "./catalog-print-allowlist";
+import { auditPrintClarity } from "./catalog-print-clarity";
 import { products as allProducts, RETIRED_SLUGS, type Product } from "./products";
 
 export { expectedPhotoKind, filenamePhotoKind, photoKindMismatch } from "./catalog-kind";
@@ -62,7 +63,7 @@ const OBJECT_OK: Record<string, string[]> = {
 
 export type CatalogImageIssue = {
   severity: "error" | "warning";
-  code: "missing-file" | "slogan-collision" | "kind-mismatch" | "studio-background" | "bitcoin-mark" | "color-match" | "grain" | "print-source";
+  code: "missing-file" | "slogan-collision" | "kind-mismatch" | "studio-background" | "bitcoin-mark" | "color-match" | "grain" | "print-source" | "print-clarity";
   slug: string;
   name: string;
   image: string;
@@ -214,6 +215,17 @@ export async function auditCatalogImages(
     issues.push({
       severity: "error",
       code: "print-source",
+      slug: p.slug,
+      name: p.name,
+      image: p.image,
+      detail: p.detail,
+    });
+  }
+
+  for (const p of await auditPrintClarity(products, publicDir)) {
+    issues.push({
+      severity: "error",
+      code: "print-clarity",
       slug: p.slug,
       name: p.name,
       image: p.image,

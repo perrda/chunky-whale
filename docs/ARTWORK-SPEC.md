@@ -9,16 +9,17 @@ Give this to Printful / Gelato / Printify designers or upload yourself.
 
 ## Print rules
 
-1. **Official Bitcoin ₿ only.** Bitboy 2010 mark: orange `#F7931A`, **~14° clockwise tilt**. Never a vertical B. Never a generic “B with two bars.” Source files: `public/brand/bitcoin-b.svg` (orange ₿) and `public/brand/bitcoin-coin.svg` (orange coin, white ₿). `npm run qa:catalog` fails `bitcoin-mark` if a live photo still has an upright B, `color-match` if a swatch does not match the garment, and `grain` if the backdrop is speckled.
-2. One joke or one mark. Do not crowd.
-3. Never copy FOMO21 slogans or art.
-4. No profit claims (“guaranteed 100x”).
-5. No altcoin logos.
-6. Embroidery (premium): ₿ only, or ₿ + one short word (HODL, 21M, STACK). Max ~5k stitches if the printer caps it.
-7. DTG tees: 300 DPI, PNG, at least 4500px on the long edge when we export for Printful.
-8. Hats: front-centre embroidery, 2.5" width typical.
-9. Mugs: wrap or front ₿ + line.
-10. Family/infant: small ₿, no sarcasm.
+1. **Official Bitcoin ₿ only.** Bitboy 2010 mark: orange `#F7931A`, **~14° clockwise tilt**. Never a vertical B. Never a generic “B with two bars.” Source files: `public/brand/bitcoin-b.svg` (orange ₿) and `public/brand/bitcoin-coin.svg` (orange coin, white ₿). Site mockups stamp that SVG via `garmentMarkPng` (rotate in the SVG, then rasterise). `npm run qa:catalog` fails `bitcoin-mark` if a live photo still has an upright B, `color-match` if a swatch does not match the garment, `grain` if the backdrop is speckled, and `print-clarity` if the writing is distressed, missing, leftover, or smashed by recolour.
+2. **Type is solid Inter, never distressed.** Catalog letters come from `scripts/fonts/Inter-Bold.ttf` as SVG paths (`sloganPng`). No grunge, no scuffed S/B/E, no ghost HODL under the new line. The buyer must read the title on the photo.
+3. One joke or one mark. Do not crowd.
+4. Never copy FOMO21 slogans or art.
+5. No profit claims (“guaranteed 100x”).
+6. No altcoin logos.
+7. Embroidery (premium): ₿ only, or ₿ + one short word (HODL, 21M, STACK). Max ~5k stitches if the printer caps it.
+8. DTG tees: 300 DPI, PNG, at least 4500px on the long edge when we export for Printful.
+9. Hats: front-centre embroidery, 2.5" width typical.
+10. Mugs: wrap or front ₿ + line.
+11. Family/infant: small ₿, no sarcasm.
 
 ## Colourways we sell
 

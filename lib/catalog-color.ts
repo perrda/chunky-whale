@@ -2,7 +2,7 @@
 import path from "path";
 import sharp from "sharp";
 import { CLOTHING_COLORS } from "./drop-07";
-import { products as allProducts, productImage, RETIRED_SLUGS, takesColourways, type Product } from "./products";
+import { needsRecolor, products as allProducts, productImage, RETIRED_SLUGS, takesColourways, type Product } from "./products";
 import { garmentLightness, hexToRgb, recolorRaw, rgbToHsl } from "./recolor-garment";
 
 const CHECK_COLORS = CLOTHING_COLORS.filter((c) =>
@@ -48,7 +48,7 @@ export async function auditColorMatch(
       } catch {
         continue;
       }
-      const realPhoto = Boolean(p.imagesByColor?.[swatch.id]);
+      const realPhoto = !needsRecolor(p, swatch.id);
       if (!realPhoto) recolorRaw(raw.data, raw.w, raw.h, swatch.hex);
       const gotL = garmentLightness(raw.data, raw.w, raw.h);
       const [, , targetL] = rgbToHsl(...hexToRgb(swatch.hex));
