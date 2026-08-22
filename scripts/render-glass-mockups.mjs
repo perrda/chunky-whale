@@ -74,6 +74,7 @@ async function renderOne(spec, kind) {
       input: await sloganPng(spec.lines, {
         fill: spec.fill === "#F7931A" ? "#F7931A" : PRINT_INK,
         face: spec.face,
+        layout: spec.layout,
         startY,
         canvas: 1024,
       }),

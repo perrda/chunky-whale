@@ -30,6 +30,8 @@ const TEES = [
   { file: "hard-money-tee.png", lines: ["HARD", "MONEY"] },
   { file: "proof-tweet-tee.png", lines: ["PROOF OF WORK", "NOT PROOF OF TWEET"] },
   { file: "btc-b-tee.png", lines: [], markOnly: true },
+  { file: "quiet-b-tee.png", lines: [], markOnly: true },
+  { file: "crest-b-tee.png", lines: [], markOnly: true, layout: "crest" },
   { file: "women-btc-tee.png", lines: [], markOnly: true, markSmall: true },
   { file: "so-back-tee.png", lines: ["WE ARE", "SO BACK"] },
   { file: "no-laser-tee.png", lines: ["NO LASER", "EYES"] },
@@ -109,6 +111,7 @@ async function main() {
       markSmall: job.spec.markSmall,
       fill: job.spec.fill,
       face: job.spec.face,
+      layout: job.spec.layout,
     });
     console.log("wrote", path.relative(ROOT, out));
   }

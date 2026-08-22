@@ -22,6 +22,7 @@ export default function HomePage() {
     <div>
       <section className="grid md:grid-cols-2">
         <div className="flex flex-col justify-center bg-ink px-8 py-16 text-paper md:min-h-[32rem] md:px-14">
+          <div className="mb-4 h-1 w-16 bg-ember" aria-hidden />
           <FadeIn>
             <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ember">{site.strap}</p>
             <h1 className="mt-4 max-w-lg font-display text-4xl font-extrabold leading-[1.05] sm:text-6xl">
@@ -66,6 +67,17 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-8 md:px-6">
+        <Link
+          href="/collection/polos"
+          className="mb-10 flex flex-col items-start justify-between gap-3 border border-ember/40 bg-ember/10 px-5 py-4 sm:flex-row sm:items-center"
+        >
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ember">New · Polo shirts</p>
+            <p className="mt-1 font-display text-xl font-extrabold">Stitched ₿. Collar. Dinner-safe.</p>
+            <p className="mt-1 font-serif text-sm text-paper/70">No slogans. Nothing flashy. The quiet orange mark.</p>
+          </div>
+          <span className="font-display text-sm font-bold text-ember">Shop polos →</span>
+        </Link>
         <h2 className="font-display text-2xl font-extrabold">Three doors</h2>
         <p className="mt-2 max-w-lg font-serif text-paper/70">Wear it. Drink from it. Gift it.</p>
         <div className="mt-6 grid gap-3 md:grid-cols-3">

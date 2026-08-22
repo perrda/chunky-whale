@@ -61,6 +61,10 @@ assert.ok(productsIn("hodl").length >= 2, "HODL line too thin");
 assert.ok(productsIn("so-back").length >= 2, "So Back line too thin");
 assert.ok(productsIn("21-million").length >= 2, "21 million line too thin");
 assert.ok(productsIn("wear").length > 20, "Wear it door empty");
+assert.ok(productsIn("polos").length >= 3, "polo range thin — need crest / center / mini");
+assert.ok(productsIn("polos").every((p) => /₿|bitcoin/i.test(`${p.name} ${p.description}`)), "polo must be ₿-only formal wear");
+const teeNav = MEGA_NAV.find((n) => n.label === "T-Shirts");
+assert.ok(teeNav?.children?.some((c) => c.href === "/collection/polos"), "T-Shirts menu must reach Polo shirts");
 
 const searchSrc = readFileSync(path.join(process.cwd(), "components/SearchBox.tsx"), "utf8");
 assert.doesNotMatch(searchSrc, /hidden w-full justify-center md:flex/, "search must show on the phone bar");
@@ -156,6 +160,12 @@ assert.ok(
   "JetBrains Mono must ship so Vires / protocol lines stamp the same",
 );
 assert.match(studioRender, /JetBrainsMono-Bold\.ttf/, "second face is clean mono, not a display/grunge font");
+assert.match(studioRender, /Oswald-Bold\.ttf/, "condensed face must be Oswald, not a distressed display font");
+assert.match(studioRender, /ArchivoBlack-Regular\.ttf/, "loud face must be Archivo Black — solid, not grunge");
+assert.match(studioRender, /renderPolo/, "polo shots come from the polo renderer, not a restamped tee");
+assert.ok(statSync(path.join(process.cwd(), "scripts/fonts/Oswald-Bold.ttf")).size > 40000, "Oswald must ship");
+assert.ok(statSync(path.join(process.cwd(), "scripts/fonts/ArchivoBlack-Regular.ttf")).size > 40000, "Archivo Black must ship");
+assert.ok(statSync(path.join(process.cwd(), "docs/DESIGN-DIRECTION.md")).size > 400, "design direction (inspire, do not copy FOMO21) must stay");
 const sayingsSrc = readFileSync(path.join(process.cwd(), "lib/sayings.json"), "utf8");
 assert.doesNotMatch(sayingsSrc, /TICK TOCK|FIX THE MONEY/i, "never print FOMO21 slogans from the sayings list");
 assert.ok(statSync(path.join(process.cwd(), "docs/SAYINGS.md")).size > 200, "approved sayings list must stay editable");
