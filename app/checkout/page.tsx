@@ -11,6 +11,7 @@ import {
   formatGbp,
   getProduct,
   isLiveProduct,
+  needsRecolor,
   productImage,
   sizeLabel,
 } from "@/lib/products";
@@ -308,7 +309,7 @@ export default function CheckoutPage() {
                   <GarmentImage
                     src={productImage(i.product, i.color)}
                     hex={colorsFor(i.product)?.find((c) => c.id === i.color)?.hex}
-                    recolor={!i.product.imagesByColor?.[i.color ?? ""]}
+                    recolor={needsRecolor(i.product, i.color)}
                     alt={i.product.name}
                   />
                 </div>

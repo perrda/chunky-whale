@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { colorsFor, defaultColorId, formatGbp, productImage, productKindLabel, type Product } from "@/lib/products";
+import { colorsFor, defaultColorId, formatGbp, needsRecolor, productImage, productKindLabel, type Product } from "@/lib/products";
 import { ColorSwatches } from "./ColorSwatches";
 import { GarmentImage } from "./GarmentImage";
 
@@ -19,7 +19,7 @@ export function ProductCard({ product }: { product: Product }) {
           <GarmentImage
             src={img}
             hex={selected?.hex}
-            recolor={!product.imagesByColor?.[color]}
+            recolor={needsRecolor(product, color)}
             alt={product.name}
           />
           {product.limited ? (

@@ -10,6 +10,7 @@ import {
   formatGbp,
   getProduct,
   isLiveProduct,
+  needsRecolor,
   productImage,
   sizeLabel,
 } from "@/lib/products";
@@ -65,7 +66,7 @@ export default function CartPage() {
                       <GarmentImage
                         src={productImage(p, item.color)}
                         hex={colorsFor(p)?.find((c) => c.id === item.color)?.hex}
-                        recolor={!p.imagesByColor?.[item.color ?? ""]}
+                        recolor={needsRecolor(p, item.color)}
                         alt={p.name}
                       />
                     ) : null}

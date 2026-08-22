@@ -10,6 +10,7 @@ import {
   defaultColorId,
   fitNote,
   formatGbp,
+  needsRecolor,
   productImage,
   productKindLabel,
   type Product,
@@ -36,7 +37,7 @@ export function ProductView({ product }: { product: Product }) {
   const printSrc = product.print;
   const showingPrint = shot === "print" && Boolean(printSrc);
   const displaySrc = showingPrint ? printSrc! : img;
-  const displayRecolor = !showingPrint && !product.imagesByColor?.[color];
+  const displayRecolor = !showingPrint && needsRecolor(product, color);
   const hex = colors?.find((c) => c.id === color)?.hex;
   const fit = fitNote(product);
   const colorName = colors?.find((c) => c.id === color)?.label ?? color;
@@ -113,7 +114,7 @@ export function ProductView({ product }: { product: Product }) {
               shot === "front" ? "ring-2 ring-ember" : "ring-1 ring-paper/15"
             }`}
           >
-            <GarmentImage src={img} hex={hex} recolor={!product.imagesByColor?.[color]} alt="" />
+            <GarmentImage src={img} hex={hex} recolor={needsRecolor(product, color)} alt="" />
             <span className="sr-only">Front</span>
           </button>
           <button
@@ -127,7 +128,7 @@ export function ProductView({ product }: { product: Product }) {
             <GarmentImage
               src={printSrc ?? img}
               hex={printSrc ? undefined : hex}
-              recolor={!printSrc && !product.imagesByColor?.[color]}
+              recolor={!printSrc && needsRecolor(product, color)}
               alt=""
               className="scale-150"
             />
@@ -137,7 +138,7 @@ export function ProductView({ product }: { product: Product }) {
         {colors && color ? (
           <p className="font-serif text-sm text-paper/70">
             Showing <strong>{colorName}</strong>
-            {product.imagesByColor?.[color] ? " (studio photo)." : "."}
+            {!needsRecolor(product, color) ? " (studio photo)." : "."}
           </p>
         ) : null}
       </div>
