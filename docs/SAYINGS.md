@@ -3,7 +3,7 @@
 Edit this file when you want a new Bitcoin line on merch — or to retire one.  
 The machine list that builds SKUs is `lib/sayings.json`. Keep the two in sync.
 
-**Print lock (do not break):** solid letters, official right-leaning ₿, unique photo per object. Rebuild with `npm run mockups`, then `npm run qa` must be 0 errors. Never distressed type. Never a leftover slogan under a new one.
+**Print lock (do not break):** solid letters, official right-leaning ₿, unique photo per object. Apparel slogan type is **white** (Inter or JetBrains Mono). Do not use cream, ice, or Bitcoin-orange for the words — cream/ice vanish on Bone, orange collides with the ₿. The ₿ stays `#F7931A`. Glass type is dark ink. Rebuild with `npm run mockups`, then `npm run qa` must be 0 errors. Never distressed type. Never a leftover slogan under a new one.
 
 **Hats / caps / beanies:** only the 21M dad hat is live. Do not stamp a new line onto an old hat photo. Add hats only after a hat renderer exists.
 
@@ -12,7 +12,7 @@ The machine list that builds SKUs is `lib/sayings.json`. Keep the two in sync.
 ## How to add a saying
 
 1. Add a row under **Live on the shop** below.
-2. Add a matching object in `lib/sayings.json` (`id`, `name`, `tee` lines, `shot` short line, `fill`, `face`).
+2. Add a matching object in `lib/sayings.json` (`id`, `name`, `tee` lines, `shot` short line, `fill: "#FFFFFF"`, `face`: `inter` or `mono`).
 3. Run `npm run mockups` then `npm run qa`.
 4. If QA fails, fix the photo or set the SKU aside — do not borrow a neighbour’s image.
 
