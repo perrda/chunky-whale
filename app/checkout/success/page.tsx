@@ -3,17 +3,18 @@ import Link from "next/link";
 import { ClearCart } from "@/components/ClearCart";
 import { PendingRefresh } from "@/components/PendingRefresh";
 import { colorLabel, formatGbp, getProduct, sizeLabel } from "@/lib/products";
-import { getOrder } from "@/lib/orders";
+import { getOrder, viewTokensMatch } from "@/lib/orders";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = { title: "Order" };
 
-type Props = { searchParams: Promise<{ order?: string; demo?: string }> };
+type Props = { searchParams: Promise<{ order?: string; demo?: string; t?: string }> };
 
 export default async function SuccessPage({ searchParams }: Props) {
-  const { order: id } = await searchParams;
-  const order = id ? await getOrder(id) : null;
+  const { order: id, t } = await searchParams;
+  const found = id ? await getOrder(id) : null;
+  const order = found && viewTokensMatch(found.viewToken, t) ? found : null;
   const confirmed = Boolean(order && (order.demo || order.status === "paid"));
   const pending = Boolean(order && !order.demo && order.status === "pending");
   const failed = Boolean(order && order.status === "failed");

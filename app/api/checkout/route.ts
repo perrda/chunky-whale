@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { colorLabel, colorsFor, getProduct, liveProducts, sizeLabel } from "@/lib/products";
-import { createOrder, newOrderId } from "@/lib/orders";
+import { createOrder, newOrderId, newViewToken, updateOrder } from "@/lib/orders";
 import { paymentsReady, site } from "@/lib/config";
-import { basketTotals } from "@/lib/shipping";
+import { basketTotals, isCheckoutCountry } from "@/lib/shipping";
 import { createStripeCheckout } from "@/lib/payments/stripe";
 import { createOpenNodeCharge } from "@/lib/payments/opennode";
 import { createCoinbaseCharge } from "@/lib/payments/coinbase";
@@ -16,7 +16,7 @@ const bodySchema = z.object({
   address1: z.string().min(3),
   address2: z.string().optional(),
   city: z.string().min(2),
-  country: z.string().min(2),
+  country: z.string().refine(isCheckoutCountry, "Pick a country from the list."),
   postcode: z.string().min(2),
   method: z.enum(["card", "bitcoin", "usdc", "usdt"]),
   items: z
@@ -54,6 +54,15 @@ export async function POST(req: Request) {
     if (colours?.length && !colours.some((c) => c.id === i.color)) {
       return NextResponse.json({ error: `Pick a colour for ${p.name}.` }, { status: 400 });
     }
+    if (p.limited) {
+      const remaining = p.remaining ?? 0;
+      if (i.qty > remaining) {
+        return NextResponse.json(
+          { error: remaining > 0 ? `Only ${remaining} left of ${p.name}.` : `${p.name} is sold out.` },
+          { status: 400 },
+        );
+      }
+    }
     items.push({
       slug: i.slug,
       size: i.size,
@@ -72,9 +81,10 @@ export async function POST(req: Request) {
     parsed.data.country,
   );
   const id = newOrderId();
+  const viewToken = newViewToken();
   const ready = paymentsReady();
   const origin = site.url;
-  const success = `${origin}/checkout/success?order=${id}`;
+  const success = `${origin}/checkout/success?order=${id}&t=${viewToken}`;
   const methodLive = {
     card: ready.stripe,
     bitcoin: ready.opennode,
@@ -93,6 +103,27 @@ export async function POST(req: Request) {
   let payUrl: string | undefined;
   let providerRef: string | undefined;
   let demo = !methodLive;
+
+  await createOrder({
+    id,
+    email: parsed.data.email,
+    name: parsed.data.name,
+    address1: parsed.data.address2
+      ? `${parsed.data.address1}, ${parsed.data.address2}`
+      : parsed.data.address1,
+    city: parsed.data.city,
+    country: parsed.data.country,
+    postcode: parsed.data.postcode,
+    method: parsed.data.method,
+    items,
+    totalGbp,
+    shipGbp,
+    itemsGbp,
+    status: "pending",
+    demo,
+    createdAt: new Date().toISOString(),
+    viewToken,
+  });
 
   try {
     if (parsed.data.method === "card" && ready.stripe) {
@@ -166,41 +197,23 @@ export async function POST(req: Request) {
     }
   } catch (err) {
     console.error(err);
+    await updateOrder(id, { status: "failed" });
     return NextResponse.json({ error: "Payment provider failed. Try another method." }, { status: 502 });
   }
 
   if (methodLive && !payUrl) {
+    await updateOrder(id, { status: "failed" });
     return NextResponse.json(
       { error: "That payment method did not start. Try another, or try again." },
       { status: 502 },
     );
   }
 
-  await createOrder({
-    id,
-    email: parsed.data.email,
-    name: parsed.data.name,
-    address1: parsed.data.address2
-      ? `${parsed.data.address1}, ${parsed.data.address2}`
-      : parsed.data.address1,
-    city: parsed.data.city,
-    country: parsed.data.country,
-    postcode: parsed.data.postcode,
-    method: parsed.data.method,
-    items,
-    totalGbp,
-    shipGbp,
-    itemsGbp,
-    status: "pending",
-    demo,
-    createdAt: new Date().toISOString(),
-    providerRef,
-    payUrl,
-  });
+  await updateOrder(id, { providerRef, payUrl, demo });
 
   return NextResponse.json({
     orderId: id,
     demo,
-    payUrl: payUrl ?? `/checkout/success?order=${id}&demo=1`,
+    payUrl: payUrl ?? `/checkout/success?order=${id}&demo=1&t=${viewToken}`,
   });
 }

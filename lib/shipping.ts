@@ -1,3 +1,40 @@
+/** Countries the checkout form offers. API must reject anything else. */
+export const CHECKOUT_COUNTRIES = [
+  "GB",
+  "US",
+  "DE",
+  "FR",
+  "NL",
+  "IE",
+  "AE",
+  "TH",
+  "SG",
+  "AU",
+  "JP",
+  "CA",
+] as const;
+
+export type CheckoutCountry = (typeof CHECKOUT_COUNTRIES)[number];
+
+export const CHECKOUT_COUNTRY_OPTIONS: { id: CheckoutCountry; label: string }[] = [
+  { id: "GB", label: "United Kingdom" },
+  { id: "US", label: "United States" },
+  { id: "DE", label: "Germany" },
+  { id: "FR", label: "France" },
+  { id: "NL", label: "Netherlands" },
+  { id: "IE", label: "Ireland" },
+  { id: "AE", label: "United Arab Emirates" },
+  { id: "TH", label: "Thailand" },
+  { id: "SG", label: "Singapore" },
+  { id: "AU", label: "Australia" },
+  { id: "JP", label: "Japan" },
+  { id: "CA", label: "Canada" },
+];
+
+export function isCheckoutCountry(value: string): value is CheckoutCountry {
+  return (CHECKOUT_COUNTRIES as readonly string[]).includes(value);
+}
+
 /** Printful-based estimates. Fulfilment 2–5 business days, then carrier transit. Not a guarantee. */
 
 export type ShipRegion = {

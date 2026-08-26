@@ -1,4 +1,5 @@
 import "server-only";
+import { randomBytes, timingSafeEqual } from "crypto";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 
@@ -24,6 +25,8 @@ export type Order = {
   payUrl?: string;
   fulfilled?: boolean;
   printfulId?: string;
+  /** Unguessable token required to view the success page. */
+  viewToken?: string;
 };
 
 const file = path.join(process.cwd(), ".data", "orders.json");
@@ -124,7 +127,29 @@ export async function markFulfilled(id: string, printfulId?: string) {
   });
 }
 
+export async function updateOrder(id: string, patch: Partial<Omit<Order, "id">>) {
+  return withLock(async () => {
+    const orders = await load();
+    const i = orders.findIndex((o) => o.id === id);
+    if (i < 0) return null;
+    orders[i] = { ...orders[i], ...patch };
+    await save(orders);
+    return orders[i];
+  });
+}
+
 export function newOrderId() {
-  const n = Math.random().toString(36).slice(2, 8).toUpperCase();
-  return `SH-${Date.now().toString(36).toUpperCase()}-${n}`;
+  return `SH-${randomBytes(10).toString("hex").toUpperCase()}`;
+}
+
+export function newViewToken() {
+  return randomBytes(18).toString("base64url");
+}
+
+export function viewTokensMatch(expected?: string, given?: string) {
+  if (!expected || !given) return false;
+  const left = Buffer.from(expected);
+  const right = Buffer.from(given);
+  if (left.length !== right.length || left.length === 0) return false;
+  return timingSafeEqual(left, right);
 }

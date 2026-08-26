@@ -1523,7 +1523,7 @@ export function productsIn(slug: string) {
         p.category === "hoodies" ||
         p.category === "hats" ||
         p.category === "swimwear" ||
-        (p.cut === "women" && p.category !== "swimwear"),
+        p.cut === "women",
     );
   if (isFeaturedLine(slug)) {
     return list.filter((p) => lineKey(p) === slug);
@@ -1597,10 +1597,14 @@ export function collectionFor(p: Product): { href: string; label: string } {
   if (k === "hoodie") return { href: "/collection/hoodies", label: "Hoodies" };
   if (k === "pullover") return { href: "/collection/pullovers", label: "Pullovers" };
   if (k === "crew") return { href: "/collection/crewnecks", label: "Crewnecks" };
-  if (k === "zip") return { href: "/collection/zip-ups", label: "Zip-ups" };
+  if (k === "zip") {
+    return productsIn("zip-ups").length
+      ? { href: "/collection/zip-ups", label: "Zip-ups" }
+      : { href: "/collection/sweatshirts", label: "Sweatshirts" };
+  }
   if (k === "whiskey") return { href: "/collection/whiskey-glasses", label: "Whiskey glasses" };
   if (k === "shot") return { href: "/collection/shot-glasses", label: "Shot glasses" };
-  if (p.category === "swimwear") return { href: "/collection/swimwear", label: "Swimwear" };
+  if (p.category === "swimwear") return { href: "/shop", label: "Shop" };
   if (p.cut === "youth" || p.cut === "toddler" || p.cut === "infant")
     return { href: "/collection/kids", label: "Kids" };
   if (p.cut === "women") return { href: "/collection/women", label: "Women" };
@@ -1609,15 +1613,15 @@ export function collectionFor(p: Product): { href: string; label: string } {
   if (p.category === "hats") return { href: "/collection/hats", label: "Hats" };
   if (p.category === "drinkware" || p.category === "home")
     return { href: "/collection/drinkware", label: "Drinkware" };
-  if (p.category === "jewelry") return { href: "/collection/jewelry", label: "Jewelry" };
-  if (p.category === "posters") return { href: "/collection/posters", label: "Posters" };
-  if (p.category === "bags") return { href: "/collection/bags", label: "Bags" };
+  if (p.category === "jewelry" || p.category === "posters" || p.category === "bags") {
+    return { href: "/shop", label: "Shop" };
+  }
   return { href: "/shop", label: "Shop" };
 }
 
 export function colorLabel(p: Product, colorId?: string) {
   if (!colorId) return "";
-  return colorsFor(p)?.find((c) => c.id === colorId)?.label ?? colorId;
+  return colorsFor(p)?.find((c) => c.id === colorId)?.label ?? "";
 }
 
 export function sizeLabel(p: Product, sizeId?: string) {

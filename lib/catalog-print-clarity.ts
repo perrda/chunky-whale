@@ -212,8 +212,8 @@ export async function auditOnePrint(
   const push = (detail: string) =>
     issues.push({ slug: product.slug, name: product.name, image, detail });
 
-  let raw = await loadRaw(abs);
-  let s = scorePrint(raw.data, raw.w, raw.h, glass);
+  const raw = await loadRaw(abs);
+  const s = scorePrint(raw.data, raw.w, raw.h, glass);
 
   if (!spec?.markOnly && !loose) {
     const lettersExpected = (spec?.lines.join("") ?? "XXXX").replace(/\s/g, "").length;

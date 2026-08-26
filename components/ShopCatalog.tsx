@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { ProductCard } from "./ProductCard";
 import { SHOP_FILTERS, SHOP_MORE_FILTERS } from "@/lib/nav";
 import { productsIn, type Product } from "@/lib/products";
@@ -113,7 +114,16 @@ export function ShopCatalog({
         ))}
       </div>
       {list.length === 0 ? (
-        <p className="mt-10 font-serif text-paper/70">Nothing matches. Clear the search or pick another collection.</p>
+        <p className="mt-10 font-serif text-paper/70">
+          {products.length === 0
+            ? "This range is not on the shelf yet. Shop everything else, or come back when the photos are ready."
+            : "Nothing matches. Clear the search or pick another collection."}{" "}
+          {products.length === 0 ? (
+            <Link href="/shop" className="text-ember">
+              Shop all
+            </Link>
+          ) : null}
+        </p>
       ) : null}
     </div>
   );

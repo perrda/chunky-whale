@@ -15,8 +15,9 @@ import {
   productImage,
   sizeLabel,
 } from "@/lib/products";
-import { basketTotals, regionForCountry } from "@/lib/shipping";
+import { basketTotals, CHECKOUT_COUNTRY_OPTIONS, regionForCountry } from "@/lib/shipping";
 import { useAuth } from "@/lib/auth-store";
+import { useShipPref } from "@/lib/ship-pref";
 import { usePersistReady } from "@/lib/use-persist-ready";
 
 const methods = [
@@ -46,7 +47,9 @@ export default function CheckoutPage() {
   const cartReady = usePersistReady(useCart.persist);
   const authReady = usePersistReady(useAuth.persist);
   const [method, setMethod] = useState<(typeof methods)[number]["id"]>("bitcoin");
-  const [country, setCountry] = useState("GB");
+  const shipReady = usePersistReady(useShipPref.persist);
+  const country = useShipPref((s) => s.country);
+  const setCountry = useShipPref((s) => s.setCountry);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [cancelled, setCancelled] = useState(false);
@@ -56,7 +59,9 @@ export default function CheckoutPage() {
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
     setCancelled(q.get("cancelled") === "1");
-    fetch("/api/status")
+    const ac = new AbortController();
+    const timer = window.setTimeout(() => ac.abort(), 4000);
+    fetch("/api/status", { signal: ac.signal })
       .then((r) => {
         if (!r.ok) throw new Error("status");
         return r.json();
@@ -68,7 +73,12 @@ export default function CheckoutPage() {
       .catch(() => {
         setRails(null);
         setRailsError(true);
-      });
+      })
+      .finally(() => window.clearTimeout(timer));
+    return () => {
+      window.clearTimeout(timer);
+      ac.abort();
+    };
   }, []);
 
   const anyLive = Boolean(rails?.stripe || rails?.opennode || rails?.coinbase || rails?.nowpayments);
@@ -87,7 +97,7 @@ export default function CheckoutPage() {
     }
   }, [anyLive, liveById, method]);
 
-  const ready = cartReady && authReady;
+  const ready = cartReady && authReady && shipReady;
 
   const lines = useMemo(
     () =>
@@ -208,18 +218,11 @@ export default function CheckoutPage() {
             autoComplete="country"
             className="mt-1 w-full border border-paper/20 bg-ink px-3 py-2 font-serif text-paper"
           >
-            <option value="GB">United Kingdom</option>
-            <option value="US">United States</option>
-            <option value="DE">Germany</option>
-            <option value="FR">France</option>
-            <option value="NL">Netherlands</option>
-            <option value="IE">Ireland</option>
-            <option value="AE">United Arab Emirates</option>
-            <option value="TH">Thailand</option>
-            <option value="SG">Singapore</option>
-            <option value="AU">Australia</option>
-            <option value="JP">Japan</option>
-            <option value="CA">Canada</option>
+            {CHECKOUT_COUNTRY_OPTIONS.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.label}
+              </option>
+            ))}
           </select>
         </label>
         <fieldset>

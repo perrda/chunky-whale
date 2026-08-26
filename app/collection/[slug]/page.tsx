@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ShopCatalog } from "@/components/ShopCatalog";
-import { COLLECTION_META, collectionNavFor } from "@/lib/nav";
+import { COLLECTION_META, collectionNavFor, liveCollectionMeta } from "@/lib/nav";
 import { productsIn } from "@/lib/products";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return COLLECTION_META.map((c) => ({ slug: c.slug }));
+  return liveCollectionMeta().map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -22,6 +22,7 @@ export default async function CollectionPage({ params }: Props) {
   const c = COLLECTION_META.find((x) => x.slug === slug);
   if (!c) notFound();
   const list = productsIn(slug);
+  if (!list.length) notFound();
   const nav = collectionNavFor(slug);
   const here = `/collection/${slug}`;
   return (

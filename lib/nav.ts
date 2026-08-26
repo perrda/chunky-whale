@@ -1,5 +1,11 @@
+import { productsIn } from "./products";
+
 export type NavChild = { href: string; label: string };
 export type NavItem = { href: string; label: string; children?: NavChild[] };
+
+export function liveCollectionMeta() {
+  return COLLECTION_META.filter((c) => productsIn(c.slug).length > 0);
+}
 
 /** Five top links. The rest live under Shop — not a second row of categories. */
 export const MEGA_NAV: NavItem[] = [
@@ -125,27 +131,36 @@ export function collectionNavFor(slug: string): {
   children: NavChild[];
 } | null {
   if (slug === "hats" || HAT_SECTIONS.some((c) => c.href === `/collection/${slug}`)) {
-    return { parentLabel: "Hats", parentHref: "/collection/hats", children: HAT_SECTIONS };
+    return withLiveChildren({ parentLabel: "Hats", parentHref: "/collection/hats", children: HAT_SECTIONS });
   }
   if (slug === "women" || WOMEN_SECTIONS.some((c) => c.href === `/collection/${slug}`)) {
-    return { parentLabel: "Women", parentHref: "/collection/women", children: WOMEN_SECTIONS };
+    return withLiveChildren({ parentLabel: "Women", parentHref: "/collection/women", children: WOMEN_SECTIONS });
   }
   if (slug === "kids" || KIDS_SECTIONS.some((c) => c.href === `/collection/${slug}`)) {
-    return { parentLabel: "Kids", parentHref: "/collection/kids", children: KIDS_SECTIONS };
+    return withLiveChildren({ parentLabel: "Kids", parentHref: "/collection/kids", children: KIDS_SECTIONS });
   }
   if (slug === "swimwear" || SWIM_SECTIONS.some((c) => c.href === `/collection/${slug}`)) {
-    return { parentLabel: "Swimwear", parentHref: "/collection/swimwear", children: SWIM_SECTIONS };
+    return withLiveChildren({ parentLabel: "Swimwear", parentHref: "/collection/swimwear", children: SWIM_SECTIONS });
   }
   const href = `/collection/${slug}`;
   const parent = MEGA_NAV.find((n) => n.href === href && n.children?.length);
   if (parent?.children) {
-    return { parentLabel: parent.label, parentHref: parent.href, children: parent.children };
+    return withLiveChildren({ parentLabel: parent.label, parentHref: parent.href, children: parent.children });
   }
   const owner = MEGA_NAV.find((n) => n.children?.some((c) => c.href === href));
   if (owner?.children && owner.label !== "Shop") {
-    return { parentLabel: owner.label, parentHref: owner.href, children: owner.children };
+    return withLiveChildren({ parentLabel: owner.label, parentHref: owner.href, children: owner.children });
   }
   return null;
+}
+
+function withLiveChildren(nav: { parentLabel: string; parentHref: string; children: NavChild[] }) {
+  const children = nav.children.filter((c) => {
+    const slug = c.href.replace("/collection/", "");
+    return productsIn(slug).length > 0;
+  });
+  if (!children.length) return null;
+  return { ...nav, children };
 }
 
 export const COLLECTION_META: { slug: string; label: string; blurb: string }[] = [

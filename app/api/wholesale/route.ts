@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { saveWholesale } from "@/lib/inbox";
 import { guardShopPost } from "@/lib/request-guard";
 
 const schema = z.object({
@@ -20,6 +21,6 @@ export async function POST(req: Request) {
       { status: 400 },
     );
   }
-  console.info("wholesale", parsed.data);
+  await saveWholesale(parsed.data);
   return NextResponse.json({ ok: true });
 }
