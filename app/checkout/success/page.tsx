@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ClearCart } from "@/components/ClearCart";
 import { PendingRefresh } from "@/components/PendingRefresh";
 import { colorLabel, formatGbp, getProduct, sizeLabel } from "@/lib/products";
-import { getOrder, viewTokensMatch } from "@/lib/orders";
+import { getOrderForReceipt } from "@/lib/orders";
 
 export const dynamic = "force-dynamic";
 
@@ -13,8 +13,7 @@ type Props = { searchParams: Promise<{ order?: string; demo?: string; t?: string
 
 export default async function SuccessPage({ searchParams }: Props) {
   const { order: id, t } = await searchParams;
-  const found = id ? await getOrder(id) : null;
-  const order = found && viewTokensMatch(found.viewToken, t) ? found : null;
+  const order = await getOrderForReceipt(id, t);
   const confirmed = Boolean(order && (order.demo || order.status === "paid"));
   const pending = Boolean(order && !order.demo && order.status === "pending");
   const failed = Boolean(order && order.status === "failed");
@@ -29,11 +28,13 @@ export default async function SuccessPage({ searchParams }: Props) {
           ? "Demo order"
           : "Payment confirmed";
 
-  const heading = failed
-    ? "Nothing was taken."
-    : pending
-      ? "Confirming your payment."
-      : "The stamp is in motion.";
+  const heading = !order
+    ? "We could not find that order."
+    : failed
+      ? "Nothing was taken."
+      : pending
+        ? "Confirming your payment."
+        : "The stamp is in motion.";
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 md:px-6">
@@ -106,7 +107,7 @@ export default async function SuccessPage({ searchParams }: Props) {
           ) : null}
         </>
       ) : (
-        <p className="mt-4 font-serif">We could not find that order. Check the link from checkout.</p>
+        <p className="mt-4 font-serif">Check the link from checkout. If you just paid, use that tab — this one cannot see the receipt.</p>
       )}
       <Link href="/shop" className="mt-10 inline-block font-mono text-[11px] uppercase tracking-[0.2em] text-ember">
         Continue shopping

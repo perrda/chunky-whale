@@ -2,7 +2,7 @@
  * Hit every public route. Needs the shop running.
  * npx tsx scripts/crawl-shop.ts http://127.0.0.1:3001
  */
-import { COLLECTION_META, MEGA_NAV } from "../lib/nav";
+import { liveCollectionMeta, MEGA_NAV } from "../lib/nav";
 import { liveProducts } from "../lib/products";
 
 const base = process.argv[2] ?? "http://127.0.0.1:3001";
@@ -39,7 +39,7 @@ async function main() {
     hrefs.add(n.href);
     for (const c of n.children ?? []) hrefs.add(c.href);
   }
-  for (const c of COLLECTION_META) hrefs.add(`/collection/${c.slug}`);
+  for (const c of liveCollectionMeta()) hrefs.add(`/collection/${c.slug}`);
   for (const p of liveProducts()) hrefs.add(`/product/${p.slug}`);
 
   const bad: { url: string; status: number; body: string }[] = [];

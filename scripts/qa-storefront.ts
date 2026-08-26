@@ -224,6 +224,21 @@ assert.ok(statSync(path.join(process.cwd(), "app/global-error.tsx")).size > 200,
 
 const sitemapSrc = readFileSync(path.join(process.cwd(), "app/sitemap.ts"), "utf8");
 assert.match(sitemapSrc, /liveCollectionMeta/, "sitemap must skip empty retired collections");
+assert.match(
+  readFileSync(path.join(process.cwd(), "scripts/crawl-shop.ts"), "utf8"),
+  /liveCollectionMeta/,
+  "route crawl must skip empty retired collections",
+);
+assert.match(
+  readFileSync(path.join(process.cwd(), "lib/orders.ts"), "utf8"),
+  /getOrderForReceipt/,
+  "success page must load a token-gated receipt, not the raw order",
+);
+assert.match(
+  readFileSync(path.join(process.cwd(), "lib/orders.ts"), "utf8"),
+  /orders\/\$\{id\}\.json|orderPath/,
+  "each order must be its own file so a receipt cannot dump the whole book",
+);
 
 const printfulSync = readFileSync(path.join(process.cwd(), "app/api/printful/sync/route.ts"), "utf8");
 assert.match(printfulSync, /OPS_SECRET|PRINTFUL_SYNC_SECRET/, "Printful sync must not be a public config probe");
