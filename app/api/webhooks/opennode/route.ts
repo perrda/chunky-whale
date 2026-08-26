@@ -34,7 +34,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "charge mismatch" }, { status: 400 });
   }
 
-  const paidGbp = openNodePaidGbp(charge) ?? (order?.providerRef === charge.id ? order.totalGbp : undefined);
+  const paidGbp = openNodePaidGbp(charge);
+  if (paidGbp == null) {
+    return NextResponse.json({ error: "amount missing" }, { status: 400 });
+  }
   const confirmed = await confirmPaidOrder({
     orderId: body.order_id,
     providerRef: charge.id,

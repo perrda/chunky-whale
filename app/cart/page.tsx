@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { GarmentImage } from "@/components/GarmentImage";
-import { cartTotalGbp, useCart } from "@/lib/cart-store";
+import { useCart } from "@/lib/cart-store";
 import {
   colorLabel,
   colorsFor,
@@ -14,24 +14,32 @@ import {
   productImage,
   sizeLabel,
 } from "@/lib/products";
-import { estimateShippingGbp } from "@/lib/shipping";
+import { basketTotals, CHECKOUT_COUNTRY_OPTIONS, regionForCountry } from "@/lib/shipping";
+import { useShipPref } from "@/lib/ship-pref";
 import { usePersistReady } from "@/lib/use-persist-ready";
 
 export default function CartPage() {
   const { items, setQty, remove } = useCart();
-  const ready = usePersistReady(useCart.persist);
+  const cartReady = usePersistReady(useCart.persist);
+  const shipReady = usePersistReady(useShipPref.persist);
+  const country = useShipPref((s) => s.country);
+  const setCountry = useShipPref((s) => s.setCountry);
+  const ready = cartReady && shipReady;
 
   if (!ready) {
     return <p className="px-6 py-20 font-serif text-paper/60">Loading basket…</p>;
   }
 
-  const total = cartTotalGbp(items);
   const stale = items.some((item) => !isLiveProduct(item.slug));
-  const shipLines = items.flatMap((item) => {
-    const p = getProduct(item.slug);
-    return p && isLiveProduct(item.slug) ? [{ category: p.category, qty: item.qty }] : [];
-  });
-  const ship = estimateShippingGbp(shipLines, "GB");
+  const money = basketTotals(
+    items.flatMap((item) => {
+      const p = getProduct(item.slug);
+      return p && isLiveProduct(item.slug)
+        ? [{ category: p.category, qty: item.qty, priceGbp: p.priceGbp }]
+        : [];
+    }),
+    country,
+  );
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-14 md:px-6">
@@ -104,18 +112,32 @@ export default function CartPage() {
           <div className="mt-8 space-y-2 border-t border-paper/15 pt-6">
             <div className="flex items-center justify-between font-serif">
               <p>Items</p>
-              <p className="font-mono text-gold">{formatGbp(total)}</p>
+              <p className="font-mono text-gold">{formatGbp(money.itemsGbp)}</p>
             </div>
             <div className="flex items-center justify-between font-serif text-sm text-paper/75">
-              <p>Shipping estimate (UK)</p>
-              <p className="font-mono">{formatGbp(ship)}</p>
+              <p>Shipping estimate ({regionForCountry(country).label})</p>
+              <p className="font-mono">{formatGbp(money.shipGbp)}</p>
             </div>
             <div className="flex items-center justify-between pt-2 font-display text-lg">
               <p>Estimated total</p>
-              <p className="font-mono text-gold">{formatGbp(total + ship)}</p>
+              <p className="font-mono text-gold">{formatGbp(money.totalGbp)}</p>
             </div>
+            <label className="block pt-2 font-serif text-sm text-paper/70">
+              Ship to
+              <select
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                className="ml-2 border border-paper/20 bg-ink px-2 py-1 font-serif text-paper"
+              >
+                {CHECKOUT_COUNTRY_OPTIONS.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.label}
+                  </option>
+                ))}
+              </select>
+            </label>
             <p className="font-serif text-sm text-paper/60">
-              Shipping is an estimate. The live checkout total may differ by country.
+              Shipping is an estimate. Checkout uses this country for the charge.
             </p>
           </div>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

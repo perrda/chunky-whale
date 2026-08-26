@@ -6,7 +6,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { allowedPrintFilenames, auditPrintSources } from "../lib/catalog-print-allowlist";
-import { SHOP_FILTERS, SHOP_MORE_FILTERS, MEGA_NAV } from "../lib/nav";
+import { SHOP_FILTERS, SHOP_MORE_FILTERS, MEGA_NAV, liveCollectionMeta } from "../lib/nav";
 import { gbpAmountsMatch, gbpToPence, penceMatchesGbp } from "../lib/payments/amount";
 import { defaultColorId, getProduct, liveProducts, productsIn, RETIRED_SLUGS, takesColourways } from "../lib/products";
 import { basketTotals } from "../lib/shipping";
@@ -62,6 +62,14 @@ assert.ok(productsIn("so-back").length >= 2, "So Back line too thin");
 assert.ok(productsIn("21-million").length >= 2, "21 million line too thin");
 assert.ok(productsIn("wear").length > 20, "Wear it door empty");
 assert.ok(productsIn("polos").length >= 3, "polo range thin — need crest / center / mini");
+assert.ok(
+  liveCollectionMeta().every((c) => productsIn(c.slug).length > 0),
+  "sitemap/static collections must have live pieces",
+);
+assert.ok(
+  !liveCollectionMeta().some((c) => c.slug === "beanies" || c.slug === "swimwear" || c.slug === "bags"),
+  "retired empty collections must stay out of the live sitemap",
+);
 assert.ok(productsIn("polos").every((p) => /₿|bitcoin/i.test(`${p.name} ${p.description}`)), "polo must be ₿-only formal wear");
 const teeNav = MEGA_NAV.find((n) => n.label === "T-Shirts");
 assert.ok(teeNav?.children?.some((c) => c.href === "/collection/polos"), "T-Shirts menu must reach Polo shirts");
@@ -197,6 +205,47 @@ const checkoutSrc = readFileSync(path.join(process.cwd(), "app/api/checkout/rout
 assert.match(checkoutSrc, /basketTotals/);
 assert.match(checkoutSrc, /guardShopPost/);
 assert.match(checkoutSrc, /liveProducts/);
+assert.match(checkoutSrc, /isCheckoutCountry/);
+assert.match(checkoutSrc, /viewToken/);
+assert.match(checkoutSrc, /updateOrder/);
+assert.match(checkoutSrc, /p\.limited/);
+
+const opennodeWh = readFileSync(path.join(process.cwd(), "app/api/webhooks/opennode/route.ts"), "utf8");
+assert.match(opennodeWh, /confirmPaidOrder/);
+assert.match(opennodeWh, /amount missing/);
+assert.doesNotMatch(opennodeWh, /order\.totalGbp : undefined/);
+
+const kindSrc = readFileSync(path.join(process.cwd(), "lib/catalog-kind.ts"), "utf8");
+assert.doesNotMatch(kindSrc, /from ["']path["']/, "catalog-kind must stay browser-safe");
+assert.match(kindSrc, /imageStem/);
+
+assert.ok(statSync(path.join(process.cwd(), "app/error.tsx")).size > 200, "app/error.tsx must recover from crashes");
+assert.ok(statSync(path.join(process.cwd(), "app/global-error.tsx")).size > 200, "global-error must recover if the layout dies");
+
+const sitemapSrc = readFileSync(path.join(process.cwd(), "app/sitemap.ts"), "utf8");
+assert.match(sitemapSrc, /liveCollectionMeta/, "sitemap must skip empty retired collections");
+assert.match(
+  readFileSync(path.join(process.cwd(), "scripts/crawl-shop.ts"), "utf8"),
+  /liveCollectionMeta/,
+  "route crawl must skip empty retired collections",
+);
+assert.match(
+  readFileSync(path.join(process.cwd(), "lib/orders.ts"), "utf8"),
+  /getOrderForReceipt/,
+  "success page must load a token-gated receipt, not the raw order",
+);
+assert.match(
+  readFileSync(path.join(process.cwd(), "lib/orders.ts"), "utf8"),
+  /orders\/\$\{id\}\.json|orderPath/,
+  "each order must be its own file so a receipt cannot dump the whole book",
+);
+
+const printfulSync = readFileSync(path.join(process.cwd(), "app/api/printful/sync/route.ts"), "utf8");
+assert.match(printfulSync, /OPS_SECRET|PRINTFUL_SYNC_SECRET/, "Printful sync must not be a public config probe");
+
+const inboxSrc = readFileSync(path.join(process.cwd(), "lib/inbox.ts"), "utf8");
+assert.match(inboxSrc, /newsletter\.jsonl/);
+assert.match(inboxSrc, /wholesale\.jsonl/);
 
 const stripeWh = readFileSync(path.join(process.cwd(), "app/api/webhooks/stripe/route.ts"), "utf8");
 assert.match(stripeWh, /confirmPaidOrder/);

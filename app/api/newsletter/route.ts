@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { saveNewsletter } from "@/lib/inbox";
 import { guardShopPost } from "@/lib/request-guard";
 
 const schema = z.object({
@@ -14,6 +15,6 @@ export async function POST(req: Request) {
   if (!parsed.success) {
     return NextResponse.json({ error: "Need a valid email." }, { status: 400 });
   }
-  console.info("newsletter", parsed.data.email);
+  await saveNewsletter(parsed.data.email);
   return NextResponse.json({ ok: true });
 }

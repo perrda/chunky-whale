@@ -28,6 +28,7 @@ export const useCart = create<CartState>()(
     (set, get) => ({
       items: [],
       add: (item) => {
+        if (!isLiveProduct(item.slug)) return;
         const p = getProduct(item.slug);
         const cap = p?.limited ? Math.max(0, p.remaining ?? 0) : 20;
         if (cap <= 0) return;
@@ -49,7 +50,19 @@ export const useCart = create<CartState>()(
           return;
         }
         const p = getProduct(slug);
-        const cap = p?.limited ? Math.max(1, Math.min(20, p.remaining ?? 1)) : 20;
+        if (!isLiveProduct(slug)) {
+          set({
+            items: get().items.filter((x) => keyOf(x) !== keyOf({ slug, size, color })),
+          });
+          return;
+        }
+        const cap = p?.limited ? Math.max(0, Math.min(20, p.remaining ?? 0)) : 20;
+        if (cap <= 0) {
+          set({
+            items: get().items.filter((x) => keyOf(x) !== keyOf({ slug, size, color })),
+          });
+          return;
+        }
         const clamped = Math.min(cap, Math.max(1, Math.round(n)));
         set({
           items: get().items.map((x) =>

@@ -1,5 +1,6 @@
 import "server-only";
 import Stripe from "stripe";
+import { gbpToPence } from "@/lib/payments/amount";
 
 export function getStripe() {
   const key = process.env.STRIPE_SECRET_KEY;
@@ -26,7 +27,7 @@ export async function createStripeCheckout(input: {
       quantity: i.qty,
       price_data: {
         currency: "gbp",
-        unit_amount: Math.round(i.amountGbp * 100),
+        unit_amount: gbpToPence(i.amountGbp),
         product_data: { name: i.name },
       },
     })),
