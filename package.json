@@ -1,6 +1,6 @@
 {
   "name": "chunky-whale",
-  "version": "0.7.32",
+  "version": "0.7.33",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -14,6 +14,7 @@
     "mockups": "node scripts/render-tee-mockups.mjs && node scripts/render-sweat-mockups.mjs && node scripts/render-glass-mockups.mjs && node scripts/render-polo-mockups.mjs",
     "qa": "npm run qa:catalog && npm run qa:storefront && npm run qa:payments",
     "marks:fix": "node scripts/fix-bitcoin-marks.mjs",
+    "marks:house": "node scripts/build-house-marks.mjs",
     "prebuild": "npm run qa:catalog && npm run qa:storefront"
   },
   "dependencies": {

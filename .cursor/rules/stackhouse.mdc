@@ -9,7 +9,7 @@ Bitcoin merch at `~/Projects/stackhouse`. David Perry. DSP Capital Ventures Ltd 
 
 - Read `.cursor/skills/stackhouse-design/SKILL.md` before new SKUs or prints.
 - Designs: Bitcoin ₿ / B-logo on almost every piece. Memes, Satoshi, 21M, white paper, HODL. Ghost-mannequin tees on white. Cool, fun, varied (huge type next to quiet crest). Full family cuts. Polos = stitched ₿ only, nothing flashy.
-- Header / favicon / apple-touch / og use the official chunky whale locks (dark lock on dark chrome, light lock on light chrome). Never invent a new whale. Never replace product ₿ marks with the whale.
+- Header / favicon / apple-touch / og use the official circular house marks (`public/brand/mark-{dark,light}-circle-*.png`). Dark: charcoal whale, orange rim+eye, disc `#0B0D10`. Light: ivory whale, orange rim+eye, white disc. Never invent a new whale. Never replace product ₿ marks with the whale.
 - Never copy FOMO21 slogans, parodies, or art. Steal grid **energy** only — `docs/DESIGN-DIRECTION.md`. Never promise profits. Never commit `.env`.
 - Payments: card, BTC+Lightning, USDC, USDT. Printful-first dropship. Guest checkout. Rails stay parked until David’s keys.
 - Mid-price. Update MEMORY.md after each catalog cycle.

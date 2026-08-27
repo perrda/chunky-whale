@@ -85,12 +85,14 @@ const brandSrc = readFileSync(path.join(process.cwd(), "lib/config.ts"), "utf8")
 assert.match(brandSrc, /Chunky Whale/);
 assert.doesNotMatch(brandSrc, /STACKHOUSE|StackHouse/);
 const logoSrc = readFileSync(path.join(process.cwd(), "components/Logo.tsx"), "utf8");
-assert.match(logoSrc, /chunky-whale-logo\.png/);
-assert.match(logoSrc, /chunky-whale-dark\.png/);
+assert.match(logoSrc, /mark-light-circle-180\.png/);
+assert.match(logoSrc, /mark-dark-circle-180\.png/);
 assert.doesNotMatch(logoSrc, /stackhouse-logo|STACKHOUSE|StackHouse|BitcoinMark/);
 const layoutSrc = readFileSync(path.join(process.cwd(), "app/layout.tsx"), "utf8");
-assert.match(layoutSrc, /chunky-whale-logo\.png/);
-assert.match(layoutSrc, /chunky-whale-dark\.png/);
+assert.match(layoutSrc, /mark-light-circle-64\.png/);
+assert.match(layoutSrc, /mark-dark-circle-64\.png/);
+assert.match(layoutSrc, /mark-light-circle-180\.png/);
+assert.match(layoutSrc, /og-chunky-whale\.png/);
 assert.doesNotMatch(layoutSrc, /stackhouse-logo/);
 assert.ok(RETIRED_SLUGS.has("bitcoin-daddy-tote"), "bitcoin-daddy-tote stays unpublished");
 assert.ok(RETIRED_SLUGS.has("infant-node-onesie"), "onesie stays held");
