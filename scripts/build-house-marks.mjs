@@ -9,7 +9,7 @@
  * chunky-whale-x-avatar.jpg), circular crop. Light lock is the same whale
  * with ivory body on a white disc; orange rim + eye stay.
  */
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync } from "fs";
 import path from "path";
 import sharp from "sharp";
 
@@ -126,33 +126,13 @@ async function writeCircle(src, kind, size) {
     .toFile(outPath(kind, size));
 }
 
-function icoFromPng(png) {
-  const header = Buffer.alloc(6);
-  header.writeUInt16LE(0, 0);
-  header.writeUInt16LE(1, 2);
-  header.writeUInt16LE(1, 4);
-  const entry = Buffer.alloc(16);
-  entry.writeUInt8(0, 0);
-  entry.writeUInt8(0, 1);
-  entry.writeUInt8(0, 2);
-  entry.writeUInt8(0, 3);
-  entry.writeUInt16LE(1, 4);
-  entry.writeUInt16LE(32, 6);
-  entry.writeUInt32LE(png.length, 8);
-  entry.writeUInt32LE(22, 12);
-  return Buffer.concat([header, entry, png]);
-}
-
 async function writeChromeAliases() {
   await sharp(outPath("light", 800)).png().toFile(path.join(OUT, "chunky-whale-logo.png"));
   await sharp(outPath("light", 800)).png().toFile(path.join(OUT, "chunky-whale-light.png"));
   await sharp(outPath("dark", 800)).png().toFile(path.join(OUT, "chunky-whale-dark.png"));
 
   await sharp(outPath("dark", 64)).resize(32, 32).png().toFile(path.join(ROOT, "app/icon.png"));
-  await sharp(outPath("dark", 180)).png().toFile(path.join(ROOT, "app/apple-icon.png"));
-
-  const icoPng = await sharp(outPath("dark", 64)).resize(32, 32).png().toBuffer();
-  writeFileSync(path.join(ROOT, "app/favicon.ico"), icoFromPng(icoPng));
+  await sharp(outPath("light", 180)).png().toFile(path.join(ROOT, "app/apple-icon.png"));
 
   const ogW = 1200;
   const ogH = 630;
