@@ -1,6 +1,6 @@
 # Chunky Whale
 
-Bitcoin merch. **Stack sats. Wear ₿.** Version **0.7.31**.
+Bitcoin merch. **Stack sats. Wear ₿.** Version **0.7.32**.
 
 X: [**@Chunky_Whale**](https://x.com/Chunky_Whale).  
 Folder on both Macs is still **`~/Projects/stackhouse`**. GitHub is still **`perrda/stackhouse`** until CoS renames the repo to **`perrda/chunky-whale`**. This draft does not rename GitHub.

@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     "Bitcoin merch Bitcoiners actually wear. HODL, 21 million, Satoshi, the ₿. Card, Bitcoin + Lightning, USDC, and USDT — demo until payment keys are live.",
   icons: {
     icon: [
-      { url: "/brand/chunky-whale-light.png", media: "(prefers-color-scheme: light)" },
+      { url: "/brand/chunky-whale-logo.png", media: "(prefers-color-scheme: light)" },
       { url: "/brand/chunky-whale-dark.png", media: "(prefers-color-scheme: dark)" },
     ],
     apple: "/apple-icon.png",

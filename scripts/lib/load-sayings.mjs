@@ -8,7 +8,7 @@ export function drop12Marks() {
 
 export function sayingJobs(kind) {
   return drop12Marks().map((m) => ({
-    file: `${m.id}-${kind}.png`,
+    file: `${m.file ?? m.id}-${kind}.png`,
     lines: m[kind] ?? m.tee,
     fill: m.fill,
     face: m.face,

@@ -4,6 +4,7 @@ import sayings from "./sayings.json";
 
 type Saying = {
   id: string;
+  file?: string;
   name: string;
   short: string;
   desc: string;
@@ -11,6 +12,10 @@ type Saying = {
   featured?: boolean;
   trending?: boolean;
 };
+
+function stem(m: Saying) {
+  return m.file ?? m.id;
+}
 
 const TEE = ["180–220gsm cotton", "Printed on demand", "Unisex cut unless noted"];
 const HOOD = ["Mid-weight fleece", "Hood and kangaroo pocket", "12 garment colours"];
@@ -51,7 +56,7 @@ function tee(m: Saying): Product {
     colors: CLOTHING_COLORS,
     description: m.desc,
     details: TEE,
-    image: `/products/${m.id}-tee.png`,
+    image: `/products/${stem(m)}-tee.png`,
     sizes: APPAREL,
   };
 }
@@ -72,7 +77,7 @@ function hoodie(m: Saying): Product {
     colors: CLOTHING_COLORS,
     description: m.desc,
     details: HOOD,
-    image: `/products/${m.id}-hoodie.png`,
+    image: `/products/${stem(m)}-hoodie.png`,
     sizes: APPAREL,
   };
 }
@@ -91,7 +96,7 @@ function pullover(m: Saying): Product {
     colors: CLOTHING_COLORS,
     description: m.desc,
     details: PULL,
-    image: `/products/${m.id}-pullover.png`,
+    image: `/products/${stem(m)}-pullover.png`,
     sizes: APPAREL,
   };
 }
@@ -109,7 +114,7 @@ function whiskey(m: Saying): Product {
     featured: m.featured,
     description: m.desc,
     details: WHISKEY,
-    image: `/products/${m.id}-whiskey.png`,
+    image: `/products/${stem(m)}-whiskey.png`,
   };
 }
 
@@ -125,7 +130,7 @@ function shot(m: Saying): Product {
     kind: "shot",
     description: m.desc,
     details: SHOT,
-    image: `/products/${m.id}-shot.png`,
+    image: `/products/${stem(m)}-shot.png`,
   };
 }
 

@@ -7,7 +7,7 @@ export function Logo({ compact = false }: { compact?: boolean }) {
     <Link href="/" className="group inline-flex items-center gap-2.5 text-paper" aria-label={`${site.name} home`}>
       <span className={`relative shrink-0 ${box}`}>
         <img
-          src="/brand/chunky-whale-light.png"
+          src="/brand/chunky-whale-logo.png"
           alt=""
           className="logo-mark logo-mark-light h-full w-full object-contain"
         />
