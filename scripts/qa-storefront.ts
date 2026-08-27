@@ -8,7 +8,8 @@ import path from "node:path";
 import { allowedPrintFilenames, auditPrintSources } from "../lib/catalog-print-allowlist";
 import { SHOP_FILTERS, SHOP_MORE_FILTERS, MEGA_NAV, liveCollectionMeta } from "../lib/nav";
 import { gbpAmountsMatch, gbpToPence, penceMatchesGbp } from "../lib/payments/amount";
-import { defaultColorId, getProduct, liveProducts, productsIn, RETIRED_SLUGS, takesColourways } from "../lib/products";
+import { site } from "../lib/config";
+import { defaultColorId, getProduct, liveProducts, products, productsIn, RETIRED_SLUGS, takesColourways } from "../lib/products";
 import { basketTotals } from "../lib/shipping";
 
 const live = liveProducts();
@@ -84,6 +85,10 @@ assert.match(homeSrc, /Bitcoin merch/);
 const brandSrc = readFileSync(path.join(process.cwd(), "lib/config.ts"), "utf8");
 assert.match(brandSrc, /Chunky Whale/);
 assert.doesNotMatch(brandSrc, /STACKHOUSE|StackHouse/);
+assert.equal(site.name, "Chunky Whale");
+assert.equal(site.twitter, "https://x.com/Chunky_Whale");
+assert.equal(site.email, "hello@stackhouse.com");
+assert.doesNotMatch(site.email, /orangeforge/);
 const logoSrc = readFileSync(path.join(process.cwd(), "components/Logo.tsx"), "utf8");
 assert.match(logoSrc, /mark-light-circle-180\.png/);
 assert.match(logoSrc, /mark-dark-circle-180\.png/);
@@ -100,6 +105,36 @@ assert.ok(RETIRED_SLUGS.has("ring-crewneck"), "crew 360s stay held");
 const houseTee = getProduct("stackhouse-est-tee");
 assert.equal(houseTee?.editionId, "SH-D12-STACKH-T");
 assert.equal(houseTee?.image, "/products/chunky-whale-est-tee.png");
+const stacksTee = getProduct("house-stacks-tee");
+assert.equal(stacksTee?.name, "THE HOUSE ALWAYS STACKS");
+assert.equal(stacksTee?.description, "Chunky Whale mark. We do not bet the other way. Official B.");
+assert.match(stacksTee?.editionId ?? "", /^SH-/);
+const commerceTitles: Record<string, string> = {
+  athletic: "Chunky Whale Athletic 2009",
+  "athletic-dad": "Chunky Whale Athletic 2009 Dad Hat",
+  "athletic-beanie": "Chunky Whale Athletic 2009 Beanie",
+  "athletic-bucket": "Chunky Whale Athletic 2009 Bucket",
+  "athletic-flexfit": "Chunky Whale Athletic 2009 Flexfit",
+  "athletic-mug": "Chunky Whale Athletic 2009 Mug",
+  "athletic-pint": "Chunky Whale Athletic 2009 Pint",
+  "athletic-tote": "Chunky Whale Athletic 2009 Tote",
+  "athletic-poster": "Chunky Whale Athletic 2009 Print",
+  "meetup-tee": "Chunky Whale Meetup",
+  "athletic-snapback": "Chunky Whale Athletic 2009 Snapback",
+  "athletic-trucker": "Chunky Whale Athletic 2009 Trucker",
+  "athletic-coaster": "Chunky Whale Athletic 2009 Coasters",
+};
+for (const [slug, name] of Object.entries(commerceTitles)) {
+  const p = getProduct(slug);
+  if (!p) continue;
+  assert.equal(p.name, name, `${slug} display name`);
+  assert.match(p.editionId, /^SH-/);
+  assert.equal(RETIRED_SLUGS.has(slug), false, `${slug} must stay buyable`);
+}
+for (const p of products) {
+  if (!/athletic|meetup|house-stacks/i.test(`${p.slug} ${p.name} ${p.description}`)) continue;
+  assert.doesNotMatch(p.description, /STACKHOUSE|StackHouse/);
+}
 const cardSwatch = readFileSync(path.join(process.cwd(), "components/ColorSwatches.tsx"), "utf8");
 assert.match(cardSwatch, /max = 3/, "cards must not dump all twelve dots");
 const lineStrip = readFileSync(path.join(process.cwd(), "components/LineStrip.tsx"), "utf8");
