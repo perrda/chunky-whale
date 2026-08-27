@@ -245,9 +245,9 @@
       "fill": "#FFFFFF",
       "face": "serif",
       "layout": "stack",
-      "tee": ["CHUNKY WHALE", "EST. 2009"],
-      "hoodie": ["CHUNKY WHALE", "EST. 2009"],
-      "pullover": ["CHUNKY WHALE", "EST. 2009"],
+      "tee": ["CHUNKY", "WHALE", "EST. 2009"],
+      "hoodie": ["CHUNKY", "WHALE", "EST. 2009"],
+      "pullover": ["CHUNKY", "WHALE", "EST. 2009"],
       "whiskey": ["EST.", "2009"],
       "shot": ["2009"]
     }
