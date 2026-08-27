@@ -23,7 +23,7 @@ export default function GlobalError({
       >
         <div>
           <p style={{ fontFamily: "ui-monospace, monospace", fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "#c4a574" }}>
-            STACKHOUSE
+            Chunky Whale
           </p>
           <h1 style={{ fontFamily: "Arial, sans-serif", fontSize: "2rem", margin: "0.75rem 0 0" }}>The shop tripped.</h1>
           <p style={{ opacity: 0.75, marginTop: "1rem" }}>Nothing was charged. Try again, or refresh.</p>

@@ -139,7 +139,7 @@ const LINE_TITLES: Record<string, { label: string; blurb: string }> = {
   "block-zero": { label: "Block zero", blurb: "Genesis energy." },
   "verify-hodl": { label: "Verify then HODL", blurb: "Check the keys. Then sit." },
   "sound-loud": { label: "Sound money, loud shirt", blurb: "Quiet money. Loud cotton." },
-  "stackhouse-est": { label: "STACKHOUSE Est. 2009", blurb: "House mark. Genesis year." },
+  "stackhouse-est": { label: "Chunky Whale Est. 2009", blurb: "House mark. Genesis year." },
   "polo-crest": { label: "Stitched ₿ polo", blurb: "Left chest. Dinner-safe." },
   "polo-center": { label: "Center ₿ polo", blurb: "One stitched mark." },
   "polo-mini": { label: "Mini ₿ polo", blurb: "The smallest stitch." },

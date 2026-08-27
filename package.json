@@ -1,6 +1,6 @@
 {
-  "name": "stackhouse",
-  "version": "0.7.30",
+  "name": "chunky-whale",
+  "version": "0.7.31",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",

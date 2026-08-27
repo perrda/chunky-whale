@@ -42,21 +42,30 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "STACKHOUSE — Stack sats. Wear ₿.",
-    template: "%s · STACKHOUSE",
+    default: `${site.name} — ${site.tagline}`,
+    template: `%s · ${site.name}`,
   },
   description:
     "Bitcoin merch Bitcoiners actually wear. HODL, 21 million, Satoshi, the ₿. Card, Bitcoin + Lightning, USDC, and USDT — demo until payment keys are live.",
+  icons: {
+    icon: [
+      { url: "/brand/chunky-whale-light.png", media: "(prefers-color-scheme: light)" },
+      { url: "/brand/chunky-whale-dark.png", media: "(prefers-color-scheme: dark)" },
+    ],
+    apple: "/apple-icon.png",
+  },
   openGraph: {
-    title: "STACKHOUSE — Stack sats. Wear ₿.",
+    title: `${site.name} — ${site.tagline}`,
     description: "Original Bitcoin merch. Card, sats, USDC, and USDT — demo until keys are live.",
-    images: ["/products/hodl-tee.png"],
+    images: ["/brand/og-chunky-whale.png"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "STACKHOUSE",
-    images: ["/products/hodl-tee.png"],
+    title: site.name,
+    site: site.twitterHandle,
+    creator: site.twitterHandle,
+    images: ["/brand/og-chunky-whale.png"],
   },
 };
 

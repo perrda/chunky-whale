@@ -1,11 +1,11 @@
 ---
 name: stackhouse-design
-description: STACKHOUSE Bitcoin merch art direction, copy, colourways, and family size ranges. Use when adding products, generating Grok Imagine prints, writing slogans, building catalog/checkout variants, or continuing the stackhouse store.
+description: Chunky Whale Bitcoin merch art direction, copy, colourways, and family size ranges. Use when adding products, generating Grok Imagine prints, writing slogans, building catalog/checkout variants, or continuing the shop.
 ---
 
-# STACKHOUSE design house
+# Chunky Whale design house
 
-David Perry. Project `~/Projects/stackhouse`. GitHub `perrda/stackhouse`. Merchant likely DSP Capital Ventures Ltd. Never promise profits. Never commit `.env`. Never copy FOMO21 slogans or artwork.
+David Perry. Project `~/Projects/stackhouse`. GitHub `perrda/stackhouse` until CoS renames it to `perrda/chunky-whale`. X `@Chunky_Whale`. Merchant: DSP Capital Ventures Ltd. Never promise profits. Never commit `.env`. Never copy FOMO21 slogans or artwork.
 
 ## Positioning
 
@@ -65,7 +65,7 @@ FOMO21 copy, parodies, and clones. Full list: `docs/DESIGN-DIRECTION.md` and `do
 - Block zero
 - Verify then HODL
 - Sound money, loud shirt
-- STACKHOUSE Est. 2009
+- CHUNKY WHALE Est. 2009
 
 Approved list to edit: `docs/SAYINGS.md` + `lib/sayings.json`. Never add FOMO21 lines from the banned list.
 
@@ -78,7 +78,7 @@ Approved list to edit: `docs/SAYINGS.md` + `lib/sayings.json`. Never add FOMO21 
 - Sweatshirts split: **Hoodie** = hood + kangaroo pocket. **Pullover** = crew neck, no hood, no zip, no pocket. **Crew** and **zip** stay their own cuts. Never list a pullover with a hoodie photo (or the reverse). Hoodies and Pullovers each need **20+ unique designs** with matching writing on the photo. Sweatshirts is the parent (all four cuts).
 - Storefront UX: header is five links (T-Shirts, Sweatshirts, Hats, Drinkware, Shop). Search sits on the phone bar, not only inside Menu. Phone menu sections stay closed until Show. Same joke across objects is a **line** (`lib/design-line.ts`) — product pages show “This line”; HODL / So Back / 21 million are shoppable collections. Homepage: **Wear it / Drink from it / Gift it**, not a ten-tile type wall. Collection/shop lists sort (featured / price / name). Product cards show the cut and at most three colour dots. Product page: gallery (front + print close-up), fit sentence, zoom, quantity, breadcrumbs, sticky add with price on the phone. Basket/checkout use colour **labels** (Navy, not `navy`) and a shipping estimate. Checkout charges **items + shipping** via `basketTotals()` — never items only. Shop chips call `productsIn()` so Mummy & Daddy / Drinkware / Sweatshirts stay in sync with collection pages.
 - Payments stay demo until David’s keys. Webhooks must call `confirmPaidOrder()` (catalog total × qty + shipping). Never mark paid on a missing or wrong amount. Never fulfil a demo order. Browser APIs (checkout, newsletter, wholesale) need an origin check + rate limit. Catalog QA (`lib/catalog-audit.ts` and friends) uses fs/sharp — do not import those from client components; keep `lib/catalog-kind.ts` browser-safe. `/fulfillment` redirects to `/shipping`. Booth / MENA notes stay in docs only.
-- Wordmark is **StackHouse** (Stack + orange House). Meta/legal name is **STACKHOUSE**. Leave both. New edition IDs `SH-`; legacy `HM-` stay put.
+- Wordmark is **Chunky Whale** (Chunky + orange Whale). Site chrome, titles, and metadata use that name. New edition IDs stay `SH-`; legacy `HM-` stay put. Do not replace product ₿ marks with the whale.
 - Premium = embroidery/stitch on hats, hoodies, some tees.
 - Live categories: tees, **polo shirts** (stitched ₿ only), sweatshirts (hoodie / pullover / crew), women, hats (dad hat), kids (youth), drinkware (whiskey + shot only), premium, longsleeves, mummy-daddy. Swim, bags, jewelry, posters, leftover mugs/totes stay retired until each has a renderer-backed or clean studio photo. Do not advertise booths or an event plan on the public site. Glassware has no colour swatches. Whiskey and shot each need **20+ unique designs** with matching writing on the photo. Drinkware menu order: whiskey and shot first. Parent collection pages show subsection chips — do not hide a range behind hover-only dropdowns.
 

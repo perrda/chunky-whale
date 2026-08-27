@@ -1,8 +1,9 @@
-# STACKHOUSE
+# Chunky Whale
 
-Bitcoin merch. **Stack sats. Wear ₿.** Version **0.7.30**.
+Bitcoin merch. **Stack sats. Wear ₿.** Version **0.7.31**.
 
-Folder and GitHub repo: **`stackhouse`** (`perrda/stackhouse`).
+X: [**@Chunky_Whale**](https://x.com/Chunky_Whale).  
+Folder on both Macs is still **`~/Projects/stackhouse`**. GitHub is still **`perrda/stackhouse`** until CoS renames the repo to **`perrda/chunky-whale`**. This draft does not rename GitHub.
 
 Pay with **card, Bitcoin + Lightning, USDC, or USDT** once keys are added. Guest checkout. First live booth: **Bitcoin MENA, Abu Dhabi, 7–8 December 2026**.
 
