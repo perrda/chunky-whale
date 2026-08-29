@@ -27,10 +27,10 @@ function specsFromSayings(): PrintSpec[] {
   const kinds = ["tee", "hoodie", "pullover", "whiskey", "shot"] as const;
   const specs: PrintSpec[] = [];
   for (const m of marks) {
-    const id = String(m.id);
+    const stem = String(m.file ?? m.id);
     for (const kind of kinds) {
       const lines = (m[kind] as string[] | undefined) ?? (m.tee as string[]);
-      specs.push({ file: `${id}-${kind}.png`, lines: lines ?? [], markOnly: false });
+      specs.push({ file: `${stem}-${kind}.png`, lines: lines ?? [], markOnly: false });
     }
   }
   return specs;

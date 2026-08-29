@@ -45,7 +45,7 @@ Voice: a Bitcoiner explaining it to a clever friend. Funny, serious, and giftabl
 - BLOCK ZERO
 - VERIFY THEN HODL
 - SOUND MONEY LOUD SHIRT
-- STACKHOUSE EST. 2009
+- CHUNKY WHALE EST. 2009
 
 House list (add / remove here and in `lib/sayings.json`): [docs/SAYINGS.md](../../../docs/SAYINGS.md)  
 Energy vs clones: [docs/DESIGN-DIRECTION.md](../../../docs/DESIGN-DIRECTION.md)

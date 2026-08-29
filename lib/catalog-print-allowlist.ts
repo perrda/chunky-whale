@@ -22,9 +22,9 @@ function filesFromRenderer(rel: string): string[] {
 
 function filesFromSayings(): string[] {
   const src = readFileSync(path.join(ROOT, "lib/sayings.json"), "utf8");
-  const marks = JSON.parse(src).marks as { id: string }[];
+  const marks = JSON.parse(src).marks as { id: string; file?: string }[];
   const kinds = ["tee", "hoodie", "pullover", "whiskey", "shot"] as const;
-  return marks.flatMap((m) => kinds.map((k) => `${m.id}-${k}.png`));
+  return marks.flatMap((m) => kinds.map((k) => `${m.file ?? m.id}-${k}.png`));
 }
 
 export function allowedPrintFilenames(): Set<string> {

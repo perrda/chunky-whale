@@ -1,20 +1,20 @@
 ---
-description: STACKHOUSE store — Bitcoin merch conventions for every session
+description: Chunky Whale store — Bitcoin merch conventions for every session
 alwaysApply: true
 ---
 
-# STACKHOUSE
+# Chunky Whale
 
-Bitcoin merch at `~/Projects/stackhouse`. David Perry. DSP Capital Ventures Ltd likely merchant. First booth: Bitcoin MENA 7–8 Dec 2026.
+Bitcoin merch at `~/Projects/stackhouse`. David Perry. DSP Capital Ventures Ltd is merchant of record. X `@Chunky_Whale`. First booth: Bitcoin MENA 7–8 Dec 2026.
 
 - Read `.cursor/skills/stackhouse-design/SKILL.md` before new SKUs or prints.
 - Designs: Bitcoin ₿ / B-logo on almost every piece. Memes, Satoshi, 21M, white paper, HODL. Ghost-mannequin tees on white. Cool, fun, varied (huge type next to quiet crest). Full family cuts. Polos = stitched ₿ only, nothing flashy.
+- Header / favicon / apple-touch / og use the official circular house marks (`public/brand/mark-{dark,light}-circle-*.png`). Dark: charcoal whale, orange rim+eye, disc `#0B0D10`. Light: ivory whale, orange rim+eye, white disc. Never invent a new whale. Never replace product ₿ marks with the whale.
 - Never copy FOMO21 slogans, parodies, or art. Steal grid **energy** only — `docs/DESIGN-DIRECTION.md`. Never promise profits. Never commit `.env`.
-- Payments: card, BTC+Lightning, USDC, USDT. Printful-first dropship. Guest checkout.
+- Payments: card, BTC+Lightning, USDC, USDT. Printful-first dropship. Guest checkout. Rails stay parked until David’s keys.
 - Mid-price. Update MEMORY.md after each catalog cycle.
 - Owner is not technical: plain English, copy-paste account steps.
-- Official files: GitHub `perrda/stackhouse` **`main`** only. Folder `~/Projects/stackhouse`. URL http://127.0.0.1:3001. Homepage check: “Bitcoin merch. Don’t miss the stack.” + Wear / Drink / Gift.
+- Official files: GitHub `perrda/stackhouse` **`main`** until CoS renames the repo to `perrda/chunky-whale`. Folder `~/Projects/stackhouse`. URL http://127.0.0.1:3001. Homepage check: “Bitcoin merch. Don’t miss the stack.” + Wear / Drink / Gift + whale mark + Chunky Whale.
 - The other site (“Forged, not printed.”) is `atelier-archive` — do not develop it.
 - Remind David to sync **Mac Mini and MacBook Pro** with `docs/SYNC.md` before new work and after every GitHub merge.
-- Catalog photos: writing on the image must match the title and be **solid, complete, readable Inter** — never distressed, scuffed, or a leftover HODL under the new line. Official ₿ must be a clean mark **on the product** — no smashed letters, ghost slogans, sticker box, or a ₿ hanging off a mug/hat. Stamp from `scripts/lib/studio-render.mjs` (blank ghost + SVG-path Inter + official ₿). Never clone random fabric pixels onto the chest. Never use a printed HODL tee as the locked ghost. First view is Ink (or the real `imagesByColor` shot) — do not recolour the opening frame. `npm run qa:catalog` fails `print-clarity` if type is speckled, missing, or smashed by recolour. Never clone one mug/tote/tee photo across other slogans. Swatch colour must match the garment in the picture (Bone = cream, not a tinted black photo). Photos are clean white studio, not grainy. Shop filters use `productsIn()`. Checkout totals include shipping (`basketTotals()`). Webhooks confirm the paid amount before marking paid — never fulfil a demo order. Do not import catalog QA (`sharp`/`fs`) into client components. Public site does not mention booths (`/fulfillment` → shipping). After SKU or image edits run `npm run mockups` if stamps changed, then `npm run qa` (must be 0 errors). If there is no unique matching photo, or the ₿ is off the object, retire the SKU — do not borrow a neighbour’s image and do not stamp a new ₿ onto a white mug.
-
+- Catalog photos: writing on the image must match the title and be **solid, complete, readable Inter** — never distressed, scuffed, or a leftover HODL under the new line. Official ₿ must be a clean mark **on the product** — no smashed letters, ghost slogans, sticker box, or a ₿ hanging off a mug/hat. Stamp from `scripts/lib/studio-render.mjs` (blank ghost + SVG-path Inter + official ₿). Never clone random fabric pixels onto the chest. Never use a printed HODL tee as the locked ghost. First view is Ink (or the real `imagesByColor` shot) — do not recolour the opening frame. `npm run qa:catalog` fails `print-clarity` if type is speckled, missing, or smashed by recolour. Never clone one mug/tote/tee photo across other slogans. Swatch colour must match the garment in the picture (Bone = cream, not a tinted black photo). Photos are clean white studio, not grainy. Shop filters use `productsIn()`. Checkout totals include shipping (`basketTotals()`). Webhooks confirm the paid amount before marking paid — never fulfil a demo order. Do not import catalog QA (`sharp`/`fs`) into client components. Public site does not mention booths (`/fulfillment` → shipping). After SKU or image edits run `npm run mockups` if stamps changed, then `npm run qa` (must be 0 errors). If there is no unique matching photo, or the ₿ is off the object, retire the SKU — do not borrow a neighbour’s image and do not stamp a new ₿ onto a white mug. SKU codes stay `SH-*`. `bitcoin-daddy-tote` stays unpublished. Crew/onesie 360s stay held.

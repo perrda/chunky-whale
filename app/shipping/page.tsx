@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { site } from "@/lib/config";
 import { PRINTERS, SHIP_REGIONS } from "@/lib/shipping";
 
 export const metadata: Metadata = { title: "Shipping & returns" };
@@ -52,7 +53,7 @@ export default function ShippingPage() {
       </p>
       <h2 className="mt-10 font-display text-xl font-bold">Returns</h2>
       <p className="mt-3 font-serif text-paper/80">
-        30 days from delivery. Unused, tags on. Email hello@stackhouse.com with your order ID. Event-numbered capsules
+        30 days from delivery. Unused, tags on. Email {site.email} with your order ID. Event-numbered capsules
         marked final sale cannot be returned unless faulty. UK consumer rights are not affected. Full detail:{" "}
         <a href="/legal/refunds" className="text-ember">Refund policy</a>.
       </p>

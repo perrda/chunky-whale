@@ -4,7 +4,7 @@ import { liveProducts } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Shop Bitcoin merch",
-  description: "STACKHOUSE Bitcoin merch: tees, hats, hoodies, drinkware.",
+  description: "Chunky Whale Bitcoin merch: tees, hats, hoodies, drinkware.",
 };
 
 type Props = { searchParams: Promise<{ q?: string; cat?: string }> };

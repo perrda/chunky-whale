@@ -1,6 +1,6 @@
-# Vendor onboarding pack — STACKHOUSE
+# Vendor onboarding pack — Chunky Whale
 
-Plain English for David. Give this to Printful, Gelato, and Printify when you open accounts. Merchant: **DSP Capital Ventures Ltd (CH 17065288)**. Brand: **STACKHOUSE**. Site: to be your domain; today local preview http://127.0.0.1:3001
+Plain English for David. Give this to Printful, Gelato, and Printify when you open accounts. Merchant: **DSP Capital Ventures Ltd (CH 17065288)**. Brand: **Chunky Whale**. Site: to be your domain; today local preview http://127.0.0.1:3001
 
 Never put API keys in email. Never commit `.env`.
 
@@ -24,7 +24,7 @@ Customer address → nearest hub → print → ship. We do not hold stock except
 
 ### Printful
 1. https://www.printful.com — business: DSP Capital Ventures Ltd.
-2. Stores → add **API / Manual order** store named STACKHOUSE.
+2. Stores → add **API / Manual order** store named Chunky Whale.
 3. Settings → API → token → paste `PRINTFUL_API_KEY` in `.env.local` (never GitHub).
 4. Upload prints from `public/prints/` and mockups from `public/products/` using [ARTWORK-SPEC.md](./ARTWORK-SPEC.md).
 5. Order **one sample of each SKU to Bangkok** before you sell.
@@ -39,7 +39,7 @@ Customer address → nearest hub → print → ship. We do not hold stock except
 
 ## Order flow (when live)
 
-1. Customer pays on STACKHOUSE (guest or account).
+1. Customer pays on Chunky Whale (guest or account).
 2. Our `/api/checkout` + webhooks mark the order paid.
 3. We POST the order to Printful (primary) with size, colour, address.
 4. If Printful cannot fulfil that region, Gelato.
@@ -53,15 +53,15 @@ Fulfil 2–5 business days, then transit: US 5–9, UK 6–13, EU 5–12, Asia 7
 
 ## Brand contacts for the printers
 
-- Brand: STACKHOUSE
+- Brand: Chunky Whale
 - Legal: DSP Capital Ventures Ltd, UK CH 17065288
-- Email: hello@stackhouse.com (change when domain is live)
+- Email: hello@stackhouse.com (do not invent a new inbox; change when domain is live)
 - Owner: David Perry
 - First event freight: Bitcoin MENA, ADNEC, Abu Dhabi, 7–8 Dec 2026
 
 ## What to send them in the first email
 
-Subject: STACKHOUSE — print-on-demand store setup (DSP Capital Ventures Ltd)
+Subject: Chunky Whale — print-on-demand store setup (DSP Capital Ventures Ltd)
 
 Body: We are a Bitcoin merch brand. We need an API store, embroidery on hats/hoodies, DTG tees, mugs, posters. Legal entity DSP Capital Ventures Ltd. Samples to [Bangkok address]. We will connect Stripe/OpenNode ourselves. Please confirm hubs that can print our SKUs and current fulfil times.
 

@@ -1,5 +1,5 @@
 export const site = {
-  name: "STACKHOUSE",
+  name: "Chunky Whale",
   tagline: "Stack sats. Wear ₿.",
   strap: "Original Bitcoin merch",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:3001",
@@ -7,7 +7,8 @@ export const site = {
   merchant: "DSP Capital Ventures Ltd",
   merchantNote:
     "UK company (CH 17065288). Merchant of record unless you later appoint another entity.",
-  twitter: "https://x.com/stackhouse",
+  twitter: "https://x.com/Chunky_Whale",
+  twitterHandle: "@Chunky_Whale",
 };
 
 export function paymentsReady() {

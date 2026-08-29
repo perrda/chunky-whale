@@ -97,7 +97,7 @@ export const events: BitcoinEvent[] = [
     end: "2026-12-08",
     venue: "ADNEC",
     status: "primary",
-    note: "First live STACKHOUSE booth. Card + Lightning on the table. MENA capsule drop.",
+    note: "First live Chunky Whale booth. Card + Lightning on the table. MENA capsule drop.",
   },
   {
     id: "planb-sv-2027",

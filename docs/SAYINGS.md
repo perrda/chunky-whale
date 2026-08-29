@@ -1,4 +1,4 @@
-# STACKHOUSE approved sayings
+# Chunky Whale approved sayings
 
 Edit this file when you want a new Bitcoin line on merch — or to retire one.  
 The machine list that builds SKUs is `lib/sayings.json`. Keep the two in sync.
@@ -58,7 +58,7 @@ Plus the rest of the current catalog (HODL / So Back / Hard Money / Genesis / et
 26. BLOCK ZERO — genesis energy.
 27. VERIFY THEN HODL — check, then sit. Not advice.
 28. SOUND MONEY LOUD SHIRT — quiet money, loud cotton.
-29. STACKHOUSE EST. 2009 — house mark. Not a university parody.
+29. CHUNKY WHALE EST. 2009 — house mark. Not a university parody.
 
 16. HONEY BADGER DON'T CARE — skipped for now (David).
 

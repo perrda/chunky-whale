@@ -21,7 +21,7 @@ export async function createNowPaymentsInvoice(input: {
       price_currency: "gbp",
       pay_currency: input.payCurrency,
       order_id: input.orderId,
-      order_description: `STACKHOUSE ${input.orderId}`,
+      order_description: `Chunky Whale ${input.orderId}`,
       success_url: input.successUrl,
       ipn_callback_url: input.ipnUrl,
     }),

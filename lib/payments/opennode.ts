@@ -23,7 +23,7 @@ export async function createOpenNodeCharge(input: {
       // OpenNode treats `amount` as the fiat major unit when `currency` is set (e.g. 28 = £28).
       amount: fiatMajorAmount(input.amountGbp),
       currency: "GBP",
-      description: `STACKHOUSE ${input.orderId}`,
+      description: `Chunky Whale ${input.orderId}`,
       order_id: input.orderId,
       customer_email: input.email,
       callback_url: input.callbackUrl,

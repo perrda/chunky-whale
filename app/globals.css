@@ -60,6 +60,18 @@ body {
   outline-offset: 3px;
 }
 
+.logo-mark-dark {
+  display: none;
+}
+
+[data-theme="dark"] .logo-mark-light {
+  display: none;
+}
+
+[data-theme="dark"] .logo-mark-dark {
+  display: block;
+}
+
 .ember-pulse {
   animation: emberPulse 4.2s ease-in-out infinite;
 }

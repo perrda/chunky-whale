@@ -1,4 +1,4 @@
-# STACKHOUSE design direction
+# Chunky Whale design direction
 
 David, 22 Aug 2026. Iterate from here. Do not copy FOMO21.
 
@@ -37,7 +37,7 @@ Do not stamp, redraw, or “almost” these:
 
 If a buyer could think we bought it from them, it is a clone. Invent a new joke.
 
-## What STACKHOUSE does instead
+## What Chunky Whale does instead
 
 - **Official clockwise ₿** on almost every piece. Orange `#F7931A`.
 - **Readable type.** Solid letters as SVG paths. Faces we allow: Inter, JetBrains Mono, Oswald (condensed), Libre Baskerville (serif), Archivo Black (display). No distressed, grunge, ransom, or brush script that smashes at card size.

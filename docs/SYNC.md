@@ -1,4 +1,4 @@
-# Keep both Macs on the same STACKHOUSE
+# Keep both Macs on the same Chunky Whale shop
 
 Do this on the **Mac Mini and the MacBook Pro** whenever you start work, and after anything is merged on GitHub.
 
@@ -28,5 +28,5 @@ If Drinkware still looks like only mugs and tumblers, the old process is still r
 
 That `reset --hard` makes this Mac match GitHub `main` exactly. Do not run it if you have unpaid work on this Mac that was never uploaded — say so first and we will save a backup branch.
 
-Official files: GitHub `perrda/stackhouse` `main`  
+Official files: GitHub `perrda/stackhouse` `main` until CoS renames the repo to `perrda/chunky-whale`.  
 Wrong site (“Forged, not printed.”): `atelier-archive` — ignore it.

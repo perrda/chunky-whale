@@ -1,4 +1,4 @@
-# Artwork spec for printers — STACKHOUSE
+# Artwork spec for printers — Chunky Whale
 
 Give this to Printful / Gelato / Printify designers or upload yourself.
 

@@ -177,7 +177,7 @@
       "id": "house-stacks",
       "name": "THE HOUSE ALWAYS STACKS",
       "short": "House Stacks",
-      "desc": "House joke. We stack. Not a casino promise.",
+      "desc": "Chunky Whale mark. We do not bet the other way. Official B.",
       "tag": "Meme",
       "featured": true,
       "fill": "#FFFFFF",
@@ -237,7 +237,8 @@
     },
     {
       "id": "stackhouse-est",
-      "name": "STACKHOUSE EST. 2009",
+      "file": "chunky-whale-est",
+      "name": "CHUNKY WHALE EST. 2009",
       "short": "Est. 2009",
       "desc": "House mark. Genesis year. Not a university parody.",
       "tag": "Copy",
@@ -245,9 +246,9 @@
       "fill": "#FFFFFF",
       "face": "serif",
       "layout": "stack",
-      "tee": ["STACKHOUSE", "EST. 2009"],
-      "hoodie": ["STACKHOUSE", "EST. 2009"],
-      "pullover": ["STACKHOUSE", "EST. 2009"],
+      "tee": ["CHUNKY", "WHALE", "EST. 2009"],
+      "hoodie": ["CHUNKY", "WHALE", "EST. 2009"],
+      "pullover": ["CHUNKY", "WHALE", "EST. 2009"],
       "whiskey": ["EST.", "2009"],
       "shot": ["2009"]
     }

@@ -7,8 +7,8 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4 md:px-6">
         <div className="md:col-span-2">
           <p className="font-mark text-2xl uppercase tracking-[0.08em]">
-            <span className="font-semibold">Stack</span>
-            <span className="font-semibold text-[#F7931A]">House</span>
+            <span className="font-semibold">Chunky </span>
+            <span className="font-semibold text-[#F7931A]">Whale</span>
           </p>
           <p className="mt-3 max-w-md font-serif text-paper/75">
             {site.tagline}

@@ -1,12 +1,21 @@
-# STACKHOUSE — notes
+# Chunky Whale — notes
 
 **Always work from the latest files.**  
-Source of truth: GitHub **`perrda/stackhouse`** branch **`main`**.  
+Source of truth: GitHub **`perrda/stackhouse`** branch **`main`** until CoS renames the repo to **`perrda/chunky-whale`**. Do not rename GitHub from this shop PR.  
 Folder on both Macs: **`~/Projects/stackhouse`**.  
 Local URL: **http://127.0.0.1:3001**  
-Homepage check: **“Bitcoin merch. Don’t miss the stack.”** + three doors (Wear it / Drink from it / Gift it) + coin ₿ mark + **StackHouse** wordmark. No Event Plan in the header.
+X: **[@Chunky_Whale](https://x.com/Chunky_Whale)**.  
+Homepage check: **“Bitcoin merch. Don’t miss the stack.”** + three doors (Wear it / Drink from it / Gift it) + **chunky whale mark** + **Chunky Whale** wordmark. Dark lock on dark chrome, light lock on light chrome. No Event Plan in the header.
 
 If you see **“Forged, not printed.”** you are on the **wrong** shop (`atelier-archive`). Do not develop it. Do not merge it into `main`.
+
+Version **0.7.34** (27 Aug 2026 commerce copy lock, draft). Display names only — no print recuts. `house-stacks` title stays **THE HOUSE ALWAYS STACKS**; desc is now “Chunky Whale mark. We do not bet the other way. Official B.” Athletic / Meetup slugs from the Mini tree (`athletic`, `athletic-dad`, `meetup-tee`, …) are **not in this GitHub repo** — not invented, not unhidden. If they appear later, titles lock to Chunky Whale Athletic 2009 / Meetup; codes stay `SH-*`. Chrome stays Chunky Whale + `https://x.com/Chunky_Whale`. Inbox stays `hello@stackhouse.com` (`hello@orangeforge.com` not added). Draft only.
+
+Version **0.7.33** (27 Aug 2026 circular house marks, draft). Favicon / header / og use the official circular whale locks — same whale, not a third one. Dark: charcoal whale, orange rim+eye, disc `#0B0D10`. Light: ivory whale, orange rim+eye, white disc (Designer PASS). Files: `public/brand/mark-{dark,light}-circle-{64,180,512,800}.png`. Header uses the 180s; favicon the 64s; apple-touch the light 180; og is the dark 512 on `#0B0D10`. Official Bitboy ₿ and `SH-*` codes unchanged. This draft does not merge, deploy, or touch live.
+
+Version **0.7.32** (27 Aug 2026 leftover filename cleanup, draft). Unused `public/brand/stackhouse-logo.png` (old STACKHOUSE wordmark) removed. Light chrome now uses `chunky-whale-logo.png` (official whale, charcoal on white); dark chrome still uses `chunky-whale-dark.png`. House-mark product stills renamed `stackhouse-est-*.png` → `chunky-whale-est-*.png` — art already said CHUNKY WHALE / EST. 2009, no STACKHOUSE word on the garment, so these were filename leftovers only (not Designer-score print leftovers). Saying id stays `stackhouse-est`; slugs stay `stackhouse-est-*`; edition IDs stay `SH-D12-STACKH-*`. Image stem is `file: "chunky-whale-est"`. This draft does not merge, deploy, or touch live domain / Printify / Cloudflare.
+
+Version **0.7.31** (27 Aug 2026 Chunky Whale rebrand, draft). Public chrome, titles, metadata, README, footer, and shop name say **Chunky Whale**. Package name `chunky-whale`. Official Bitboy ₿ stays on products — do not replace garment B marks with the whale. SKU codes stay `SH-*`. `bitcoin-daddy-tote` stays unpublished. Crew / onesie 360s stay held. Card / BTC / USDC / USDT stay parked. No live keys. Inbox stays `hello@stackhouse.com` (do not invent a new one). Merchant of record stays DSP Capital Ventures Ltd. House-mark saying display is **CHUNKY WHALE EST. 2009**; saying id `stackhouse-est` and edition IDs stay. This draft does not merge, deploy, or touch live domain / Printify / Cloudflare.
 
 Version **0.7.30** (26 Aug 2026 QA / bugfix). Crash page is back (`app/error.tsx`). OpenNode webhooks fail closed if the paid amount is missing. Checkout saves the order before talking to Stripe/OpenNode. Success page needs the checkout token (no email leak from a guessed `SH-` id). Basket shipping uses the same country as checkout. Empty retired collections (beanies, swim, bags, leftover mugs) 404 and stay out of the sitemap. Newsletter / wholesale land in `.data` (gitignored). Printful variant IDs and a durable order database are still go-live work — do not take live money yet.
 
@@ -92,11 +101,11 @@ Before new work, and after any GitHub change, run the sync block on **Mac Mini a
 
 ## Brand and repo
 
-- Visible name: **STACKHOUSE**. Merchant likely DSP Capital Ventures Ltd.
-- Only GitHub repo: **`perrda/stackhouse`**. Old `orangeforge` URL already redirects here. Do **not** delete it on GitHub (that would delete this shop).
+- Visible name: **Chunky Whale**. Merchant: DSP Capital Ventures Ltd.
+- Only GitHub repo today: **`perrda/stackhouse`**. CoS will rename it to **`perrda/chunky-whale`** after this draft PR exists. Old `orangeforge` URL already redirects here. Do **not** delete it on GitHub (that would delete this shop).
 - Safety copies: `correct-site` (same as official `main`) and `atelier-archive` (other site).
 - Skill: `.cursor/skills/stackhouse-design/` · Rule: `.cursor/rules/stackhouse.mdc`
-- Planned inbox: hello@stackhouse.com (domain not bought). Do not commit `.env`.
+- Planned inbox: hello@stackhouse.com (domain not bought). Do not invent a new inbox. Do not commit `.env`.
 
 ## How we got here (do not repeat the mix-up)
 

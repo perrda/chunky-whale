@@ -1,11 +1,12 @@
-# STACKHOUSE — master build prompt
+# Chunky Whale — master build prompt
 
 Use this as the north star for every session. Rival FOMO21 as a serious global Bitcoin merch retailer. Never copy FOMO21 slogans, art, or product titles. Never promise profits. Never commit `.env`.
 
 ## Brand
 
-- Visible name: **STACKHOUSE**
-- Repo/folder: `stackhouse` (GitHub `perrda/stackhouse`)
+- Visible name: **Chunky Whale**
+- Repo/folder: still `stackhouse` / `perrda/stackhouse` until CoS renames GitHub to `perrda/chunky-whale`
+- X: `@Chunky_Whale`
 - Strapline: **Hard money. Soft cotton.**
 - Secondary: **Wear the 21 million.**
 - Merchant: DSP Capital Ventures Ltd (CH 17065288) unless accountant changes it

@@ -6,11 +6,11 @@ Sales are not guaranteed. A good shop can still sell nothing. Ads, events, and p
 
 ## Must do before first real order
 
-1. Buy domain (**stackhouse.com** or .store / .xyz).
+1. Buy a domain when David picks one. Do not invent a live URL. Local preview stays http://127.0.0.1:3001.
 2. Create **Printful**. Order one sample of every SKU to Bangkok. Reject anything that looks cheap. Then paste each size × colour **variant ID** into the catalog — the shop cannot fulfil without those numbers.
 3. Create **Stripe** (cards), **OpenNode** (Bitcoin + Lightning), **Coinbase Commerce** (USDC), **NOWPayments** (USDT).
 4. Put keys in `.env.local` (copy `.env.example`). Include webhook secrets (`STRIPE_WEBHOOK_SECRET`, `COINBASE_COMMERCE_WEBHOOK_SECRET`, `NOWPAYMENTS_IPN_SECRET`). Never put keys on GitHub.
-5. Deploy on **Vercel** from the GitHub repo `perrda/stackhouse`. Orders currently save to a local file — before real sales, move them to a real database or paid orders can vanish when a server restarts.
+5. Deploy on **Vercel** from the GitHub repo `perrda/stackhouse` (CoS will rename that repo to `perrda/chunky-whale` after the rebrand PR exists). Orders currently save to a local file — before real sales, move them to a real database or paid orders can vanish when a server restarts. This rebrand draft does not deploy.
 6. Ask your accountant: UK VAT on merch, who is merchant of record (DSP Capital Ventures Ltd unless you change it).
 7. Click through a **£1 test** on each payment method.
 8. Apply for Bitcoin MENA exhibitor when sales open.
